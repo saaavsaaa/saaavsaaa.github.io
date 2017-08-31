@@ -60,6 +60,56 @@ ApplicationFilterFactory
 	......
     }
     
+    matchFiltersURL方法：
+        for (int i = 0; i < testPaths.length; i++) {
+            if (matchFiltersURL(testPaths[i], requestPath)) {
+                return true;
+            }
+        }
+    matchFiltersURL方法：
+    
+    private static boolean matchFiltersURL(String testPath, String requestPath) {
+
+        if (testPath == null)
+            return false;
+
+        // Case 1 - Exact Match
+        if (testPath.equals(requestPath))
+            return true;
+
+        // Case 2 - Path Match ("/.../*")
+        if (testPath.equals("/*"))
+            return true;
+        if (testPath.endsWith("/*")) {
+            if (testPath.regionMatches(0, requestPath, 0,
+                                       testPath.length() - 2)) {
+                if (requestPath.length() == (testPath.length() - 2)) {
+                    return true;
+                } else if ('/' == requestPath.charAt(testPath.length() - 2)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Case 3 - Extension Match
+        if (testPath.startsWith("*.")) {
+            int slash = requestPath.lastIndexOf('/');
+            int period = requestPath.lastIndexOf('.');
+            if ((slash >= 0) && (period > slash)
+                && (period != requestPath.length() - 1)
+                && ((requestPath.length() - period)
+                    == (testPath.length() - 1))) {
+                return (testPath.regionMatches(2, requestPath, period + 1,
+                                               testPath.length() - 2));
+            }
+        }
+
+        // Case 4 - "Default" Match
+        return false; // NOTE - Not relevant for selecting filters
+
+    }
+    
 ```
 
 ```markdown
