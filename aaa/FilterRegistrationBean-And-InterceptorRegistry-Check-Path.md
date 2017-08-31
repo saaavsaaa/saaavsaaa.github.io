@@ -299,7 +299,7 @@ AntPathMatcher
 ```markdown
 aaa
 ```
-[***AAA***](https://github.com/saaavsaaa/saaavsaaa.github.io/aaa/aaa.md)
+[***AAA***](/aaa/aaa.md)
 
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/FilterRegistrationBean-And-InterceptorRegistry-Check-Path.md)
