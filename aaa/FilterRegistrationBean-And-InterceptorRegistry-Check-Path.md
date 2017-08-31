@@ -58,8 +58,10 @@ ApplicationFilterFactory
         }
 
 	......
-    }
-    
+    }
+这一段的逻辑就是构建一个匹配当前路径的过滤器链，
+```
+```markdown   
     matchFiltersURL方法：
         for (int i = 0; i < testPaths.length; i++) {
             if (matchFiltersURL(testPaths[i], requestPath)) {
