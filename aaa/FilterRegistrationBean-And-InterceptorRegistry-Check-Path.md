@@ -4,6 +4,7 @@
 
 需要处理的主要是想下面的两种：
 ```markdown
+1.过滤器
 @Configuration
 @PropertySource("classpath:filter.properties")
 public class FilterRegister {
@@ -21,7 +22,8 @@ public class FilterRegister {
 }
 ```
 ```markdown
-    public void addInterceptors(InterceptorRegistry registry) {
+2.拦截器
+    public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor appLoginInterceptor = new LoginInterceptor();
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
@@ -30,6 +32,39 @@ public class FilterRegister {
     }
 ```
 
+
+```markdown
+第一种
+ApplicationFilterFactory
+
+    public static ApplicationFilterChain createFilterChain(ServletRequest request,
+            Wrapper wrapper, Servlet servlet) {
+
+	......
+
+        for (int i = 0; i < filterMaps.length; i++) {
+            if (!matchDispatcher(filterMaps[i] ,dispatcher)) {
+                continue;
+            }
+            if (!matchFiltersURL(filterMaps[i], requestPath))
+                continue;
+            ApplicationFilterConfig filterConfig = (ApplicationFilterConfig)
+                context.findFilterConfig(filterMaps[i].getFilterName());
+            if (filterConfig == null) {
+                // FIXME - log configuration problem
+                continue;
+            }
+            filterChain.addFilter(filterConfig);
+        }
+
+	......
+    }
+    
+```
+
+```markdown
+第二种
+```
 
 ```markdown
 [**默认** *AAA* ***AAA***](https://github.com/saaavsaaa/saaavsaaa.github.io/aaa/aaa.md)
