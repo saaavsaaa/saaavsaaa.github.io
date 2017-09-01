@@ -64,7 +64,7 @@ public class FilterRegister {
             }
         }
 ```
-线面是其中的matchFiltersURL方法，上面两段代码的方法名差了一个s容易看漏，这方法虽然是真正进行判断的部分，但其实没啥好说的，几种情况注释的也很明白，先匹配精确路径，不成就匹配通配的路径，最后是通配的带扩展名的例如test.action：
+下面是其中的matchFiltersURL方法，上面两段代码的方法名差了一个s容易看漏，这方法虽然是真正进行判断的部分，但其实没啥好说的，几种情况注释的也很明白，先匹配精确路径，不成就匹配通配的路径，最后是通配的带扩展名的例如test.action：
 ```markdown
     private static boolean matchFiltersURL(String testPath, String requestPath) {
 
