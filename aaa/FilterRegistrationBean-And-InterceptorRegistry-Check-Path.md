@@ -56,16 +56,16 @@ public class FilterRegister {
 	......
     }
 ```
-这一段的逻辑就是组成一个匹配当前路径的过滤器链，取出所有在启动时初始化的过滤器的配置，用当前dispatcher和requestPath与之匹配，这里主要关注的是第二个判断，就是请求路径与过滤器配置路基的匹配，如果匹配就加入过滤器链，后续过滤器链执行时就会执行。
+这一段的逻辑就是组成一个匹配当前路径的过滤器链，取出所有在启动时初始化的过滤器的配置，用当前dispatcher和requestPath与之匹配，这里主要关注的是第二个判断，就是请求路径与过滤器配置路基的匹配，如果匹配就加入过滤器链，后续过滤器链执行时就会执行。matchFiltersURL方法：
 ```markdown   
-    matchFiltersURL方法：
         for (int i = 0; i < testPaths.length; i++) {
             if (matchFiltersURL(testPaths[i], requestPath)) {
                 return true;
             }
         }
-    matchFiltersURL方法：
-    
+```
+其中matchFiltersURL方法，这方法虽然是真正进行判断的部分，但其实没啥好说的，几种情况注释的也很明白，先匹配精确路径，不成就匹配通配的路径，最后是通配的带扩展名的例如test.action：
+```markdown
     private static boolean matchFiltersURL(String testPath, String requestPath) {
 
         if (testPath == null)
