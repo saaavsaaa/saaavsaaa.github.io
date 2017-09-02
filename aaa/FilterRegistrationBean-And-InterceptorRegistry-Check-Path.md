@@ -1,4 +1,4 @@
-# 过滤器的路径匹配
+﻿# 过滤器的路径匹配
 
 最近在将项目中的一部分迁到围绕Spring Cloud构建的架构上，于是就想将鉴权等一些原本通过Servlet的Filter和Interceptor实现的此类功能迁移到用Zuul做的路由网关上，统一由网关处理。然而，这些过滤器并不都针对所有请求，之前是通过Servlet提供的配置方法进行配置的，但是ZuulFilter我并没找到类似的配置，又打算兼容原来的配置，就读了一下Spring的实现，打算直接拿来用，其实实现很简单，只是这两种方式匹配规则稍微有些不一样，这里只是做一下阅读笔记。
 
@@ -109,11 +109,8 @@ public class FilterRegister {
     }
     
 ```
-
+拦截器的匹配是从DispatcherServlet开始的，不过这一段是引子，不需要关注：
 ```markdown
-拦截器的匹配逻辑：
-DispatcherServlet
-
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		for (HandlerMapping hm : this.handlerMappings) {
 			if (logger.isTraceEnabled()) {
@@ -134,8 +131,9 @@ DispatcherServlet
 
 		...
 	}
-
-AbstractUrlHandlerMapping
+```
+AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
+```markdown
 	@Override
 	protected Object getHandlerInternal(HttpServletRequest request) throws Exception {
 		String lookupPath = getUrlPathHelper().getLookupPathForRequest(request);
@@ -162,8 +160,9 @@ AbstractUrlHandlerMapping
 		...
 	}
 
-
-AntPathMatcher
+```
+这次到真正的匹配逻辑了，getPathMatcher().match的实现就在AntPathMatcher，实际上就是先匹配每一段路径的字符串，然后又重头来了一遍匹配每一段的正则：
+```markdown
 	protected boolean doMatch(String pattern, String path, boolean fullMatch, Map<String, String> uriTemplateVariables) {
 		if (path.startsWith(this.pathSeparator) != pattern.startsWith(this.pathSeparator)) {
 			return false;
