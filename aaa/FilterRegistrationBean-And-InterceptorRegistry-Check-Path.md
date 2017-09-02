@@ -161,9 +161,8 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 	}
 
 ```
-这次到真正的匹配逻辑了，getPathMatcher().match的实现就在AntPathMatcher，实际上就是先匹配每一段路径的字符串，然后又重头来了一遍匹配每一段的正则：
+这次到真正的匹配逻辑了，getPathMatcher().match的实现就在AntPathMatcher的doMatch方法，实际上就是先匹配每一段路径的字符串，然后又重头来了一遍匹配每一段的正则：
 ```markdown
-	protected boolean doMatch(String pattern, String path, boolean fullMatch, Map<String, String> uriTemplateVariables) {
 		if (path.startsWith(this.pathSeparator) != pattern.startsWith(this.pathSeparator)) {
 			return false;
 		}
@@ -172,7 +171,53 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 		if (fullMatch && this.caseSensitive && !isPotentialMatch(path, pattDirs)) {
 			return false;
 		}
-
+```
+isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是可能，可能了再仔细判断，这个思路不错，可以借鉴：
+```markdown
+	private boolean isPotentialMatch(String path, String[] pattDirs) {
+		if (!this.trimTokens) {
+			char[] pathChars = path.toCharArray();
+			int pos = 0;
+			for (String pattDir : pattDirs) {
+				int skipped = skipSeparator(path, pos, this.pathSeparator);
+				pos += skipped;
+				skipped = skipSegment(pathChars, pos, pattDir);
+				if (skipped < pattDir.length()) {
+					if (skipped > 0) {
+						return true;
+					}
+					return (pattDir.length() > 0) && isWildcardChar(pattDir.charAt(0));
+				}
+				pos += skipped;
+			}
+		}
+		return true;
+	}
+	private int skipSeparator(String path, int pos, String separator) {
+		int skipped = 0;
+		while (path.startsWith(separator, pos + skipped)) {
+			skipped += separator.length();
+		}
+		return skipped;
+	}
+	private int skipSegment(char[] chars, int pos, String prefix) {
+		int skipped = 0;
+		for (char c : prefix.toCharArray()) {
+			if (isWildcardChar(c)) {
+				return skipped;
+			}
+			else if (pos + skipped >= chars.length) {
+				return 0;
+			}
+			else if (chars[pos + skipped] == c) {
+				skipped++;
+			}
+		}
+		return skipped;
+	}
+```
+可以发现，其实就是比较每一段拦截的请求路径的字符串了，isWildcardChar是判断配置的规则是不是通配符'*', '?', '{'的，skipSeparator里的循环应该是为了对多打了/的情况容错的吧，大概。接下来回到doMatch方法继续往下：
+```markdown
 		String[] pathDirs = tokenizePath(path);
 
 		int pattIdxStart = 0;
@@ -192,19 +237,30 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 			pattIdxStart++;
 			pathIdxStart++;
 		}
-
+```markdown
+上面做了**和正则的匹配，matchStrings的代码就不贴了，也没什么好细看的。
+```
 		if (pathIdxStart > pathIdxEnd) {
+```markdown
+拦截到的路径已经匹配完了
+```
 			// Path is exhausted, only match if rest of pattern is * or **'s
 			if (pattIdxStart > pattIdxEnd) {
 				return (pattern.endsWith(this.pathSeparator) ? path.endsWith(this.pathSeparator) :
 						!path.endsWith(this.pathSeparator));
 			}
+```markdown
+配置的pattern已经匹配完时，请求的是否是以路径分隔符‘/’（一般情况下）结尾
+```
 			if (!fullMatch) {
 				return true;
 			}
 			if (pattIdxStart == pattIdxEnd && pattDirs[pattIdxStart].equals("*") && path.endsWith(this.pathSeparator)) {
 				return true;
 			}
+```markdown
+配置的pattern刚巧匹配到最后，最后一段是*并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是"**",如果不是，那么就判断配置的规则与当前请求不匹配：
+```
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
 				if (!pattDirs[i].equals("**")) {
 					return false;
@@ -212,6 +268,9 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 			}
 			return true;
 		}
+```markdown
+因为之前匹配过**，所以这里如果是配置的pattern先于请求路径用完，请求就是不匹配的。
+```
 		else if (pattIdxStart > pattIdxEnd) {
 			// String not exhausted, but pattern is. Failure.
 			return false;
@@ -220,7 +279,9 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 			// Path start definitely matches due to "**" part in pattern.
 			return true;
 		}
-
+```markdown
+pattern和path同时到最后了，要认真检查一下...
+```
 		// up to last '**'
 		while (pattIdxStart <= pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			String pattDir = pattDirs[pattIdxEnd];
@@ -242,7 +303,9 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 			}
 			return true;
 		}
-
+```markdown
+按说其实能走进下面这个循环的，基本上一定是前面判断**的时候break了循环过来的，需要判断**后面又配了什么，这代码判断的...和前面过滤器基本是没法合一用了，不过无所谓了。
+```
 		while (pattIdxStart != pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			int patIdxTmp = -1;
 			for (int i = pattIdxStart + 1; i <= pattIdxEnd; i++) {
@@ -292,11 +355,7 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 		return true;
 	}
 ```
-
-```markdown
-aaa
-```
-[***AAA***](/aaa/aaa.html)
+![Image](/ppp/20170902204445.jpg)
 
 
-[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/FilterRegistrationBean-And-InterceptorRegistry-Check-Path.md)
+[方便修改用的传送门](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/FilterRegistrationBean-And-InterceptorRegistry-Check-Path.md)
