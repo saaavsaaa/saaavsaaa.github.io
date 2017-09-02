@@ -237,9 +237,9 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 			pattIdxStart++;
 			pathIdxStart++;
 		}
-```markdown
-上面做了**和正则的匹配，matchStrings的代码就不贴了，也没什么好细看的。
 ```
+上面做了**和正则的匹配，matchStrings的代码就不贴了，也没什么好细看的。
+```markdown
 		if (pathIdxStart > pathIdxEnd) {
 ```markdown
 拦截到的路径已经匹配完了
