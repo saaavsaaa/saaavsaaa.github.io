@@ -241,26 +241,26 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 上面做了**和正则的匹配，matchStrings的代码就不贴了，也没什么好细看的。
 ```markdown
 		if (pathIdxStart > pathIdxEnd) {
-```markdown
-拦截到的路径已经匹配完了
 ```
+拦截到的路径已经匹配完了
+```markdown
 			// Path is exhausted, only match if rest of pattern is * or **'s
 			if (pattIdxStart > pattIdxEnd) {
 				return (pattern.endsWith(this.pathSeparator) ? path.endsWith(this.pathSeparator) :
 						!path.endsWith(this.pathSeparator));
 			}
-```markdown
-配置的pattern已经匹配完时，请求的是否是以路径分隔符‘/’（一般情况下）结尾
 ```
+配置的pattern已经匹配完时，请求的是否是以路径分隔符‘/’（一般情况下）结尾
+```markdown
 			if (!fullMatch) {
 				return true;
 			}
 			if (pattIdxStart == pattIdxEnd && pattDirs[pattIdxStart].equals("*") && path.endsWith(this.pathSeparator)) {
 				return true;
 			}
-```markdown
-配置的pattern刚巧匹配到最后，最后一段是*并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是"**",如果不是，那么就判断配置的规则与当前请求不匹配：
 ```
+配置的pattern刚巧匹配到最后，最后一段是*并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是"**",如果不是，那么就判断配置的规则与当前请求不匹配：
+```markdown
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
 				if (!pattDirs[i].equals("**")) {
 					return false;
@@ -268,9 +268,9 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 			}
 			return true;
 		}
-```markdown
-因为之前匹配过**，所以这里如果是配置的pattern先于请求路径用完，请求就是不匹配的。
 ```
+因为之前匹配过**，所以这里如果是配置的pattern先于请求路径用完，请求就是不匹配的。
+```markdown
 		else if (pattIdxStart > pattIdxEnd) {
 			// String not exhausted, but pattern is. Failure.
 			return false;
@@ -279,9 +279,9 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 			// Path start definitely matches due to "**" part in pattern.
 			return true;
 		}
-```markdown
-pattern和path同时到最后了，要认真检查一下...
 ```
+pattern和path同时到最后了，要认真检查一下...
+```markdown
 		// up to last '**'
 		while (pattIdxStart <= pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			String pattDir = pattDirs[pattIdxEnd];
@@ -303,9 +303,9 @@ pattern和path同时到最后了，要认真检查一下...
 			}
 			return true;
 		}
-```markdown
-按说其实能走进下面这个循环的，基本上一定是前面判断**的时候break了循环过来的，需要判断**后面又配了什么，这代码判断的...和前面过滤器基本是没法合一用了，不过无所谓了。
 ```
+按说其实能走进下面这个循环的，基本上一定是前面判断**的时候break了循环过来的，需要判断**后面又配了什么，这代码判断的...和前面过滤器基本是没法合一用了，不过无所谓了。
+```markdown
 		while (pattIdxStart != pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			int patIdxTmp = -1;
 			for (int i = pattIdxStart + 1; i <= pattIdxEnd; i++) {
