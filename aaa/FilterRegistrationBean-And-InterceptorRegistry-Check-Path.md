@@ -26,9 +26,7 @@ public class FilterRegister {
 ```markdown
     public static ApplicationFilterChain createFilterChain(ServletRequest request,
             Wrapper wrapper, Servlet servlet) {
-
 	......
-
         for (int i = 0; i < filterMaps.length; i++) {
             if (!matchDispatcher(filterMaps[i] ,dispatcher)) {
                 continue;
@@ -43,7 +41,6 @@ public class FilterRegister {
             }
             filterChain.addFilter(filterConfig);
         }
-
 	......
     }
 ```
@@ -58,7 +55,6 @@ public class FilterRegister {
 下面是其中的matchFiltersURL方法，上面两段代码的方法名差了一个s容易看漏，这方法虽然是真正进行判断的部分，但其实没啥好说的，几种情况注释的也很明白，先匹配精确路径，不成就匹配通配的路径，最后是通配的带扩展名的例如test.action：
 ```markdown
     private static boolean matchFiltersURL(String testPath, String requestPath) {
-
         if (testPath == null)
             return false;
 
@@ -96,9 +92,7 @@ public class FilterRegister {
 
         // Case 4 - "Default" Match
         return false; // NOTE - Not relevant for selecting filters
-
     }
-    
 ```
 2.拦截器
 ```markdown
@@ -110,7 +104,6 @@ public class FilterRegister {
         super.addInterceptors(registry);
     }
 ```
-
 拦截器的匹配是从DispatcherServlet开始的，不过这一段是引子，不需要关注：
 ```markdown
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
@@ -127,7 +120,6 @@ public class FilterRegister {
 		return null;
 	}
 
-
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		Object handler = getHandlerInternal(request);
 
@@ -143,10 +135,8 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 		...
 	}
 
-
 	protected Object lookupHandler(String urlPath, HttpServletRequest request) throws Exception {
 		...
-
 		// Pattern match?
 		List<String> matchingPatterns = new ArrayList<String>();
 		for (String registeredPattern : this.handlerMap.keySet()) {
@@ -242,7 +232,7 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 			pathIdxStart++;
 		}
 ```
-上面做了**和正则的匹配，matchStrings的代码就不贴了，也没什么好细看的。
+上面做了 ** 和正则的匹配，matchStrings的代码就不贴了，也没什么好细看的。
 ```markdown
 		if (pathIdxStart > pathIdxEnd) {
 ```
@@ -263,7 +253,7 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 				return true;
 			}
 ```
-配置的pattern刚巧匹配到最后，最后一段是*并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是"**",如果不是，那么就判断配置的规则与当前请求不匹配：
+配置的pattern刚巧匹配到最后，最后一段是*并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是 ** ,如果不是，那么就判断配置的规则与当前请求不匹配：
 ```markdown
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
 				if (!pattDirs[i].equals("**")) {
@@ -273,7 +263,7 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 			return true;
 		}
 ```
-因为之前匹配过**，所以这里如果是配置的pattern先于请求路径用完，请求就是不匹配的。
+因为之前匹配过 ** ，所以这里如果是配置的pattern先于请求路径用完，请求就是不匹配的。
 ```markdown
 		else if (pattIdxStart > pattIdxEnd) {
 			// String not exhausted, but pattern is. Failure.
@@ -308,7 +298,7 @@ pattern和path同时到最后了，要认真检查一下...
 			return true;
 		}
 ```
-按说其实能走进下面这个循环的，基本上一定是前面判断**的时候break了循环过来的，需要判断**后面又配了什么，这代码判断的...和前面过滤器基本是没法合一用了，不过无所谓了。
+按说其实能走进下面这个循环的，基本上一定是前面判断 ** 的时候break了循环过来的，需要判断 ** 后面又配了什么，这代码判断的...和前面过滤器基本是没法合一用了，不过无所谓了。
 ```markdown
 		while (pattIdxStart != pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			int patIdxTmp = -1;
