@@ -60,10 +60,10 @@ public class FilterRegister {
         // Case 1 - Exact Match
         if (testPath.equals(requestPath))
             return true;
-        // Case 2 - Path Match ("/.../*")
-        if (testPath.equals("/*"))
+        // Case 2 - Path Match ("/.../* ")
+        if (testPath.equals("/* "))
             return true;
-        if (testPath.endsWith("/*")) {
+        if (testPath.endsWith("/* ")) {
             if (testPath.regionMatches(0, requestPath, 0,
                                        testPath.length() - 2)) {
                 if (requestPath.length() == (testPath.length() - 2)) {
@@ -74,9 +74,8 @@ public class FilterRegister {
             }
             return false;
         }
-
         // Case 3 - Extension Match
-        if (testPath.startsWith("*.")) {
+        if (testPath.startsWith("* .")) {
             int slash = requestPath.lastIndexOf('/');
             int period = requestPath.lastIndexOf('.');
             if ((slash >= 0) && (period > slash)
@@ -87,7 +86,6 @@ public class FilterRegister {
                                                testPath.length() - 2));
             }
         }
-
         // Case 4 - "Default" Match
         return false; // NOTE - Not relevant for selecting filters
     }
@@ -117,7 +115,6 @@ public class FilterRegister {
 		}
 		return null;
 	}
-
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		Object handler = getHandlerInternal(request);
 
@@ -155,7 +152,6 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 		if (path.startsWith(this.pathSeparator) != pattern.startsWith(this.pathSeparator)) {
 			return false;
 		}
-
 		String[] pattDirs = tokenizePattern(pattern);
 		if (fullMatch && this.caseSensitive && !isPotentialMatch(path, pattDirs)) {
 			return false;
@@ -191,7 +187,7 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 		}
 		return skipped;
 	}
-	private int skipSegment(char[] chars, int pos, String prefix) {
+	private int skipSegment(char[ ] chars, int pos, String prefix) {
 		int skipped = 0;
 		for (char c : prefix.toCharArray()) {
 			if (isWildcardChar(c)) {
@@ -207,18 +203,17 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 		return skipped;
 	}
 ```
-可以发现，其实就是比较每一段拦截的请求路径的字符串了，isWildcardChar是判断配置的规则是不是通配符'*', '?', '{'的，skipSeparator里的循环应该是为了对多打了/的情况容错的吧，大概。接下来回到doMatch方法继续往下：
+可以发现，其实就是比较每一段拦截的请求路径的字符串了，isWildcardChar是判断配置的规则是不是通配符' * ', '?', '{'的，skipSeparator里的循环应该是为了对多打了/的情况容错的吧，大概。接下来回到doMatch方法继续往下：
 ```markdown
 		String[] pathDirs = tokenizePath(path);
 		int pattIdxStart = 0;
 		int pattIdxEnd = pattDirs.length - 1;
 		int pathIdxStart = 0;
 		int pathIdxEnd = pathDirs.length - 1;
-
-		// Match all elements up to the first **
+		// Match all elements up to the first ** 
 		while (pattIdxStart <= pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			String pattDir = pattDirs[pattIdxStart];
-			if ("**".equals(pattDir)) {
+			if (" ** ".equals(pattDir)) {
 				break;
 			}
 			if (!matchStrings(pattDir, pathDirs[pathIdxStart], uriTemplateVariables)) {
@@ -314,8 +309,7 @@ pattern和path同时到最后了，要认真检查一下...
 			int patLength = (patIdxTmp - pattIdxStart - 1);
 			int strLength = (pathIdxEnd - pathIdxStart + 1);
 			int foundIdx = -1;
-
-			strLoop:
+			//strLoop:
 			for (int i = 0; i <= strLength - patLength; i++) {
 				for (int j = 0; j < patLength; j++) {
 					String subPat = pattDirs[pattIdxStart + j + 1];
