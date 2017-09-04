@@ -247,7 +247,7 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 配置的pattern刚巧匹配到最后，最后一段是 * 并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是 ** ,如果不是，那么就判断配置的规则与当前请求不匹配：
 ```markdown
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
-				if (!pattDirs[i].equals("**")) {
+				if (!pattDirs[i].equals(" ** ")) {
 					return false;
 				}
 			}
@@ -329,13 +329,11 @@ pattern和path同时到最后了，要认真检查一下...
 			pattIdxStart = patIdxTmp;
 			pathIdxStart = foundIdx + patLength;
 		}
-
 		for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
-			if (!pattDirs[i].equals("**")) {
+			if (!pattDirs[i].equals(" ** ")) {
 				return false;
 			}
 		}
-
 		return true;
 	}
 ```
