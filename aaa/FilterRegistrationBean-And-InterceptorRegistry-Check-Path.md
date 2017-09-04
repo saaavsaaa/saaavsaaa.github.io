@@ -57,11 +57,9 @@ public class FilterRegister {
     private static boolean matchFiltersURL(String testPath, String requestPath) {
         if (testPath == null)
             return false;
-
         // Case 1 - Exact Match
         if (testPath.equals(requestPath))
             return true;
-
         // Case 2 - Path Match ("/.../*")
         if (testPath.equals("/*"))
             return true;
@@ -99,8 +97,8 @@ public class FilterRegister {
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor appLoginInterceptor = new LoginInterceptor();
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/**/aaa/*");
+                .addPathPatterns("/** ")
+                .excludePathPatterns("/** /aaa/*");
         super.addInterceptors(registry);
     }
 ```
@@ -134,7 +132,6 @@ AbstractUrlHandlerMapping依然是引子，不过是比较接近的引子了：
 		Object handler = lookupHandler(lookupPath, request);
 		...
 	}
-
 	protected Object lookupHandler(String urlPath, HttpServletRequest request) throws Exception {
 		...
 		// Pattern match?
@@ -213,7 +210,6 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 可以发现，其实就是比较每一段拦截的请求路径的字符串了，isWildcardChar是判断配置的规则是不是通配符'*', '?', '{'的，skipSeparator里的循环应该是为了对多打了/的情况容错的吧，大概。接下来回到doMatch方法继续往下：
 ```markdown
 		String[] pathDirs = tokenizePath(path);
-
 		int pattIdxStart = 0;
 		int pattIdxEnd = pattDirs.length - 1;
 		int pathIdxStart = 0;
@@ -238,7 +234,7 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 ```
 拦截到的路径已经匹配完了
 ```markdown
-			// Path is exhausted, only match if rest of pattern is * or **'s
+			// Path is exhausted, only match if rest of pattern is * or ** 's
 			if (pattIdxStart > pattIdxEnd) {
 				return (pattern.endsWith(this.pathSeparator) ? path.endsWith(this.pathSeparator) :
 						!path.endsWith(this.pathSeparator));
@@ -249,11 +245,11 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 			if (!fullMatch) {
 				return true;
 			}
-			if (pattIdxStart == pattIdxEnd && pattDirs[pattIdxStart].equals("*") && path.endsWith(this.pathSeparator)) {
+			if (pattIdxStart == pattIdxEnd && pattDirs[pattIdxStart].equals(" * ") && path.endsWith(this.pathSeparator)) {
 				return true;
 			}
 ```
-配置的pattern刚巧匹配到最后，最后一段是*并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是 ** ,如果不是，那么就判断配置的规则与当前请求不匹配：
+配置的pattern刚巧匹配到最后，最后一段是 * 并且请求是以路径分隔符结尾的。如果上面上个判断都不是，就执行下面这个循环检查配置的且尚未用来匹配的部分是不是都是 ** ,如果不是，那么就判断配置的规则与当前请求不匹配：
 ```markdown
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
 				if (!pattDirs[i].equals("**")) {
@@ -269,17 +265,17 @@ isPotentialMatch这个方法名挺有意思，先粗略判断一下，是不是�
 			// String not exhausted, but pattern is. Failure.
 			return false;
 		}
-		else if (!fullMatch && "**".equals(pattDirs[pattIdxStart])) {
-			// Path start definitely matches due to "**" part in pattern.
+		else if (!fullMatch && "** ".equals(pattDirs[pattIdxStart])) {
+			// Path start definitely matches due to "** " part in pattern.
 			return true;
 		}
 ```
 pattern和path同时到最后了，要认真检查一下...
 ```markdown
-		// up to last '**'
+		// up to last ' ** '
 		while (pattIdxStart <= pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			String pattDir = pattDirs[pattIdxEnd];
-			if (pattDir.equals("**")) {
+			if (pattDir.equals(" ** ")) {
 				break;
 			}
 			if (!matchStrings(pattDir, pathDirs[pathIdxEnd], uriTemplateVariables)) {
@@ -291,7 +287,7 @@ pattern和path同时到最后了，要认真检查一下...
 		if (pathIdxStart > pathIdxEnd) {
 			// String is exhausted
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
-				if (!pattDirs[i].equals("**")) {
+				if (!pattDirs[i].equals(" ** ")) {
 					return false;
 				}
 			}
@@ -303,13 +299,13 @@ pattern和path同时到最后了，要认真检查一下...
 		while (pattIdxStart != pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			int patIdxTmp = -1;
 			for (int i = pattIdxStart + 1; i <= pattIdxEnd; i++) {
-				if (pattDirs[i].equals("**")) {
+				if (pattDirs[i].equals(" ** ")) {
 					patIdxTmp = i;
 					break;
 				}
 			}
 			if (patIdxTmp == pattIdxStart + 1) {
-				// '**/**' situation, so skip one
+				// '** /** ' situation, so skip one
 				pattIdxStart++;
 				continue;
 			}
@@ -352,7 +348,7 @@ pattern和path同时到最后了，要认真检查一下...
 
 微信公众号：
 
-                                 ![Image](/ppp/20170902204445.jpg)
+![Image](/ppp/20170902204445.jpg)
 
 
 [方便修改用的传送门](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/FilterRegistrationBean-And-InterceptorRegistry-Check-Path.md)
