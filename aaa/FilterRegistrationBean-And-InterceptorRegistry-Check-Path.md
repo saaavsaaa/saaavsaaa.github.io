@@ -22,16 +22,6 @@ public class FilterRegister {
     }
 }
 ```
-2.拦截器
-```markdown
-    public void addInterceptors(InterceptorRegistry registry) {
-        LoginInterceptor appLoginInterceptor = new LoginInterceptor();
-        registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/**/aaa/*");
-        super.addInterceptors(registry);
-    }
-```
 过滤器匹配请求的逻辑在ApplicationFilterFactory类中:
 ```markdown
     public static ApplicationFilterChain createFilterChain(ServletRequest request,
@@ -110,6 +100,17 @@ public class FilterRegister {
     }
     
 ```
+2.拦截器
+```markdown
+    public void addInterceptors(InterceptorRegistry registry) {
+        LoginInterceptor appLoginInterceptor = new LoginInterceptor();
+        registry.addInterceptor(loginInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/**/aaa/*");
+        super.addInterceptors(registry);
+    }
+```
+
 拦截器的匹配是从DispatcherServlet开始的，不过这一段是引子，不需要关注：
 ```markdown
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
