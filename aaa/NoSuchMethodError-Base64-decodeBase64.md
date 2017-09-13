@@ -35,6 +35,11 @@ public class Base64  {
 ![Image](/ppp/base64invoke.png)
 -----
 我现在的想法是，我是不是可以怀疑这是ClassLoader或者不知道哪的bug？先找找证据
+事实上，我在jvm中也找到了一个类：
+-----
+![Image](/ppp/jvmBase64.png)
+-----
+不过，看静态成员对不上
 =====
 
 把dump下载下来用Jvisualvm查看
