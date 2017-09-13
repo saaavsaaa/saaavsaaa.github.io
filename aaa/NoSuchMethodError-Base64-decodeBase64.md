@@ -15,8 +15,9 @@ Jhat查看
 ![Image](/ppp/214Base64.png)
 -----
 ![Image](/ppp/214staticdata.png)
-
+-----
 这些静态成员有些意思，在正常的环境中是没有这些的，根据这些静态长远，从线上的代码中发现了一个类：
+-----
 ```markdown
 package com.xxx.xxx.xxx.xxx.reapel.client.utils;
 import java.io.UnsupportedEncodingException;
@@ -28,15 +29,15 @@ public class Base64  {
     . . .
 }
 ```
-
+-----
 这个类里的静态成员和上面截图的完全对的上，这个方法和报错也对的上，除了包不一样，其他的都更像是自定义的这个，回头再看报错处的代码：
-
+-----
 ![Image](/ppp/base64invoke.png)
-
+-----
 我现在的想法是，我是不是可以怀疑这是ClassLoader或者不知道哪的bug？先找找证据
 =====
 
-使用Jvisualvm查看
+把dump下载下来用Jvisualvm查看
 =====
 正常的：
 -----
