@@ -37,7 +37,17 @@ public class Base64  {
 -----
 ![Image](/ppp/base64invoke.png)
 -----
-我现在的想法是，我是不是可以怀疑这是ClassLoader或者不知道哪的bug？先找找证据
+把dump下载下来用Jvisualvm查看
+=====
+正常的：
+-----
+![Image](/ppp/213instance.png)
+-----
+有错的：
+-----
+![Image](/ppp/214instance.png)
+=====
+先怀疑包的问题，然而用有错服务器上的包直接部署到其他机器上没有问题，拉下来解压看了，都不缺，也都一样
 -----
 我还在异常的服务器上javap -c RSA了一下，很正常和正常服务器上的完全一样：
 -----
@@ -61,15 +71,81 @@ public class Base64  {
       11: areturn
 ```
 -----
-把dump下载下来用Jvisualvm查看
-=====
-正常的：
------
-![Image](/ppp/213instance.png)
------
-有错的：
------
-![Image](/ppp/214instance.png)
-=====
+到这了，其实主要就是怀疑，加载类的链接过程出错了，不过已经都找到这了，先接着往下看，如果还想不明白再去研究下链接的部分。于是，顺着就找到了hotspot/src/share/vm/interpreter/bytecodeInterpreter.cpp，下面这段应该是静态方法执行的代码，大概：
+```markdown
+      CASE(_invokestatic): {
+        u2 index = Bytes::get_native_u2(pc+1);
 
-先怀疑包的问题，然而用有错服务器上的包直接部署到其他机器上没有问题，拉下来解压看了，都不缺，也都一样
+        ConstantPoolCacheEntry* cache = cp->entry_at(index);
+        // QQQ Need to make this as inlined as possible. Probably need to split all the bytecode cases
+        // out so c++ compiler has a chance for constant prop to fold everything possible away.
+
+        if (!cache->is_resolved((Bytecodes::Code)opcode)) {
+          CALL_VM(InterpreterRuntime::resolve_invoke(THREAD, (Bytecodes::Code)opcode),
+                  handle_exception);
+          cache = cp->entry_at(index);
+        }
+
+        istate->set_msg(call_method);
+        {
+          Method* callee;
+          if ((Bytecodes::Code)opcode == Bytecodes::_invokevirtual) {
+            CHECK_NULL(STACK_OBJECT(-(cache->parameter_size())));
+            if (cache->is_vfinal()) {
+              callee = cache->f2_as_vfinal_method();
+              // Profile final call.
+              BI_PROFILE_UPDATE_FINALCALL();
+            } else {
+              // get receiver
+              int parms = cache->parameter_size();
+              // this works but needs a resourcemark and seems to create a vtable on every call:
+              // Method* callee = rcvr->klass()->vtable()->method_at(cache->f2_as_index());
+              //
+              // this fails with an assert
+              // InstanceKlass* rcvrKlass = InstanceKlass::cast(STACK_OBJECT(-parms)->klass());
+              // but this works
+              oop rcvr = STACK_OBJECT(-parms);
+              VERIFY_OOP(rcvr);
+              InstanceKlass* rcvrKlass = (InstanceKlass*)rcvr->klass();
+              /*
+                Executing this code in java.lang.String:
+                    public String(char value[]) {
+                          this.count = value.length;
+                          this.value = (char[])value.clone();
+                     }
+
+                 a find on rcvr->klass() reports:
+                 {type array char}{type array class}
+                  - klass: {other class}
+
+                  but using InstanceKlass::cast(STACK_OBJECT(-parms)->klass()) causes in assertion failure
+                  because rcvr->klass()->oop_is_instance() == 0
+                  However it seems to have a vtable in the right location. Huh?
+
+              */
+              callee = (Method*) rcvrKlass->start_of_vtable()[ cache->f2_as_index()];
+              // Profile virtual call.
+              BI_PROFILE_UPDATE_VIRTUALCALL(rcvr->klass());
+            }
+          } else {
+            if ((Bytecodes::Code)opcode == Bytecodes::_invokespecial) {
+              CHECK_NULL(STACK_OBJECT(-(cache->parameter_size())));
+            }
+            callee = cache->f1_as_method();
+
+            // Profile call.
+            BI_PROFILE_UPDATE_CALL();
+          }
+
+          istate->set_callee(callee);
+          istate->set_callee_entry_point(callee->from_interpreted_entry());
+#ifdef VM_JVMTI
+          if (JvmtiExport::can_post_interpreter_events() && THREAD->is_interp_only_mode()) {
+            istate->set_callee_entry_point(callee->interpreter_entry());
+          }
+#endif /* VM_JVMTI */
+          istate->set_bcp_advance(3);
+          UPDATE_PC_AND_RETURN(0); // I'll be back...
+        }
+      }
+```
