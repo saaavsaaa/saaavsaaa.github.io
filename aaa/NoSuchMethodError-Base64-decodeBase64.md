@@ -48,6 +48,18 @@ public class Base64  {
        1: invokestatic  #33                 // Method org/apache/commons/codec/binary/Base64.decodeBase64:(Ljava/lang/String;)[B
        4: areturn
 ```
+然后再![Image](/ppp/javapbase64214.png):
+-----
+```markdown
+  public static byte[] decodeBase64(java.lang.String);
+    Code:
+       0: new           #45                 // class org/apache/commons/codec/binary/Base64
+       3: dup
+       4: invokespecial #52                 // Method "<init>":()V
+       7: aload_0
+       8: invokevirtual #53                 // Method decode:(Ljava/lang/String;)[B
+      11: areturn
+```
 -----
 =====
 
