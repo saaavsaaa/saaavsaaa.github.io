@@ -52,6 +52,13 @@ public class Base64  {
 我还在异常的服务器上javap -c RSA了一下，很正常和正常服务器上的完全一样：
 -----
 ```markdown
+  #33 = Methodref          #158.#159     // org/apache/commons/codec/binary/Base64.decodeBase64:(Ljava/lang/String;)[B
+  #105 = Utf8               (Ljava/lang/String;)[B
+  #158 = Class              #191          // org/apache/commons/codec/binary/Base64
+  #159 = NameAndType        #192:#105     // decodeBase64:(Ljava/lang/String;)[B
+  #191 = Utf8               org/apache/commons/codec/binary/Base64
+  #192 = Utf8               decodeBase64
+
   public static byte[] decryptBASE64(java.lang.String) throws java.lang.Exception;
     Code:
        0: aload_0
