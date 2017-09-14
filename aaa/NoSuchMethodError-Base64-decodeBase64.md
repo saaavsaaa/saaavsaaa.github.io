@@ -39,7 +39,7 @@ public class Base64  {
 -----
 我现在的想法是，我是不是可以怀疑这是ClassLoader或者不知道哪的bug？先找找证据
 -----
-我还在异常的服务器上javap -c RSA了一下，很正常：
+我还在异常的服务器上javap -c RSA了一下，很正常和正常服务器上的完全一样：
 -----
 ```markdown
   public static byte[] decryptBASE64(java.lang.String) throws java.lang.Exception;
@@ -61,8 +61,6 @@ public class Base64  {
       11: areturn
 ```
 -----
-=====
-
 把dump下载下来用Jvisualvm查看
 =====
 正常的：
