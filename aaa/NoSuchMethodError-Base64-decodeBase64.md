@@ -71,7 +71,7 @@ public class Base64  {
       11: areturn
 ```
 -----
-其实之前主要是怀疑，加载类的链接过程出错了。不过应该也有可能#32对应的位置本该存在的方法被冒名顶替了？反正已经都找到这了，先接着往下看，如果还想不明白再去研究下链接的部分。于是，顺着就找到了hotspot/src/share/vm/interpreter/bytecodeInterpreter.cpp，下面这段应该是静态方法执行的代码，大概：
+其实之前主要是怀疑，加载类的链接过程出错了。由于都是静态方法，据说位置是不会改变的。#32对应的位置本该存在的方法被冒名顶替了？反正已经都找到这了，先接着往下看，如果还想不明白再去研究下链接的部分。于是，顺着就找到了hotspot/src/share/vm/interpreter/bytecodeInterpreter.cpp，下面这段应该是静态方法执行的代码，大概：
 ```markdown
       CASE(_invokestatic): {
         u2 index = Bytes::get_native_u2(pc+1);
