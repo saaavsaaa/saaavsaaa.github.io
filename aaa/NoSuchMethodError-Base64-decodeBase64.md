@@ -175,3 +175,17 @@ Constant pool:
         }
       }
 ```
+
+```markdown
+// Reload interpreter state after calling the VM or a possible GC
+#define CACHE_STATE()   \
+        CACHE_TOS();    \
+        CACHE_PC();     \
+        CACHE_CP();     \
+        CACHE_LOCALS();
+        
+#define CACHE_CP()      cp = istate->constants();
+```
+
+```markdown
+```
