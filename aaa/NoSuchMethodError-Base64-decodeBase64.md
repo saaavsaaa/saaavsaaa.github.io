@@ -49,7 +49,7 @@ public class Base64  {
 =====
 先怀疑包的问题，然而用有错服务器上的包直接部署到其他机器上没有问题，拉下来解压看了，都不缺，也都一样
 -----
-我还在异常的服务器上javap -c RSA了一下，很正常和正常服务器上的完全一样：
+我还在异常的服务器上javap -c和-v了一下，很正常和正常服务器上的完全一样：
 -----
 ```markdown
   minor version: 0
@@ -62,6 +62,21 @@ Constant pool:
   #159 = NameAndType        #192:#105     // decodeBase64:(Ljava/lang/String;)[B
   #191 = Utf8               org/apache/commons/codec/binary/Base64
   #192 = Utf8               decodeBase64
+    public static byte[] decryptBASE64(java.lang.String) throws java.lang.Exception;
+    descriptor: (Ljava/lang/String;)[B
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokestatic  #33                 // Method org/apache/commons/codec/binary/Base64.decodeBase64:(Ljava/lang/String;)[B
+         4: areturn
+      LineNumberTable:
+        line 233: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0   key   Ljava/lang/String;
+    Exceptions:
+      throws java.lang.Exception 
 
   public static byte[] decryptBASE64(java.lang.String) throws java.lang.Exception;
     Code:
