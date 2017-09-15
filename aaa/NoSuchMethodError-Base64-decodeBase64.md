@@ -52,6 +52,10 @@ public class Base64  {
 我还在异常的服务器上javap -c RSA了一下，很正常和正常服务器上的完全一样：
 -----
 ```markdown
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
   #33 = Methodref          #158.#159     // org/apache/commons/codec/binary/Base64.decodeBase64:(Ljava/lang/String;)[B
   #105 = Utf8               (Ljava/lang/String;)[B
   #158 = Class              #191          // org/apache/commons/codec/binary/Base64
