@@ -97,7 +97,18 @@ Constant pool:
       11: areturn
 ```
 -----
-其实之前主要是怀疑，加载类的链接过程出错了。由于都是静态方法，据说位置是不会改变的。#32对应的位置本该存在的方法被冒名顶替了？反正已经都找到这了，先接着往下看，如果还想不明白再去研究下链接的部分。于是，顺着就找到了hotspot/src/share/vm/interpreter/bytecodeInterpreter.cpp，下面这段应该是静态方法执行的代码，大概：
+其实之前主要是怀疑，加载类的链接过程出错了。由于都是静态方法，据说位置是不会改变的。#32对应的位置本该存在的方法被冒名顶替了？反正已经都找到这了，先接着往下看，如果还想不明白再去研究下链接的部分。于是，顺着就找到了hotspot/src/share/vm/interpreter/bytecodeInterpreter.cpp，C++不会只好凑合看了
+```markdown
+// Reload interpreter state after calling the VM or a possible GC
+#define CACHE_STATE()   \
+        CACHE_TOS();    \
+        CACHE_PC();     \
+        CACHE_CP();     \
+        CACHE_LOCALS();
+        
+#define CACHE_CP()      cp = istate->constants();
+```
+下面这段应该是静态方法执行的代码，大概：
 ```markdown
       CASE(_invokestatic): {
         u2 index = Bytes::get_native_u2(pc+1);
@@ -174,17 +185,6 @@ Constant pool:
           UPDATE_PC_AND_RETURN(0); // I'll be back...
         }
       }
-```
-
-```markdown
-// Reload interpreter state after calling the VM or a possible GC
-#define CACHE_STATE()   \
-        CACHE_TOS();    \
-        CACHE_PC();     \
-        CACHE_CP();     \
-        CACHE_LOCALS();
-        
-#define CACHE_CP()      cp = istate->constants();
 ```
 
 ```markdown
