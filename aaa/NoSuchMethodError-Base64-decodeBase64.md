@@ -197,7 +197,65 @@ StackMapTable，无论是调用处，正常和不正常的被调用处都没有�
 ```markdown
 [Loaded org.apache.commons.codec.binary.Base64 from file:/usr/local/xxx/xxx/lib/commons-codec-1.10.jar]
 ```
-        这得翻下jar里的源码了
+        这得翻下http-1.1.0.jar里的源码了
 ```markdown
-问题查找中。。。
+javap -v Base64.class 
+Classfile /home/aaa/Code/Base64.class
+  Last modified Jul 10, 2004; size 5468 bytes
+  MD5 checksum 5c512c12d963f5f5473ade92c189c7d7
+  Compiled from "Base64.java"
+public class org.apache.commons.codec.binary.Base64 implements org.apache.commons.codec.BinaryEncoder,org.apache.commons.codec.BinaryDecoder
+  minor version: 0
+  major version: 46
+  flags: ACC_PUBLIC, ACC_SUPER
+  . . . 
+    static final int CHUNK_SIZE;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 76
+
+  static final byte[] CHUNK_SEPARATOR;
+    descriptor: [B
+    flags: ACC_STATIC, ACC_FINAL
+
+  static final int BASELENGTH;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 255
+
+  static final int LOOKUPLENGTH;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 64
+
+  static final int EIGHTBIT;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 8
+
+  static final int SIXTEENBIT;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 16
+
+  static final int TWENTYFOURBITGROUP;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 24
+
+  static final int FOURBYTE;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 4
+
+  static final int SIGN;
+    descriptor: I
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int -128
+
+  static final byte PAD;
+    descriptor: B
+    flags: ACC_STATIC, ACC_FINAL
+    ConstantValue: int 61
 ```
+        报名完全一样，静态成员也一样，刚好需要的那个方法就没有String参数的重载，问了一下我们代码里那个是第三方接入时给的代码，估计是从这抄的
