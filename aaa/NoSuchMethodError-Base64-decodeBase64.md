@@ -191,11 +191,13 @@ Constant pool:
 StackMapTable，无论是调用处，正常和不正常的被调用处都没有，书上说没有就是相当于有个等于0的，似乎和这问题也没什么关系。
 既然怀疑是加载的问题，就加了个参数 -XX:+TraceClassLoading，然后发现了这段日志：
 -----
-
+![Image](/ppp/traceclassloading214log.png)
+-----
+       这就尴尬了，应该是这样的才对：
 ```markdown
-问题查找中。。。
+[Loaded org.apache.commons.codec.binary.Base64 from file:/usr/local/xxx/xxx/lib/commons-codec-1.10.jar]
 ```
-
+        这得翻下jar里的源码了
 ```markdown
 问题查找中。。。
 ```
