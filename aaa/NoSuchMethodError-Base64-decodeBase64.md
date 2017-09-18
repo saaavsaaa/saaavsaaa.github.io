@@ -9,7 +9,9 @@
 先对比了一下，正常和异常的服务器，环境完全一样，其实都没必要对比，因为都是同样配置出来的虚机，连各种小版本都完全一样。然后重装JDK，换JDK版本，问题依旧。难道是系统的问题？
 
 -----
+
 Jhat查看了一下dump：
+
 =====
 
 这是正常的：
@@ -106,7 +108,9 @@ Constant pool:
        1: invokestatic  #33                 // Method org/apache/commons/codec/binary/Base64.decodeBase64:(Ljava/lang/String;)[B
        4: areturn
 ```
+
 然后再![Image](/ppp/javapbase64214.png):
+
 -----
 ```markdown
   public static byte[] decodeBase64(java.lang.String);
@@ -219,6 +223,7 @@ Constant pool:
 StackMapTable，无论是调用处，正常和不正常的被调用处都没有，书上说没有就是相当于有个等于0的，似乎和这问题也没什么关系 --- 这句没什么用，一个思考过程。
 
 既然怀疑是加载的问题，就加了个参数 -XX:+TraceClassLoading，然后发现了这段日志：
+
 -----
 ![Image](/ppp/traceclassloading214log.png)
 -----
@@ -293,6 +298,7 @@ public class org.apache.commons.codec.binary.Base64 implements org.apache.common
 在这两个jar包里有，包名，类名完全一样但实现不同的两个类，静态成员也一样，这个类确实没有基类所以直接继承与Object，刚好需要的那个方法就没有String参数的重载。问了一下我们代码里那个是第三方接入时给的代码，估计是从这抄的。
 
 这个问题到此暂时先告一段落，还有一个疑问是为什么只有这一台机器出问题，而且是稳定复现，接下来要弄明白。
+
 -----
 微信公众号：
 
