@@ -193,11 +193,11 @@ StackMapTable，无论是调用处，正常和不正常的被调用处都没有�
 -----
 ![Image](/ppp/traceclassloading214log.png)
 -----
-       这就尴尬了，应该是这样的才对：
+这就尴尬了，应该是这样的才对：
 ```markdown
 [Loaded org.apache.commons.codec.binary.Base64 from file:/usr/local/xxx/xxx/lib/commons-codec-1.10.jar]
 ```
-        这得翻下http-1.1.0.jar里的源码了
+这得翻下http-1.1.0.jar里的源码了
 ```markdown
 javap -v Base64.class 
 Classfile /home/aaa/Code/Base64.class
@@ -258,8 +258,8 @@ public class org.apache.commons.codec.binary.Base64 implements org.apache.common
     flags: ACC_STATIC, ACC_FINAL
     ConstantValue: int 61
 ```
-        在这两个jar包里有，包名，类名完全一样但实现不同的两个类，静态成员也一样，这个类确实没有基类所以直接继承与Object，刚好需要的那个方法就没有String参数的重载。问了一下我们代码里那个是第三方接入时给的代码，估计是从这抄的。
-        这个问题到此暂时先告一段落，还有一个疑问是为什么只有这一台机器出问题，而且是稳定复现，接下来要弄明白。
+在这两个jar包里有，包名，类名完全一样但实现不同的两个类，静态成员也一样，这个类确实没有基类所以直接继承与Object，刚好需要的那个方法就没有String参数的重载。问了一下我们代码里那个是第三方接入时给的代码，估计是从这抄的。
+这个问题到此暂时先告一段落，还有一个疑问是为什么只有这一台机器出问题，而且是稳定复现，接下来要弄明白。
 -----
 微信公众号：
 
