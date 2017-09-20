@@ -21,6 +21,24 @@
 -----
     /share/vm/classfile/systemDictionary.cpp
 -----
+        Klass* check = find_class(d_index, d_hash, name, loader_data);
+        if (check != NULL) {
+        // Klass is already loaded, so return it after checking/adding protection domain
+          k = instanceKlassHandle(THREAD, check);
+          class_has_been_loaded = true;
+        }
+      }
+    }
+
+    // must throw error outside of owning lock
+    if (throw_circularity_error) {
+      assert(!HAS_PENDING_EXCEPTION && load_instance_added == false,"circularity error cleanup");
+      ResourceMark rm(THREAD);
+      THROW_MSG_NULL(vmSymbols::java_lang_ClassCircularityError(), name->as_C_string());
+    }
+
+    if (!class_has_been_loaded) {
+
       // Do actual loading
       k = load_instance_class(name, class_loader, THREAD);
 -----
