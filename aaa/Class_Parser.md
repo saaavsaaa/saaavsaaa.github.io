@@ -43,6 +43,21 @@
       return (entry != NULL) ? entry->klass() : (Klass*)NULL;
     }
 -----
+    DictionaryEntry* Dictionary::get_entry(int index, unsigned int hash,
+                                           Symbol* class_name,
+                                           ClassLoaderData* loader_data) {
+      debug_only(_lookup_count++);
+      for (DictionaryEntry* entry = bucket(index);
+                            entry != NULL;
+                            entry = entry->next()) {
+        if (entry->hash() == hash && entry->equals(class_name, loader_data)) {
+          return entry;
+        }
+        debug_only(_lookup_length++);
+      }
+      return NULL;
+    }
+-----
 
 
 
