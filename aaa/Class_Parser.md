@@ -18,10 +18,11 @@
 
 // Extension method support.
 #define JAVA_8_VERSION                    52
-
 -----
 
-/share/vm/classfile/classLoader.cpp 1124:
+/share/vm/classfile/classLoader.cpp
+-----
+instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) 
 -----
     instanceKlassHandle result = parser.parseClassFile(h_name,
                                                        loader_data,
