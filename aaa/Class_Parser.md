@@ -19,10 +19,13 @@
 // Extension method support.
 #define JAVA_8_VERSION                    52
 -----
-
-/share/vm/classfile/classLoader.cpp
+    /share/vm/classfile/systemDictionary.cpp
 -----
-instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) 
+    k = ClassLoader::load_classfile(class_name, CHECK_(nh));
+-----
+    /share/vm/classfile/classLoader.cpp
+-----
+    instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) 
 -----
     instanceKlassHandle result = parser.parseClassFile(h_name,
                                                        loader_data,
@@ -32,6 +35,6 @@ instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS)
                                                        THREAD);
 
 -----
---> /share/vm/classfile/classFileParser.cpp 3700
+    --> /share/vm/classfile/classFileParser.cpp 3700
 
 
