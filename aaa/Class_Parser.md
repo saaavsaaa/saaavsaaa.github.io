@@ -21,6 +21,19 @@
 -----
     /share/vm/classfile/systemDictionary.cpp
 -----
+Klass* SystemDictionary::find_class(int index, unsigned int hash,
+                                      Symbol* class_name,
+                                      ClassLoaderData* loader_data) {
+  assert_locked_or_safepoint(SystemDictionary_lock);
+  assert (index == dictionary()->index_for(class_name, loader_data),
+          "incorrect index?");
+
+  Klass* k = dictionary()->find_class(index, hash, class_name, loader_data);
+  return k;
+}
+
+
+
         Klass* check = find_class(d_index, d_hash, name, loader_data);
         if (check != NULL) {
         // Klass is already loaded, so return it after checking/adding protection domain
