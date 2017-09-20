@@ -21,27 +21,27 @@
 -----
     /share/vm/classfile/systemDictionary.cpp
 -----
-Klass* SystemDictionary::find_class(int index, unsigned int hash,
-                                      Symbol* class_name,
-                                      ClassLoaderData* loader_data) {
-  assert_locked_or_safepoint(SystemDictionary_lock);
-  assert (index == dictionary()->index_for(class_name, loader_data),
-          "incorrect index?");
+    Klass* SystemDictionary::find_class(int index, unsigned int hash,
+                                          Symbol* class_name,
+                                          ClassLoaderData* loader_data) {
+      assert_locked_or_safepoint(SystemDictionary_lock);
+      assert (index == dictionary()->index_for(class_name, loader_data),
+              "incorrect index?");
 
-  Klass* k = dictionary()->find_class(index, hash, class_name, loader_data);
-  return k;
-}
+      Klass* k = dictionary()->find_class(index, hash, class_name, loader_data);
+      return k;
+    }
 -----
     /share/vm/classfile/dictionary.cpp
 -----
-Klass* Dictionary::find_class(int index, unsigned int hash,
-                                Symbol* name, ClassLoaderData* loader_data) {
-  assert_locked_or_safepoint(SystemDictionary_lock);
-  assert (index == index_for(name, loader_data), "incorrect index?");
+    Klass* Dictionary::find_class(int index, unsigned int hash,
+                                    Symbol* name, ClassLoaderData* loader_data) {
+      assert_locked_or_safepoint(SystemDictionary_lock);
+      assert (index == index_for(name, loader_data), "incorrect index?");
 
-  DictionaryEntry* entry = get_entry(index, hash, name, loader_data);
-  return (entry != NULL) ? entry->klass() : (Klass*)NULL;
-}
+      DictionaryEntry* entry = get_entry(index, hash, name, loader_data);
+      return (entry != NULL) ? entry->klass() : (Klass*)NULL;
+    }
 -----
 
 
@@ -49,6 +49,7 @@ Klass* Dictionary::find_class(int index, unsigned int hash,
 
 
 =====
+
         Klass* check = find_class(d_index, d_hash, name, loader_data);
         if (check != NULL) {
         // Klass is already loaded, so return it after checking/adding protection domain
