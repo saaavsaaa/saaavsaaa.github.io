@@ -22,6 +22,33 @@
 -----
     /share/vm/classfile/systemDictionary.cpp
 -----
+  ???  instanceKlassHandle SystemDictionary::handle_parallel_super_load(
+-----
+     Klass* SystemDictionary::resolve_instance_class_or_null(Symbol* name,
+                                                            Handle class_loader,
+                                                            Handle protection_domain,
+                                                            TRAPS) {
+      assert(name != NULL && !FieldType::is_array(name) &&
+             !FieldType::is_obj(name), "invalid class name");
+
+      Ticks class_load_start_time = Ticks::now();
+
+      // UseNewReflection
+      // Fix for 4474172; see evaluation for more details
+      class_loader = Handle(THREAD, java_lang_ClassLoader::non_reflection_class_loader(class_loader()));
+      ClassLoaderData *loader_data = register_loader(class_loader, CHECK_NULL);
+
+      // Do lookup to see if class already exist and the protection domain
+      // has the right access
+      // This call uses find which checks protection domain already matches
+      // All subsequent calls use find_class, and set has_loaded_class so that
+      // before we return a result we call out to java to check for valid protection domain
+      // to allow returning the Klass* and add it to the pd_set if it is valid
+      unsigned int d_hash = dictionary()->compute_hash(name, loader_data);
+      int d_index = dictionary()->hash_to_index(d_hash);
+      Klass* probe = dictionary()->find(d_index, d_hash, name, loader_data,
+                                          protection_domain, THREAD);
+-----
     Klass* check = find_class(d_index, d_hash, name, loader_data)
 -----
     Klass* SystemDictionary::find_class(int index, unsigned int hash,
