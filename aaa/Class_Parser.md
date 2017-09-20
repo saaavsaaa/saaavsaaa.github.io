@@ -21,6 +21,9 @@
 -----
     /share/vm/classfile/systemDictionary.cpp
 -----
+      // Do actual loading
+      k = load_instance_class(name, class_loader, THREAD);
+-----
     k = ClassLoader::load_classfile(class_name, CHECK_(nh));
 -----
     /share/vm/classfile/classLoader.cpp
