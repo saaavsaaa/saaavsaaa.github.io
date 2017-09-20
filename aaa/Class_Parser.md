@@ -18,8 +18,11 @@
 
 // Extension method support.
 #define JAVA_8_VERSION                    52
+
 -----
     /share/vm/classfile/systemDictionary.cpp
+-----
+    Klass* check = find_class(d_index, d_hash, name, loader_data)
 -----
     Klass* SystemDictionary::find_class(int index, unsigned int hash,
                                           Symbol* class_name,
