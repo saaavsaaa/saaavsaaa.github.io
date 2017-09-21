@@ -26,7 +26,9 @@
       // before we return a result we call out to java to check for valid protection domain
       // to allow returning the Klass* and add it to the pd_set if it is valid
       unsigned int d_hash = dictionary()->compute_hash(name, loader_data);
-      *int d_index = dictionary()->hash_to_index(d_hash);*
+      
+###    int d_index = dictionary()->hash_to_index(d_hash);
+      
       Klass* probe = dictionary()->find(d_index, d_hash, name, loader_data,
                                           protection_domain, THREAD);
 -----
