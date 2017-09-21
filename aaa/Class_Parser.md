@@ -1,3 +1,20 @@
+-----
+    /share/vm/classfile/classLoader.cpp
+-----
+    instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
+    
+        ClassFileParser parser(stream);
+    ClassLoaderData* loader_data = ClassLoaderData::the_null_class_loader_data();
+    Handle protection_domain;
+    TempNewSymbol parsed_name = NULL;
+    instanceKlassHandle result = parser.parseClassFile(h_name,
+                                                       loader_data,
+                                                       protection_domain,
+                                                       parsed_name,
+                                                       context.should_verify(classpath_index),
+                                                       THREAD);
+-----
+
 
 
 -----
