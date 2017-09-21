@@ -75,7 +75,14 @@
         return (DictionaryEntry*)Hashtable<Klass*, mtClass>::bucket(i);
       }
 -----
-
+      /home/aaa/Github/hotspot/src/share/vm/utilities/hashtable.cpp : 
+      #include "utilities/hashtable.inline.hpp"
+      /share/vm/utilities/hashtable.inline.hpp :
+      // The following method is MT-safe and may be used with caution.
+      template <MEMFLAGS F> inline BasicHashtableEntry<F>* BasicHashtable<F>::bucket(int i) {
+        return _buckets[i].get_entry();
+      }
+-----
 
 
 =====
