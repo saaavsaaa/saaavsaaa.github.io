@@ -85,6 +85,37 @@
 -----
 
 
+
+
+
+
+
+
+
+
+-----
+    /share/vm/oops/constantPool.cpp
+    void SymbolHashMap::add_entry(Symbol* sym, u2 value) {
+      char *str = sym->as_utf8();
+      unsigned int hash = compute_hash(str, sym->utf8_length());
+      unsigned int index = hash % table_size();
+
+      // check if already in map
+      // we prefer the first entry since it is more likely to be what was used in
+      // the class file
+      for (SymbolHashMapEntry *en = bucket(index); en != NULL; en = en->next()) {
+        assert(en->symbol() != NULL, "SymbolHashMapEntry symbol is NULL");
+        if (en->hash() == hash && en->symbol() == sym) {
+            return;  // already there
+        }
+      }
+
+      SymbolHashMapEntry* entry = new SymbolHashMapEntry(hash, sym, value);
+      entry->set_next(bucket(index));
+      _buckets[index].set_entry(entry);
+      assert(entry->symbol() != NULL, "SymbolHashMapEntry symbol is NULL");
+    }
+-----
 =====
 
         Klass* check = find_class(d_index, d_hash, name, loader_data);
