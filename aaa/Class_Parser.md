@@ -71,8 +71,10 @@
       return NULL;
     }
 -----
-
-
+      DictionaryEntry* bucket(int i) {
+        return (DictionaryEntry*)Hashtable<Klass*, mtClass>::bucket(i);
+      }
+-----
 
 
 
