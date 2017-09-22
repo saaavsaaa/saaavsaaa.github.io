@@ -4,6 +4,9 @@
     JavaMain(void * _args):
     mainClass = LoadMainClass(env, mode, what);
     appClass = GetApplicationClass(env);
+    
+    
+    LoadMainClass(JNIEnv *env, int mode, char *name)
 -----
 
 -----
