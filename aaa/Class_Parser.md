@@ -2,7 +2,8 @@
     /jdk/launcher/java.c
 -----
     JavaMain(void * _args):
-    
+    mainClass = LoadMainClass(env, mode, what);
+    appClass = GetApplicationClass(env);
 -----
 
 -----
