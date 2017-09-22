@@ -8,7 +8,8 @@
     
     LoadMainClass(JNIEnv *env, int mode, char *name)
 -----
-
+    /share/vm/prims/jni.h:
+    typedef const struct JNINativeInterface_ *JNIEnv;
 -----
 
 -----
