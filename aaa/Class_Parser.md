@@ -15,6 +15,27 @@
     (*env)->CallStaticVoidMethod(env, mainClass, mainID, mainArgs);
                 
 -----
+
+    JLI_Launch(int argc, char ** argv,...)
+
+    SelectVersion(argc, argv, &main_class);
+    /*
+     * Passing on splash screen info in environment variables
+     */
+    if (splash_file_name && !headlessflag) {
+        char* splash_file_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_FILE_ENV_ENTRY "=")+JLI_StrLen(splash_file_name)+1);
+        JLI_StrCpy(splash_file_entry, SPLASH_FILE_ENV_ENTRY "=");
+        JLI_StrCat(splash_file_entry, splash_file_name);
+        putenv(splash_file_entry);
+    }
+    if (splash_jar_name && !headlessflag) {
+        char* splash_jar_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_JAR_ENV_ENTRY "=")+JLI_StrLen(splash_jar_name)+1);
+        JLI_StrCpy(splash_jar_entry, SPLASH_JAR_ENV_ENTRY "=");
+        JLI_StrCat(splash_jar_entry, splash_jar_name);
+        putenv(splash_jar_entry);
+    }
+
+-----
     /share/vm/prims/jni.h:
     typedef const struct JNINativeInterface_ *JNIEnv;
     
@@ -51,6 +72,22 @@
     JNI_ENTRY(jmethodID, jni_GetStaticMethodID(JNIEnv *env, jclass clazz,
           const char *name, const char *sig))
         JNIWrapper("GetStaticMethodID");
+
+    JNI_ENTRY(void, jni_CallStaticVoidMethod(JNIEnv *env, jclass cls, jmethodID methodID, ...))
+      JNIWrapper("CallStaticVoidMethod");
+
+    #define JNI_ENTRY(result_type, header)                               \
+        JNI_ENTRY_NO_PRESERVE(result_type, header)                       \
+        WeakPreserveExceptionMark __wem(thread);
+
+    #define JNI_ENTRY_NO_PRESERVE(result_type, header)             \
+    extern "C" {                                                         \
+      result_type JNICALL header {                                \
+        JavaThread* thread=JavaThread::thread_from_jni_environment(env); \
+        assert( !VerifyJNIEnvThread || (thread == Thread::current()), "JNIEnv is only valid in same thread"); \
+        ThreadInVMfromNative __tiv(thread);                              \
+        debug_only(VMNativeEntryWrapper __vew;)                          \
+        VM_ENTRY_BASE(result_type, header, thread)
 -----
 
 -----
