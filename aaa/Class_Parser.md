@@ -16,24 +16,7 @@
                 
 -----
 
-    JLI_Launch(int argc, char ** argv,...)
 
-    SelectVersion(argc, argv, &main_class);
-    /*
-     * Passing on splash screen info in environment variables
-     */
-    if (splash_file_name && !headlessflag) {
-        char* splash_file_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_FILE_ENV_ENTRY "=")+JLI_StrLen(splash_file_name)+1);
-        JLI_StrCpy(splash_file_entry, SPLASH_FILE_ENV_ENTRY "=");
-        JLI_StrCat(splash_file_entry, splash_file_name);
-        putenv(splash_file_entry);
-    }
-    if (splash_jar_name && !headlessflag) {
-        char* splash_jar_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_JAR_ENV_ENTRY "=")+JLI_StrLen(splash_jar_name)+1);
-        JLI_StrCpy(splash_jar_entry, SPLASH_JAR_ENV_ENTRY "=");
-        JLI_StrCat(splash_jar_entry, splash_jar_name);
-        putenv(splash_jar_entry);
-    }
 
 -----
     /share/vm/prims/jni.h:
