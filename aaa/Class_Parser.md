@@ -1,5 +1,47 @@
 -----
+    /launcher/main.c :
+    int main(int argc, char **argv):
+        return JLI_Launch(margc, margv,
+                   sizeof(const_jargs) / sizeof(char *), const_jargs,
+                   sizeof(const_appclasspath) / sizeof(char *), const_appclasspath,
+                   FULL_VERSION,
+                   DOT_VERSION,
+                   (const_progname != NULL) ? const_progname : *margv,
+                   (const_launcher != NULL) ? const_launcher : *margv,
+                   (const_jargs != NULL) ? JNI_TRUE : JNI_FALSE,
+                   const_cpwildcard, const_javaw, const_ergo_class);
+-----
+
+
+-----
     /jdk/launcher/java.c
+-----
+    int JLI_Launch(int argc, char ** argv,              /* main argc, argc */
+            int jargc, const char** jargv,          /* java args */
+            int appclassc, const char** appclassv,  /* app classpath */
+            const char* fullversion,                /* full version defined */
+            const char* dotversion,                 /* dot version defined */
+            const char* pname,                      /* program name */
+            const char* lname,                      /* launcher name */
+            jboolean javaargs,                      /* JAVA_ARGS */
+            jboolean cpwildcard,                    /* classpath wildcard*/
+            jboolean javaw,                         /* windows-only javaw */
+            jint ergo                               /* ergonomics class policy */
+    ):
+    static void SelectVersion(int argc, char **argv, char **main_class):
+    if (splash_file_name && !headlessflag) {
+        char* splash_file_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_FILE_ENV_ENTRY "=")+JLI_StrLen(splash_file_name)+1);
+        JLI_StrCpy(splash_file_entry, SPLASH_FILE_ENV_ENTRY "=");
+        JLI_StrCat(splash_file_entry, splash_file_name);
+        putenv(splash_file_entry);
+    }
+    if (splash_jar_name && !headlessflag) {
+        char* splash_jar_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_JAR_ENV_ENTRY "=")+JLI_StrLen(splash_jar_name)+1);
+        JLI_StrCpy(splash_jar_entry, SPLASH_JAR_ENV_ENTRY "=");
+        JLI_StrCat(splash_jar_entry, splash_jar_name);
+        putenv(splash_jar_entry);
+    }
+    
 -----
     JavaMain(void * _args):
     mainClass = LoadMainClass(env, mode, what);
