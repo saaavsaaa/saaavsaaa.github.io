@@ -31,6 +31,20 @@
         return functions->FindClass(this, name);
     }
     . . .
+    struct JNINativeInterface_ {
+    void *reserved0;
+    void *reserved1;
+    void *reserved2;
+
+    void *reserved3;
+    jint (JNICALL *GetVersion)(JNIEnv *env);
+
+    jclass (JNICALL *DefineClass)
+      (JNIEnv *env, const char *name, jobject loader, const jbyte *buf,
+       jsize len);
+    jclass (JNICALL *FindClass)
+      (JNIEnv *env, const char *name);
+
     
     JNI_ENTRY(jmethodID, jni_GetStaticMethodID(JNIEnv *env, jclass clazz,
           const char *name, const char *sig))
