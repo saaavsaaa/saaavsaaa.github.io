@@ -11,6 +11,8 @@
         NULL_CHECK0(mid = (*env)->GetStaticMethodID(env, cls,
                 "checkAndLoadMain",
                 "(ZILjava/lang/String;)Ljava/lang/Class;"));
+
+    (*env)->CallStaticVoidMethod(env, mainClass, mainID, mainArgs);
                 
 -----
     /share/vm/prims/jni.h:
