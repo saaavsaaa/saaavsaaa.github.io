@@ -7,9 +7,34 @@
     
     
     LoadMainClass(JNIEnv *env, int mode, char *name)
+    
+        NULL_CHECK0(mid = (*env)->GetStaticMethodID(env, cls,
+                "checkAndLoadMain",
+                "(ZILjava/lang/String;)Ljava/lang/Class;"));
+                
 -----
     /share/vm/prims/jni.h:
     typedef const struct JNINativeInterface_ *JNIEnv;
+    
+    struct JNIEnv_ {
+    const struct JNINativeInterface_ *functions;
+    #ifdef __cplusplus
+
+    jint GetVersion() {
+        return functions->GetVersion(this);
+    }
+    jclass DefineClass(const char *name, jobject loader, const jbyte *buf,
+                       jsize len) {
+        return functions->DefineClass(this, name, loader, buf, len);
+    }
+    jclass FindClass(const char *name) {
+        return functions->FindClass(this, name);
+    }
+    . . .
+    
+    JNI_ENTRY(jmethodID, jni_GetStaticMethodID(JNIEnv *env, jclass clazz,
+          const char *name, const char *sig))
+        JNIWrapper("GetStaticMethodID");
 -----
 
 -----
