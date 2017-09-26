@@ -133,6 +133,19 @@ PackageInfo* ClassLoader::lookup_package(const char *pkgname) {
   return NULL;
 }
 -----
+instanceKlassHandle record_result(const int classpath_index,
+                                      ClassPathEntry* e, instanceKlassHandle result, TRAPS) {
+      if (ClassLoader::add_package(_file_name, classpath_index, THREAD)) {
+-----
+instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) :
+
+
+ClassLoaderExt::Context context(class_name, file_name, THREAD);
+
+below code......-----
+
+1137  h = context.record_result(classpath_index, e, result, THREAD);
+-----
     instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
     
     ClassPathEntry* e = NULL;
