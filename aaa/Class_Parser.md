@@ -137,7 +137,7 @@
                                                        THREAD);
 -----
 
-    上面加载类文件，从流中读取，到下面：
+    上面加载类文件，从流中读取，到下面，从dictionary中查找，字典结构，先hash出桶index，然后根据index查找：
 
 -----
     /share/vm/classfile/systemDictionary.cpp
@@ -145,7 +145,7 @@
 
        ClassLoaderData* loader_data = class_loader_data(class_loader);
        unsigned int d_hash = dictionary()->compute_hash(child_name, loader_data); 
-###    int d_index = dictionary()->hash_to_index(d_hash);
+      int d_index = dictionary()->hash_to_index(d_hash);
       
       Klass* probe = dictionary()->find(d_index, d_hash, name, loader_data,
                                           protection_domain, THREAD);
@@ -193,7 +193,11 @@
         return (DictionaryEntry*)Hashtable<Klass*, mtClass>::bucket(i);
       }
 -----
-      /home/aaa/Github/hotspot/src/share/vm/utilities/hashtable.cpp : 
+
+    这个词典的数据结构扩展至hashtable，因为对外提供的是内联模板的方法，所以单独放在hashtable.inline，模板感觉就相当于泛型：
+
+-----
+      /hotspot/src/share/vm/utilities/hashtable.cpp : 
       #include "utilities/hashtable.inline.hpp"
       /share/vm/utilities/hashtable.inline.hpp :
       // The following method is MT-safe and may be used with caution.
