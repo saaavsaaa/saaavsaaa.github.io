@@ -125,6 +125,35 @@
 -----
     instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
     
+    ClassPathEntry* e = NULL;
+    #e = _first_entry;
+-----   
+    _first_entry来源于：
+-----
+    void ClassLoader::add_to_list(ClassPathEntry *new_entry) {
+      if (new_entry != NULL) {
+        if (_last_entry == NULL) {
+          _first_entry = _last_entry = new_entry;
+        } else {
+          _last_entry->set_next(new_entry);
+          _last_entry = new_entry;
+        }
+      }
+      _num_entries ++;
+    }
+-----   
+
+
+
+
+
+
+
+
+
+
+
+-----
     ClassFileParser parser(stream);
     ClassLoaderData* loader_data = ClassLoaderData::the_null_class_loader_data();
     Handle protection_domain;
