@@ -1,8 +1,11 @@
 
     在[之前排查的一个问题](https://saaavsaaa.github.io/aaa/NoSuchMethodError-Base64-decodeBase64.html) 的结尾还留了一个问题，为什么有的机器会加载正确的类，有的就是错的。因为这一段在上线一个项目，灰度公测阶段，所以拖了些天，穿插着看了看加载相关的一些jvm代码，以前也没看过，就边猜测边看了。
     主要猜测，一是在问题的那篇中打印的load jar处，这里应该会根据已经扫过的jar的路径去加载；另外一个是启动初始化的地方会扫jar;顺便也看了些相关的代码，这里算是代码的记录吧，因为还没有证明，问题也没有解决。
+
 -----
+
     我找到的可能和jar包相关的，然而并不是我想要的部分，这里应该是在加载JDK相关的jar
+    
 -----
     /jdk/launcher/java.c
 -----
@@ -22,10 +25,13 @@
         putenv(splash_jar_entry);
     }
 -----
-引用它的地方是：
+
+    引用它的地方是：
+
 -----
     /launcher/main.c :
     int main(int argc, char **argv):
+     ...
         return JLI_Launch(margc, margv,
                    sizeof(const_jargs) / sizeof(char *), const_jargs,
                    sizeof(const_appclasspath) / sizeof(char *), const_appclasspath,
@@ -36,6 +42,9 @@
                    (const_jargs != NULL) ? JNI_TRUE : JNI_FALSE,
                    const_cpwildcard, const_javaw, const_ergo_class);
 -----
+   
+    这里应该是应用启动的地方，这里还在jdk中：
+    
 -----
     JavaMain(void * _args):
     mainClass = LoadMainClass(env, mode, what);
@@ -52,7 +61,7 @@
                 
 -----
 
-
+    加载了启动类，根据参数类型什么的检查是不是启动类，然后调用，调用部分就到jvm里了，注意JNIEnv。
 
 -----
     /share/vm/prims/jni.h:
