@@ -118,12 +118,14 @@
         VM_ENTRY_BASE(result_type, header, thread)
 -----
 
+    下面这个都认识：
+
 -----
     /share/vm/classfile/classLoader.cpp
 -----
     instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
     
-        ClassFileParser parser(stream);
+    ClassFileParser parser(stream);
     ClassLoaderData* loader_data = ClassLoaderData::the_null_class_loader_data();
     Handle protection_domain;
     TempNewSymbol parsed_name = NULL;
@@ -135,7 +137,7 @@
                                                        THREAD);
 -----
 
-
+    上面加载类文件，从流中读取，到下面：
 
 -----
     /share/vm/classfile/systemDictionary.cpp
