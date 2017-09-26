@@ -136,6 +136,16 @@
                                                        context.should_verify(classpath_index),
                                                        THREAD);
 -----
+    instanceKlassHandle result = parser.parseClassFile(h_name,
+                                                       loader_data,
+                                                       protection_domain,
+                                                       parsed_name,
+                                                       context.should_verify(classpath_index),
+                                                       THREAD);
+
+-----
+    /share/vm/classfile/classFileParser.cpp 3700
+-----
 
     上面加载类文件，从流中读取，到下面，从dictionary中查找，字典结构，先hash出桶index，然后根据index查找：
 
@@ -206,14 +216,7 @@
       }
 -----
 
-
-
-
-
-
-
-
-
+    上面查出来的东西，应该...不太确定，是这里加进去的，常量池的例子，开头那个问题里有：
 
 -----
     /share/vm/oops/constantPool.cpp
@@ -238,43 +241,4 @@
       assert(entry->symbol() != NULL, "SymbolHashMapEntry symbol is NULL");
     }
 -----
-=====
-
-        Klass* check = find_class(d_index, d_hash, name, loader_data);
-        if (check != NULL) {
-        // Klass is already loaded, so return it after checking/adding protection domain
-          k = instanceKlassHandle(THREAD, check);
-          class_has_been_loaded = true;
-        }
-      }
-    }
-
-    // must throw error outside of owning lock
-    if (throw_circularity_error) {
-      assert(!HAS_PENDING_EXCEPTION && load_instance_added == false,"circularity error cleanup");
-      ResourceMark rm(THREAD);
-      THROW_MSG_NULL(vmSymbols::java_lang_ClassCircularityError(), name->as_C_string());
-    }
-
-    if (!class_has_been_loaded) {
-
-      // Do actual loading
-      k = load_instance_class(name, class_loader, THREAD);
------
-    k = ClassLoader::load_classfile(class_name, CHECK_(nh));
------
-    /share/vm/classfile/classLoader.cpp
------
-    instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) 
------
-    instanceKlassHandle result = parser.parseClassFile(h_name,
-                                                       loader_data,
-                                                       protection_domain,
-                                                       parsed_name,
-                                                       context.should_verify(classpath_index),
-                                                       THREAD);
-
------
-    --> /share/vm/classfile/classFileParser.cpp 3700
-
 
