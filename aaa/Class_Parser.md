@@ -123,6 +123,16 @@
 -----
     /share/vm/classfile/classLoader.cpp
 -----
+PackageInfo* ClassLoader::lookup_package(const char *pkgname) {
+  const char *cp = strrchr(pkgname, '/');
+  if (cp != NULL) {
+    // Package prefix found
+    int n = cp - pkgname + 1;
+    return _package_hash_table->get_entry(pkgname, n);
+  }
+  return NULL;
+}
+-----
     instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
     
     ClassPathEntry* e = NULL;
