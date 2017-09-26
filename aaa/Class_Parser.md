@@ -147,7 +147,7 @@
     /share/vm/classfile/classFileParser.cpp 3700
 -----
 
-    上面加载类文件，从流中读取，到下面，从dictionary中查找，字典结构，先hash出桶index，然后根据index查找：
+    上面加载类文件，从流中读取，流是classloader中传给ClassFileParser构造函数的。下面从dictionary中查找，字典结构，先hash出桶index，然后根据index查找：
 
 -----
     /share/vm/classfile/systemDictionary.cpp
