@@ -185,6 +185,9 @@
     jint status = universe_init();  // dependent on codeCache_init and
                                     // stubRoutines_init1 and metaspace_init.
     . . .
+    
+    
+    <--/share/vm/runtime/thread.cpp : Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)
 -----
 
 
