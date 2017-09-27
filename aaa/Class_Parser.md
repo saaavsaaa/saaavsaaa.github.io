@@ -141,18 +141,22 @@
     顺着这个方法的引用找到了：
 
 -----
-void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int length,
-                                            int number_of_entries) {
-  assert(_package_hash_table == NULL, "One package info table allowed.");
-  assert(length == package_hash_table_size * sizeof(HashtableBucket<mtClass>),
-         "bad shared package info size.");
-  _package_hash_table = new PackageHashtable(package_hash_table_size, t,
-                                             number_of_entries);
-}
+    void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int length,
+                                                int number_of_entries) {
+      assert(_package_hash_table == NULL, "One package info table allowed.");
+      assert(length == package_hash_table_size * sizeof(HashtableBucket<mtClass>),
+             "bad shared package info size.");
+      _package_hash_table = new PackageHashtable(package_hash_table_size, t,
+                                                 number_of_entries);
+    }
 -----
  
      这个方法是在/share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
-     
+     initialize_shared_spaces方法中的注释：
+     Create the package info table using the bucket array at this spot in
+     the misc data space.  Since the package info table is never
+     modified, this region (of mapped pages) will be (effectively, if
+     not explicitly) read-only.
      The following data in the shared misc data region are the linked
      list elements (HashtableEntry objects) for the symbol table, string
      table, and shared dictionary.  The heap objects refered to by the
@@ -160,6 +164,7 @@ void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int len
      unmovable.  Since new entries added to the string and symbol tables
       are always added at the beginning of the linked lists, THESE LINKED
      LIST ELEMENTS ARE READ-ONLY.
+     从注释来看，这次似乎接近了。
  
 -----
 
