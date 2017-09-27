@@ -151,7 +151,7 @@
     }
 -----
  
-    这个方法是在/share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
+    /share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
     initialize_shared_spaces方法中的注释：
     Create the package info table using the bucket array at this spot in
     the misc data space.  Since the package info table is never
@@ -221,38 +221,38 @@
 
 
 
-void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
-  int offset = 0;
-  int len = (int)strlen(class_path);
-  int end = 0;
+    void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
+      int offset = 0;
+      int len = (int)strlen(class_path);
+      int end = 0;
 
-  // Iterate over class path entries
-  for (int start = 0; start < len; start = end) {
-    while (class_path[end] && class_path[end] != os::path_separator()[0]) {
-      end++;
-    }
-    EXCEPTION_MARK;
-    ResourceMark rm(THREAD);
-    char* path = NEW_RESOURCE_ARRAY(char, end - start + 1);
-    strncpy(path, &class_path[start], end - start);
-    path[end - start] = '\0';
-    if (canonicalize) {
-      char* canonical_path = NEW_RESOURCE_ARRAY(char, JVM_MAXPATHLEN + 1);
-      if (get_canonical_path(path, canonical_path, JVM_MAXPATHLEN)) {
-        path = canonical_path;
+      // Iterate over class path entries
+      for (int start = 0; start < len; start = end) {
+        while (class_path[end] && class_path[end] != os::path_separator()[0]) {
+          end++;
+        }
+        EXCEPTION_MARK;
+        ResourceMark rm(THREAD);
+        char* path = NEW_RESOURCE_ARRAY(char, end - start + 1);
+        strncpy(path, &class_path[start], end - start);
+        path[end - start] = '\0';
+        if (canonicalize) {
+          char* canonical_path = NEW_RESOURCE_ARRAY(char, JVM_MAXPATHLEN + 1);
+          if (get_canonical_path(path, canonical_path, JVM_MAXPATHLEN)) {
+            path = canonical_path;
+          }
+        }
+    #    update_class_path_entry_list(path, /*check_for_duplicates=*/canonicalize);
+    #if INCLUDE_CDS
+        if (DumpSharedSpaces) {
+          check_shared_classpath(path);
+        }
+    #endif
+        while (class_path[end] == os::path_separator()[0]) {
+          end++;
+        }
       }
     }
-#    update_class_path_entry_list(path, /*check_for_duplicates=*/canonicalize);
-#if INCLUDE_CDS
-    if (DumpSharedSpaces) {
-      check_shared_classpath(path);
-    }
-#endif
-    while (class_path[end] == os::path_separator()[0]) {
-      end++;
-    }
-  }
-}
 
 
 
@@ -287,8 +287,8 @@ void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
     /share/vm/classfile/systemDictionary.cpp
 -----
 
-       ClassLoaderData* loader_data = class_loader_data(class_loader);
-       unsigned int d_hash = dictionary()->compute_hash(child_name, loader_data); 
+      ClassLoaderData* loader_data = class_loader_data(class_loader);
+      unsigned int d_hash = dictionary()->compute_hash(child_name, loader_data); 
       int d_index = dictionary()->hash_to_index(d_hash);
       
       Klass* probe = dictionary()->find(d_index, d_hash, name, loader_data,
