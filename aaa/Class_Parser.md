@@ -123,33 +123,52 @@
 -----
     /share/vm/classfile/classLoader.cpp
 -----
-PackageInfo* ClassLoader::lookup_package(const char *pkgname) {
-  const char *cp = strrchr(pkgname, '/');
-  if (cp != NULL) {
-    // Package prefix found
-    int n = cp - pkgname + 1;
-    return _package_hash_table->get_entry(pkgname, n);
-  }
-  return NULL;
+    PackageInfo* ClassLoader::lookup_package(const char *pkgname) {
+      const char *cp = strrchr(pkgname, '/');
+      if (cp != NULL) {
+        // Package prefix found
+        int n = cp - pkgname + 1;
+        return _package_hash_table->get_entry(pkgname, n);
+      }
+      return NULL;
+    }
+-----
+    instanceKlassHandle record_result(const int classpath_index,
+                                          ClassPathEntry* e, instanceKlassHandle result, TRAPS) {
+          if (ClassLoader::add_package(_file_name, classpath_index, THREAD)) {
+-----
+
+    顺着这个方法的引用找到了：
+
+-----
+void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int length,
+                                            int number_of_entries) {
+  assert(_package_hash_table == NULL, "One package info table allowed.");
+  assert(length == package_hash_table_size * sizeof(HashtableBucket<mtClass>),
+         "bad shared package info size.");
+  _package_hash_table = new PackageHashtable(package_hash_table_size, t,
+                                             number_of_entries);
 }
 -----
-instanceKlassHandle record_result(const int classpath_index,
-                                      ClassPathEntry* e, instanceKlassHandle result, TRAPS) {
-      if (ClassLoader::add_package(_file_name, classpath_index, THREAD)) {
+ 
+     这个方法是在/share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
+ 
 -----
-instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) :
 
 
-ClassLoaderExt::Context context(class_name, file_name, THREAD);
 
-below code......-----
 
-1137  h = context.record_result(classpath_index, e, result, THREAD);
+
+
+
+
+
+
 -----
-    instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
-    
-    ClassPathEntry* e = NULL;
-    #e = _first_entry;
+     instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
+
+     ClassPathEntry* e = NULL;
+     #e = _first_entry;
 -----   
     _first_entry来源于：
 -----
