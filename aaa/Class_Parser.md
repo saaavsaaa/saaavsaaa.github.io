@@ -172,6 +172,18 @@
     
     
     <--/share/vm/runtime/init.cpp : jint init_globals()  // call constructors at startup (main Java thread)
+    
+    jint init_globals() {
+    HandleMark hm;
+    management_init();
+    bytecodes_init();
+    classLoader_init();
+    codeCache_init();
+    VM_Version_init();
+    os_init_globals();
+    stubRoutines_init1();
+    jint status = universe_init();  // dependent on codeCache_init and
+                                    // stubRoutines_init1 and metaspace_init.
 -----
 
 
