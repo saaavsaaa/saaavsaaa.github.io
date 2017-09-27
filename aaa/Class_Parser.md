@@ -152,6 +152,14 @@ void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int len
 -----
  
      这个方法是在/share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
+     
+     The following data in the shared misc data region are the linked
+     list elements (HashtableEntry objects) for the symbol table, string
+     table, and shared dictionary.  The heap objects refered to by the
+     symbol table, string table, and shared dictionary are permanent and
+     unmovable.  Since new entries added to the string and symbol tables
+      are always added at the beginning of the linked lists, THESE LINKED
+     LIST ELEMENTS ARE READ-ONLY.
  
 -----
 
