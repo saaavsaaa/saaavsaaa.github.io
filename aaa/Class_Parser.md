@@ -165,7 +165,13 @@
      are always added at the beginning of the linked lists, THESE LINKED
     LIST ELEMENTS ARE READ-ONLY.
     从注释来看，这次似乎接近了。
- 
+-----
+    调用在：
+    /share/vm/memory/universe.cpp
+    jint universe_init()
+    
+    
+    <--/share/vm/runtime/init.cpp : jint init_globals()  // call constructors at startup (main Java thread)
 -----
 
 
