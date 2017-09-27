@@ -184,6 +184,7 @@
     stubRoutines_init1();
     jint status = universe_init();  // dependent on codeCache_init and
                                     // stubRoutines_init1 and metaspace_init.
+    . . .
 -----
 
 
