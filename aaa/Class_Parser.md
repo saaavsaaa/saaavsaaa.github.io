@@ -189,7 +189,7 @@
     
     <--/share/vm/runtime/thread.cpp : Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)
 -----
-
+/home/aaa/Github/hotspot/src/share/vm/services/management.cpp
 
 
 
