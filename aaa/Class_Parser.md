@@ -118,6 +118,55 @@
         VM_ENTRY_BASE(result_type, header, thread)
 -----
 
+
+-----
+
+    上面那条线估计找不到什么了，从启动应用开始：
+    
+-----    
+    /share/vm/runtime/thread.cpp : Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)：
+        jint init_globals() {
+    HandleMark hm;
+    management_init();
+    bytecodes_init();
+    classLoader_init();
+    codeCache_init();
+    VM_Version_init();
+    os_init_globals();
+    stubRoutines_init1();
+    jint status = universe_init();  // dependent on codeCache_init and
+                                    // stubRoutines_init1 and metaspace_init.
+    . . .
+    
+-----
+    management_init():
+    /home/aaa/Github/hotspot/src/share/vm/services/management.cpp
+
+-----
+    --> /share/vm/runtime/init.cpp : jint init_globals()  // call constructors at startup (main Java thread)
+    
+    /share/vm/memory/universe.cpp
+    jint universe_init()
+    
+-----
+    /share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
+    initialize_shared_spaces方法中的注释：
+    Create the package info table using the bucket array at this spot in
+    the misc data space.  Since the package info table is never
+    modified, this region (of mapped pages) will be (effectively, if
+    not explicitly) read-only.
+    The following data in the shared misc data region are the linked
+    list elements (HashtableEntry objects) for the symbol table, string
+    table, and shared dictionary.  The heap objects refered to by the
+    symbol table, string table, and shared dictionary are permanent and
+    unmovable.  Since new entries added to the string and symbol tables
+     are always added at the beginning of the linked lists, THESE LINKED
+    LIST ELEMENTS ARE READ-ONLY.
+    从注释来看，这次似乎接近了。
+-----
+
+-----
+
     下面这个都认识：
 
 -----
@@ -151,45 +200,11 @@
     }
 -----
  
-    /share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
-    initialize_shared_spaces方法中的注释：
-    Create the package info table using the bucket array at this spot in
-    the misc data space.  Since the package info table is never
-    modified, this region (of mapped pages) will be (effectively, if
-    not explicitly) read-only.
-    The following data in the shared misc data region are the linked
-    list elements (HashtableEntry objects) for the symbol table, string
-    table, and shared dictionary.  The heap objects refered to by the
-    symbol table, string table, and shared dictionary are permanent and
-    unmovable.  Since new entries added to the string and symbol tables
-     are always added at the beginning of the linked lists, THESE LINKED
-    LIST ELEMENTS ARE READ-ONLY.
-    从注释来看，这次似乎接近了。
------
-    调用在：
-    /share/vm/memory/universe.cpp
-    jint universe_init()
+
+
     
-    
-    <--/share/vm/runtime/init.cpp : jint init_globals()  // call constructors at startup (main Java thread)
-    
-    jint init_globals() {
-    HandleMark hm;
-    management_init();
-    bytecodes_init();
-    classLoader_init();
-    codeCache_init();
-    VM_Version_init();
-    os_init_globals();
-    stubRoutines_init1();
-    jint status = universe_init();  // dependent on codeCache_init and
-                                    // stubRoutines_init1 and metaspace_init.
-    . . .
-    
-    
-    <--/share/vm/runtime/thread.cpp : Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)
------
-/home/aaa/Github/hotspot/src/share/vm/services/management.cpp
+
+
 
 
 
