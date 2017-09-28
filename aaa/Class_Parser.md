@@ -118,21 +118,20 @@
         VM_ENTRY_BASE(result_type, header, thread)
 -----
 
-    上面那条线估计找不到什么了，从启动应用开始：
+    上面那条线估计找不到什么了，从启动开始/share/vm/runtime/thread.cpp ：
     
 -----    
-    /share/vm/runtime/thread.cpp : 
+
     Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)：
     jint init_globals() :
-    
-    HandleMark hm;
-    management_init();
-    bytecodes_init();
-    classLoader_init();
-    codeCache_init();
-    VM_Version_init();
-    os_init_globals();
-    stubRoutines_init1();
+      HandleMark hm;
+      management_init();
+      bytecodes_init();
+      classLoader_init();
+      codeCache_init();
+      VM_Version_init();
+      os_init_globals();
+      stubRoutines_init1();
     jint status = universe_init();  // dependent on codeCache_init and
                                     // stubRoutines_init1 and metaspace_init.
     . . .
