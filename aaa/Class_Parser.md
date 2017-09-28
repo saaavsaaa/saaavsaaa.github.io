@@ -123,7 +123,7 @@
 -----    
 
     Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)：
-    jint init_globals() :
+    jint init_globals() : // call constructors at startup (main Java thread)
       HandleMark hm;
       management_init();
       bytecodes_init();
@@ -148,22 +148,9 @@
           ClassLoader::setup_bootstrap_search_path():
                _shared_paths_misc_info->add_boot_classpath(sys_class_path);
                setup_search_path(sys_class_path);
-    
-    
 -----
-
-
-
-
-
-
-
------
-    --> /share/vm/runtime/init.cpp : jint init_globals()  // call constructors at startup (main Java thread)
-    
     /share/vm/memory/universe.cpp
-    jint universe_init()
-    
+    jint universe_init() 
 -----
     /share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
     initialize_shared_spaces方法中的注释：
