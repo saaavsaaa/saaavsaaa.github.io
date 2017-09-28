@@ -153,6 +153,7 @@
 -----
     /share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
     initialize_shared_spaces方法中的注释：
+    
     Create the package info table using the bucket array at this spot in
     the misc data space.  Since the package info table is never
     modified, this region (of mapped pages) will be (effectively, if
@@ -164,8 +165,9 @@
     unmovable.  Since new entries added to the string and symbol tables
      are always added at the beginning of the linked lists, THESE LINKED
     LIST ELEMENTS ARE READ-ONLY.
-    从注释来看，这次似乎接近了。
     
+    从注释来看，这次似乎接近了。而且Metaspace的功能很相关。
+    
     if (DumpSharedSpaces) {
       MetaspaceShared::prepare_for_dumping();
     }
@@ -176,6 +178,8 @@
     }
     
     /share/vm/memory/filemap.hpp : 
+    bool FileMapInfo::initialize()
+        init_from_file(_fd);
     void FileMapInfo::allocate_classpath_entry_table() :
     
 -----
