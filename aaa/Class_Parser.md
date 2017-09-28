@@ -139,10 +139,17 @@
 -----
     /home/aaa/Github/hotspot/src/share/vm/services/management.cpp:
     management_init()
+    这里启动了写有意思的东西，问题查完了需要看看，比如safepoint、PerfData什么的一些计数器，这里有ClassLoadingService先翻翻，有class的load和unload的通知什么的。
+    
+    Bytecodes::initialize()，看样子所有的jvm指令都在这了。
 
 -----
 
-    这里启动了写有意思的东西，问题查完了需要看看，比如safepoint、PerfData什么的一些计数器，这里有ClassLoadingService先翻翻，有class的load和unload的通知什么的。
+
+
+
+
+
 
 -----
     --> /share/vm/runtime/init.cpp : jint init_globals()  // call constructors at startup (main Java thread)
