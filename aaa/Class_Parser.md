@@ -165,7 +165,26 @@
      are always added at the beginning of the linked lists, THESE LINKED
     LIST ELEMENTS ARE READ-ONLY.
     从注释来看，这次似乎接近了。
+    
+    if (DumpSharedSpaces) {
+      MetaspaceShared::prepare_for_dumping();
+    }
+    
+    void MetaspaceShared::prepare_for_dumping() {
+      ClassLoader::initialize_shared_path();
+      FileMapInfo::allocate_classpath_entry_table();
+    }
+    
+    /share/vm/memory/filemap.hpp : 
+    void FileMapInfo::allocate_classpath_entry_table() :
+    
 -----
+
+
+
+
+
+
 
 -----
 
