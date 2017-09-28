@@ -149,11 +149,13 @@
                _shared_paths_misc_info->add_boot_classpath(sys_class_path);
                setup_search_path(sys_class_path);
 -----
-    /share/vm/memory/universe.cpp
+    -->/share/vm/memory/universe.cpp :
     jint universe_init() 
------
-    /share/vm/memory/metaspaceShared.cpp的void MetaspaceShared::initialize_shared_spaces()方法中调用的。
-    initialize_shared_spaces方法中的注释：
+    --> /share/vm/memory/metaspaceShared.cpp:
+    void Metaspace::global_initialize() --> void MetaspaceGC::initialize()这部分先标记下，回头看
+    
+    void MetaspaceShared::initialize_shared_spaces()：
+    initialize_shared_spaces方法中的注释：
     
     Create the package info table using the bucket array at this spot in
     the misc data space.  Since the package info table is never
