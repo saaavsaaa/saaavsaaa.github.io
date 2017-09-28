@@ -143,6 +143,13 @@
     
     Bytecodes::initialize()，看样子所有的jvm指令都在这了。
 
+    classLoader_init:
+       ClassLoader::initialize():
+          ClassLoader::setup_bootstrap_search_path():
+               _shared_paths_misc_info->add_boot_classpath(sys_class_path);
+               setup_search_path(sys_class_path);
+    
+    
 -----
 
 
