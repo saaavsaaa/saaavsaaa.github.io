@@ -121,7 +121,8 @@
     上面那条线估计找不到什么了，从启动应用开始：
     
 -----    
-    /share/vm/runtime/thread.cpp : Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)：
+    /share/vm/runtime/thread.cpp : 
+    Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)：
     jint init_globals() :
     
     HandleMark hm;
