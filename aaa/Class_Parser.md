@@ -118,14 +118,12 @@
         VM_ENTRY_BASE(result_type, header, thread)
 -----
 
-
------
-
     上面那条线估计找不到什么了，从启动应用开始：
     
 -----    
     /share/vm/runtime/thread.cpp : Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)：
-        jint init_globals() {
+    jint init_globals() :
+    
     HandleMark hm;
     management_init();
     bytecodes_init();
@@ -139,8 +137,8 @@
     . . .
     
 -----
-    management_init():
-    /home/aaa/Github/hotspot/src/share/vm/services/management.cpp
+    /home/aaa/Github/hotspot/src/share/vm/services/management.cpp:
+    management_init()
 
 -----
     --> /share/vm/runtime/init.cpp : jint init_globals()  // call constructors at startup (main Java thread)
