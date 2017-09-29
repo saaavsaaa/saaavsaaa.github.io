@@ -198,8 +198,10 @@
                      void serialize(SerializeClosure* f) {
                        f->do_ptr((void**)&_klass);
                      }
-
-
+            // Dump/restore references to commonly used names and signatures.
+            vmSymbols::serialize(soc);
+-----
+    此处担心我翻译不好，还是直接看注释比较好。
 
 
 
