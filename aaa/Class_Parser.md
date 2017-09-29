@@ -434,4 +434,4 @@
       assert(entry->symbol() != NULL, "SymbolHashMapEntry symbol is NULL");
     }
 -----
-
+     搞不好，想多了，我要找的部分可能在JDK中...
