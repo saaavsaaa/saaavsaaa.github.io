@@ -201,8 +201,18 @@
             // Dump/restore references to commonly used names and signatures.
             vmSymbols::serialize(soc);
 -----
-    此处担心我翻译不好，还是直接看注释比较好。
 
+    此处担心我翻译不好，还是直接看注释比较好。
+    
+-----
+    MetaspaceShared::prepare_for_dumping():
+          ClassLoader::initialize_shared_path();
+          FileMapInfo::allocate_classpath_entry_table():
+              ClassLoaderData* loader_data = ClassLoaderData::the_null_class_loader_data();
+              size_t entry_size = SharedClassUtil::shared_class_path_entry_size();
+
+              for (int pass=0; pass<2; pass++) {
+                ClassPathEntry *cpe = ClassLoader::classpath_entry(0);
 
 
 
