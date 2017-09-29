@@ -184,9 +184,20 @@
     bool FileMapInfo::initialize()
         init_from_file(_fd);
     void FileMapInfo::allocate_classpath_entry_table() :
-    
 -----
-
+    ...
+    serialize(&rc);
+       void MetaspaceShared::serialize(SerializeClosure* soc)
+            Universe::serialize(soc, true);
+               _finalizer_register_cache->serialize(f);
+               _loader_addClass_cache->serialize(f);
+               _pd_implies_cache->serialize(f);
+               _throw_illegal_access_error_cache->serialize(f);
+                     // CDS support.  Replace the klass in this with the archive version
+                     // could use this for Enhanced Class Redefinition also.
+                     void serialize(SerializeClosure* f) {
+                       f->do_ptr((void**)&_klass);
+                     }
 
 
 
