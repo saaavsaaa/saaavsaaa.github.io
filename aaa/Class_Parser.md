@@ -185,6 +185,15 @@
         init_from_file(_fd);
     void FileMapInfo::allocate_classpath_entry_table() :
 -----
+    void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int length,
+                                                int number_of_entries) {
+      assert(_package_hash_table == NULL, "One package info table allowed.");
+      assert(length == package_hash_table_size * sizeof(HashtableBucket<mtClass>),
+             "bad shared package info size.");
+      _package_hash_table = new PackageHashtable(package_hash_table_size, t,
+                                                 number_of_entries);
+    }   
+-----
     ...
     serialize(&rc);
        void MetaspaceShared::serialize(SerializeClosure* soc)
@@ -213,10 +222,23 @@
 
               for (int pass=0; pass<2; pass++) {
                 ClassPathEntry *cpe = ClassLoader::classpath_entry(0);
-
+     看到这，我有些方了，似乎找错地方了，不过都已经到这了，先顺着看下去吧，回头再说问题，反正问题已经解决了。
 
 
 -----
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     下面这个都认识：
 
@@ -237,59 +259,11 @@
                                           ClassPathEntry* e, instanceKlassHandle result, TRAPS) {
           if (ClassLoader::add_package(_file_name, classpath_index, THREAD)) {
 -----
-
-    顺着这个方法的引用找到了：
-
------
-    void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int length,
-                                                int number_of_entries) {
-      assert(_package_hash_table == NULL, "One package info table allowed.");
-      assert(length == package_hash_table_size * sizeof(HashtableBucket<mtClass>),
-             "bad shared package info size.");
-      _package_hash_table = new PackageHashtable(package_hash_table_size, t,
-                                                 number_of_entries);
-    }
------
- 
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
------
      instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
 
      ClassPathEntry* e = NULL;
      #e = _first_entry;
 -----   
-    _first_entry来源于：
------
-    void ClassLoader::add_to_list(ClassPathEntry *new_entry) {
-      if (new_entry != NULL) {
-        if (_last_entry == NULL) {
-          _first_entry = _last_entry = new_entry;
-        } else {
-          _last_entry->set_next(new_entry);
-          _last_entry = new_entry;
-        }
-      }
-      _num_entries ++;
-    }
------   
-
-
-
-
-
     void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
       int offset = 0;
       int len = (int)strlen(class_path);
@@ -322,11 +296,6 @@
         }
       }
     }
-
-
-
-
-
 -----
     ClassFileParser parser(stream);
     ClassLoaderData* loader_data = ClassLoaderData::the_null_class_loader_data();
