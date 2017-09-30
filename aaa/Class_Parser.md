@@ -264,29 +264,10 @@
 
        return JNI_OK;
      }
-
-
 -----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    下面这个都认识：
-
+     然后就是向操作系统请求创建线程什么的，还有下面classloader也看了一些
+     
 -----
     /share/vm/classfile/classLoader.cpp
 -----
@@ -458,4 +439,7 @@
       assert(entry->symbol() != NULL, "SymbolHashMapEntry symbol is NULL");
     }
 -----
-     搞不好，想多了，我要找的部分可能在JDK中...
+
+     总体来说多看看还是有好处的，等我把原因找到了再回来接着看，先转向jdk，其实第一时间应该去找jdk的，不过是因为刚好在研究jvm的源码，想都没想就从这开始了...。
+     
+-----     
