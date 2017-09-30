@@ -222,10 +222,55 @@
 
               for (int pass=0; pass<2; pass++) {
                 ClassPathEntry *cpe = ClassLoader::classpath_entry(0);
-     看到这，我有些方了，似乎找错地方了，不过都已经到这了，先顺着看下去吧，回头再说问题，反正问题已经解决了。
+     看到这，我有些方了，似乎找错地方了，应该去jdk里找找，后面就随便贴一下，反正根据命名和注释都能看出来是干什么。
+       interpreter_init();  // before any methods loaded
+       invocationCounter_init();  // before any methods loaded
+       marksweep_init();
+       accessFlags_init();
+       templateTable_init();
+       InterfaceSupport_init();
+       SharedRuntime::generate_stubs();
+       universe2_init();  // dependent on codeCache_init and stubRoutines_init1
+       referenceProcessor_init();
+       jni_handles_init();
+     #if INCLUDE_VM_STRUCTS
+       vmStructs_init();
+     #endif // INCLUDE_VM_STRUCTS
+
+       vtableStubs_init();
+       InlineCacheBuffer_init();
+       compilerOracle_init();
+       compilationPolicy_init();
+       compileBroker_init();
+       VMRegImpl::set_regName();
+
+       if (!universe_post_init()) {
+         return JNI_ERR;
+       }
+       javaClasses_init();   // must happen after vtable initialization
+       stubRoutines_init2(); // note: StubRoutines need 2-phase init
+
+     #if INCLUDE_NMT
+       // Solaris stack is walkable only after stubRoutines are set up.
+       // On Other platforms, the stack is always walkable.
+       NMT_stack_walkable = true;
+     #endif // INCLUDE_NMT
+
+       // All the flags that get adjusted by VM_Version_init and os::init_2
+       // have been set so dump the flags now.
+       if (PrintFlagsFinal) {
+         CommandLineFlags::printFlags(tty, false);
+       }
+
+       return JNI_OK;
+     }
 
 
 -----
+
+
+
+
 
 
 
