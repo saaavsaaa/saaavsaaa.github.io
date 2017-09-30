@@ -3,7 +3,7 @@
     
     主要猜测，一是在问题的那篇中打印的load jar处，这里应该会根据已经扫过的jar的路径去加载；另外一个是启动初始化的地方会扫jar;顺便也看了些相关的代码，这里算是代码的记录吧，因为还没有证明，问题也没有解决。
     
-    然而，事实证明，都猜错了，现在开始去jdk里找了，就是装jdk的目录里src.zip包里的，其实第一时间应该去找jdk的，不过是因为刚好在研究hotspot的源码，想都没想就从jvm开始了...。
+    然而，事实证明，我就不该跟着走进jvm，现在回到jdk里找了，就是装jdk的目录里src.zip包里的，不过是因为刚好在研究hotspot的源码，想都没想就顺进jvm了...。
 
 -----
 
@@ -225,7 +225,11 @@
 
               for (int pass=0; pass<2; pass++) {
                 ClassPathEntry *cpe = ClassLoader::classpath_entry(0);
+-----               
+               
      看到这，我有些方了，似乎找错地方了，应该去jdk里找找，后面就随便贴一下，反正根据命名和注释都能看出来是干什么。
+     
+-----     
        interpreter_init();  // before any methods loaded
        invocationCounter_init();  // before any methods loaded
        marksweep_init();
