@@ -1,10 +1,23 @@
 
     在[之前排查的一个问题](https://saaavsaaa.github.io/aaa/NoSuchMethodError-Base64-decodeBase64.html) 的结尾还留了一个问题，为什么有的机器会加载正确的类，有的就是错的。因为这一段在上线一个项目，灰度公测阶段，所以拖了些天，穿插着看了看加载相关的一些hotspot代码，以前也没看过，就边猜测边看了。因为是穿插着看，怕今天看的明天就忘了，所以下面流水账记录了我看的过程。
     
-    主要猜测，一是在问题的那篇中打印的load jar处，这里应该会根据已经扫过的jar的路径去加载；另外一个是启动初始化的地方会扫jar;顺便也看了些相关的代码，这里算是代码的记录吧，因为还没有证明，问题也没有解决。
+    看了一些jvm代码（下面有看的过程中的记录，有兴趣的可以看看），最终在rt.jar中找到了JarFile这个类，代码在jdk的src.zip包里的。
+    用 https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/report/btrace/JarBTrace.java 脚本跟踪了一下：
     
-    然而，事实证明，我就不该跟着走进jvm，现在回到jdk里找了，就是装jdk的目录里src.zip包里的，不过是因为刚好在研究hotspot的源码，想都没想就顺进jvm了...。
+-----    
 
+    正常的服务器脚本的输出：
+    ![Image](/ppp/213jarload.png)
+    
+-----    
+    
+    异常的服务器上脚本输出：
+    ![Image](/ppp/213jarload.png)
+    
+-----    
+    
+    这个问题在多台服务器上都出现了，所以搜集多台的输出后可以确认这个规律，其实在下面代码的记录中也可以看出，如果有多个同名的类只会加载其中第一个。在不出问题的服务器上commons-codec-1.10.jar是在http-1.1.0.jar之前加载的，而出问题的服务器正好相反。
+  
 -----
 
     我找到的可能和jar包相关的，然而并不是我想要的部分，这里应该是在加载JDK相关的jar
