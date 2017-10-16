@@ -8,13 +8,13 @@
 
     正常的服务器脚本的输出：
     
-    ![Image](/ppp/213jarload.png)
+![Image](/ppp/213jarload.png)
     
 -----    
     
     异常的服务器上脚本输出：
     
-    ![Image](/ppp/213jarload.png)
+![Image](/ppp/213jarload.png)
     
 -----
 
