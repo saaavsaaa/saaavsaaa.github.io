@@ -23,6 +23,8 @@
 -----
 
     /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出jar，由于是栈，所以urls中jar的顺序和加载顺序正好是相反的。
+    
+    private final AccessControlContext acc;
 
 -----
 
