@@ -22,10 +22,33 @@
 
 -----
 
-    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出jar，由于是栈，所以urls中jar的顺序和加载顺序正好是相反的。
-    
-    private final AccessControlContext acc;
+    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出jar，由于是栈，所以urls中jar的顺序和加载顺序正好是相反的。其实，URLClassPath类中有个顺序正常的，而且还是先于urls赋值的：private ArrayList<URL> path。
+    ，
+    private final AccessControlContext acc;
 
+-----
+    public URLClassPath(URL[] var1, URLStreamHandlerFactory var2, AccessControlContext var3) {
+        this.path = new ArrayList();
+        this.urls = new Stack();
+        this.loaders = new ArrayList();
+        this.lmap = new HashMap();
+        this.closed = false;
+
+        for(int var4 = 0; var4 < var1.length; ++var4) {
+            this.path.add(var1[var4]);
+        }
+
+        this.push(var1);//压栈
+        if(var2 != null) {
+            this.jarHandler = var2.createURLStreamHandler("jar");
+        }
+
+        if(DISABLE_ACC_CHECKING) {
+            this.acc = null;
+        } else {
+            this.acc = var3;
+        }
+    }
 -----
 
     从启动部分开始找加载：
