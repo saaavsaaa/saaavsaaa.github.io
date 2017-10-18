@@ -46,7 +46,10 @@
    };
 -----
 
-    构造里似乎没什么关系，
+    构造里似乎没什么关系，然后回到cpp仔细看了下，发现了一段注释：
+      // following are JVMTI agent writeable properties.
+     // Properties values are set to NULL and they are
+     // os specific they are initialized in os::init_system_properties_values().
 
 -----
 
