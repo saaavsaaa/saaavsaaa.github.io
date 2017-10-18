@@ -22,7 +22,7 @@
 
 -----
 
-    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出jar，由于是栈，所以urls中jar的顺序和加载顺序正好是相反的。其实，URLClassPath类中有个顺序正常的，而且还是先于urls赋值的：private ArrayList<URL> path。还有每个jar的loader：ArrayList<URLClassPath.Loader> loaders，jar路径和jarLoader的映射：HashMap<String, URLClassPath.Loader> lmap。
+    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private ArrayList<URL> path有所有加载的jar的URL。这个类里还有每个jar的loader：ArrayList<URLClassPath.Loader> loaders，jar路径和jarLoader的映射：HashMap<String, URLClassPath.Loader> lmap。lmap通过private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出的jar来构造loader并加入映射的。
     ，
     private final AccessControlContext acc;
 
