@@ -23,34 +23,34 @@
 -----
 
     /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private ArrayList<URL> path有所有加载的jar的URL。这个类里还有每个jar的loader：ArrayList<URLClassPath.Loader> loaders，jar路径和jarLoader的映射：HashMap<String, URLClassPath.Loader> lmap。lmap通过private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出的jar来构造loader并加入映射的。有两个URLClassLoader加载不同的URLClassPath实例，一个只有jaccess.jar等几个，一个有所有的。不过这都不重要，这些jar都是从classpath加载的。于是我在几个服务器上用jinfo输出了java.class.path，并对比了一下发现正常服务器和服务器中，这两个jar的顺序果然是不一样的。那么我估计问题是出现jvm对java.class.path赋值的前面了，或许是操作系统什么的。
-
+    于是决定看看java.class.path初始化的情况，代码在/home/aaa/Github/hotspot/src/share/vm/runtime/arguments.cpp:_java_class_path = new SystemProperty("java.class.path", "",  true)。SystemProperty的构造在/home/aaa/Github/hotspot/src/share/vm/runtime/arguments.hpp：
 
 -----
-    public URLClassPath(URL[] var1, URLStreamHandlerFactory var2, AccessControlContext var3) {
-        this.path = new ArrayList();
-        this.urls = new Stack();
-        this.loaders = new ArrayList();
-        this.lmap = new HashMap();
-        this.closed = false;
-
-        for(int var4 = 0; var4 < var1.length; ++var4) {
-            this.path.add(var1[var4]);
-        }
-
-        this.push(var1);//压栈
-        if(var2 != null) {
-            this.jarHandler = var2.createURLStreamHandler("jar");
-        }
-
-        if(DISABLE_ACC_CHECKING) {
-            this.acc = null;
-        } else {
-            this.acc = var3;
-        }
-    }
+     // Constructor
+     SystemProperty(const char* key, const char* value, bool writeable) {
+       if (key == NULL) {
+         _key = NULL;
+       } else {
+         _key = AllocateHeap(strlen(key)+1, mtInternal);
+         strcpy(_key, key);
+       }
+       if (value == NULL) {
+         _value = NULL;
+       } else {
+         _value = AllocateHeap(strlen(value)+1, mtInternal);
+         ba(_value, value);
+       }
+       _next = NULL;
+       _writeable = writeable;
+     }
+   };
 -----
 
-    从启动部分开始找加载：
+-----
+
+-----
+
+    下面是找线索的时候胡乱看的一些代码的记录，从启动部分开始找加载：
 
 -----
     /jdk/launcher/java.c
