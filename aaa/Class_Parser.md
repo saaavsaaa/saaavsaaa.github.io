@@ -22,7 +22,7 @@
 
 -----
 
-    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private ArrayList<URL> path有所有加载的jar的URL。这个类里还有每个jar的loader：ArrayList<URLClassPath.Loader> loaders，jar路径和jarLoader的映射：HashMap<String, URLClassPath.Loader> lmap。lmap通过private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出的jar来构造loader并加入映射的。urls和path中数据的来源相同，不同的是path会保存所有的。
+    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private ArrayList<URL> path有所有加载的jar的URL。这个类里还有每个jar的loader：ArrayList<URLClassPath.Loader> loaders，jar路径和jarLoader的映射：HashMap<String, URLClassPath.Loader> lmap。lmap通过private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出的jar来构造loader并加入映射的。两个URLClassPath实例
     ，
     private final AccessControlContext acc;
 
