@@ -208,6 +208,49 @@
     }
 -----
 
+
+
+
+  // Change the default value for flags  which have different default values
+  // when working with older JDKs.
+#ifdef LINUX
+ if (JDK_Version::current().compare_major(6) <= 0 &&
+      FLAG_IS_DEFAULT(UseLinuxPosixThreadCPUClocks)) {
+    FLAG_SET_DEFAULT(UseLinuxPosixThreadCPUClocks, false);
+  }
+#endif // LINUX
+  fix_appclasspath();
+  return JNI_OK;
+}
+
+
+void Arguments::fix_appclasspath() {
+.....
+  if (!PrintSharedArchiveAndExit) {
+    ClassLoader::trace_class_path(tty, "[classpath: ", _java_class_path->value());
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----
+
     引用它的地方是：
 
 -----
