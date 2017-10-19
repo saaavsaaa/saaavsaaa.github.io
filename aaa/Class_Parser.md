@@ -59,7 +59,10 @@
 ```
 
     这个方法的定义在os.hpp中，不过实现是不同的系统不一样，所以并没有在对应的cpp中，我是linux系统，所以我去找了 /home/aaa/Github/hotspot/src/os/linux/vm/os_linux.cpp，不过也没有我想要的。arguments.cpp中只有对endorsed，ext，bootclasspath的目录文件读取，看来配置的classpath不在这里。
+    
 -----
+
+    翻了一些代码以后，ClassLoader::setup_search_path拼接，哪里读的？
 
 -----
 
