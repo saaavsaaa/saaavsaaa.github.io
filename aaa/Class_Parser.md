@@ -62,9 +62,14 @@
     
 -----
 
-    翻了一些代码以后，ClassLoader::setup_search_path拼接，哪里读的？
+    
 
 -----
+
+
+
+
+
 
 /home/aaa/Github/hotspot/src/share/vm/runtime/init.cpp
 jint init_globals()
@@ -80,6 +85,8 @@ void ClassLoader::initialize()
 void ClassLoader::setup_bootstrap_search_path()
 
 
+-XX:+TraceClassPaths
+[Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
 
 void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
   int offset = 0;
