@@ -211,18 +211,40 @@
 
 
 
-  // Change the default value for flags  which have different default values
-  // when working with older JDKs.
-#ifdef LINUX
- if (JDK_Version::current().compare_major(6) <= 0 &&
-      FLAG_IS_DEFAULT(UseLinuxPosixThreadCPUClocks)) {
-    FLAG_SET_DEFAULT(UseLinuxPosixThreadCPUClocks, false);
-  }
-#endif // LINUX
-  fix_appclasspath();
-  return JNI_OK;
-}
 
+
+void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
+  int offset = 0;
+  int len = (int)strlen(class_path);
+  int end = 0;
+
+  // Iterate over class path entries
+  for (int start = 0; start < len; start = end) {
+    while (class_path[end] && class_path[end] != os::path_separator()[0]) {
+      end++;
+    }
+    EXCEPTION_MARK;
+    ResourceMark rm(THREAD);
+    char* path = NEW_RESOURCE_ARRAY(char, end - start + 1);
+    strncpy(path, &class_path[start], end - start);
+    path[end - start] = '\0';
+    if (canonicalize) {
+      char* canonical_path = NEW_RESOURCE_ARRAY(char, JVM_MAXPATHLEN + 1);
+      if (get_canonical_path(path, canonical_path, JVM_MAXPATHLEN)) {
+        path = canonical_path;
+      }
+    }
+    update_class_path_entry_list(path, /*check_for_duplicates=*/canonicalize);
+#if INCLUDE_CDS
+    if (DumpSharedSpaces) {
+      check_shared_classpath(path);
+    }
+#endif
+    while (class_path[end] == os::path_separator()[0]) {
+      end++;
+    }
+  }
+}
 
 
 
