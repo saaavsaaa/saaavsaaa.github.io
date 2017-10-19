@@ -186,30 +186,18 @@
     }
 -----
 
-    下面是找线索的时候胡乱看的一些代码的记录，从启动部分开始找加载：
+/home/aaa/Github/hotspot/src/share/vm/runtime/init.cpp
+jint init_globals()
 
------
-    /jdk/launcher/java.c
------
-    int JLI_Launch(int argc, char ** argv, .... :
+/home/aaa/Github/hotspot/src/share/vm/classfile/classLoader.cpp
+void classLoader_init() {
+  ClassLoader::initialize();
+}
 
-    static void SelectVersion(int argc, char **argv, char **main_class):
-    if (splash_file_name && !headlessflag) {
-        char* splash_file_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_FILE_ENV_ENTRY "=")+JLI_StrLen(splash_file_name)+1);
-        JLI_StrCpy(splash_file_entry, SPLASH_FILE_ENV_ENTRY "=");
-        JLI_StrCat(splash_file_entry, splash_file_name);
-        putenv(splash_file_entry);
-    }
-    if (splash_jar_name && !headlessflag) {
-        char* splash_jar_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_JAR_ENV_ENTRY "=")+JLI_StrLen(splash_jar_name)+1);
-        JLI_StrCpy(splash_jar_entry, SPLASH_JAR_ENV_ENTRY "=");
-        JLI_StrCat(splash_jar_entry, splash_jar_name);
-        putenv(splash_jar_entry);
-    }
------
+void ClassLoader::initialize()
 
 
-
+void ClassLoader::setup_bootstrap_search_path()
 
 
 
@@ -263,6 +251,28 @@ void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
 
 
 
+-----
+
+    下面是找线索的时候胡乱看的一些代码的记录，从启动部分开始找加载：
+
+-----
+    /jdk/launcher/java.c
+-----
+    int JLI_Launch(int argc, char ** argv, .... :
+
+    static void SelectVersion(int argc, char **argv, char **main_class):
+    if (splash_file_name && !headlessflag) {
+        char* splash_file_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_FILE_ENV_ENTRY "=")+JLI_StrLen(splash_file_name)+1);
+        JLI_StrCpy(splash_file_entry, SPLASH_FILE_ENV_ENTRY "=");
+        JLI_StrCat(splash_file_entry, splash_file_name);
+        putenv(splash_file_entry);
+    }
+    if (splash_jar_name && !headlessflag) {
+        char* splash_jar_entry = JLI_MemAlloc(JLI_StrLen(SPLASH_JAR_ENV_ENTRY "=")+JLI_StrLen(splash_jar_name)+1);
+        JLI_StrCpy(splash_jar_entry, SPLASH_JAR_ENV_ENTRY "=");
+        JLI_StrCat(splash_jar_entry, splash_jar_name);
+        putenv(splash_jar_entry);
+    }
 -----
 
     引用它的地方是：
