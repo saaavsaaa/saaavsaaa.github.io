@@ -86,7 +86,7 @@ void ClassLoader::setup_bootstrap_search_path()
 
 
 -XX:+TraceClassPaths
-[classpath: ...]这一行有也就是说在这个方法之前
+[classpath: ...]这一行Arguments::fix_appclasspath()
 
 [Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
 
