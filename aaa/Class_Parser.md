@@ -86,7 +86,12 @@ void ClassLoader::setup_bootstrap_search_path()
 
 
 -XX:+TraceClassPaths
-[classpath: ...]这一行Arguments::fix_appclasspath()
+[classpath: ...]这一行
+jint Arguments::parse_each_vm_init_arg
+Arguments::fix_appclasspath():
+  if (!PrintSharedArchiveAndExit) {
+    ClassLoader::trace_class_path(tty, "[classpath: ", _java_class_path->value());
+  }
 
 [Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
 
