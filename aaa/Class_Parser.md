@@ -22,7 +22,7 @@
 
 -----
 
-    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private ArrayList<URL> path有所有加载的jar的URL。这个类里还有每个jar的loader：ArrayList<URLClassPath.Loader> loaders，jar路径和jarLoader的映射：HashMap<String, URLClassPath.Loader> lmap。lmap通过private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出的jar来构造loader并加入映射的。有两个URLClassLoader加载不同的URLClassPath实例，一个只有jaccess.jar等几个，一个有所有的。不过这都不重要，这些jar都是从classpath加载的。于是我在几个服务器上用jinfo输出了java.class.path，并对比了一下发现正常服务器和服务器中，这两个jar的顺序果然是不一样的。那么我估计问题是出现jvm对java.class.path赋值的前面了，或许是操作系统什么的。
+    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/URLClassPath.class中的private ArrayList<URL> path有所有加载的jar的URL。这个类里还有每个jar的loader：ArrayList<URLClassPath.Loader> loaders，jar路径和jarLoader的映射：HashMap<String, URLClassPath.Loader> lmap。lmap通过private synchronized URLClassPath.Loader getLoader(int var1)方法从Stack<URL> urls中弹出的jar来构造loader并加入映射的。有两个URLClassLoader加载不同的URLClassPath实例，一个只有jre/lib下的几个jar，一个有所有的。不过这都不重要，这些jar都是从classpath加载的。于是我在几个服务器上用jinfo输出了java.class.path，并对比了一下发现正常服务器和服务器中，这两个jar的顺序果然是不一样的。那么我估计问题是出现jvm对java.class.path赋值的前面了，或许是操作系统什么的。
     
     于是决定看看java.class.path初始化的情况，代码在/home/aaa/Github/hotspot/src/share/vm/runtime/arguments.cpp:_java_class_path = new SystemProperty("java.class.path", "",  true)。SystemProperty的构造在/home/aaa/Github/hotspot/src/share/vm/runtime/arguments.hpp：
 
