@@ -71,6 +71,37 @@
 
 
 
+
+
+
+-XX:+TraceClassPaths
+[classpath: ...]这一行
+/home/aaa/Github/hotspot/src/share/vm/runtime/thread.cpp:
+  // Parse arguments
+  jint parse_result = Arguments::parse(args);
+  
+    // Parse JavaVMInitArgs structure passed in, as well as JAVA_TOOL_OPTIONS and _JAVA_OPTIONS
+    jint result = parse_vm_init_args(args);
+      // Parse JAVA_TOOL_OPTIONS environment variable (if present)
+     jint result = parse_java_tool_options_environment_variable(&scp, &scp_assembly_required);
+     if (result != JNI_OK) {
+       return result;
+     }
+     // Parse JavaVMInitArgs structure passed in
+     result = parse_each_vm_init_arg(args, &scp, &scp_assembly_required, Flag::COMMAND_LINE);
+     if (result != JNI_OK) {
+       return result;
+     }
+     
+     jint Arguments::parse_each_vm_init_arg
+     Arguments::fix_appclasspath():
+       if (!PrintSharedArchiveAndExit) {
+         ClassLoader::trace_class_path(tty, "[classpath: ", _java_class_path->value());
+       }
+
+
+
+[Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
 /home/aaa/Github/hotspot/src/share/vm/runtime/init.cpp
 jint init_globals()
 
@@ -81,52 +112,8 @@ void classLoader_init() {
 
 void ClassLoader::initialize()
 
-
 void ClassLoader::setup_bootstrap_search_path()
 
-
--XX:+TraceClassPaths
-[classpath: ...]这一行
-jint Arguments::parse_each_vm_init_arg
-Arguments::fix_appclasspath():
-  if (!PrintSharedArchiveAndExit) {
-    ClassLoader::trace_class_path(tty, "[classpath: ", _java_class_path->value());
-  }
-
-[Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
-
-void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
-  int offset = 0;
-  int len = (int)strlen(class_path);
-  int end = 0;
-
-  // Iterate over class path entries
-  for (int start = 0; start < len; start = end) {
-    while (class_path[end] && class_path[end] != os::path_separator()[0]) {
-      end++;
-    }
-    EXCEPTION_MARK;
-    ResourceMark rm(THREAD);
-    char* path = NEW_RESOURCE_ARRAY(char, end - start + 1);
-    strncpy(path, &class_path[start], end - start);
-    path[end - start] = '\0';
-    if (canonicalize) {
-      char* canonical_path = NEW_RESOURCE_ARRAY(char, JVM_MAXPATHLEN + 1);
-      if (get_canonical_path(path, canonical_path, JVM_MAXPATHLEN)) {
-        path = canonical_path;
-      }
-    }
-    update_class_path_entry_list(path, /*check_for_duplicates=*/canonicalize);
-#if INCLUDE_CDS
-    if (DumpSharedSpaces) {
-      check_shared_classpath(path);
-    }
-#endif
-    while (class_path[end] == os::path_separator()[0]) {
-      end++;
-    }
-  }
-}
 
 
 
