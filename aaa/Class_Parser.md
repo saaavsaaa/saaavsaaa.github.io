@@ -75,26 +75,35 @@
 
 
 -XX:+TraceClassPaths
+
 [classpath: ...]这一行
+
 /home/aaa/Github/hotspot/src/share/vm/runtime/thread.cpp:
   // Parse arguments
   jint parse_result = Arguments::parse(args);
-  
-    // Parse JavaVMInitArgs structure passed in, as well as JAVA_TOOL_OPTIONS and _JAVA_OPTIONS
-    jint result = parse_vm_init_args(args);
-      // Parse JAVA_TOOL_OPTIONS environment variable (if present)
+```markdown
+     // Parse JAVA_TOOL_OPTIONS environment variable (if present)
      jint result = parse_java_tool_options_environment_variable(&scp, &scp_assembly_required);
      if (result != JNI_OK) {
        return result;
      }
+
      // Parse JavaVMInitArgs structure passed in
      result = parse_each_vm_init_arg(args, &scp, &scp_assembly_required, Flag::COMMAND_LINE);
      if (result != JNI_OK) {
        return result;
      }
+
+     // Parse _JAVA_OPTIONS environment variable (if present) (mimics classic VM)
+     result = parse_java_options_environment_variable(&scp, &scp_assembly_required);
+     if (result != JNI_OK) {
+       return result;
+     }
+ ```
+     parse_java_tool_options_environment_variable和parse_java_options_environment_variable都有调用parse_each_vm_init_arg，这里提一句_JAVA_OPTIONS会覆盖JAVA_TOOL_OPTIONS的同key配置。
      
      parse_each_vm_init_arg这方法一进来就看到这么一段。。。
- ```markdown
+```markdown
     if (!match_option(option, "-Djava.class.path", &tail) &&
         !match_option(option, "-Dsun.java.command", &tail) &&
         !match_option(option, "-Dsun.java.launcher", &tail)) {
@@ -107,13 +116,16 @@
         build_jvm_args(option->optionString);
     }
 ```
-     
+
+    这就是打印上面那句的地方：
+   
+```markdown
      jint Arguments::parse_each_vm_init_arg
      Arguments::fix_appclasspath():
        if (!PrintSharedArchiveAndExit) {
          ClassLoader::trace_class_path(tty, "[classpath: ", _java_class_path->value());
        }
-
+```
 
 
 [Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
