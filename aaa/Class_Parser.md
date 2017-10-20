@@ -127,7 +127,6 @@
        }
 ```
 
-
 [Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
 /home/aaa/Github/hotspot/src/share/vm/runtime/init.cpp
 jint init_globals()
@@ -142,6 +141,10 @@ void ClassLoader::initialize()
 void ClassLoader::setup_bootstrap_search_path()
 
 
+大体上代码都在这一部分了，可以看出代码中并没有对加载顺序有所改变，加载方法用的是opendir和readdir函数，由于c的知识都还给老师了，于是询问了一下同事，同事说加载顺序是依赖系统顺序的，也就是inode
+
+写了个简单的c方法，打印inode编号：
+https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/report/main.c
 
 
 
