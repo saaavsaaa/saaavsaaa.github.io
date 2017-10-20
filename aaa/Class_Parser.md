@@ -93,6 +93,21 @@
        return result;
      }
      
+     parse_each_vm_init_arg这方法一进来就看到这么一段。。。
+ ```markdown
+    if (!match_option(option, "-Djava.class.path", &tail) &&
+        !match_option(option, "-Dsun.java.command", &tail) &&
+        !match_option(option, "-Dsun.java.launcher", &tail)) {
+
+        // add all jvm options to the jvm_args string. This string
+        // is used later to set the java.vm.args PerfData string constant.
+        // the -Djava.class.path and the -Dsun.java.command options are
+        // omitted from jvm_args string as each have their own PerfData
+        // string constant object.
+        build_jvm_args(option->optionString);
+    }
+```
+     
      jint Arguments::parse_each_vm_init_arg
      Arguments::fix_appclasspath():
        if (!PrintSharedArchiveAndExit) {
