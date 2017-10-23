@@ -181,7 +181,7 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
   d_off:6682174700565688505 d_name: mybatis-spring-1.3.1.jar
   d_off:6858079168157560275 d_name: http-1.1.0.jar
 ```
-
+    对照前面正常服务器的截图可以发现，顺序和这是一样的，
 
 
 
