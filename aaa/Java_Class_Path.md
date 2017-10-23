@@ -1,4 +1,4 @@
-    使用-XX:+TraceClassPaths或者在服务器上执行jinfo时，都能得到classpath加载的jar包，例如：
+    使用-XX:+TraceClassPaths或者在服务器上执行jinfo时，都能得到classpath包含的jar包，例如：
     
 ```markdown
 java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/aaa/lib/spring-tx-4.3.8.RELEASE.jar:/usr/local/aaa/lib/spring-jdbc-4.3.7.RELEASE.jar:/usr/local/aaa/lib/classmate-1.3.1.jar:/usr/local/aaa/lib/javax.servlet-api-3.1.0.jar:/usr/local/aaa/lib/mongodb-driver-3.4.2.jar:/usr/local/aaa/lib/xml-apis-2.0.2.jar:/usr/local/aaa/lib/ufc-api-utils-2.0.0.jar:/usr/local/aaa/lib/log4j-over-slf4j-1.7.25.jar:/usr/local/aaa/lib/tomcat-embed-websocket-8.5.14.jar:...
