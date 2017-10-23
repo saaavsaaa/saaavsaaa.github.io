@@ -1,3 +1,8 @@
+    使用-XX:+TraceClassPaths或者在服务器上执行jinfo时，都能得到classpath加载的jar包，例如：
+    
+```markdown
+java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/aaa/lib/spring-tx-4.3.8.RELEASE.jar:/usr/local/aaa/lib/spring-jdbc-4.3.7.RELEASE.jar:/usr/local/aaa/lib/classmate-1.3.1.jar:/usr/local/aaa/lib/javax.servlet-api-3.1.0.jar:/usr/local/aaa/lib/mongodb-driver-3.4.2.jar:/usr/local/aaa/lib/xml-apis-2.0.2.jar:/usr/local/aaa/lib/ufc-api-utils-2.0.0.jar:/usr/local/aaa/lib/log4j-over-slf4j-1.7.25.jar:/usr/local/aaa/lib/tomcat-embed-websocket-8.5.14.jar:...
+```
 
     在[之前排查的一个问题](https://saaavsaaa.github.io/aaa/NoSuchMethodError-Base64-decodeBase64.html) 的结尾还留了一个问题，为什么有的机器会加载正确的类，有的就是错的。因为这一段在上线一个项目，灰度公测阶段，所以拖了些天，穿插着看了看加载相关的一些hotspot代码，以前也没看过，就边猜测边看了。因为是穿插着看，怕今天看的明天就忘了，所以下面流水账记录了我看的过程。
     
