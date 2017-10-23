@@ -64,29 +64,16 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
     os::init_system_properties_values();
 ```
 
-    这个方法的定义在os.hpp中，不过实现是不同的系统不一样，所以并没有在对应的cpp中，我是linux系统，所以我去找了 /home/aaa/Github/hotspot/src/os/linux/vm/os_linux.cpp，不过也没有我想要的。arguments.cpp中只有对endorsed，ext，bootclasspath的目录文件读取，看来配置的classpath不在这里。
-    
------
-
+    这个方法的定义在os.hpp中，不过实现是不同的系统不一样，所以并没有在对应的cpp中，我是linux系统，所以我去找了 /home/aaa/Github/hotspot/src/os/linux/vm/os_linux.cpp，不过也没有我想要的。arguments.cpp中只找到了对endorsed，ext，bootclasspath的目录文件读取。
     
-
 -----
 
+    然后找到了-XX:+TraceClassPaths参数的输出位置：
+    [classpath: ...]的调用链：
 
-
-
-
-
-
-
-
--XX:+TraceClassPaths
-
-[classpath: ...]这一行
-
-/home/aaa/Github/hotspot/src/share/vm/runtime/thread.cpp:
-  // Parse arguments
-  jint parse_result = Arguments::parse(args);
+    /home/aaa/Github/hotspot/src/share/vm/runtime/thread.cpp:
+    // Parse arguments
+    jint parse_result = Arguments::parse(args);
 ```markdown
      // Parse JAVA_TOOL_OPTIONS environment variable (if present)
      jint result = parse_java_tool_options_environment_variable(&scp, &scp_assembly_required);
@@ -108,7 +95,8 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
  ```
      parse_java_tool_options_environment_variable和parse_java_options_environment_variable都有调用parse_each_vm_init_arg，这里提一句_JAVA_OPTIONS会覆盖JAVA_TOOL_OPTIONS的同key配置。
      
-     parse_each_vm_init_arg这方法一进来就看到这么一段。。。
+     parse_each_vm_init_arg这方法一进来就看到这么一段略坑，不过也无所谓了响。。。
+     
 ```markdown
     if (!match_option(option, "-Djava.class.path", &tail) &&
         !match_option(option, "-Dsun.java.command", &tail) &&
@@ -133,21 +121,23 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
        }
 ```
 
-[Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]
-/home/aaa/Github/hotspot/src/share/vm/runtime/init.cpp
-jint init_globals()
+    然后[Bootstrap loader class path=/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes]这一句输出:
+    
+```markdown
+    /home/aaa/Github/hotspot/src/share/vm/runtime/init.cpp
+    jint init_globals()
 
-/home/aaa/Github/hotspot/src/share/vm/classfile/classLoader.cpp
-void classLoader_init() {
-  ClassLoader::initialize();
-}
+    /home/aaa/Github/hotspot/src/share/vm/classfile/classLoader.cpp
+    void classLoader_init() {
+      ClassLoader::initialize();
+    }
 
-void ClassLoader::initialize()
+    void ClassLoader::initialize()
 
-void ClassLoader::setup_bootstrap_search_path()
+    void ClassLoader::setup_bootstrap_search_path()
+```
 
-
-大体上代码都在这一部分了，可以看出代码中并没有对加载顺序有所改变，加载方法用的是opendir和readdir函数，由于c的知识都还给老师了，于是询问了一下同事，同事说加载顺序是依赖系统顺序的，也就是inode
+    大体上代码都在这一部分了，可以看出代码中并没有对加载顺序有所改变，然后比较重要的线索就是加载方法用的是opendir和readdir函数，在ios同事的协助下，终于确定了，问题就是jar的加载顺序问题，那这个顺序是由什么决定的呢：
 
 写了个简单的c方法，打印inode编号：
 https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/report/main.c
