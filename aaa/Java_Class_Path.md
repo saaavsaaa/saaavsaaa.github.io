@@ -217,8 +217,11 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
     下面是找线索的时候胡乱看的一些代码的记录，从启动部分开始找加载：
 
 -----
+
     /jdk/launcher/java.c
+
 -----
+
     int JLI_Launch(int argc, char ** argv, .... :
 
     static void SelectVersion(int argc, char **argv, char **main_class):
@@ -234,11 +237,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
         JLI_StrCat(splash_jar_entry, splash_jar_name);
         putenv(splash_jar_entry);
     }
+
 -----
 
     引用它的地方是：
 
 -----
+
     /launcher/main.c :
     int main(int argc, char **argv):
      ...
@@ -251,11 +256,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
                    (const_launcher != NULL) ? const_launcher : *margv,
                    (const_jargs != NULL) ? JNI_TRUE : JNI_FALSE,
                    const_cpwildcard, const_javaw, const_ergo_class);
+
 -----
-   
+
     这里应该是应用启动的地方：
-    
+
 -----
+
     JavaMain(void * _args):
     mainClass = LoadMainClass(env, mode, what);
     appClass = GetApplicationClass(env);
@@ -268,12 +275,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
                 "(ZILjava/lang/String;)Ljava/lang/Class;"));
 
     (*env)->CallStaticVoidMethod(env, mainClass, mainID, mainArgs);
-                
+
 -----
 
     加载了启动类，根据参数类型什么的检查是不是启动类，然后调用，调用部分就到jvm里了，注意JNIEnv。
 
 -----
+
     /share/vm/prims/jni.h:
     typedef const struct JNINativeInterface_ *JNIEnv;
     
@@ -326,10 +334,11 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
         ThreadInVMfromNative __tiv(thread);                              \
         debug_only(VMNativeEntryWrapper __vew;)                          \
         VM_ENTRY_BASE(result_type, header, thread)
+
 -----
 
     上面那条线估计找不到什么了，从启动开始/share/vm/runtime/thread.cpp ：
-    
+
 -----    
 
     Threads::create_vm(JavaVMInitArgs* args, bool* canTryAgain)：
@@ -345,12 +354,14 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
     jint status = universe_init();  // dependent on codeCache_init and
                                     // stubRoutines_init1 and metaspace_init.
     . . .
-    
+
 -----
+
     /home/aaa/Github/hotspot/src/share/vm/services/management.cpp:
     management_init()
-    这里启动了写有意思的东西，问题查完了需要看看，比如safepoint、PerfData什么的一些计数器，这里有ClassLoadingService先翻翻，有class的load和unload的通知什么的。
     
+    这里启动了写有意思的东西，问题查完了需要看看，比如safepoint、PerfData什么的一些计数器，这里有ClassLoadingService先翻翻，有class的load和unload的通知什么的。
+
     Bytecodes::initialize()，看样子所有的jvm指令都在这了。
 
     classLoader_init:
@@ -358,7 +369,9 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
           ClassLoader::setup_bootstrap_search_path():
                _shared_paths_misc_info->add_boot_classpath(sys_class_path);
                setup_search_path(sys_class_path);
+
 -----
+
     -->/share/vm/memory/universe.cpp :
     jint universe_init() 
     --> /share/vm/memory/metaspaceShared.cpp:
@@ -394,7 +407,9 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
     bool FileMapInfo::initialize()
         init_from_file(_fd);
     void FileMapInfo::allocate_classpath_entry_table() :
+
 -----
+
     void ClassLoader::create_package_info_table(HashtableBucket<mtClass> *t, int length,
                                                 int number_of_entries) {
       assert(_package_hash_table == NULL, "One package info table allowed.");
@@ -403,7 +418,9 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       _package_hash_table = new PackageHashtable(package_hash_table_size, t,
                                                  number_of_entries);
     }   
+
 -----
+
     ...
     serialize(&rc);
        void MetaspaceShared::serialize(SerializeClosure* soc)
@@ -419,11 +436,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
                      }
             // Dump/restore references to commonly used names and signatures.
             vmSymbols::serialize(soc);
+
 -----
 
     此处担心我翻译不好，还是直接看注释比较好。
     
 -----
+
     MetaspaceShared::prepare_for_dumping():
           ClassLoader::initialize_shared_path();
           FileMapInfo::allocate_classpath_entry_table():
@@ -432,11 +451,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
 
               for (int pass=0; pass<2; pass++) {
                 ClassPathEntry *cpe = ClassLoader::classpath_entry(0);
+
 -----               
                
      看到这，我有些方了，似乎找错地方了，应该去jdk里找找，后面就随便贴一下，反正根据命名和注释都能看出来是干什么。
      
------     
+-----    
+
        interpreter_init();  // before any methods loaded
        invocationCounter_init();  // before any methods loaded
        marksweep_init();
@@ -478,13 +499,17 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
 
        return JNI_OK;
      }
+
 -----
 
      然后就是向操作系统请求创建线程什么的，还有下面classloader也看了一些
      
 -----
+
     /share/vm/classfile/classLoader.cpp
+
 -----
+
     PackageInfo* ClassLoader::lookup_package(const char *pkgname) {
       const char *cp = strrchr(pkgname, '/');
       if (cp != NULL) {
@@ -494,16 +519,22 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       }
       return NULL;
     }
+
 -----
+
     instanceKlassHandle record_result(const int classpath_index,
                                           ClassPathEntry* e, instanceKlassHandle result, TRAPS) {
           if (ClassLoader::add_package(_file_name, classpath_index, THREAD)) {
+
 -----
+
      instanceKlassHandle ClassLoader::load_classfile(Symbol* h_name, TRAPS) : 
 
      ClassPathEntry* e = NULL;
      #e = _first_entry;
------   
+
+----- 
+
     void ClassLoader::setup_search_path(const char *class_path, bool canonicalize) {
       int offset = 0;
       int len = (int)strlen(class_path);
@@ -536,7 +567,9 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
         }
       }
     }
+
 -----
+
     ClassFileParser parser(stream);
     ClassLoaderData* loader_data = ClassLoaderData::the_null_class_loader_data();
     Handle protection_domain;
@@ -547,7 +580,9 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
                                                        parsed_name,
                                                        context.should_verify(classpath_index),
                                                        THREAD);
+
 -----
+
     instanceKlassHandle result = parser.parseClassFile(h_name,
                                                        loader_data,
                                                        protection_domain,
@@ -556,13 +591,17 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
                                                        THREAD);
 
 -----
+
     /share/vm/classfile/classFileParser.cpp 3700
+
 -----
 
     上面加载类文件，从流中读取，流是classloader中传给ClassFileParser构造函数的。下面从dictionary中查找，字典结构，先hash出桶index，然后根据index查找：
 
 -----
+
     /share/vm/classfile/systemDictionary.cpp
+
 -----
 
       ClassLoaderData* loader_data = class_loader_data(class_loader);
@@ -571,9 +610,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       
       Klass* probe = dictionary()->find(d_index, d_hash, name, loader_data,
                                           protection_domain, THREAD);
+
 -----
+
     Klass* check = find_class(d_index, d_hash, name, loader_data)
+
 -----
+
     Klass* SystemDictionary::find_class(int index, unsigned int hash,
                                           Symbol* class_name,
                                           ClassLoaderData* loader_data) {
@@ -584,9 +627,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       Klass* k = dictionary()->find_class(index, hash, class_name, loader_data);
       return k;
     }
+
 -----
+
     /share/vm/classfile/dictionary.cpp
+
 -----
+
     Klass* Dictionary::find_class(int index, unsigned int hash,
                                     Symbol* name, ClassLoaderData* loader_data) {
       assert_locked_or_safepoint(SystemDictionary_lock);
@@ -595,7 +642,9 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       DictionaryEntry* entry = get_entry(index, hash, name, loader_data);
       return (entry != NULL) ? entry->klass() : (Klass*)NULL;
     }
+
 -----
+
     DictionaryEntry* Dictionary::get_entry(int index, unsigned int hash,
                                            Symbol* class_name,
                                            ClassLoaderData* loader_data) {
@@ -610,15 +659,19 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       }
       return NULL;
     }
+
 -----
+
       DictionaryEntry* bucket(int i) {
         return (DictionaryEntry*)Hashtable<Klass*, mtClass>::bucket(i);
       }
+
 -----
 
     这个词典的数据结构扩展至hashtable，因为对外提供的是内联模板的方法，所以单独放在hashtable.inline，模板感觉就相当于泛型：
 
 -----
+
       /hotspot/src/share/vm/utilities/hashtable.cpp : 
       #include "utilities/hashtable.inline.hpp"
       /share/vm/utilities/hashtable.inline.hpp :
@@ -626,11 +679,13 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       template <MEMFLAGS F> inline BasicHashtableEntry<F>* BasicHashtable<F>::bucket(int i) {
         return _buckets[i].get_entry();
       }
+
 -----
 
     上面查出来的东西，应该...不太确定，是这里加进去的，常量池的例子，开头那个问题里有：
 
 -----
+
     /share/vm/oops/constantPool.cpp
     void SymbolHashMap::add_entry(Symbol* sym, u2 value) {
       char *str = sym->as_utf8();
@@ -652,6 +707,7 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
       _buckets[index].set_entry(entry);
       assert(entry->symbol() != NULL, "SymbolHashMapEntry symbol is NULL");
     }
+
 -----
 
 微信公众号：
