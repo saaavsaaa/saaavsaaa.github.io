@@ -195,18 +195,22 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
   d_off:8635726305307688944 d_name: commons-codec-1.10.jar
 ```
 
-     同样可以对照上面错误服务器的截图，而且一般情况下，修改了文件名，再改回来，或者从新上传一个，这个编号依然还是这个，所以在出问题的服务器上问题稳定复现。那么，这个问题终于是可以告一段落了，原因搞清楚了，心理就有底了。
+     同样可以对照上面错误服务器的截图，而且一般情况下，修改了文件名，再改回来，或者从新上传一个，这个编号依然还是这个，所以在出问题的服务器上问题稳定复现。那么，这个问题终于是可以告一段落了，原因搞清楚了，心理就有底了。解决什么的就随便了，我就随便把名字改成zzzhttp然后问题就在两个包都存在的情况下解决了。
 
-
-
-
-
-
-
-
-
-
-
+```markdown
+  d_off:8635726305307688944 d_name: commons-codec-1.10.jar
+  d_off:8710228832141418589 d_name: xercesImpl-2.6.2.jar
+  d_off:8722513994996448409 d_name: android-json-0.0.20131108.vaadin1.jar
+  d_off:8754081964290049159 d_name: ufc-api-utils-2.0.0.jar
+  d_off:8830796801498266528 d_name: httpcore-4.3.jar
+  d_off:8854152647200610772 d_name: tomcat-jdbc-8.5.11.jar
+  d_off:8971846312288780129 d_name: spring-tx-4.3.8.RELEASE.jar
+  d_off:8986236906371055996 d_name: bcprov-jdk15-1.45.jar
+  d_off:8988385379950226997 d_name: mysql-connector-java-5.1.30.jar
+  d_off:8994464230154278010 d_name: p2p-common-1.0-SNAPSHOT.jar
+  d_off:9012703293696799571 d_name: mybatis-spring-boot-starter-1.3.0.jar
+  d_off:9057592519440006836 d_name: zzzhttp-1.1.0.jar
+```
 
 -----
 
