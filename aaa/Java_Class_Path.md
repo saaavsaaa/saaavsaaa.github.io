@@ -181,8 +181,21 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
   d_off:6682174700565688505 d_name: mybatis-spring-1.3.1.jar
   d_off:6858079168157560275 d_name: http-1.1.0.jar
 ```
-    对照前面正常服务器的截图可以发现，顺序和这是一样的，
 
+    对照前面正常服务器的截图可以发现，顺序和这是一样的。而出错的服务器：
+
+```markdown
+  d_off:7500897893766328572 d_name: http-1.1.0.jar
+  d_off:7630237192571233449 d_name: jaxen-1.1-beta-4.jar
+  d_off:7846439931967980783 d_name: xom-1.0b3.jar
+  d_off:7986273690820996399 d_name: jxl-2.6.jar
+  d_off:8013065173263952359 d_name: spring-boot-starter-thymeleaf-1.5.3.RELEASE.jar
+  d_off:8231450206996036007 d_name: spring-context-support-4.3.8.RELEASE.jar
+  d_off:8471297127500795042 d_name: jpush-client-3.2.9.jar
+  d_off:8635726305307688944 d_name: commons-codec-1.10.jar
+```
+
+     同样可以对照上面错误服务器的截图，那么，这个问题终于是可以告一段落了，原因搞清楚了，心理就有底了。
 
 
 
