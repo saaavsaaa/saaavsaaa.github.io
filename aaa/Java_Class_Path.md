@@ -3,10 +3,11 @@
 ```markdown
 java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/aaa/lib/spring-tx-4.3.8.RELEASE.jar:/usr/local/aaa/lib/spring-jdbc-4.3.7.RELEASE.jar:/usr/local/aaa/lib/classmate-1.3.1.jar:/usr/local/aaa/lib/javax.servlet-api-3.1.0.jar:/usr/local/aaa/lib/mongodb-driver-3.4.2.jar:/usr/local/aaa/lib/xml-apis-2.0.2.jar:/usr/local/aaa/lib/ufc-api-utils-2.0.0.jar:/usr/local/aaa/lib/log4j-over-slf4j-1.7.25.jar:/usr/local/aaa/lib/tomcat-embed-websocket-8.5.14.jar:...
 ```
-
-    在[之前排查的一个问题](https://saaavsaaa.github.io/aaa/NoSuchMethodError-Base64-decodeBase64.html) 的结尾还留了一个问题，为什么有的机器会加载正确的类，有的就是错的。因为这一段在上线一个项目，灰度公测阶段，所以拖了些天，穿插着看了看加载相关的一些hotspot代码，以前也没看过，就边猜测边看了。因为是穿插着看，怕今天看的明天就忘了，所以下面流水账记录了我看的过程。
     
-    看了一些jvm代码（下面有看的过程中的记录，有兴趣的可以看看），最终在rt.jar中找到了JarFile这个类，代码在jdk的src.zip包里的。
+    这些jar的顺序不同的机器总是不一样的，平时没有问题，所以也没有细想过，这些jar包的顺序为什么会不一样的。
+    在[之前排查的一个问题](https://saaavsaaa.github.io/aaa/NoSuchMethodError-Base64-decodeBase64.html) 的结尾还留了一个问题，为什么有的机器会加载正确的类，有的就是错的。因为这一段在上线一个项目，灰度公测阶段，所以拖了些天，穿插着看了看加载相关的一些hotspot代码，以前也没看过，就边猜测边看了。因为是穿插着看，怕今天看的明天就忘了，所以后面一部分流水账记录了我看的过程。
+    
+    总之，经过一番查代码，最终在rt.jar中找到了JarFile这个类，代码在jdk的src.zip包里的。
     用 https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/report/btrace/JarBTrace.java 脚本跟踪了一下：
     
 -----    
