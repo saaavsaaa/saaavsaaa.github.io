@@ -62,10 +62,10 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
      
     // Set OS specific system properties values
     os::init_system_properties_values();
-```
+``` 
 
     这个方法的定义在os.hpp中，不过实现是不同的系统不一样，所以并没有在对应的cpp中，我是linux系统，所以我去找了 /home/aaa/Github/hotspot/src/os/linux/vm/os_linux.cpp，不过也没有我想要的。arguments.cpp中只找到了对endorsed，ext，bootclasspath的目录文件读取。
-    
+
 -----
 
     然后找到了-XX:+TraceClassPaths参数的输出位置：
@@ -141,8 +141,46 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
     
     于是写了个简单的c方法来验证，打印inode号：https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/report/main.c
 
-
-
+```markdown
+  d_off:4066763678044974396 d_name: commons-codec-1.10.jar
+  d_off:4317940688349827723 d_name: commons-lang-2.5.jar
+  d_off:4319988583919237504 d_name: jul-to-slf4j-1.7.25.jar
+  d_off:4356646752930279233 d_name: spring-aop-4.3.8.RELEASE.jar
+  d_off:4579877846802590742 d_name: tomcat-embed-core-8.5.14.jar
+  d_off:4731608207059974753 d_name: groovy-2.4.3.jar
+  d_off:4771541818858258978 d_name: jpush-client-3.2.9.jar
+  d_off:4817159055427520488 d_name: httpcore-4.3.jar
+  d_off:5037058976412869958 d_name: rocketmq-common-3.2.6.jar
+  d_off:5112026581585883935 d_name: xmlParserAPIs-2.6.2.jar
+  d_off:5223887631628650300 d_name: commons-fileupload-1.2.2.jar
+  d_off:5270962929984509613 d_name: logback-core-1.1.11.jar
+  d_off:5295594039709144434 d_name: jackson-core-2.8.8.jar
+  d_off:5313324231349868064 d_name: .
+  d_off:5369671282559728007 d_name: spring-webmvc-4.3.8.RELEASE.jar
+  d_off:5480616600783493234 d_name: xalan-2.6.0.jar
+  d_off:5598132018198955916 d_name: unbescape-1.1.0.RELEASE.jar
+  d_off:5620136379821311472 d_name: spring-boot-starter-aop-1.5.3.RELEASE.jar
+  d_off:5639942392021544761 d_name: mybatis-3.4.4.jar
+  d_off:5688537857783605585 d_name: validation-api-1.1.0.Final.jar
+  d_off:5689351964973998306 d_name: json-lib-2.4-jdk15.jar
+  d_off:5708471019688158398 d_name: tagsoup-0.9.7.jar
+  d_off:5716046632217600256 d_name: xom-1.0b3.jar
+  d_off:5736731302988875630 d_name: p2p-repository-1.0-SNAPSHOT.jar
+  d_off:5770969695350360533 d_name: ognl-3.0.8.jar
+  d_off:5946256519116188501 d_name: jackson-annotations-2.8.0.jar
+  d_off:6011005565981751131 d_name: jxl-2.6.jar
+  d_off:6121401373763401899 d_name: spring-data-mongodb-1.10.3.RELEASE.jar
+  d_off:6155887434083949861 d_name: icu4j-2.6.1.jar
+  d_off:6203694621577639938 d_name: jboss-logging-3.3.0.Final.jar
+  d_off:6241670413890043636 d_name: jaxme-api-0.3.jar
+  d_off:6317802240634228683 d_name: thymeleaf-2.1.5.RELEASE.jar
+  d_off:6362118033392674189 d_name: logback-classic-1.1.11.jar
+  d_off:6391821784225315730 d_name: snakeyaml-1.17.jar
+  d_off:6447926989912518869 d_name: javassist-3.16.1-GA.jar
+  d_off:6586996539318953387 d_name: spring-boot-1.5.3.RELEASE.jar
+  d_off:6682174700565688505 d_name: mybatis-spring-1.3.1.jar
+  d_off:6858079168157560275 d_name: http-1.1.0.jar
+```
 
 
 
