@@ -137,10 +137,9 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
     void ClassLoader::setup_bootstrap_search_path()
 ```
 
-    大体上代码都在这一部分了，可以看出代码中并没有对加载顺序有所改变，然后比较重要的线索就是加载方法用的是opendir和readdir函数，在ios同事的协助下，终于确定了，问题就是jar的加载顺序问题，那这个顺序是由什么决定的呢：
-
-写了个简单的c方法，打印inode编号：
-https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/report/main.c
+    大体上代码都在这一部分了，可以看出代码中并没有对加载顺序有所改变，然后比较重要的线索就是加载方法用的是opendir和readdir函数，在ios同事的协助下，终于确定了，问题就是jar的加载顺序问题，而这个顺序实际上是由文件系统决定的，linux内部是用inode来指示文件的。
+    
+    于是写了个简单的c方法来验证，打印inode号：https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/report/main.c
 
 
 
