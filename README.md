@@ -1,11 +1,17 @@
-## Welcome!
+## Welcome!    
+
+微信公众号：
+
+![Image](/ppp/20170902204445.jpg)
+
 -----
+
 [博客园上的博客](http://www.cnblogs.com/saaav)
 
+-----
+New Blog List:
+-----
 
------
-Blog List:
------
 ### [过滤器的路径匹配](https://saaavsaaa.github.io/aaa/FilterRegistrationBean-And-InterceptorRegistry-Check-Path.html)
 ### [SpringBoot排除自启动](https://saaavsaaa.github.io/aaa/Spring-Boot-Exclude.html)
 ### [一次Base64-decodeBase64-NoSuchMethodError查找过程](https://saaavsaaa.github.io/aaa/NoSuchMethodError-Base64-decodeBase64.html)
@@ -16,6 +22,42 @@ Blog List:
 =====
 
 testing:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## [**默认** *AAA* ***AAA***](/aaa/aaa.md)
 ```markdown
@@ -33,6 +75,6 @@ testing:
 
 -----
 
-微信公众号：
+
 
 ![Image](/ppp/20170902204445.jpg)
