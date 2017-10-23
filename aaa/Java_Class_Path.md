@@ -249,7 +249,7 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
                    const_cpwildcard, const_javaw, const_ergo_class);
 -----
    
-    这里应该是应用启动的地方，这里还在jdk中：
+    这里应该是应用启动的地方：
     
 -----
     JavaMain(void * _args):
@@ -650,6 +650,6 @@ java.class.path = local/aaa/lib/spring-data-redis-1.8.3.RELEASE.jar:/usr/local/a
     }
 -----
 
-     总体来说多看看还是有好处的，等我把原因找到了再回来接着看，先转向jdk。
-     
------     
+微信公众号：
+
+![Image](/ppp/20170902204445.jpg)   
