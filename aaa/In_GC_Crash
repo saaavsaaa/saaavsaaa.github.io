@@ -1,0 +1,59 @@
+Current thread (0x00007fa3a00b5800):  VMThread [stack: 0x00007fa390cd7000,0x00007fa390dd8000] [id=19257]
+
+RAX=0x0000000000000040 is an unknown value
+RBX=0x00007fa32b7f6730 is pointing into the stack for thread: 0x00007fa32c039800
+RCX=0x00007fa30adfd010 is an unknown value
+RDX=0x0000000000000000 is an unknown value
+RSP=0x00007fa390dd6720 is an unknown value
+RBP=0x00007fa390dd6720 is an unknown value
+RSI=0x0000000000000000 is an unknown value
+RDI=0x0000000000000000 is an unknown value
+R8 =0x0000000000000000 is an unknown value
+R9 =0x000000000000002a is an unknown value
+R10=0x0000000000000000 is an unknown value
+R11=0x00007fa3a7b3db20: <offset 0x63db20> in /usr/local/jdk1.8.0_91/jre/lib/amd64/server/libjvm.so at 0x00007fa3a7500000
+R12=0x00007fa3a7b1c420: <offset 0x61c420> in /usr/local/jdk1.8.0_91/jre/lib/amd64/server/libjvm.so at 0x00007fa3a7500000
+R13=0x00000001009e1dc8 is pointing into metadata
+R14=0x00007fa390dd673c is an unknown value
+R15=0x00007fa32b7f66a0 is pointing into the stack for thread: 0x00007fa32c039800
+
+
+Other Threads:
+=>0x00007fa3a00b5800 VMThread [stack: 0x00007fa390cd7000,0x00007fa390dd8000] [id=19257]
+  0x00007fa3a010b000 WatcherThread [stack: 0x00007fa381eff000,0x00007fa382000000] [id=19266]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007fa3a0006ac0] Threads_lock - owner thread: 0x00007fa3a00b5800
+[0x00007fa3a0007040] Heap_lock - owner thread: 0x00007fa32c039800
+
+
+
+
+identity_map_codec.rb:51" daemon [_thread_blocked, id=19284, stack(0x00007fa32b1f8000,0x00007fa32b3f9000)]
+  0x00007fa32c03a800 JavaThread "[main]<file" daemon [_thread_blocked, id=19283, stack(0x00007fa32b3f9000,0x00007fa32b5fa000)]
+  0x00007fa32c039800 JavaThread "[main]<file" daemon [_thread_blocked, id=19282, stack(0x00007fa32b5fa000,0x00007fa32b7fb000)]
+  0x00007fa32c038000 JavaThread "[main]<file" daemon [_thread_blocked, id=19281, stack(0x00007fa32b7fc000,0x00007fa32b9fd000)]
+  0x00007fa32c036800 JavaThread "[main]<file" daemon [_thread_blocked, id=19280, stack(0x00007fa32b9fd000,0x00007fa32bbfe000)]
+  0x00007fa32c02b800 JavaThread "[main]<file" daemon [_thread_blocked, id=19279, stack(0x00007fa32bbfe000,0x00007fa32bdff000)]
+  0x00007fa32c025800 JavaThread "[main]<file" daemon [_thread_blocked, id=19278, stack(0x00007fa32bdff000,0x00007fa32c000000)]
+  0x00007fa32c023000 JavaThread "[main]<file" daemon [_thread_blocked, id=19277, stack(0x00007fa360119000,0x00007fa36031a000)]
+  0x00007fa334002800 JavaThread "[main]-pipeline-manager" daemon [_thread_blocked, id=19276, stack(0x00007fa36031a000,0x00007fa36051b000)]
+  0x00007fa340001000 JavaThread "pool-2-thread-1" [_thread_blocked, id=19275, stack(0x00007fa36051b000,0x00007fa36071c000)]
+  
+  
+  
+  
+  
+  Internal exceptions (10 events):
+Event: 3175189.838 Thread 0x00007fa32c1ee800 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c1bde570) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
+Event: 3175190.227 Thread 0x00007fa32c1f0800 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c1e0def8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
+Event: 3175205.591 Thread 0x00007fa32c1ee000 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c2c114e0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
+Event: 3175206.057 Thread 0x00007fa32c1f0800 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c32ddfd0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
+Event: 3175210.248 Thread 0x00007fa32c1ee000 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c013b2b8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
+Event: 3175215.785 Thread 0x00007fa32c1f0800 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c0664360) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
+Event: 3175220.940 Thread 0x00007fa340006800 Implicit null exception at 0x00007fa39157ea7f to 0x00007fa39157f395
+Event: 3175221.675 Thread 0x00007fa32c1ee000 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000d4c8ebf8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
+Event: 3175225.052 Thread 0x00007fa32c025800 Implicit null exception at 0x00007fa3922e05f9 to 0x00007fa3922e1fb5
+Event: 3175225.052 Thread 0x00007fa340001000 Implicit null exception at 0x00007fa393615368 to 0x00007fa393615bbd
