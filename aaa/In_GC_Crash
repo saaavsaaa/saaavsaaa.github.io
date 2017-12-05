@@ -2,12 +2,9 @@
   # V  [libjvm.so+0x68fddb]  java_lang_Class::signers(oopDesc*)+0x1b
 
   一般当前线程是crash的直接原因，然而这次似乎不是，这次崩之前应用记录了out of memory
-
-```markdown
-
+-----
   Current thread (*0x00007fa3a00b5800*):  VMThread [stack: 0x00007fa390cd7000,0x00007fa390dd8000] [id=19257]
-  
-```
+-----
 
   崩的时候线程栈里的操作都是虚拟机的，正在打Dump这是。。。，打Dump打崩了？
 ```markdown
