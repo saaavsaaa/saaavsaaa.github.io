@@ -1,4 +1,5 @@
-Current thread (0x00007fa3a00b5800):  VMThread [stack: 0x00007fa390cd7000,0x00007fa390dd8000] [id=19257]
+一般当前线程是crash的直接原因，然而这次似乎不是
+Current thread (*0x00007fa3a00b5800*):  VMThread [stack: 0x00007fa390cd7000,0x00007fa390dd8000] [id=19257]
 
 RAX=0x0000000000000040 is an unknown value
 RBX=0x00007fa32b7f6730 is pointing into the stack for thread: 0x00007fa32c039800
