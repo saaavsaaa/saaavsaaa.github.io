@@ -57,3 +57,16 @@ Event: 3175220.940 Thread 0x00007fa340006800 Implicit null exception at 0x00007f
 Event: 3175221.675 Thread 0x00007fa32c1ee000 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000d4c8ebf8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
 Event: 3175225.052 Thread 0x00007fa32c025800 Implicit null exception at 0x00007fa3922e05f9 to 0x00007fa3922e1fb5
 Event: 3175225.052 Thread 0x00007fa340001000 Implicit null exception at 0x00007fa393615368 to 0x00007fa393615bbd
+
+
+Events (10 events):
+Event: 3175226.764 Executing VM operation: GenCollectForAllocation done
+Event: 3175226.764 Executing VM operation: GenCollectForAllocation
+Event: 3175227.434 Executing VM operation: GenCollectForAllocation done
+Event: 3175227.434 Executing VM operation: GenCollectForAllocation
+Event: 3175228.091 Executing VM operation: GenCollectForAllocation done
+Event: 3175228.091 Executing VM operation: GenCollectForAllocation
+Event: 3175228.762 Executing VM operation: GenCollectForAllocation done
+Event: 3175228.762 Executing VM operation: GenCollectForAllocation
+Event: 3175229.256 Executing VM operation: GenCollectForAllocation done
+Event: 3175229.256 Executing VM operation: HeapDumper
