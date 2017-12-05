@@ -1,5 +1,5 @@
-  # Problematic frame:
-  # V  [libjvm.so+0x68fddb]  java_lang_Class::signers(oopDesc*)+0x1b
+    # Problematic frame:
+    # V  [libjvm.so+0x68fddb]  java_lang_Class::signers(oopDesc*)+0x1b
 
   一般当前线程是crash的直接原因，然而这次似乎不是，这次崩之前应用记录了out of memory
 ```markdown
@@ -8,7 +8,6 @@
 
   崩的时候线程栈里的操作都是虚拟机的，正在打Dump这是。。。，打Dump打崩了？
 ```markdown
-
   Stack: [0x00007fa390cd7000,0x00007fa390dd8000],  sp=0x00007fa390dd6720,  free space=1021k
   Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
   V  [libjvm.so+0x68fddb]  java_lang_Class::signers(oopDesc*)+0x1b
@@ -22,10 +21,9 @@
   V  [libjvm.so+0x91ef78]  java_start(Thread*)+0x108
 
   VM_Operation (0x00007fa32b7f66a0): HeapDumper, mode: safepoint, requested by thread 0x00007fa32c039800
-  
 ```
 
-
+```markdown
   RAX=0x0000000000000040 is an unknown value
   RBX=0x00007fa32b7f6730 is pointing into the stack for thread: 0x00007fa32c039800
   RCX=0x00007fa30adfd010 is an unknown value
@@ -47,6 +45,7 @@
   Other Threads:
   =>0x00007fa3a00b5800 VMThread [stack: 0x00007fa390cd7000,0x00007fa390dd8000] [id=19257]
     0x00007fa3a010b000 WatcherThread [stack: 0x00007fa381eff000,0x00007fa382000000] [id=19266]
+```
 
   在安全点，这说明在GC，同时大量线程都在block也证明了这一点，Stop了The World
 ```markdown
@@ -80,11 +79,11 @@
    bounds [0x00007fa391000000, 0x00007fa393e70000, 0x00007fa3a0000000]
    total_blobs=11243 nmethods=10606 adapters=550
    compilation: enabled
-   
 ```
 
 
   各种block，没什么看头
+```markdown
   identity_map_codec.rb:51" daemon [_thread_blocked, id=19284, stack(0x00007fa32b1f8000,0x00007fa32b3f9000)]
   0x00007fa32c03a800 JavaThread "[main]<file" daemon [_thread_blocked, id=19283, stack(0x00007fa32b3f9000,0x00007fa32b5fa000)]
   0x00007fa32c039800 JavaThread "[main]<file" daemon [_thread_blocked, id=19282, stack(0x00007fa32b5fa000,0x00007fa32b7fb000)]
@@ -95,9 +94,10 @@
   0x00007fa32c023000 JavaThread "[main]<file" daemon [_thread_blocked, id=19277, stack(0x00007fa360119000,0x00007fa36031a000)]
   0x00007fa334002800 JavaThread "[main]-pipeline-manager" daemon [_thread_blocked, id=19276, stack(0x00007fa36031a000,0x00007fa36051b000)]
   0x00007fa340001000 JavaThread "pool-2-thread-1" [_thread_blocked, id=19275, stack(0x00007fa36051b000,0x00007fa36071c000)]
-  
+```
   
   这应该是说，GC的时候报了内存溢出，溢出的时候要打个Dump，然而IO超时，于是就崩了，就崩了(╯‵□′)╯︵┻━┻
+```markdown
   Internal exceptions (10 events):
   Event: 3175189.838 Thread 0x00007fa32c1ee800 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c1bde570) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
   Event: 3175190.227 Thread 0x00007fa32c1f0800 Exception <a 'java/net/SocketTimeoutException': Read timed out> (0x00000000c1e0def8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u91/6644/hotspot/src/share/vm/prims/jni.cpp, line 735]
@@ -121,3 +121,4 @@
   Event: 3175228.762 Executing VM operation: GenCollectForAllocation
   Event: 3175229.256 Executing VM operation: GenCollectForAllocation done
   Event: 3175229.256 Executing VM operation: HeapDumper
+```
