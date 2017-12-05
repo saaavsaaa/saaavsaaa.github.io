@@ -4,11 +4,14 @@
   一般当前线程是crash的直接原因，然而这次似乎不是，这次崩之前应用记录了out of memory
 
 ```markdown
+
   Current thread (*0x00007fa3a00b5800*):  VMThread [stack: 0x00007fa390cd7000,0x00007fa390dd8000] [id=19257]
+  
 ```
 
   崩的时候线程栈里的操作都是虚拟机的，正在打Dump这是。。。，打Dump打崩了？
 ```markdown
+
   Stack: [0x00007fa390cd7000,0x00007fa390dd8000],  sp=0x00007fa390dd6720,  free space=1021k
   Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
   V  [libjvm.so+0x68fddb]  java_lang_Class::signers(oopDesc*)+0x1b
@@ -22,6 +25,7 @@
   V  [libjvm.so+0x91ef78]  java_start(Thread*)+0x108
 
   VM_Operation (0x00007fa32b7f66a0): HeapDumper, mode: safepoint, requested by thread 0x00007fa32c039800
+  
 ```
 
 
@@ -49,6 +53,7 @@
 
   在安全点，这说明在GC，同时大量线程都在block也证明了这一点，Stop了The World
 ```markdown
+
   VM state:at safepoint (normal execution)
 
   VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
@@ -78,6 +83,7 @@
    bounds [0x00007fa391000000, 0x00007fa393e70000, 0x00007fa3a0000000]
    total_blobs=11243 nmethods=10606 adapters=550
    compilation: enabled
+   
 ```
 
 
