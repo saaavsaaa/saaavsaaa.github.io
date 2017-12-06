@@ -16,6 +16,7 @@ New Blog List:
 ### [SpringBoot排除自启动](https://saaavsaaa.github.io/aaa/Spring-Boot-Exclude.html)
 ### [一次Base64-decodeBase64-NoSuchMethodError查找过程](https://saaavsaaa.github.io/aaa/NoSuchMethodError-Base64-decodeBase64.html)
 ### [同目录Jar包加载顺序](https://saaavsaaa.github.io/aaa/Java_Class_Path.html)
+### [一次Crash的记录](https://saaavsaaa.github.io/aaa/In-GC-Crash.html)
 
 -----
 
