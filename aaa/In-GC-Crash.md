@@ -122,3 +122,7 @@
   Event: 3175229.256 Executing VM operation: GenCollectForAllocation done
   Event: 3175229.256 Executing VM operation: HeapDumper
 ```
+
+微信公众号：
+
+![Image](/ppp/20170902204445.jpg)
