@@ -1,4 +1,4 @@
-    子公司线上的一个项目偶尔会报一个异常，问题出在一个Filter里，由于Filter是由web容器调用的，所以全都没有走自己的代码，也不容易加日志，由于搬的位置比较近，我就帮着看看，先是想用BTrace拦截到Filter的参数：
+  子公司线上的一个项目偶尔会报一个异常，问题出在一个Filter里，由于Filter是由web容器调用的，所以全都没有走自己的代码，也不容易加日志，由于搬的位置比较近，我就帮着看看，先是想用BTrace拦截到Filter的参数：
 
 ```markdown
 
@@ -21,8 +21,8 @@
 
 ```
 
-    然而发现，不报错时，traceExecute方法可以拿到参数。报错的时候，只有traceErrorExecuteWithoutParas会执行，traceErrorExecute完全没有输出，这就比较尴尬了，这项目之前都没有接触过，这第三方框架也没用过，如果连什么参数造成的错误都不知道，那就没什么可以参照的信息了。于是我就想看看，为什么参数没有输出，就fork了[btrace](https://github.com/saaavsaaa/btrace)的源码。
-    在Instrumentor.java里找到了原因：
+  然而发现，不报错时，traceExecute方法可以拿到参数。报错的时候，只有traceErrorExecuteWithoutParas会执行，traceErrorExecute完全没有输出，这就比较尴尬了，这项目之前都没有接触过，这第三方框架也没用过，如果连什么参数造成的错误都不知道，那就没什么可以参照的信息了。于是我就想看看，为什么参数没有输出，就fork了[btrace](https://github.com/saaavsaaa/btrace)的源码。
+  在Instrumentor.java里找到了原因：
 		
 ```markdown
 
@@ -48,8 +48,8 @@
 
 ```
 
-    源码中处理ERROR的情况时参数直接就忽略了，用了THROWABLE_TYPE（THROWABLE_TYPE = Throwable.class.getName()），或许BTrace提供了别的方法，或许我这种需求不多，总之，一时也没找到办法，就只好自己改了。Filter的doFilter方法没有返回值，我暂时就不处理返回值的情况，先解决问题，至于其他回头抽出空来再说了。
-    其实如果不考虑很多情况，只是要拿到参数很容易：
+  源码中处理ERROR的情况时参数直接就忽略了，用了THROWABLE_TYPE（THROWABLE_TYPE = Throwable.class.getName()），或许BTrace提供了别的方法，或许我这种需求不多，总之，一时也没找到办法，就只好自己改了。Filter的doFilter方法没有返回值，我暂时就不处理返回值的情况，先解决问题，至于其他回头抽出空来再说了。
+  其实如果不考虑很多情况，只是要拿到参数很容易：
 
 ```markdown
 
@@ -104,8 +104,8 @@
        
 ```
 
-    这样就可以拿到参数了：
-    
+  这样就可以拿到参数了：
+
 -----
 
         ERROR class name ============com.....filter.CipherFilter
@@ -116,7 +116,7 @@
 
 -----
 
-    另外，从ServletRequest中拿到请求的url和参数之类的也稍有点啰嗦：
+  另外，从ServletRequest中拿到请求的url和参数之类的也稍有点啰嗦：
     
 ```markdown
 
