@@ -2,18 +2,18 @@
 
 ```markdown
 
-        @OnMethod(clazz = "com.***.filter.CipherFilter", method = "doFilter", location = @Location(Kind.RETURN))
+        @OnMethod(clazz = "com.....filter.CipherFilter", method = "doFilter", location = @Location(Kind.RETURN))
         public static void traceExecute(@ProbeClassName String name, @ProbeMethodName String method,
                                                                      AnyType servletRequest, AnyType servletResponse, AnyType chain){
             .......
         }
 
-        @OnMethod(clazz = "com.***.filter.CipherFilter", method = "doFilter", location = @Location(Kind.ERROR))
+        @OnMethod(clazz = "com.....filter.CipherFilter", method = "doFilter", location = @Location(Kind.ERROR))
         public static void traceErrorExecuteWithoutParas(@ProbeClassName String name,@ProbeMethodName String method){
             ......
         }
 
-        @OnMethod(clazz = "com.***.filter.CipherFilter", method = "doFilter", location = @Location(Kind.ERROR))
+        @OnMethod(clazz = "com.....filter.CipherFilter", method = "doFilter", location = @Location(Kind.ERROR))
         public static void traceErrorExecute(@ProbeClassName String name,@ProbeMethodName String method,
                                              AnyType servletRequest, AnyType servletResponse, AnyType chain){
             ......
@@ -116,7 +116,7 @@
 
 -----
 
-    另外，从ServletRequest中拿到请求的url也稍有点费劲：
+    另外，从ServletRequest中拿到请求的url和参数之类的也稍有点啰嗦：
     
 ```markdown
 
@@ -132,4 +132,5 @@
 ```
 
 微信公众号：
+
 ![Image](/ppp/20170902204445.jpg)
