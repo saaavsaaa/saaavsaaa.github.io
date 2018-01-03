@@ -1,0 +1,51 @@
+		子公司线上的一个项目偶尔会报一个异常，问题出在一个Filter里，由于Filter是由web容器调用的，所以全都没有走自己的代码，也不容易加日志，由于搬的位置比较近，我就帮着看看，先是想用BTrace拦截到Filter的参数：
+
+```markdown
+
+        @OnMethod(clazz = "com.***.filter.CipherFilter", method = "doFilter", location = @Location(Kind.RETURN))
+        public static void traceExecute(@ProbeClassName String name, @ProbeMethodName String method,
+                                                                     AnyType servletRequest, AnyType servletResponse, AnyType chain){
+            .......
+        }
+
+        @OnMethod(clazz = "com.***.filter.CipherFilter", method = "doFilter", location = @Location(Kind.ERROR))
+        public static void traceErrorExecuteWithoutParas(@ProbeClassName String name,@ProbeMethodName String method){
+            ......
+        }
+
+        @OnMethod(clazz = "com.***.filter.CipherFilter", method = "doFilter", location = @Location(Kind.ERROR))
+        public static void traceErrorExecute(@ProbeClassName String name,@ProbeMethodName String method,
+                                             AnyType servletRequest, AnyType servletResponse, AnyType chain){
+            ......
+        }
+
+```
+
+		然而发现，不报错时，traceExecute方法可以拿到参数。报错的时候，只有traceErrorExecuteWithoutParas会执行，traceErrorExecute完全没有输出，这就比较尴尬了，这项目之前都没有接触过，这第三方框架也没用过，如果连什么参数造成的错误都不知道，那就没什么可以参照的信息了。于是我就想看看，为什么参数没有输出，就fork了[btrace](https://github.com/saaavsaaa/btrace)的源码。
+		在Instrumentor.java里找到了原因：
+		
+```markdown
+
+case ERROR:
+                // <editor-fold defaultstate="collapsed" desc="Error Instrumentor">
+                ErrorReturnInstrumentor eri = new ErrorReturnInstrumentor(cl, mv, mHelper, className, superName, access, name, desc) {
+                    ValidationResult vr;
+                    {
+                        addExtraTypeInfo(om.getSelfParameter(), Type.getObjectType(className));
+                        vr = validateArguments(om, actionArgTypes, new Type[]{THROWABLE_TYPE});
+                    }
+
+                    @Override
+                    protected void onErrorReturn() {
+                        ......
+
+                            ArgumentProvider[] actionArgs = new ArgumentProvider[5];
+
+                            actionArgs[0] = localVarArg(vr.getArgIdx(0), THROWABLE_TYPE, throwableIndex);
+                            .......
+
+                            loadArguments(actionArgs);
+
+```
+
+		源码中处理ERROR的情况时参数直接就忽略了，用了THROWABLE_TYPE（THROWABLE_TYPE = Throwable.class.getName()），或许BTrace提供了别的方法，或许我这种需求不多，总之，一时也没找到办法，就只好自己改了，
