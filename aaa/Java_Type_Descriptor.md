@@ -29,7 +29,7 @@
 
 -----
 
-ClassVisitor 类的方法必须按以下顺序调用必须首先调用 visit,然后是对 visitSource 的最多一个调用,接下来是对visitOuterClass 的最多一个调用,然后是可按任意顺序对 visitAnnotation 和visitAttribute 的 任 意 多 个 访 问 , 接 下 来 是 可 按 任 意 顺 序 对 visitInnerClass 、visitField 和 visitMethod 的任意多个调用,最后以一个 visitEnd 调用结束。
+ClassVisitor 类的方法必须按以下顺序调用必须**首先**调用 visit,**然后**是对 visitSource 的**最多一个**调用,**接下来**是对visitOuterClass的**最多一个**调用,**然后**是可按**任意顺序**对 visitAnnotation 和visitAttribute 的任意多个访问,**接下来**是可按**任意顺序**对 visitInnerClass、visitField和visitMethod的**任意多个**调用,**最后以一个** visitEnd 调用结束。
 
 -----
 
