@@ -25,3 +25,5 @@
 |int m(Object o) | (Ljava/lang/Object;)I |
 |int[] m(int i, String s) | (ILjava/lang/String;)\[I |
 |Object m(int[] i) | (\[I)Ljava/lang/Object; |
+
+ClassVisitor 类的方法必须按以下顺序调用必须首先调用 visit,然后是对 visitSource 的最多一个调用,接下来是对visitOuterClass 的最多一个调用,然后是可按任意顺序对 visitAnnotation 和visitAttribute 的 任 意 多 个 访 问 , 接 下 来 是 可 按 任 意 顺 序 对 visitInnerClass 、visitField 和 visitMethod 的任意多个调用,最后以一个 visitEnd 调用结束。
