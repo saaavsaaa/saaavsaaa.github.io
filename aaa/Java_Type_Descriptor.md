@@ -34,13 +34,11 @@ ClassVisitor 类的方法必须按以下顺序调用必须首先调用 visit,然
 -----
 
 ASM 提供了三个基于 ClassVisitor API 的核心组件,用于生成和变化类:
-    ClassReader 类分析以字节数组形式给出的已编译类,并针对在其 accept 方法参数
-中传送的 ClassVisitor 实例,调用相应的 visitXxx 方法。这个类可以看作一个事
-件产生器。
-    ClassWriter 类是 ClassVisitor 抽象类的一个子类,它直接以二进制形式生成编
-译后的类。它会生成一个字节数组形式的输出,其中包含了已编译类,可以用
-toByteArray 方法来提取。这个类可以看作一个事件使用器。
-    ClassVisitor 类将它收到的所有方法调用都委托给另一个 ClassVisitor 类。这个
-类可以看作一个事件筛选器。
+
+    ClassReader 类分析以字节数组形式给出的已编译类,并针对在其 accept 方法参数中传送的 ClassVisitor 实例,调用相应的 visitXxx 方法。这个类可以看作一个事件产生器。
+
+    ClassWriter 类是 ClassVisitor 抽象类的一个子类,它直接以二进制形式生成编译后的类。它会生成一个字节数组形式的输出,其中包含了已编译类,可以用toByteArray 方法来提取。这个类可以看作一个事件使用器。
+
+    ClassVisitor 类将它收到的所有方法调用都委托给另一个 ClassVisitor 类。这个类可以看作一个事件筛选器。
 
 -----
