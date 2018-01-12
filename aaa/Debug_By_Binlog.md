@@ -1,6 +1,6 @@
     线上报了个更新数据库的错：java.lang.IllegalStateException: 账户余额更新失败。其他细节没啥关系就不贴了，而且是钱的业务有些不能贴。
     翻了下代码，发现异常是因为更新返回了0行，然后代码里抛出来的。
-  
+
 ```markdown
   
         if (resultFlag < 1) {
@@ -14,7 +14,7 @@
 
 ```markdown
 
-    mysqlbinlog --base64-output=decode-rows -v  mysql-bin.000952 > aaa.txt
+        mysqlbinlog --base64-output=decode-rows -v  mysql-bin.000952 > aaa.txt
  
  ```
  
@@ -22,24 +22,24 @@
   
 ```markdown
   
-  scp aaa.txt aaa@192.168.3.2:/home/aaa/Code
+        scp aaa.txt aaa@192.168.3.2:/home/aaa/Code
 
 ``` 
 
     打开一看，发现果然有另外一个业务更新了同一条数据，导致version变化，于是更新语句执行失败。
 
-```markdown
+-----
 
-  #180111 20:38:03 server id 2792231848  end_log_pos 6551452 CRC32 0x3fb480f4 	Update_rows: table id 2163 flags: STMT_END_F
-    ### UPDATE .....
-    ### WHERE
-    ........
-    ### SET
-    ........
+         #180111 20:38:03 server id 2792231848  end_log_pos 6551452 CRC32 0x3fb480f4 	Update_rows: table id 2163 flags: STMT_END_F
+            ### UPDATE .....
+            ### WHERE
+            ........
+            ### SET
+            ........
 
- ``` 
-  
-  微信公众号：
+-----
+
+微信公众号：
 
 ![Image](/ppp/20170902204445.jpg)
 
