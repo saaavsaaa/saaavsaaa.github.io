@@ -18,6 +18,7 @@
 ### [同目录Jar包加载顺序](https://saaavsaaa.github.io/aaa/Java_Class_Path.html)
 ### [一次Crash的记录](https://saaavsaaa.github.io/aaa/In-GC-Crash.html)
 ### [用BTrace获取异常方法的参数](https://saaavsaaa.github.io/aaa/BTrace_Error_Args.html)
+### [借助Binlog排错](https://saaavsaaa.github.io/aaa/Debug_By_Binlog.html)
 
 -----
 
