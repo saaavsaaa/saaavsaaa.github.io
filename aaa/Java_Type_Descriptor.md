@@ -45,3 +45,5 @@ ASM 提供了三个基于 ClassVisitor API 的核心组件,用于生成和变化
 
 
 ClassReader用于分析已存在的类: https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassReaderTest.java
+注意,构建ClassReader实例的方式有若干种。必须读取的类可以像上面一样用名字指定,也可以像字母数组或InputStream一样用值来指定。利用ClassLoader的getResourceAsStream方法,可以获得一个读取类内容的输入流,如下:cl.getResourceAsStream(classname.replace(’.’,’/’)+".class");
+
