@@ -42,3 +42,6 @@ ASM 提供了三个基于 ClassVisitor API 的核心组件,用于生成和变化
     ClassVisitor 类将它收到的所有方法调用都委托给另一个 ClassVisitor 类。这个类可以看作一个事件筛选器。
 
 -----
+
+
+ClassReader用于分析已存在的类: https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassReaderTest.java
