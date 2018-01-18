@@ -30,6 +30,19 @@ magic:class是一组以8位字节为基础单位的二进制流。在class文件
                     bpp.read(dis);
                     return bpp;
 
-read
+read验证了一下版本，如果通过，调用了read_1：
+
+        private void read_1(DataInputStream dis) throws IOException {
+                delegate.setClassName(dis.readUTF());
+                readServices(dis);
+                readOnMethods(dis);
+                readOnProbes(dis);
+                readCallees(dis);
+                readDataHolderClass(dis);
+                readFullData(dis);
+        }
+
+虽然这里不是遵守的java虚拟机的规范，但是也可以看出来，java就是按这严格的顺序读的，所以那么制定的规范。
+
 
 
