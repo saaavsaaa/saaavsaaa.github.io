@@ -10,7 +10,7 @@
             System.arraycopy(buffer, 0, newresult, result.length, read);
             result = newresult;
         }
-        
+ 
 这里的result做参数(traceData)来创建BTraceProbe :
 
         BTraceProbe bcn = factory.createProbe(traceData);
