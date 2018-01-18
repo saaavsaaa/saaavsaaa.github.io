@@ -32,3 +32,5 @@ code就是上面代码读文件读出来的byte数组，code[0] code[1] code[2] 
 
 
 read
+
+javap -verbose +<class>
