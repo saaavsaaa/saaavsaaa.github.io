@@ -10,11 +10,14 @@
             System.arraycopy(buffer, 0, newresult, result.length, read);
             result = newresult;
         }
-        
-创建BTraceProbe 
-BTraceProbe bcn = factory.createProbe(traceData);
+        
+这里的result做参数(traceData)来创建BTraceProbe :
 
-int mgc = ((code[0] & 0xff) << 24) | ((code[1] & 0xff) << 16) | ((code[2] & 0xff) << 8) | (( & 0xff));
+        BTraceProbe bcn = factory.createProbe(traceData);
+        
+createProbe:
+
+        int mgc = ((code[0] & 0xff) << 24) | ((code[1] & 0xff) << 16) | ((code[2] & 0xff) << 8) | (( & 0xff));
 
 magic:在class文件开头的四个字节， 存放着class文件的魔数， 这个魔数是class文件的标志，他是一个固定的值： 0XCAFEBABE 。 也就是说他是判断一个文件是不是class格式的文件的标准， 如果开头四个字节不是0XCAFEBABE， 那么就说明它不是class文件， 不能被JVM识别。
 
