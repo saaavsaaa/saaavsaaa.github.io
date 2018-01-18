@@ -58,4 +58,11 @@ readUTF方法先读取流的下两个字节，转为一个无符号的16位整�
 
 如果有出现c > 127的情况，下面还有一个循环处理。最后转成字符串返回，就是类全路径名了。
 
+        private void readServices(DataInputStream dis) throws IOException {
+                int num = dis.readInt();
+                for (int i = 0; i < num; i++) {
+                    delegate.addServiceField(dis.readUTF(), dis.readUTF());
+                }
+        }
 
+readInt读入下面4个字节
