@@ -65,4 +65,10 @@ readUTF方法先读取流的下两个字节，转为一个无符号的16位整�
                 }
         }
 
-readInt读入下面4个字节
+readInt读入下面4个字节，读取逻辑和刚才是一样的，delegate.addServiceField：
+
+        void addServiceField(String fldName, String svcType) {
+                serviceFields.put(fldName, svcType);
+        }
+
+readOnMethods
