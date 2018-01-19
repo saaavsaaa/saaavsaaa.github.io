@@ -82,7 +82,7 @@ readOnMethods:
 
             om.setClazz(dis.readUTF());                   设置被拦截的类，例如：/.*\.OnMethodTest/
 
-            om.setMethod(dis.readUTF());                  被拦截的方法，例如：args
+            om.setMethod(dis.readUTF());                  被拦截的方法，例如：args，判断是否正则
 
             om.setExactTypeMatch(dis.readBoolean());
             om.setTargetDescriptor(dis.readUTF());
