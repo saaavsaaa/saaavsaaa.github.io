@@ -71,4 +71,12 @@ readInt读入下面4个字节，读取逻辑和刚才是一样的，delegate.add
                 serviceFields.put(fldName, svcType);
         }
 
-readOnMethods
+readOnMethods:
+
+            private void readOnMethods(DataInputStream dis) throws IOException {
+                int num = dis.readInt();
+                for (int i = 0; i < num; i++) {
+                    OnMethod om = new OnMethod();
+
+接着前面方法后的4个自己标识有多少个方法，依次处理每个方法：
+
