@@ -81,8 +81,10 @@ readOnMethods:
 接着前面方法后的4个自己标识有多少个方法，依次处理每个方法：
 
             om.setClazz(dis.readUTF());                   设置被拦截的类，例如：/.*\.OnMethodTest/
-            om.setMethod(dis.readUTF());
-            om.setExactTypeMatch(dis.readBoolean());
+
+            om.setMethod(dis.readUTF());                  被拦截的方法，例如：args
+
+            om.setExactTypeMatch(dis.readBoolean());
             om.setTargetDescriptor(dis.readUTF());
             om.setTargetName(dis.readUTF());
             om.setType(dis.readUTF());
