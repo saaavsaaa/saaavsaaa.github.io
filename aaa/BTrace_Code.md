@@ -80,3 +80,31 @@ readOnMethods:
 
 接着前面方法后的4个自己标识有多少个方法，依次处理每个方法：
 
+            om.setClazz(dis.readUTF());                   设置被拦截的类，例如：/.*\.OnMethodTest/
+            om.setMethod(dis.readUTF());
+            om.setExactTypeMatch(dis.readBoolean());
+            om.setTargetDescriptor(dis.readUTF());
+            om.setTargetName(dis.readUTF());
+            om.setType(dis.readUTF());
+            om.setClassNameParameter(dis.readInt());
+            om.setDurationParameter(dis.readInt());
+            om.setMethodParameter(dis.readInt());
+            om.setReturnParameter(dis.readInt());
+            om.setSelfParameter(dis.readInt());
+            om.setTargetInstanceParameter(dis.readInt());
+            om.setTargetMethodOrFieldParameter(dis.readInt());
+            om.setMethodFqn(dis.readBoolean());
+            om.setTargetMethodOrFieldFqn(dis.readBoolean());
+            om.setSamplerKind(Sampled.Sampler.valueOf(dis.readUTF()));
+            om.setSamplerMean(dis.readInt());
+            om.setLevel(dis.readBoolean() ? Level.fromString(dis.readUTF()) : null);
+            Location loc = new Location();
+            loc.setValue(Kind.valueOf(dis.readUTF()));
+            loc.setWhere(Where.valueOf(dis.readUTF()));
+            loc.setClazz(dis.readBoolean() ? dis.readUTF() : null);
+            loc.setField(dis.readBoolean() ? dis.readUTF() : null);
+            loc.setMethod(dis.readBoolean() ? dis.readUTF() : null);
+            loc.setType(dis.readBoolean() ? dis.readUTF() : null);
+            loc.setLine(dis.readInt());
+            om.setLocation(loc);
+            delegate.addOnMethod(om);
