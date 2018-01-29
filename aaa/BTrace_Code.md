@@ -25,9 +25,6 @@ magic:class是一组以8位字节为基础单位的二进制流。在class文件
 
         $ xxd ArgsDurationErrAAA.class 
         00000000: bace caca 0000 0001 0022 7472 6163 6573 
-        00000010: 2f6f 6e6d 6574 686f 642f 4172 6773 4475
-        00000020: 7261 7469 6f6e 4572 7241 4141 0000 0000
-        00000030: 0000
         ...
 
 利用BTraceProbePersisted.MAGIC验证了加载的文件是自己的脚本class文件后，用去掉了魔数后的byte数组创建BTraceProbePersisted对象。
@@ -51,7 +48,7 @@ read验证了一下版本，如果通过，调用了read_1：
 
 虽然这里不是遵守的java虚拟机的规范，但是方式是类似的，按着严格的顺序和紧凑的排列读取编译结果。
 
-readUTF方法先读取流的下两个字节，转为一个无符号的16位整数，对应BTraceProbePersisted.write中写版本后的dos.writeUTF(getClassName(true))，上面xxd命令已经显示了这两个字节是0022, 2 * 16 + 2 = 34。读出来的值utflen为34。DataInputStream默认使用80个二进制位，也就是40个字节存储类名信息，如果实际值比较大，则使用utflen的两倍。这里值是34，所以会有6个字节空着，就是上面xxd结果后面的三组"0000"。
+readUTF方法先读取流的下两个字节，转为一个无符号的16位整数，对应BTraceProbePersisted.write中写版本后的dos.writeUTF(getClassName(true))，上面xxd命令已经显示了这两个字节是0022, 2 * 16 + 2 = 34。读出来的值utflen为34，也就是说后面34个字节是BTraceProbeSupport.origName，如果类没有重命名className也是它。
 
         while (count < utflen) {
             c = (int) bytearr[count] & 0xff;
