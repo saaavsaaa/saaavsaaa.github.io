@@ -77,7 +77,7 @@ readOnMethods:
 
 接着的4个字节标识有多少个方法，依次处理每个方法，我这里是一个0000 0001：
 
-            om.setClazz(dis.readUTF());                   设置被拦截的类，例如：/.*\.OnMethodTest/
+            om.setClazz(dis.readUTF());                   设置被拦截的类，这里是正则形式，例如：/.*\.OnMethodTest/
 
             om.setMethod(dis.readUTF());                  被拦截的方法，例如：args；会判断是否正则，是否是注解
 
