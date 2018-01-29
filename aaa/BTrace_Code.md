@@ -80,8 +80,8 @@ readOnMethods:
                 om.setClazz(dis.readUTF());                   设置被拦截的类，这里是正则形式，例如：/.*\.OnMethodTest/，0012表示长度
                 om.setMethod(dis.readUTF());                  被拦截的方法，例如：args；会判断是否正则，是否是注解，
                 om.setExactTypeMatch(dis.readBoolean());      下一个byte转为boolean，我这里是00，所以是false
-                bom.setTargetDescriptor(dis.readUTF());
-                om.setTargetName(dis.readUTF());
+                bom.setTargetDescriptor(dis.readUTF());       参考xxd结果时可能要注意下，00和40分开了，长度64，内容是脚本方法的参数和返回值：(Ljava/lang/Throwable;Ljava/lang/String;J[Ljava/lang/String;[I)V  --> Throwable, String, long, String[], int[]
+                om.setTargetName(dis.readUTF());
                 om.setType(dis.readUTF());
                 om.setClassNameParameter(dis.readInt());
                 om.setDurationParameter(dis.readInt());
