@@ -105,7 +105,7 @@ readOnMethods:
                 loc.setType(dis.readBoolean() ? dis.readUTF() : null);
                 loc.setLine(dis.readInt());
 
-读取文件就读的差不多了，没标的要么是-1，要么是空串，反正在我这个用例里没有值。
+之后还有readDataHolderClass和readFullData等几个方法，逻辑类似，总之就是把用BTrace自己规则编译的脚本文件读进内存，保存在BTraceProbePersisted对象的实例中。
 
 
 
