@@ -78,15 +78,17 @@ readOnMethods:
 接着的4个字节标识有多少个方法，依次处理每个方法，我这里是一个0000 0001，完整的xxd结果，贴在最后了：
 
                 om.setClazz(dis.readUTF());                   设置被拦截的类，这里是正则形式，例如：/.*\.OnMethodTest/，0012表示长度
-                om.setMethod(dis.readUTF());                  被拦截的方法，例如：args；会判断是否正则，是否是注解，
+                om.setMethod(dis.readUTF());                  被拦截的方法，@OnMethod注解中method的值，例如：method=args的args；会判断是否正则，是否是注解; 0004 6172 6773 
                 om.setExactTypeMatch(dis.readBoolean());      下一个byte转为boolean，我这里是00，所以是false
+
                 bom.setTargetDescriptor(dis.readUTF());       参考xxd结果时可能要注意下，00和40分开了，长度64，内容是脚本方法的参数和返回值：(Ljava/lang/Throwable;Ljava/lang/String;J[Ljava/lang/String;[I)V  --> Throwable, String, long, String[], int[]
-                om.setTargetName(dis.readUTF());
-                om.setType(dis.readUTF());
-                om.setClassNameParameter(dis.readInt());
-                om.setDurationParameter(dis.readInt());
-                om.setMethodParameter(dis.readInt());
-                om.setReturnParameter(dis.readInt());
+
+                om.setTargetName(dis.readUTF());              被标记了@OnMethod的脚本方法本身的方法名
+                om.setType(dis.readUTF());                    0000
+                om.setClassNameParameter(dis.readInt());      readInt4个255拼成-1
+                om.setDurationParameter(dis.readInt());       同上
+                om.setMethodParameter(dis.readInt());         同上
+                om.setReturnParameter(dis.readInt());
                 om.setSelfParameter(dis.readInt());
                 om.setTargetInstanceParameter(dis.readInt());
                 om.setTargetMethodOrFieldParameter(dis.readInt());
