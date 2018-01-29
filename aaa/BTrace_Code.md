@@ -59,7 +59,7 @@ readUTF方法先读取流的下两个字节，转为一个无符号的16位整�
 
 如果有出现c > 127的情况，下面还有一个循环处理。最后转成字符串返回，这个字符串就是类全路径名。
 
-readInt读入下面4个字节，读取逻辑和刚才是一样的：
+readInt读入下面4个字节，读取逻辑和刚才是一样的，我这里没有Field，所以是0000：
 
         private void readServices(DataInputStream dis) throws IOException {
                 int num = dis.readInt();
