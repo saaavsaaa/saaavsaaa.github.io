@@ -183,6 +183,7 @@ data的大概内容：
 
 -----
 
+        验证的话就是判断是否信任，是否需要验证，验证的内容包括基类中是不是包含Object之类，还有各种类型的方法的验证，比如构造函数<init>等等，可参考BTraceProbePersisted.verifyBytecode。
 
 
 
