@@ -108,6 +108,80 @@ readOnMethods:
 之后还有readDataHolderClass和readFullData等几个方法，逻辑类似，总之就是把用BTrace自己规则编译的脚本文件读进内存，保存在BTraceProbePersisted对象的实例中。
 
 
+data的大概内容：
+
+                public class traces/onmethod/ArgsDurationErrAAA {
+
+
+                  @Lcom/sun/btrace/annotations/BTrace;()
+
+                  // access flags 0x9
+                  public static Lcom/sun/btrace/BTraceRuntime; runtime
+
+                  // access flags 0x49
+                  public static volatile I $btrace$$level = 0
+
+                  // access flags 0x9
+                  public static <clinit>()V
+                    TRYCATCHBLOCK L0 L1 L1 java/lang/Throwable
+                   L0
+                    LDC Ltraces/onmethod/ArgsDurationErrAAA;.class
+                    ACONST_NULL
+                    ACONST_NULL
+                    ACONST_NULL
+                    ACONST_NULL
+                    ACONST_NULL
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.forClass (Ljava/lang/Class;[Lcom/sun/btrace/shared/TimerHandler;[Lcom/sun/btrace/shared/EventHandler;[Lcom/sun/btrace/shared/ErrorHandler;[Lcom/sun/btrace/shared/ExitHandler;[Lcom/sun/btrace/shared/LowMemoryHandler;)Lcom/sun/btrace/BTraceRuntime;
+                    PUTSTATIC traces/onmethod/ArgsDurationErrAAA.runtime : Lcom/sun/btrace/BTraceRuntime;
+                    GETSTATIC traces/onmethod/ArgsDurationErrAAA.runtime : Lcom/sun/btrace/BTraceRuntime;
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.enter (Lcom/sun/btrace/BTraceRuntime;)Z
+                    IFNE L2
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.leave ()V
+                    RETURN
+                   L2
+                   FRAME SAME
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.start ()V
+                    RETURN
+                   L1
+                   FRAME SAME1 java/lang/Throwable
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.handleException (Ljava/lang/Throwable;)V
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.leave ()V
+                    RETURN
+                    MAXSTACK = 6
+                    MAXLOCALS = 0
+
+                  // access flags 0x1
+                  public <init>()V
+                    ALOAD 0
+                    INVOKESPECIAL java/lang/Object.<init> ()V
+                    RETURN
+                    MAXSTACK = 1
+                    MAXLOCALS = 1
+
+                  // access flags 0x9
+                  public static args(Ljava/lang/Throwable;Ljava/lang/String;J[Ljava/lang/String;[I)V
+                  @Lcom/sun/btrace/annotations/OnMethod;(clazz="/.*\\.OnMethodTest/", method="args", location=@Lcom/sun/btrace/annotations/Location;(value=Lcom/sun/btrace/annotations/Kind;.ERROR))
+                    TRYCATCHBLOCK L0 L1 L1 java/lang/Throwable
+                    GETSTATIC traces/onmethod/ArgsDurationErrAAA.runtime : Lcom/sun/btrace/BTraceRuntime;
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.enter (Lcom/sun/btrace/BTraceRuntime;)Z
+                    IFNE L0
+                    RETURN
+                   L0
+                   FRAME SAME
+                    LDC "args"
+                    INVOKESTATIC com/sun/btrace/BTraceUtils.println (Ljava/lang/Object;)V
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.leave ()V
+                    RETURN
+                   L1
+                   FRAME SAME1 java/lang/Throwable
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.handleException (Ljava/lang/Throwable;)V
+                    INVOKESTATIC com/sun/btrace/BTraceRuntime.leave ()V
+                    RETURN
+                    MAXSTACK = 1
+                    MAXLOCALS = 6
+                }
+
+-----
 
 
 
