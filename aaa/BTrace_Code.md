@@ -51,7 +51,7 @@ read验证了一下版本，如果通过，调用了read_1：
 
 虽然这里不是遵守的java虚拟机的规范，但是方式是类似的，按着严格的顺序和紧凑的排列读取编译结果。
 
-readUTF方法先读取流的下两个字节，转为一个无符号的16位整数，对应BTraceProbePersisted.write中写版本后的dos.writeUTF(getClassName(true))，上面xxd命令已经显示了这两个字节是0022, 2 * 16 + 2 = 34。读出来的值utflen为34。DataInputStream默认使用80个二进制位，也就是40个字节存储类名信息，如果实际值比较大，则使用utflen的两倍。这里值是34，所有会有6位空着，就是上面xxd结果后面的三组"0000"。
+readUTF方法先读取流的下两个字节，转为一个无符号的16位整数，对应BTraceProbePersisted.write中写版本后的dos.writeUTF(getClassName(true))，上面xxd命令已经显示了这两个字节是0022, 2 * 16 + 2 = 34。读出来的值utflen为34。DataInputStream默认使用80个二进制位，也就是40个字节存储类名信息，如果实际值比较大，则使用utflen的两倍。这里值是34，所有会有6个字节空着，就是上面xxd结果后面的三组"0000"。
 
 
 
