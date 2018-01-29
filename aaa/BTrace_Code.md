@@ -53,8 +53,6 @@ read验证了一下版本，如果通过，调用了read_1：
 
 readUTF方法先读取流的下两个字节，转为一个无符号的16位整数，对应BTraceProbePersisted.write中写版本后的dos.writeUTF(getClassName(true))，上面xxd命令已经显示了这两个字节是0022, 2 * 16 + 2 = 34。读出来的值utflen为34。DataInputStream默认使用80个二进制位，也就是40个字节存储类名信息，如果实际值比较大，则使用utflen的两倍。这里值是34，所以会有6个字节空着，就是上面xxd结果后面的三组"0000"。
 
-
-
         while (count < utflen) {
             c = (int) bytearr[count] & 0xff;
             if (c > 127) break;
@@ -64,18 +62,14 @@ readUTF方法先读取流的下两个字节，转为一个无符号的16位整�
 
 如果有出现c > 127的情况，下面还有一个循环处理。最后转成字符串返回，就是类全路径名了。
 
+readInt读入下面4个字节，读取逻辑和刚才是一样的：
+
         private void readServices(DataInputStream dis) throws IOException {
                 int num = dis.readInt();
                 for (int i = 0; i < num; i++) {
                     delegate.addServiceField(dis.readUTF(), dis.readUTF());
                 }
         }
-
-readInt读入下面4个字节，读取逻辑和刚才是一样的，delegate.addServiceField：
-
-                void addServiceField(String fldName, String svcType) {
-                        serviceFields.put(fldName, svcType);
-                }
 
 readOnMethods:
 
@@ -84,7 +78,7 @@ readOnMethods:
                 for (int i = 0; i < num; i++) {
                     OnMethod om = new OnMethod();
 
-接着前面方法后的4个自己标识有多少个方法，依次处理每个方法：
+接着前面方法后的4个字节标识有多少个方法，依次处理每个方法：
 
             om.setClazz(dis.readUTF());                   设置被拦截的类，例如：/.*\.OnMethodTest/
 
