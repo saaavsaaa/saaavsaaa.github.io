@@ -50,4 +50,4 @@ ClassReader用于分析已存在的类: https://github.com/saaavsaaa/warn-report
 
 ClassWriter用于生成类：https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassWriterTest.java
 
-
+在已有类中增加一个字段(只有在常量的情况下可以设定初始值)：https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassVisitorAddTest.java
