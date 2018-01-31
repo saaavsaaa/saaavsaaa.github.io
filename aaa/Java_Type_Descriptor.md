@@ -57,3 +57,5 @@ ClassReader用于分析已存在的类: https://github.com/saaavsaaa/warn-report
 ClassWriter用于生成类：https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassWriterTest.java
 
 在已有类中增加和删除一个字段(只有在常量的情况下可以设定初始值)：https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassVisitorAddTest.java
+
+操作过程中，因为都是字节码，并不容易直观看到结果，可以借助TraceClassVisitor解决这个问题：https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/TraceVisitor.java
