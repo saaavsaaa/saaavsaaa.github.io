@@ -51,25 +51,34 @@ ASM 提供了三个基于 ClassVisitor API 的核心组件,用于生成和变化
 
 
 ClassReader用于分析已存在的类: 
+
 https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassReaderTest.java
 
 注意,构建ClassReader实例的方式有若干种。必须读取的类可以像上面一样用名字指定,也可以像字母数组或InputStream一样用值来指定。利用ClassLoader的getResourceAsStream方法,可以获得一个读取类内容的输入流,如下:cl.getResourceAsStream(classname.replace(’.’,’/’)+".class");
 
 ClassWriter用于生成类：
+
 https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassWriterTest.java
 
 在已有类中增加和删除一个字段(只有在常量的情况下可以设定初始值)：
+
 https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassVisitorAddTest.java
 
 操作过程中，因为都是字节码，并不容易直观看到结果，可以借助TraceClassVisitor解决这个问题：
+
 https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/TraceVisitor.java
 
 
 -----
 
 ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量,并将它的值压到操作数栈中。它们的参数是必须读取的局部变量的索引 i。
+
 ILOAD 用于加载一个 boolean、byte、char、 short 或 int 局部变量。 
+
 LLOAD、 FLOAD 和 DLOAD 分别用于加载 long、 float 或 double值。
+
 (LLOAD 和 DLOAD 实际加载两个槽 i 和 i+1，因为long和double一个slot放不下)
+
 ALOAD 用于加载任意非基元值,即对象和数组引用。
+
 与之对应,ISTORE、LSTORE、FSTORE、DSTORE 和 ASTORE 指令从操作数栈中弹出一个值,并将它存储在由其索引 i 指定的局部变量中。
