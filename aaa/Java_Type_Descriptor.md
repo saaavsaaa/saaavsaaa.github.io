@@ -67,6 +67,8 @@ https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/Tr
 
 -----
 
+Java 栈帧包含局部变量和操作数栈两部分。
+
 ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量,并将它的值压到操作数栈中。它们的参数是必须读取的局部变量的索引 i。  
 ILOAD 用于加载一个 boolean、byte、char、 short 或 int 局部变量。   
 LLOAD、 FLOAD 和 DLOAD 分别用于加载 long、 float 或 double值。  
