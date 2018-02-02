@@ -41,7 +41,7 @@ CHECKCAST t 将一个引用值转换为类型 t。
 读或写一个字段的值:  
 GETFIELD owner name desc 弹出一个对象引用,并将其 name 字段中的值压栈。PUTFIELD owner name desc 弹出一个值和一个对象引用,并将这个值存储在它的 name 字段中。在这两种情况下,该对象都必须是 owner 类型,它的字段必须为 desc 类型。GETSTATIC 和 PUTSTATIC 类似,用于静态字段。
 
-调用一个方法或一个构造器。它们弹出值的个数等于其方法参数个数加 1(用于目标对象),并压回方法调用的结果。
+调用一个方法或一个构造器。指令弹出栈的值的个数等于其方法参数个数加 1(用于目标对象),并压回方法调用的结果。
 INVOKEVIRTUAL owner name desc 调用在类 owner 中定义的 name 方法,其方法描述符为 desc。
 INVOKESTATIC 用于静态方法,INVOKESPECIAL 用于私有方法和构造器,INVOKEINTERFACE 用于接口中定义的方法。
 最后,对于 Java 7 中的类,INVOKEDYNAMIC 用于新动态方法调用机制。
