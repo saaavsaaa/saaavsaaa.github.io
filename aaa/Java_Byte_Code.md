@@ -49,14 +49,12 @@ INVOKESTATIC 用于静态方法,INVOKESPECIAL 用于私有方法和构造器,INV
 用于读写数组中的值:  
 xALOAD 指令弹出一个索引和一个数组,并压入此索引处数组元素的值。xASTORE 指令弹出一个值、一个索引和一个数组,并将这个值存储在该数组的这一索引处。这里的 x 可以是 I、L、F、D 或 A,还可以是 B、C 或 S。
 
-无条件地或者在某一条件为真时跳转到一条任意指令。它们用于编译 if、
-for、do、while、break 和 continue 指令。例如,IFEQ label 从栈中弹出一个
-int 值,如果这个值为 0,则跳转到由这个 label 指定的指令处(否则,正常执行下一
+无条件地或者在某一条件为真时跳转到一条任意指令。用于编译 if、for、do、while、break 和 continue 指令。
+例如,IFEQ label 从栈中弹出一个int 值,如果这个值为 0,则跳转到由这个 label 指定的指令处(否则,正常执行下一
 条指令)。还有许多其他跳转指令,比如 IFNE 或 IFGE。最后,TABLESWITCH 和LOOKUPSWITCH 对应于 switch Java 指令
 
-返回
-最后,xRETURN 和 RETURN 指令用于终止一个方法的执行,并将其结果返回给调用
-者。RETURN 用于返回 void 的方法,xRETURN 用于其他方法。
+返回 :
+xRETURN 和 RETURN 指令用于终止一个方法的执行,并将其结果返回给调用者。RETURN 用于返回 void 的方法,xRETURN 用于其他方法。
 
 -----
 
