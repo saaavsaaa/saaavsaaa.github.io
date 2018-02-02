@@ -73,7 +73,7 @@ Java 栈帧包含局部变量和操作数栈两部分。
 
 字节代码指令可以分为两类:一小组指令,设计用来在局部变量和操作数栈之间传送值;其他一些指令仅用于操作数栈:它们从栈中弹出一些值,根据这些值计算一个结果,并将它压回栈中。
 
-用来在局部变量和操作数栈之间传送值的指令：
+用来在局部变量和操作数栈之间传送值的指令：  
 ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量,并将它的值压到操作数栈中。它们的参数是必须读取的局部变量的索引 i。  
 ILOAD 用于加载一个 boolean、byte、char、 short 或 int 局部变量。   
 LLOAD、 FLOAD 和 DLOAD 分别用于加载 long、 float 或 double值。  
@@ -84,9 +84,9 @@ ALOAD 用于加载任意非基元值,即对象和数组引用。
 
 除上面指令外，其他字节代码指令都仅对操作数栈有效，以划分为以下类别：
 
-用于处理栈上的值:
+用于处理栈上的值:  
 POP 弹出栈顶部的值;DUP 压入顶部栈值的一个副本;SWAP 弹出两个值,并按逆序压栈;等
 
-在操作数栈压入一个常量值:
+在操作数栈压入一个常量值:  
 ACONST_NULL 压入 null,ICONST_0 压入int 值 0, FCONST_0 压入 0f, DCONST_0 压入 0d, BIPUSH b 压入字节值 b, SIPUSH s 压入 short 值 s, 
 LDC cst 压入任意 int、 float、long、 double、 String 或 class常量 cst
