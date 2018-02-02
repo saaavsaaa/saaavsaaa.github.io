@@ -51,7 +51,8 @@ xALOAD 指令弹出一个索引和一个数组,并压入此索引处数组元素
 
 无条件地或者在某一条件为真时跳转到一条任意指令。用于编译 if、for、do、while、break 和 continue 指令。
 例如,IFEQ label 从栈中弹出一个int 值,如果这个值为 0,则跳转到由这个 label 指定的指令处(否则,正常执行下一
-条指令)。还有许多其他跳转指令,比如 IFNE 或 IFGE。最后,TABLESWITCH 和LOOKUPSWITCH 对应于 switch Java 指令
+条指令)。还有许多其他跳转指令,比如 IFNE 或 IFGE。
+TABLESWITCH 和LOOKUPSWITCH 对应于 switch Java 指令;TABLESWITCH会列出最大值和最小值中的所有值，使用索引访问，效率相对比较高，但相对会浪费空间，代码中没有的分支值会对应到default；当分支特别多时，编译器会衡量空间和时间的消耗，选择LOOKUPSWITCH时，栈顶的值会和lookupswitch里的每个值进行比较，JVM会在列表中查找匹配的元素，确定要跳转的分支。
 
 返回 :
 xRETURN 和 RETURN 指令用于终止一个方法的执行,并将其结果返回给调用者。RETURN 用于返回 void 的方法,xRETURN 用于其他方法。
