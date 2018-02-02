@@ -94,3 +94,10 @@ LDC cst 压入任意 int、 float、long、 double、 String 或 class常量 cst
 从操作数栈弹出数值,计算并将结果压入栈中，（指令本身不带参数）：
 xADD、xSUB、xMUL、xDIV 和 xREM 对应于+、-、* 、/ 和 % 运算,其中 x 为 I、L、F 或 D 之一。类似地,还有其他对应于<<、>>、>>>、|、&和^运算的指令,用于
 处理 int 和 long 值
+取负：ineg,lneg,fneg,dneg 
+移位：ishl,lshr,iushr,lshl,lshr,lushr 
+按位或：ior,lor 
+按位与：iand,land 
+按位异或：ixor,lxor 
+类型转换：i2l,i2f,i2d,l2f,l2d,f2d(放宽数值转换) 
+i2b,i2c,i2s,l2i,f2i,f2l,d2i,d2l,d2f(缩窄数值转换)
