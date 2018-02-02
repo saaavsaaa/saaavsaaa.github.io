@@ -69,9 +69,12 @@ https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/Tr
 
 Java 栈帧包含局部变量和操作数栈两部分。
 
+操作码 0 用助记符号 NOP 表示,对应于不做任何操作的指令
+
 字节代码指令可以分为两类:一小组指令,设计用来在局部变量和操作数栈之间传送值;其他一些指令仅用于操作数栈:它们从栈中弹出一些值,根据这些值计算一个结果,并将它压回栈中。
 
-ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量,并将它的值压到操作数栈中。它们的参数是必须读取的局部变量的索引 i。  
+用来在局部变量和操作数栈之间传送值的指令：
+ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量,并将它的值压到操作数栈中。它们的参数是必须读取的局部变量的索引 i。  
 ILOAD 用于加载一个 boolean、byte、char、 short 或 int 局部变量。   
 LLOAD、 FLOAD 和 DLOAD 分别用于加载 long、 float 或 double值。  
 (LLOAD 和 DLOAD 实际加载两个槽 i 和 i+1，因为long和double一个slot放不下)  
@@ -79,4 +82,4 @@ ALOAD 用于加载任意非基元值,即对象和数组引用。
 与之对应,ISTORE、LSTORE、FSTORE、DSTORE 和 ASTORE 指令从操作数栈中弹出一个值,并将它存储在由其索引 i 指定的局部变量中。  
 指令区分类型可确保不会执行非法转换
 
-操作码 0 用助记符号 NOP 表示,对应于不做任何操作的指令
+除上面指令外，其他字节代码指令都仅对操作数栈有效，以划分为以下类别：
