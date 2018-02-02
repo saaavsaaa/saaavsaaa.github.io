@@ -85,4 +85,8 @@ ALOAD 用于加载任意非基元值,即对象和数组引用。
 除上面指令外，其他字节代码指令都仅对操作数栈有效，以划分为以下类别：
 
 用于处理栈上的值:
-POP 弹出栈顶部的值,DUP 压入顶部栈值的一个副本,SWAP 弹出两个值,并按逆序压栈
+POP 弹出栈顶部的值;DUP 压入顶部栈值的一个副本;SWAP 弹出两个值,并按逆序压栈;等
+
+在操作数栈压入一个常量值:
+ACONST_NULL 压入 null,ICONST_0 压入int 值 0, FCONST_0 压入 0f, DCONST_0 压入 0d, BIPUSH b 压入字节值 b, SIPUSH s 压入 short 值 s, 
+LDC cst 压入任意 int、 float、long、 double、 String 或 class常量 cst
