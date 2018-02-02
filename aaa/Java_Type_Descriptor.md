@@ -75,3 +75,5 @@ LLOAD、 FLOAD 和 DLOAD 分别用于加载 long、 float 或 double值。
 (LLOAD 和 DLOAD 实际加载两个槽 i 和 i+1，因为long和double一个slot放不下)  
 ALOAD 用于加载任意非基元值,即对象和数组引用。  
 与之对应,ISTORE、LSTORE、FSTORE、DSTORE 和 ASTORE 指令从操作数栈中弹出一个值,并将它存储在由其索引 i 指定的局部变量中。  
+
+操作码 0 用助记符号 NOP 表示,对应于不做任何操作的指令
