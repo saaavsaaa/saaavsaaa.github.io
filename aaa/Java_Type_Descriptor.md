@@ -103,6 +103,9 @@ xADD、xSUB、xMUL、xDIV 和 xREM 对应于+、-、* 、/ 和 % 运算,其中 x
 类型转换,从栈中弹出一个值,将其转换为另一类型,并将结果压栈。对应 Java 中的类型转换表达式。I2F, F2D, L2D 等将数值由一种数值类型转换为另一种类型。i2l,i2f,i2d,l2f,l2d,f2d(放宽数值转换) i2b,i2c,i2s,l2i,f2i,f2l,d2i,d2l,d2f(缩窄数值转换)  
 CHECKCAST t 将一个引用值转换为类型 t。
 
+用于创建对象、锁定它们、检测它们的类型,等等。  
+例如,NEW type 指令将一个 type 类型的新对象压入栈中(其中 type 是一个内部名)。
+创建新数组：newarray,anewarray,multianwarray 
 
 -----
 
