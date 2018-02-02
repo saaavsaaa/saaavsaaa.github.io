@@ -1,0 +1,50 @@
+Java 栈帧包含局部变量和操作数栈两部分。
+
+操作码 0 用助记符号 NOP 表示,对应于不做任何操作的指令
+
+字节代码指令可以分为两类:一小组指令,设计用来在局部变量和操作数栈之间传送值;其他一些指令仅用于操作数栈:它们从栈中弹出一些值,根据这些值计算一个结果,并将它压回栈中。
+
+用来在局部变量和操作数栈之间传送值的指令：  
+ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量,并将它的值压到操作数栈中。它们的参数是必须读取的局部变量的索引 i。  
+ILOAD 用于加载一个 boolean、byte、char、 short 或 int 局部变量。   
+LLOAD、 FLOAD 和 DLOAD 分别用于加载 long、 float 或 double值。  
+(LLOAD 和 DLOAD 实际加载两个槽 i 和 i+1，因为long和double一个slot放不下)  
+ALOAD 用于加载任意非基元值,即对象和数组引用。  
+与之对应,ISTORE、LSTORE、FSTORE、DSTORE 和 ASTORE 指令从操作数栈中弹出一个值,并将它存储在由其索引 i 指定的局部变量中。  
+指令区分类型可确保不会执行非法转换
+
+除上面指令外，其他字节代码指令都仅对操作数栈有效，以划分为以下类别：
+
+用于处理栈上的值:  
+POP 弹出栈顶部的值;DUP 压入顶部栈值的一个副本;SWAP 弹出两个值,并按逆序压栈;等
+
+在操作数栈压入一个常量值:  
+ACONST_NULL 压入 null,ICONST_0 压入int 值 0, FCONST_0 压入 0f, DCONST_0 压入 0d, BIPUSH b 压入字节值 b, SIPUSH s 压入 short 值 s, 
+LDC cst 压入任意 int、 float、long、 double、 String 或 class常量 cst
+
+从操作数栈弹出数值,计算并将结果压入栈中，（指令本身不带参数）：
+xADD、xSUB、xMUL、xDIV 和 xREM 对应于+、-、* 、/ 和 % 运算,其中 x 为 I、L、F 或 D 之一。类似地,还有其他对应于<<、>>、>>>、|、&和^运算的指令,用于
+处理 int 和 long 值
+取负：ineg,lneg,fneg,dneg 
+移位：ishl,lshr,iushr,lshl,lshr,lushr 
+按位或：ior,lor 
+按位与：iand,land 
+按位异或：ixor,lxor 
+
+类型转换,从栈中弹出一个值,将其转换为另一类型,并将结果压栈。对应 Java 中的类型转换表达式。I2F, F2D, L2D 等将数值由一种数值类型转换为另一种类型。i2l,i2f,i2d,l2f,l2d,f2d(放宽数值转换) i2b,i2c,i2s,l2i,f2i,f2l,d2i,d2l,d2f(缩窄数值转换)  
+CHECKCAST t 将一个引用值转换为类型 t。
+
+用于创建对象、锁定它们、检测它们的类型,等等。  
+例如,NEW type 指令将一个 type 类型的新对象压入栈中(其中 type 是一个内部名)。
+创建新数组：newarray,anewarray,multianwarray 
+
+读或写一个字段的值:  
+GETFIELD owner name desc 弹出一个对象引用,并将其 name 字段中的值压栈。PUTFIELD owner name desc 弹出一个值和一个对象引用,并将这个值存储在它的 name 字段中。在这两种情况下,该对象都必须是 owner 类型,它的字段必须为 desc 类型。GETSTATIC 和 PUTSTATIC 类似,用于静态字段。
+
+调用一个方法或一个构造器。它们弹出值的个数等于其方法参数个数加 1
+(用于目标对象),并压回方法调用的结果。INVOKEVIRTUAL owner name desc 调用在
+类 owner 中定义的 name 方法,其方法描述符为 desc。INVOKESTATIC 用于静态方法,
+INVOKESPECIAL 用于私有方法和构造器,INVOKEINTERFACE 用于接口中定义的方
+法。最后,对于 Java 7 中的类,INVOKEDYNAMIC 用于新动态方法调用机制。
+
+-----
