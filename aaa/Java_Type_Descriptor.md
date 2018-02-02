@@ -90,3 +90,7 @@ POP 弹出栈顶部的值;DUP 压入顶部栈值的一个副本;SWAP 弹出两�
 在操作数栈压入一个常量值:  
 ACONST_NULL 压入 null,ICONST_0 压入int 值 0, FCONST_0 压入 0f, DCONST_0 压入 0d, BIPUSH b 压入字节值 b, SIPUSH s 压入 short 值 s, 
 LDC cst 压入任意 int、 float、long、 double、 String 或 class常量 cst
+
+从操作数栈弹出数值,计算并将结果压入栈中，（指令本身不带参数）：
+xADD、xSUB、xMUL、xDIV 和 xREM 对应于+、-、* 、/ 和 % 运算,其中 x 为 I、L、F 或 D 之一。类似地,还有其他对应于<<、>>、>>>、|、&和^运算的指令,用于
+处理 int 和 long 值
