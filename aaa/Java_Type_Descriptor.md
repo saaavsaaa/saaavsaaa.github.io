@@ -107,6 +107,9 @@ CHECKCAST t 将一个引用值转换为类型 t。
 例如,NEW type 指令将一个 type 类型的新对象压入栈中(其中 type 是一个内部名)。
 创建新数组：newarray,anewarray,multianwarray 
 
+读或写一个字段的值:  
+GETFIELD owner name desc 弹出一个对象引用,并将其 name 字段中的值压栈。PUTFIELD owner name desc 弹出一个值和一个对象引用,并将这个值存储在它的 name 字段中。在这两种情况下,该对象都必须是 owner 类型,它的字段必须为 desc 类型。GETSTATIC 和 PUTSTATIC 类似,用于静态字段。
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Java_Type_Descriptor.md)
