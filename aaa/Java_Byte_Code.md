@@ -57,24 +57,46 @@ TABLESWITCH 和LOOKUPSWITCH 对应于 switch Java 指令;TABLESWITCH会列出最
 返回 :
 xRETURN 和 RETURN 指令用于终止一个方法的执行,并将其结果返回给调用者。RETURN 用于返回 void 的方法,xRETURN 用于其他方法。
 
+例：
 
-
-IFLT label  
-ALOAD 0  
-ILOAD 1  
-PUTFIELD pkg/Bean f I  
-GOTO end  
-label:  
-NEW java/lang/IllegalArgumentException  
-DUP  
-INVOKESPECIAL java/lang/IllegalArgumentException <init> ()V  
-ATHROW  
-end:  
-RETURN  
+    IFLT label  
+    ALOAD 0  
+    ILOAD 1  
+    PUTFIELD pkg/Bean f I  
+    GOTO end  
+    label:  
+    NEW java/lang/IllegalArgumentException  
+    DUP  
+    INVOKESPECIAL java/lang/IllegalArgumentException <init> ()V  
+    ATHROW  
+    end:  
+    RETURN  
 
 IFLT 指令从栈中弹出值,并将它与 0 进行比较。如果它小于(LT)0,则跳转到由 label 标记指定的指令,否则不做任何事情
 
 NEW 指令创建一个异常对象,对其进行默认初始化,并将它压入操作数栈中。DUP 指令在栈中重复这个对象的引用的副本入栈，为了在INVOKESPECIAL指令将对象引用出栈后还可以使用这个对象的引用。INVOKESPECIAL 指令弹出这两个副本之一,并对其调用异常构造器。最后,ATHROW 指令弹出剩下的副本,并将它作为异常抛出
+
+    public static void sleep(long d) {
+        try {
+        Thread.sleep(d);
+        } catch (InterruptedException e) {
+        e.printStackTrace();
+        }
+    }
+
+可被编译为  
+
+    TRYCATCHBLOCK try catch catch java/lang/InterruptedException  
+    try:  
+    LLOAD 0  
+    INVOKESTATIC java/lang/Thread sleep (J)V  
+    RETURN  
+    catch:  
+    INVOKEVIRTUAL java/lang/InterruptedException printStackTrace ()V  
+    RETURN  
+
+
+TRYCATCHBLOCK 行指定了一个异常处理器,处理器开始于 catch 标记,用于处理一些异常,这些异常的类是 InterruptedException的子类。这意味着,如果在 try 和 catch 之间抛出了这样一个异常,栈将被清空,异常被压入这个空栈中,执行过程在 catch 处继续。
 
 -----
 
