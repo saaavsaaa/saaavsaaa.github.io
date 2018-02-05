@@ -57,6 +57,27 @@ TABLESWITCH 和LOOKUPSWITCH 对应于 switch Java 指令;TABLESWITCH会列出最
 返回 :
 xRETURN 和 RETURN 指令用于终止一个方法的执行,并将其结果返回给调用者。RETURN 用于返回 void 的方法,xRETURN 用于其他方法。
 
+
+
+IFLT label
+ALOAD 0
+ILOAD 1
+PUTFIELD pkg/Bean f I
+GOTO end
+label:
+NEW java/lang/IllegalArgumentException
+DUP
+INVOKESPECIAL java/lang/IllegalArgumentException <init> ()V
+ATHROW
+end:
+RETURN
+
+IFLT 指令从栈中弹出这个值,并将它与 0 进行比较。如果它小于(LT)0,则跳转到由 label 标记指定的指令,否则不做任何事情
+
+new字节码指令的作用是创建指定类型的对象实例、对其进行默认初始化，并且将指向该实例的一个引用压入操作数栈顶；然后因为invokespecial会消耗掉操作数栈顶的引用作为传给构造器的“this”参数，所以如果我们希望在invokespecial调用后在操作数栈顶还维持有一个指向新建对象的引用，就得在invokespecial之前先“复制”一份引用
+NEW 指令创建一个异常对象,并将它压入操作数栈中。DUP 指令在栈中重复这个值。
+INVOKESPECIAL 指令弹出这两个副本之一,并对其调用异常构造器。最后,ATHROW 指令弹出剩下的副本,并将它作为异常抛出
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Java_Byte_Code.md)
