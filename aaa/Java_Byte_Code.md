@@ -99,6 +99,8 @@ NEW 指令创建一个异常对象,对其进行默认初始化,并将它压入�
 
 TRYCATCHBLOCK 行指定了一个异常处理器,处理器开始于 catch 标记,用于处理一些异常,这些异常的类是 InterruptedException的子类。这意味着,如果在 try 和 catch 之间抛出了这样一个异常,栈将被清空,异常被压入这个空栈中,执行过程在 catch 处继续。
 
+栈映射帧，参考R大的帖子：http://hllvm.group.iteye.com/group/topic/26545 和这篇博客http://www.blogjava.net/DLevin/archive/2011/09/05/358034.html
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Java_Byte_Code.md)
