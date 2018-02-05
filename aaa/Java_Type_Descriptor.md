@@ -68,11 +68,11 @@ https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/Tr
 用于生成和转换已编译方法的 ASM API 是基于 MethodVisitor 抽象类的,它由 ClassVisitor 的 visitMethod 方法返回。除了一些与注释和调试信息有关的方法之外,这个类为每个字节代码指令类别定义了一个方法,其依据就是这些指令的参数个数和类型。对于非抽象方法,如果存在注释和属性的话,必须首先访问它们,然后是该方
 法的字节代码。对于这些方法,其代码必须按顺序访问,位于对 visitCode 的调用(有且仅有一个调用)与对 visitMaxs 的调用(有且仅有一个调用)之间。
 
-visitAnnotationDefault
-( visitAnnotation | visitParameterAnnotation | visitAttribute )*
-( visitCode
-( visitTryCatchBlock | visitLabel | visitFrame | visitXxxInsn |visitLocalVariable | visitLineNumber )*
-visitMaxs )
+visitAnnotationDefault  
+( visitAnnotation | visitParameterAnnotation | visitAttribute )*  
+( visitCode  
+( visitTryCatchBlock | visitLabel | visitFrame | visitXxxInsn |visitLocalVariable | visitLineNumber )*  
+visitMaxs )  
 visitEnd
 
 
