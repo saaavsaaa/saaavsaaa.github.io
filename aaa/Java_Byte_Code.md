@@ -19,40 +19,38 @@ ALOAD 用于加载任意非基元值,即对象和数组引用。
 POP 弹出栈顶部的值;DUP 压入顶部栈值的一个副本;SWAP 弹出两个值,并按逆序压栈;等
 
 在操作数栈压入一个常量值:  
-ACONST_NULL 压入 null,ICONST_0 压入int 值 0, FCONST_0 压入 0f, DCONST_0 压入 0d, BIPUSH b 压入字节值 b, SIPUSH s 压入 short 值 s, 
-LDC cst 压入任意 int、 float、long、 double、 String 或 class常量 cst
+ACONST_NULL 压入 null,ICONST_0 压入int 值 0, FCONST_0 压入 0f, DCONST_0 压入 0d, BIPUSH b 压入字节值 b, SIPUSH s 压入 short 值 s, LDC cst 压入任意 int、 float、long、 double、 String 或 class常量 cst
 
 从操作数栈弹出数值,计算并将结果压入栈中，（指令本身不带参数）：
 xADD、xSUB、xMUL、xDIV 和 xREM 对应于+、-、* 、/ 和 % 运算,其中 x 为 I、L、F 或 D 之一。类似地,还有其他对应于<<、>>、>>>、|、&和^运算的指令,用于
-处理 int 和 long 值
-取负：ineg,lneg,fneg,dneg 
-移位：ishl,lshr,iushr,lshl,lshr,lushr 
-按位或：ior,lor 
-按位与：iand,land 
-按位异或：ixor,lxor 
+处理 int 和 long 值  
+取负：ineg,lneg,fneg,dneg   
+移位：ishl,lshr,iushr,lshl,lshr,lushr   
+按位或：ior,lor   
+按位与：iand,land  
+按位异或：ixor,lxor  
 
-类型转换,从栈中弹出一个值,将其转换为另一类型,并将结果压栈。对应 Java 中的类型转换表达式。I2F, F2D, L2D 等将数值由一种数值类型转换为另一种类型。i2l,i2f,i2d,l2f,l2d,f2d 1 (slot) -> 2
-i2b,i2c,i2s,l2i,f2i,f2l,d2i,d2l,d2f 1 - > 1
+类型转换,从栈中弹出一个值,将其转换为另一类型,并将结果压栈。对应 Java 中的类型转换表达式。I2F, F2D, L2D 等将数值由一种数值类型转换为另一种类型。i2l,i2f,i2d,l2f,l2d,f2d 1 (slot) -> 2  
+i2b,i2c,i2s,l2i,f2i,f2l,d2i,d2l,d2f 1 - > 1  
 CHECKCAST t 将一个引用值转换为类型 t。
 
 用于创建对象、锁定它们、检测它们的类型,等等。  
-例如,NEW type 指令将一个 type 类型的新对象压入栈中(其中 type 是一个内部名)。
+例如,NEW type 指令将一个 type 类型的新对象压入栈中(其中 type 是一个内部名)。  
 创建新数组：newarray,anewarray,multianwarray 
 
 读或写一个字段的值:  
 GETFIELD owner name desc 弹出一个对象引用,并将其 name 字段中的值压栈。PUTFIELD owner name desc 弹出一个值和一个对象引用,并将这个值存储在它的 name 字段中。在这两种情况下,该对象都必须是 owner 类型,它的字段必须为 desc 类型。GETSTATIC 和 PUTSTATIC 类似,用于静态字段。
 
 调用一个方法或一个构造器。指令弹出栈的值的个数等于其方法参数个数加 1(用于目标对象),并压回方法调用的结果。
-INVOKEVIRTUAL owner name desc 调用在类 owner 中定义的 name 方法,其方法描述符为 desc。
-INVOKESTATIC 用于静态方法,INVOKESPECIAL 用于私有方法和构造器,INVOKEINTERFACE 用于接口中定义的方法。
-最后,对于 Java 7 中的类,INVOKEDYNAMIC 用于新动态方法调用机制。
+INVOKEVIRTUAL owner name desc 调用在类 owner 中定义的 name 方法,其方法描述符为 desc。  
+INVOKESTATIC 用于静态方法,INVOKESPECIAL 用于私有方法和构造器,INVOKEINTERFACE 用于接口中定义的方法。  
+最后,对于 Java 7 中的类,INVOKEDYNAMIC 用于新动态方法调用机制。  
 
 用于读写数组中的值:  
 xALOAD 指令弹出一个索引和一个数组,并压入此索引处数组元素的值。xASTORE 指令弹出一个值、一个索引和一个数组,并将这个值存储在该数组的这一索引处。这里的 x 可以是 I、L、F、D 或 A,还可以是 B、C 或 S。
 
-无条件地或者在某一条件为真时跳转到一条任意指令。用于编译 if、for、do、while、break 和 continue 指令。
-例如,IFEQ label 从栈中弹出一个int 值,如果这个值为 0,则跳转到由这个 label 指定的指令处(否则,正常执行下一
-条指令)。还有许多其他跳转指令,比如 IFNE 或 IFGE。
+无条件地或者在某一条件为真时跳转到一条任意指令。用于编译 if、for、do、while、break 和 continue 指令。  
+例如,IFEQ label 从栈中弹出一个int 值,如果这个值为 0,则跳转到由这个 label 指定的指令处(否则,正常执行下一条指令)。还有许多其他跳转指令,比如 IFNE 或 IFGE。  
 TABLESWITCH 和LOOKUPSWITCH 对应于 switch Java 指令;TABLESWITCH会列出最大值和最小值中的所有值，使用索引访问，效率相对比较高，但相对会浪费空间，代码中没有的分支值会对应到default；当分支特别多时，编译器会衡量空间和时间的消耗，选择LOOKUPSWITCH时，栈顶的值会和lookupswitch里的每个值进行比较，JVM会在列表中查找匹配的元素，确定要跳转的分支。
 
 返回 :
