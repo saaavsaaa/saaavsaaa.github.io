@@ -77,11 +77,13 @@ visitEnd
 
 visitCode 和 visitMaxs 方法可用于检测该方法的字节代码在一个事件序列中的开始与结束。和类的情况一样,visitEnd 方法也必须在最后调用,用于检测一个方法在一个事件序列中的结束 。多个MethodVisitor实例是完全独立的，没有顺序关系。
 
-方法与类相似，同样是借助ClassReader、ClassWriter，不同的是返回MethodVisitor。  
-用ClassWriter创建一个方法时需要计算方法的局部变量与操作数栈部分的大小，ClassWriter提供了辅助方法。  
-在使用 new ClassWriter(0)时,不会自动计算任何东西。必须自行计算帧(StackMapFrame)、局部变量与操作数栈的大小。使用visitMaxs手动传入局部标量和操作数栈的大小。  
-在使用 new ClassWriter(ClassWriter.COMPUTE_MAXS)时,将为你计算局部变量与操作数栈部分的大小，但不会计算StackMapFrame。visitMaxs仍然需要调用,但可以使用任何参数:它们将被忽略并重新计算。  
+方法与类相似，同样是借助ClassReader、ClassWriter，不同的是返回MethodVisitor  
+用ClassWriter创建一个方法时需要计算方法的局部变量与操作数栈部分的大小，ClassWriter提供了辅助方法   
+在使用 new ClassWriter(0)时,不会自动计算任何东西。必须自行计算帧(StackMapFrame)、局部变量与操作数栈的大小。使用visitMaxs手动传入局部标量和操作数栈的大小   
+在使用 new ClassWriter(ClassWriter.COMPUTE_MAXS)时,将为你计算局部变量与操作数栈部分的大小，但不会计算StackMapFrame。visitMaxs仍然需要调用,但可以使用任何参数:它们将被忽略并重新计算   
 在 new ClassWriter(ClassWriter.COMPUTE_FRAMES)时,一切都是自动计算。不再需要调用 visitFrame,但仍然必须调用 visitMaxs(参数将被忽略并重新计算)
+
+
 
 -----
 
