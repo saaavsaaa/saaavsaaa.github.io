@@ -86,7 +86,7 @@ visitCode 和 visitMaxs 方法可用于检测该方法的字节代码在一个�
     在 new ClassWriter(ClassWriter.COMPUTE_FRAMES)时,一切都是自动计算。不再需要调用 visitFrame,但仍然必须调用 visitMaxs(参数将被忽略并重新计算)
 
 COMPUTE_MAXS 选项使 ClassWriter 的速度降低 10%,而使用 COMPUTE_FRAMES 选项则使其降低一半  
-用 visitFrame(F_NEW, nLocals, locals, nStack, stack)访问未压缩帧可以执行压缩,其中的nLocals 和 nStack 是局部变量的个数和操作数栈的大小,locals和stack 是包含相应类型的数组
+用 visitFrame(F_NEW, nLocals, locals, nStack, stack)访问未压缩帧可以执行压缩(删掉某些栈映射帧来压缩栈帧长度),其中的nLocals 和 nStack 是局部变量的个数和操作数栈的大小,locals和stack 是包含相应类型的数组
 
 -----
 
