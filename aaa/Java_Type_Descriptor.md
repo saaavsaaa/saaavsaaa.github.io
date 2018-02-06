@@ -75,7 +75,7 @@ visitAnnotationDefault
 visitMaxs ]  
 visitEnd
 
-visitCode 和 visitMaxs 方法可用于检测该方法的字节代码在一个事件序列中的开始与结束。和类的情况一样,visitEnd 方法也必须在最后调用,用于检测一个方法在一个事件序列中的结束 。
+visitCode 和 visitMaxs 方法可用于检测该方法的字节代码在一个事件序列中的开始与结束。和类的情况一样,visitEnd 方法也必须在最后调用,用于检测一个方法在一个事件序列中的结束 。多个MethodVisitor实例是完全独立的，没有顺序关系。
 
 -----
 
