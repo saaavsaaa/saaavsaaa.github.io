@@ -70,9 +70,9 @@ https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/Tr
 
 visitAnnotationDefault  
 ( visitAnnotation | visitParameterAnnotation | visitAttribute )*  
-( visitCode  
+[ visitCode  
 ( visitTryCatchBlock | visitLabel | visitFrame | visitXxxInsn |visitLocalVariable | visitLineNumber )*  
-visitMaxs )  
+visitMaxs ]  
 visitEnd
 
 
