@@ -49,22 +49,17 @@ ASM 提供了三个基于 ClassVisitor API 的核心组件,用于生成和变化
 
 -----
 
-
-ClassReader用于分析已存在的类:  
-https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassReaderTest.java
+[ClassReader用于分析已存在的类](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassReaderTest.java) 
 
 注意,构建ClassReader实例的方式有多种。必须读取的类可以用名字指定,也可以像字母数组或InputStream一样用值来指定。利用ClassLoader的getResourceAsStream方法,可以获得一个读取类内容的输入流，例：cl.getResourceAsStream(classname.replace(’.’,’/’)+".class")。
 
-ClassWriter用于生成类：  
-https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassWriterTest.java
+[ClassWriter用于生成类](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassWriterTest.java) 
 
-在已有类中增加和删除一个字段(只有在常量的情况下可以设定初始值)：  
-https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassVisitorAddTest.java
+[在已有类中增加和删除一个字段(只有在常量的情况下可以设定初始值)](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassVisitorAddTest.java) 
 
-操作过程中，因为都是字节码，并不容易直观看到结果，可以借助TraceClassVisitor解决这个问题：  
-https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/TraceVisitor.java
+[操作过程中，因为都是字节码，并不容易直观看到结果，可以借助TraceClassVisitor解决这个问题](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/TraceVisitor.java) 
 
-部分字节码指令：https://github.com/saaavsaaa/saaavsaaa.github.io/blob/master/aaa/Java_Byte_Code.md
+[部分字节码指令](https://saaavsaaa.github.io/aaa/Java_Byte_Code.html) 
 
 用于生成和转换已编译方法的 ASM API 是基于 MethodVisitor 抽象类的,它由 ClassVisitor 的 visitMethod 方法返回。除了一些与注释和调试信息有关的方法之外,这个类为每个字节代码指令类别定义了一个方法,其依据就是这些指令的参数个数和类型。对于非抽象方法,如果存在注释和属性的话,必须首先访问它们,然后是该方
 法的字节代码。对于这些方法,其代码必须按顺序访问,位于对 visitCode 的调用(有且仅有一个调用)与对 visitMaxs 的调用(有且仅有一个调用)之间。
@@ -90,7 +85,7 @@ COMPUTE_MAXS 选项使 ClassWriter 的速度降低 10%,而使用 COMPUTE_FRAMES 
 
 当计算帧需要两个指定类的公共超类时，默认ClassWriter会用getCommonSuperClass方法将这两个类加载并在存在security manager的情况下使用反射（Class.forName）。这时如果正在生成几个相互引用的类,可能会出现问题,被引用的类可能不存在。在这种情况下,可以通过重写 getCommonSuperClass 方法来解决问题。
 
-ClassWriter例子(增加方法及指令说明，修改方法):https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassMethodVisitor.java
+[ClassWriter例子(增加方法及指令说明，修改方法)](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassMethodVisitor.java) 
 
 -----
 
