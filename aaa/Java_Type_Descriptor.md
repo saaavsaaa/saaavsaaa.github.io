@@ -101,6 +101,25 @@ AdviceAdapter 方法适配器是一个抽象类,可用于在一个方法的开�
 
 -----
 
+与类型和方法描述符不同,类型签名的语法非常复杂,这也是因为泛型的递归本质造成的(一
+个泛型可以将另一泛型作为参数——例如,考虑 List<List<E>>)。其语法由以下规则给出(有
+关这些规则的完整描述,
+ 
+ #参阅《Java 虚拟机规范》):
+ 
+TypeSignature: Z | C | B | S | I | F | J | D | FieldTypeSignature
+FieldTypeSignature: ClassTypeSignature | [ TypeSignature | TypeVar
+ClassTypeSignature: L Id ( / Id )* TypeArgs? ( . Id TypeArgs? )* ;
+TypeArgs: < TypeArg+ >
+TypeArg: * | ( + | - )? FieldTypeSignature
+TypeVar: T Id ;
+第一条规则表明,类型签名或者是一个基元类型描述符,或者是一个字段类型签名。第二条
+规则将一个字段类型签名定义为一个类类型签名、数组类型签名或类型变量。第三条规则定义类
+类型签名:它们是类类型描述符,在主类名之后或者内部类名之后的尖括号中可能带有类型参数
+(以点为前缀)。其他规则定义了类型参数和类型变量。注意,一个类型参数可能是一个完整的
+字段类型签名,带有它自己的类型参数:因此,类型签名可能非常复杂
+ 
+-----
 
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Java_Type_Descriptor.md)
