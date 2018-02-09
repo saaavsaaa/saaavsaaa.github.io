@@ -97,6 +97,8 @@ LocalVariablesSorter 方法适配器将一个方法中使用的局部变量按�
 
 [LocalVariablesSorter.newLocal生成局部变量例子(AddTimerLocalAdapter)](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassMethodVisitor.java)    
 
+AdviceAdapter 方法适配器是一个抽象类,可用于在一个方法的开头以及恰在任意 RETURN 或 ATHROW指令之前插入代码。它的主要好处就是对于构造器也是有效的,在构造器中,不能将代码恰好插入到构造器的开头,而是插在对超构造器的调用之后。事实上,这个适配器的大多数代码都专门用于检测对这个超构造器的调用。
+
 -----
 
 
