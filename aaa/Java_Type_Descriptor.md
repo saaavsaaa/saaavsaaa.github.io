@@ -95,6 +95,8 @@ COMPUTE_MAXS 选项使 ClassWriter 的速度降低 10%,而使用 COMPUTE_FRAMES 
 
 LocalVariablesSorter 方法适配器将一个方法中使用的局部变量按照它们在这个方法中的出现顺序重新进行编号。例如,在一个有两个参数的方法中,第一个被读取或写入且索引大于或等于 3 的局部变量(前三个局部变量对应于 this 及两个方法参数,因此序号不会变化)被赋予索引 3,第二个被赋予索引 4,以此类推。在向一个方法中插入新的局部变量时,这个适配器很有用。没有这个适配器,就需要在所有已有局部变量之后添加新的局部变量,但遗憾的是,在 visitMaxs 中,要直到方法的末尾处才能知道这些局部变量的编号。
 
+[LocalVariablesSorter.newLocal生成局部变量例子(AddTimerLocalAdapter)](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassMethodVisitor.java)    
+
 -----
 
 
