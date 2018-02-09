@@ -87,8 +87,9 @@ COMPUTE_MAXS 选项使 ClassWriter 的速度降低 10%,而使用 COMPUTE_FRAMES 
 
 当计算帧需要两个指定类的公共超类时，默认ClassWriter会用getCommonSuperClass方法将这两个类加载并在存在security manager的情况下使用反射（Class.forName）。这时如果正在生成几个相互引用的类,可能会出现问题,被引用的类可能不存在。在这种情况下,可以通过重写 getCommonSuperClass 方法来解决问题。
 
-[ClassWriter例子(增加方法及指令说明，修改方法，包括方法的跟踪与验证)](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassMethodVisitor.java)    
-[补充：修改方法中指令的两个例子](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/PatternMethodAdapter.java) 
+[ClassWriter例子(增加方法及指令说明，修改方法，包括方法的跟踪与验证)](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassMethodVisitor.java)      
+[补充：修改方法中指令的两个例子](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/PatternMethodAdapter.java)   
+[根据 visitFrame 中访问的帧,计算每条指令之前的栈映射帧,在实践中并不建议使用这一方法,因为它的效率要远低于使用 COMPUTE_MAXS，继承自AnalyzerAdapter的两个例子AddTimerMethodAdapter2、AddTimerMethodAdapter3，不过要注意，书上写，要分析这个字节码的时候ClassReader的accept方法的第二个参数要传EXPAND_FRAMES，而原本的AddTimerMethodAdapter是无所谓的。](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/ClassMethodVisitor.java) 
 
 -----
 
