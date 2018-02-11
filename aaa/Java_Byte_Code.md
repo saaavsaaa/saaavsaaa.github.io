@@ -4,6 +4,8 @@ Java 栈帧包含局部变量和操作数栈两部分。
 
 字节代码指令可以分为两类:一小组指令,设计用来在局部变量和操作数栈之间传送值;其他一些指令仅用于操作数栈:它们从栈中弹出一些值,根据这些值计算一个结果,并将它压回栈中。
 
+i : int l:long s:short b:byte c:char f:float d:double a:引用
+
 用来在局部变量和操作数栈之间传送值的指令：  
 ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量,并将它的值压到操作数栈中。它们的参数是必须读取的局部变量的索引 i  
 ILOAD 用于加载一个 boolean、byte、char、 short 或 int 局部变量。   
