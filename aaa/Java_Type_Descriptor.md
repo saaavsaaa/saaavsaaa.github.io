@@ -116,10 +116,10 @@ Java 5 中对泛型的引入)
 个泛型可以将另一泛型作为参数——例如,考虑 List<List<E>>)。其语法由以下规则给出(有
 关这些规则的完整描述,
  
- #参阅《Java 虚拟机规范》):
+ #参阅《Java 虚拟机规范》): 没在最新的规范里翻到，还得再翻翻
  
 TypeSignature: Z | C | B | S | I | F | J | D | FieldTypeSignature
-FieldTypeSignature: ClassTypeSignature | [ TypeSignature | TypeVar
+FieldTypeSignature: ClassTypeSignature | \[ TypeSignature | TypeVar
 ClassTypeSignature: L Id ( / Id )* TypeArgs? ( . Id TypeArgs? )* ;
 TypeArgs: < TypeArg+ >
 TypeArg: * | ( + | - )? FieldTypeSignature
@@ -129,7 +129,15 @@ TypeVar: T Id ;
 类型签名:它们是类类型描述符,在主类名之后或者内部类名之后的尖括号中可能带有类型参数
 (以点为前缀)。其他规则定义了类型参数和类型变量。注意,一个类型参数可能是一个完整的
 字段类型签名,带有它自己的类型参数:因此,类型签名可能非常复杂
- 
+
+| Java 类型 | 对应的类型签名 |
+| List<E>  | Ljava/util/List<TE;>; |
+| List<?> | Ljava/util/List<*>; |
+| List<? extends Number> | Ljava/util/List<+Ljava/lang/Number;>; |
+| List<? super Integer> | Ljava/util/List<-Ljava/lang/Integer;>;|
+| List<List<String>[]> | Ljava/util/List<[Ljava/util/List<Ljava/lang/String;>;>; |
+| HashMap<K, V>.HashIterator<K> | Ljava/util/HashMap<TK;TV;>.HashIterator<TK;>; |
+
 -----
 
 
