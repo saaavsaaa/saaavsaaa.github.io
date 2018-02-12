@@ -121,7 +121,7 @@ Java 5 中对泛型的引入)
 个泛型可以将另一泛型作为参数——例如,考虑 List<List<E>>)。其语法由以下规则给出(有
 关这些规则的完整描述,
  
- #参阅《Java 虚拟机规范》): 可以确定虚拟机规范里并没有泛型相关的详细内容，实际上在Java语言规范里
+ #参阅《Java 虚拟机规范》)
  
 TypeSignature: Z | C | B | S | I | F | J | D | FieldTypeSignature
 FieldTypeSignature: ClassTypeSignature | \[ TypeSignature | TypeVar
