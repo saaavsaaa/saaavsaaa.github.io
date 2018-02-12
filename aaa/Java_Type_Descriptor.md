@@ -131,6 +131,7 @@ TypeVar: T Id ;
 字段类型签名,带有它自己的类型参数:因此,类型签名可能非常复杂
 
 |Java 类型 | 对应的类型签名|
+|:-:|:-:|
 |List<E>  | Ljava/util/List<TE;>;|
 |List<?> | Ljava/util/List<*>;|
 |List<? extends Number> | Ljava/util/List<+Ljava/lang/Number;>;|
