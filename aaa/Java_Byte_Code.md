@@ -30,7 +30,9 @@ xADD、xSUB、xMUL、xDIV 和 xREM 对应于+、-、* 、/ 和 % 运算,其中 x
 移位：ishl,lshr,iushr,lshl,lshr,lushr   
 按位或：ior,lor   
 按位与：iand,land  
-按位异或：ixor,lxor  
+按位异或：ixor,lxor  
+局部变量自增: iinc   
+参见虚拟机规范 第二章 字节码指令集简介   
 
 类型转换,从栈中弹出一个值,将其转换为另一类型,并将结果压栈。对应 Java 中的类型转换表达式。I2F, F2D, L2D 等将数值由一种数值类型转换为另一种类型。i2l,i2f,i2d,l2f,l2d,f2d 1 (slot) -> 2  
 i2b,i2c,i2s,l2i,f2i,f2l,d2i,d2l,d2f 1 - > 1  
