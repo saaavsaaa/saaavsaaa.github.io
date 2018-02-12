@@ -130,13 +130,19 @@ TypeVar: T Id ;
 (以点为前缀)。其他规则定义了类型参数和类型变量。注意,一个类型参数可能是一个完整的
 字段类型签名,带有它自己的类型参数:因此,类型签名可能非常复杂
 
-| Java 类型 | 对应的类型签名 |
-| List<E>  | Ljava/util/List<TE;>; |
-| List<?> | Ljava/util/List<*>; |
-| List<? extends Number> | Ljava/util/List<+Ljava/lang/Number;>; |
-| List<? super Integer> | Ljava/util/List<-Ljava/lang/Integer;>;|
-| List<List<String>[]> | Ljava/util/List<[Ljava/util/List<Ljava/lang/String;>;>; |
-| HashMap<K, V>.HashIterator<K> | Ljava/util/HashMap<TK;TV;>.HashIterator<TK;>; |
+|Java 类型 | 对应的类型签名|
+|List<E>  | Ljava/util/List<TE;>;|
+|List<?> | Ljava/util/List<*>;|
+|List<? extends Number> | Ljava/util/List<+Ljava/lang/Number;>;|
+|List<? super Integer> | Ljava/util/List<-Ljava/lang/Integer;>;|
+|List<List<String>[]> | Ljava/util/List<[Ljava/util/List<Ljava/lang/String;>;>;|
+|HashMap<K, V>.HashIterator<K> | Ljava/util/HashMap<TK;TV;>.HashIterator<TK;>;|
+
+类型签名扩展了类型描述符，还包含了该方法所抛出异常的签名,前面带有^前缀,还可以在尖括号之间包含可选的形式类型参数:
+TypeParams? ( TypeSignature* ) ( TypeSignature | V ) Exception*
+Exception: ^ClassTypeSignature | ^TypeVar
+TypeParams: < TypeParam+ >
+TypeParam: Id : FieldTypeSignature? ( : FieldTypeSignature )*
 
 -----
 
