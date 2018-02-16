@@ -1,3 +1,13 @@
+
+|  选项 |  S |   G|   B|   S×G×B|
+|:-:|:-:|:-:|:-:|:-:|
+|  A | 0  | 1 | 0| 0×1×0 = 0|
+|  B | 1  | 1 | 0| 1×1×0 = 0|
+|  C | 0  | 1 | 1| 0×1×1 = 0|
+|  D | 1  | 1 | 1| 1×1×1 = 1|
+
+
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/aaa.md) to maintain and preview the content for your website in Markdown files.
