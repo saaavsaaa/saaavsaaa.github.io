@@ -56,7 +56,7 @@
 
 -----
 
-  doBegin方法，判断是否是新的分布式事务，如果是，生成全局Id的方法[大概是这样](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/util/IdGenerator.java)，同时设置事务状态为Start；如果不是，。
+  doBegin方法，判断是否是新的分布式事务，如果是，生成全局Id的方法[大概是这样](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/util/IdGenerator.java)，同时设置事务状态为Start；如果不是，说明存在了本地服务在整个分布式事务中存在了多次被远程或本地服务调用的情况，虽然这种情况几乎没有，不过也可以处理一下，比如说同一个Key保存多个事务状态。
 
 -----
 
