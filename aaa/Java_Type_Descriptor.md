@@ -111,9 +111,12 @@ AdviceAdapter 方法适配器是一个抽象类,可用于在一个方法的开�
 与类型和方法描述符不同,类型签名的语法非常复杂,因为泛型本身可递归(例如：List<List<E>>)。书上说可参阅《Java 虚拟机规范》，然而无论是虚拟机规范里并没找到多少相关内容，语言规范里倒是不少。
 
 类型签名的一些规则：
-TypeSignature: Z | C | B | S | I | F | J | D | FieldTypeSignature  ： 类型签名或者是一个基元类型描述符,或者是一个字段类型签名   
+TypeSignature: Z | C | B | S | I | F | J | D | FieldTypeSignature  ： 类型签名是一个基元类型描述符或者字段类型签名   
+
 FieldTypeSignature: ClassTypeSignature | \[ TypeSignature | TypeVar  ： 一个字段类型签名定义为一个类类型签名、数组类型签名或类型变量    
-ClassTypeSignature: L Id ( / Id )* TypeArgs? ( . Id TypeArgs? )* ;  ：定义类类型签名:它们是类类型描述符,在主类名之后或者内部类名之后的尖括号中可能带有类型参数(以点为前缀)     
+
+ClassTypeSignature: L Id ( / Id )* TypeArgs? ( . Id TypeArgs? )* ;  ：类类型签名:类类型描述符,在主类名之后或者内部类名之后的尖括号中可能带有类型参数(以点为前缀)     
+
 其他定义了类型参数和类型变量:
 TypeArgs: < TypeArg+ >   
 TypeArg: * | ( + | - )? FieldTypeSignature   
@@ -131,11 +134,20 @@ TypeVar: T Id ;
 |HashMap<K, V>.HashIterator<K> | Ljava/util/HashMap<TK;TV;>.HashIterator<TK;>;|
 
 类型签名扩展了类型描述符，还包含了该方法所抛出异常的签名,前面带有^前缀,还可以在尖括号之间包含可选的形式类型参数:
-TypeParams? ( TypeSignature* ) ( TypeSignature | V ) Exception*
-Exception: ^ClassTypeSignature | ^TypeVar
-TypeParams: < TypeParam+ >
-TypeParam: Id : FieldTypeSignature? ( : FieldTypeSignature )*
+TypeParams? ( TypeSignature* ) ( TypeSignature | V ) Exception*   
+Exception: ^ClassTypeSignature | ^TypeVar   
+TypeParams: < TypeParam+ >    
+TypeParam: Id : FieldTypeSignature? ( : FieldTypeSignature )*     
 
+比如以下泛型静态方法的方法签名,它以类型变量 T 为参数:
+static <T> Class<? extends T> m (int n)
+它是以下方法签名:
+<T:Ljava/lang/Object;>(I)Ljava/lang/Class<+TT;>;
+最后要说的是类签名,不要将它与类类型签名相混淆,它被定义为其超类的类型签名,后面
+跟有所实现接口的类型签名,以及可选的形式类型参数:
+ClassSignature: TypeParams? ClassTypeSignature ClassTypeSignature*
+例 如 , 一 个 被 声 明 为 C<E> extends List<E> 的 类 的 类 签 名 就 是
+<E:Ljava/lang/Object;>Ljava/util/List<TE;>;。
 -----
 
 
