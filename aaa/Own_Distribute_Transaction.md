@@ -175,8 +175,23 @@
         
         System.out.println();
     }
+    
+    private void clearThreadLocal(){
+        DistributedTransactionObject distributedTransactionObject = waitDistributedObject.get(IdCache.INSTANCE.getKey());
+        if (distributedTransactionObject.isNewConnectionHolder()) {
+            TransactionSynchronizationManager.unbindResource(this.getDataSource());
+        }
+    }
 
 -----
+
+    大概就是这样了，其实原本还打算用redis做服务间的同步控制的，但是做到一半就感觉，本来就是一次网络请求变成两次，就不要再增加网络IO了。另外，对数据库的连接也是，将每一个数据库连接的占用时间都延长了。感觉只有比较畸形的项目，比如在没多大量就还是赶潮流，追微服务什么的，这种情况下才用的上。两段式也是因为类似的原因不得人心吧。
+
+-----
+
+微信公众号：
+
+![Image](/ppp/20170902204445.jpg)
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Own_Distribute_Transaction.md)
 
