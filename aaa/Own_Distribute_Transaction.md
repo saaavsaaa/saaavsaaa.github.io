@@ -157,12 +157,24 @@
 
 -----
 
-
-  doCleanupAfterCompletion
+  doCleanupAfterCompletion方法没啥好说的：
 
 -----
 
-
+    @Override
+    protected void doCleanupAfterCompletion(Object transaction) {
+        if (GlobalTransaction.INSTANCE.owned()){
+            super.doCleanupAfterCompletion(transaction);
+            IdCache.INSTANCE.clear();
+        } else {
+            this.clearThreadLocal();
+        }
+    
+        DistributeService.INSTANCE.clear();
+        GlobalTransaction.INSTANCE.stop();
+        
+        System.out.println();
+    }
 
 -----
 
