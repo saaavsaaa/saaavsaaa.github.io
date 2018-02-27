@@ -54,7 +54,7 @@
 
 -----
 
-  doBegin方法，判断是否是新的分布式事务，如果是，生成全局Id的方法[大概是这样](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/util/IdGenerator.java)，同时设置事务状态为Start；如果不是，说明存在了本地服务在整个分布式事务中存在了多次被远程或本地服务调用的情况，虽然这种情况几乎没有，不过也可以处理一下，比如说同一个Key保存多个事务状态，可以新建一个事务状态类继承DefaultTransactionStatus并增加一个对下一个事务状态对象的引用，形成链表，不过这里对我基本没用，所以一直放着没管。     
+  doBegin方法，判断是否是新的分布式事务，如果是标识事务是自己启动的，同时设置事务状态为Start；如果不是，说明存在了本地服务在整个分布式事务中存在了多次被远程或本地服务调用的情况，虽然这种情况几乎没有，不过也可以处理一下，比如说同一个Key保存多个事务状态，可以新建一个事务状态类继承DefaultTransactionStatus并增加一个对下一个事务状态对象的引用，形成链表，不过这里对我基本没用，所以一直放着没管。     
 
   doCommit方法：
 
@@ -83,7 +83,61 @@
 
 -----
 
+    @Activate(group = Constants.CONSUMER)
+    @Component
+    public class SendIdFilter implements Filter {
+        @Override
+        public Result invoke(Invoker<?> invoker, Invocation invocation) {
+
+            long start = System.currentTimeMillis();
+            Result result = null;
+            try {
+                if (StringUtils.isEmpty(IdCache.INSTANCE.get())){
+                    if (invocation.getAttachment("transactionId") == null){
+                        String newId = IdGenerator.INSTANCE.createNewId();
+                        ((RpcInvocation) invocation).setAttachment("transactionId", newId);
+                    }
+                } else {
+                    ((RpcInvocation) invocation).setAttachment("transactionId", IdCache.INSTANCE.get());
+                }
+
+                if (StringUtils.isNotEmpty(GlobalTransaction.INSTANCE.getOwnId())){
+                    ((RpcInvocation) invocation).setAttachment("ownId", GlobalTransaction.INSTANCE.getOwnId());
+                    if (GlobalTransaction.INSTANCE.owned()){
+                        Map services = ApplicationContextUtil.getContext().getBeansOfType(invoker.getInterface());
+                        if (services != null && !services.isEmpty()){
+                            services.forEach(
+                                    (k,v) -> {
+                                        if (v instanceof BaseService){
+                                            DistributeService.INSTANCE.add((BaseService) v);
+                                        }
+                                    }
+                            );
+                        }
+                    }
+                }
+
+
+                result = invoker.invoke(invocation);
+
+                // TODO: 17-8-14 DistributeService 的远程调用也会进拦截器，导致执行多次
+                if (result.hasException()){
+                    DistributeService.INSTANCE.adviseRollback();
+                }
+            }
+            catch (Exception e){
+
+                throw e;
+            }
+
+            return result;
+        }
+    }
+
 -----
+
+  生成全局事务Id的方法为了方便也放这里了，不过其实在事务启动的时候生成更好，生成全局Id的方法[大概是这样](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/util/IdGenerator.java)。
+
 
   doCleanupAfterCompletion
 
