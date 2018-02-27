@@ -102,7 +102,6 @@
                 }
 
                 if (StringUtils.isNotEmpty(GlobalTransaction.INSTANCE.getOwnId())){
-                    ((RpcInvocation) invocation).setAttachment("ownId", GlobalTransaction.INSTANCE.getOwnId());
                     if (GlobalTransaction.INSTANCE.owned()){
                         Map services = ApplicationContextUtil.getContext().getBeansOfType(invoker.getInterface());
                         if (services != null && !services.isEmpty()){
@@ -136,7 +135,27 @@
 
 -----
 
-  生成全局事务Id的方法为了方便也放这里了，不过其实在事务启动的时候生成更好，生成全局Id的方法[大概是这样](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/util/IdGenerator.java)。
+  生成全局事务Id的方法为了方便也放这里了，不过其实在事务启动的时候生成更好，生成全局Id的方法[大概是这样](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/util/IdGenerator.java)。     
+  提交的逻辑很简单，就是用key取出事务状态和对象，直接调用jdbc的提交，之后再清理一下所有与这个key相关的数据还有ThreadLocal等，回滚也是类似的。exec的代码：
+
+-----
+
+    public void exec() throws Exception {
+        List<BaseService> services = waitServiceHolder.get();
+        if (services != null){
+            try {
+                for (BaseService service : services) {
+                    service.adviseCommit();
+                }
+            } catch (Throwable e){
+                System.out.println("rollback : " + e.getMessage());
+                adviseRollback();
+                throw e;
+            }
+        }
+    }
+
+-----
 
 
   doCleanupAfterCompletion
