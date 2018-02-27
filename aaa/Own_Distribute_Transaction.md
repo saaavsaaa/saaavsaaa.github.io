@@ -39,10 +39,8 @@
                 } else {
                     IdCache.INSTANCE.set(invocation.getAttachment("transactionId"));
                 }
-
-                if (StringUtils.isNotEmpty(invocation.getAttachment("ownId"))) {
-                    GlobalTransaction.INSTANCE.setOwnId(invocation.getAttachment("ownId"));
-                }
+                
+                ......
 
                 result = invoker.invoke(invocation);
             }
@@ -58,7 +56,36 @@
 
   doBegin方法，判断是否是新的分布式事务，如果是，生成全局Id的方法[大概是这样](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/util/IdGenerator.java)，同时设置事务状态为Start；如果不是，说明存在了本地服务在整个分布式事务中存在了多次被远程或本地服务调用的情况，虽然这种情况几乎没有，不过也可以处理一下，比如说同一个Key保存多个事务状态，可以新建一个事务状态类继承DefaultTransactionStatus并增加一个对下一个事务状态对象的引用，形成链表，不过这里对我基本没用，所以一直放着没管。     
 
-  doCommit、doCleanupAfterCompletion
+  doCommit方法：
+
+-----
+
+    @Override
+    protected void doCommit(DefaultTransactionStatus status) {
+        if (GlobalTransaction.INSTANCE.owned()){
+
+            try {
+                DistributeService.INSTANCE.exec();
+            } catch (Exception e) {
+                throw new TransactionSystemException(e.getMessage());
+            }
+    
+            super.doCommit(status);
+        } else {
+            ConnectionHolder conHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(this.getDataSource());
+            this.setWaitDistributedObject(conHolder);
+        }
+    }
+
+-----
+
+  提交方法首先判断是不是本地启动的分布式事务，这个标志使用ThreadLocal保存以避免本地服务被多次调用的情况。如果不是当前服务启动的分布式事务，则将数据库的连接和事务对象保存在内存中；如果是当前服务启动的，则说明所有的业务代码已经执行完成，通知所有服务可以进行提交了。所有被通知的服务都在之前调用时将其引用保存下来，在这时候调用，我因为方便，保存引用也是在dubbo的Filter中做的：
+
+-----
+
+-----
+
+  doCleanupAfterCompletion
 
 -----
 
@@ -66,7 +93,7 @@
 
 -----
 
-
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Own_Distribute_Transaction.md)
 
 
 ```markdown
