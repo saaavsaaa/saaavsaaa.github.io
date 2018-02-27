@@ -44,6 +44,10 @@
 
 -----
 
+### [简单的分布式事务实现](https://saaavsaaa.github.io/aaa/Own_Distribute_Transaction.html)
+
+-----
+
 ### [ASM(未完)](https://saaavsaaa.github.io/aaa/Java_Type_Descriptor.html)
 
 -----
