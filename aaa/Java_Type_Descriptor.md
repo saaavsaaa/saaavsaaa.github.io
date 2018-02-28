@@ -142,6 +142,16 @@ TypeParam: Id : FieldTypeSignature? ( : FieldTypeSignature )*
 不要将类类型签名与类签名相混淆,类签名被定义为其超类的类型签名。后面跟所有接口的类型签名,以及可选的形式类型参数:ClassSignature: TypeParams? ClassTypeSignature ClassTypeSignature*。例如 , 个被声明为 C<E> extends List<E> 的类的类签名就是<E:Ljava/lang/Object;>Ljava/util/List<TE;>;。
 
 
+SignatureVisitor可用于生成和转换签名，可以访问类型签名、方法签名和类签名。
+其中可用于访问类签名的方法有：visitBaseType、visitTypeVariable、visitArrayType、visitClassType、visitInnerClassType、visitTypeArgument、visitTypeArgument和visitEnd。其中visitArrayType和visitTypeArgument因为类型签名是可递归的，所以返回SignatureVisitor。这几个方法的调用顺序：
+visitBaseType | visitArrayType | visitTypeVariable |( visitClassType visitTypeArgument*( visitInnerClassType visitTypeArgument* )* visitEnd ) )
+
+用于访问方法签名的方法：( visitFormalTypeParameter visitClassBound visitInterfaceBound* )* visitParameterType* visitReturnType visitExceptionType*
+
+用于访问类签名的方法：( visitFormalTypeParameter visitClassBound? visitInterfaceBound* )* visitSuperClass visitInterface*
+
+这些方法大多返回一个 SignatureVisitor:它是准备用来访问类型签名的。注意,不同于 ClassVisitor 返 回 的 MethodVisitors ,SignatureVisitor返回的
+SignatureVisitors 不得为 null,而且必须顺序使用:在完全访问一个嵌套签名之前,不得访问基类访问器的任何方法。
 
 -----
 
