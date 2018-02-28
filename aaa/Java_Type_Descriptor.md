@@ -1,4 +1,4 @@
-ASM书上讲的并不是很仔细，语句经常不通顺，例子经常缺点东西，我整理了一下，例子一部分自己做的，一部分在原例子上改的
+ASM书上讲的并不是很仔细，或者是翻译的问题，语句经常不通顺，例子经常缺点东西，我整理了一下，例子一部分自己做的，一部分在原例子上改的
 
 类型描述符:
 
@@ -139,11 +139,8 @@ Exception: ^ClassTypeSignature | ^TypeVar
 TypeParams: < TypeParam+ >    
 TypeParam: Id : FieldTypeSignature? ( : FieldTypeSignature )*     
 
-比如以下泛型静态方法的方法签名,它以类型变量 T 为参数:     
-static <T> Class<? extends T> m (int n)     
-它是以下方法签名:<T:Ljava/lang/Object;>(I)Ljava/lang/Class<+TT;>;     
-最后要说的是类签名,不要将它与类类型签名相混淆,它被定义为其超类的类型签名,后面跟有所实现接口的类型签名,以及可选的形式类型参数:     
-ClassSignature: TypeParams? ClassTypeSignature ClassTypeSignature*       
+例如以以类型变量 T 为参数的泛型静态方法:static <T> Class<? extends T> m (int n)，它的方法签名:<T:Ljava/lang/Object;>(I)Ljava/lang/Class<+TT;>;     
+最后要说的是类签名,不要将它与类类型签名相混淆,它被定义为其超类的类型签名,后面跟有所实现接口的类型签名,以及可选的形式类型参数:ClassSignature: TypeParams? ClassTypeSignature ClassTypeSignature*       
 例如 , 个被声明为 C<E> extends List<E> 的类的类签名就是<E:Ljava/lang/Object;>Ljava/util/List<TE;>;。
 
 -----
