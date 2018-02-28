@@ -139,15 +139,12 @@ Exception: ^ClassTypeSignature | ^TypeVar
 TypeParams: < TypeParam+ >    
 TypeParam: Id : FieldTypeSignature? ( : FieldTypeSignature )*     
 
-比如以下泛型静态方法的方法签名,它以类型变量 T 为参数:
-static <T> Class<? extends T> m (int n)
-它是以下方法签名:
-<T:Ljava/lang/Object;>(I)Ljava/lang/Class<+TT;>;
-最后要说的是类签名,不要将它与类类型签名相混淆,它被定义为其超类的类型签名,后面
-跟有所实现接口的类型签名,以及可选的形式类型参数:
-ClassSignature: TypeParams? ClassTypeSignature ClassTypeSignature*
-例 如 , 一 个 被 声 明 为 C<E> extends List<E> 的 类 的 类 签 名 就 是
-<E:Ljava/lang/Object;>Ljava/util/List<TE;>;。
+比如以下泛型静态方法的方法签名,它以类型变量 T 为参数:     
+static <T> Class<? extends T> m (int n)     
+它是以下方法签名:<T:Ljava/lang/Object;>(I)Ljava/lang/Class<+TT;>;     
+最后要说的是类签名,不要将它与类类型签名相混淆,它被定义为其超类的类型签名,后面跟有所实现接口的类型签名,以及可选的形式类型参数:     
+ClassSignature: TypeParams? ClassTypeSignature ClassTypeSignature*       
+例如 , 个被声明为 C<E> extends List<E> 的类的类签名就是<E:Ljava/lang/Object;>Ljava/util/List<TE;>;。
 
 -----
 
