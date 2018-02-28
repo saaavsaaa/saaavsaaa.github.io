@@ -1,4 +1,4 @@
-ASM书上讲的并不是很仔细，或者是翻译的问题，语句经常不通顺，例子经常缺点东西，我整理了一下，例子一部分自己做的，一部分在原例子上改的
+ASM书上讲的并不是很仔细，或者是翻译的问题，语句经常不通顺，例子经常缺点东西或者是错的，我整理了一下，例子一部分自己做的，一部分在原例子上改的。
 
 类型描述符:
 
@@ -153,7 +153,9 @@ visitBaseType | visitArrayType | visitTypeVariable |( visitClassType visitTypeAr
 这些方法大多返回一个 SignatureVisitor:它是准备用来访问类型签名的。注意,不同于 ClassVisitor 返 回 的 MethodVisitors ,SignatureVisitor返回的
 SignatureVisitors 不得为 null,而且必须顺序使用:在完全访问一个嵌套签名之前,不得访问基类访问器的任何方法。
 
-与类和方法的Reader、Writer一样，signatureReader 组件分析一个签名,并针对一个给定的签名访问器调用适当的访问方法;SignatureWriter 组件基于它接收到的方法调用生成一个签名。
+与类和方法的Reader、Writer一样，signatureReader 组件分析一个签名,并针对一个给定的签名访问器调用适当的访问方法;SignatureWriter 组件基于它接收到的方法调用生成一个签名。[改签名的例子](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/SignatureAdapter.java)  
+
+
 
 -----
 
