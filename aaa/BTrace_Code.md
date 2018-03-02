@@ -1,7 +1,7 @@
-xxd一个编译后的用于单元测试的class脚本就可以发现，这些脚本都是Btrace自己编译的，魔数位是0xbacecaca。
+xxd一个编译后的用于单元测试的class脚本就可以发现，这些脚本都是Btrace自己编译的，魔数位是0xbacecaca。因为在开发环境调试方便，我就直接用的com/sun/btrace/compiler/Compiler.java的main方法编译脚本了。
 
-我们自己写的.java的脚本，首先也会被Btrace编译，之后读入Btrace编译的class脚本文件
-        File f = new File(path);
+脚本被Btrace编译后读入：
+        File f = new File(path);
         InputStream is = new FileInputStream(f)
 
         while ((read = is.read(buffer)) > 0) {
