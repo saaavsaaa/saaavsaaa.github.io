@@ -24,3 +24,9 @@ io/shardingjdbc/spring/datasource/SpringShardingDataSource.java ctor line 52
 super --> io/shardingjdbc/core/jdbc/adapter/AbstractDataSourceAdapter.java.getDatabaseType line 63     
 -->
 com/alibaba/druid/pool/DruidDataSource.java line 1065
+这是druid的部分不列了，返回DruidPooledConnection     
+
+-----
+
+
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/SpringBoot_ShardingJdbc_Code_Load_Run.md)
