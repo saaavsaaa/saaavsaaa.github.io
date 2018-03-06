@@ -13,5 +13,14 @@ line 271: this.beanFactory
           [2] : size = 0     
           [3] --> "sql.show" -> "true"     
 
-org/springframework/beans/factory/support/SimpleInstantiationStrategy.java
-line 122
+org/springframework/beans/factory/support/SimpleInstantiationStrategy.java line 122     
+org/springframework/beans/BeanUtils.java line 142     
+java/lang/reflect/Constructor.java line 423     
+sun/reflect/DelegatingConstructorAccessorImpl.class line 19     
+sun/reflect/DelegatingConstructorAccessorImpl.class line 31
+-->
+io/shardingjdbc/spring/datasource/SpringShardingDataSource.java ctor     
+io/shardingjdbc/spring/datasource/SpringShardingDataSource.java ctor line 52     
+super --> io/shardingjdbc/core/jdbc/adapter/AbstractDataSourceAdapter.java.getDatabaseType line 63     
+-->
+com/alibaba/druid/pool/DruidDataSource.java line 1065
