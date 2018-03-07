@@ -1,4 +1,25 @@
-/org/springframework/beans/factory/support/AbstractBeanFactory.java     
+Insert 只分表：
+org/springframework/jdbc/datasource/DataSourceTransactionManager.doBegin --> this.dataSource.getConnection()
+--> io/shardingjdbc/core/jdbc/core/datasource/ShardingDataSource.getConnection --> new ShardingConnection(shardingContext)
+
+org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/spring/SqlSessionTemplate.insert -> SqlSessionInterceptor.invoke - invoke --> sun/reflect/NativeMethodAccessorImpl.invoke0
+--> org/apache/ibatis/executor/CachingExecutor.update
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Spring 启动：
+/org/springframework/beans/factory/support/AbstractBeanFactory.java     
 line 306 : beanName--> shardingDataSource     
            mbd --> Root bean: class [io.shardingjdbc.spring.datasource.SpringShardingDataSource]; scope=singleton; abstract=false;lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false;factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=close     
            args --> null  
