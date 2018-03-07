@@ -196,7 +196,13 @@ Annotation部分：
 
 对注解访问的类都是AnnotationVisitor的子类。它的方法用于访问一个注解的名称/值对。AnnotationVisitor的visit用于基元、String 和 Class 值(后者用 Type 对象表示);visitEnum用于枚举;visitAnnotation用于注解;visitArray用于访问数组，和上一段的四种类型相对应，这四个方法间没有顺序要求。
 
-javac -g 编译的类中包含了其源文件的名字、源代码行编号与字节代码指令之间的映射、源代码中局部变量名与字节代码中局部变量槽之间的映射。当这一可选信息可用时,会在调试器中和异常栈轨迹中使用它们。见上面的LineNumberTable部分。
+javac -g 编译的类中包含了其源文件的名字、源代码行编号与字节代码指令之间的映射、源代码中局部变量名与字节代码中局部变量槽之间的映射。当这一可选信息可用时,会在调试器中和异常栈轨迹中使用它们。见上面的LineNumberTable部分。一个给定行号可以出现在几个对中。这是因为,对于出现在一个源代码行中的表达式,其
+在字节代码中的相应指令可能不是连续的。
+
+调试信息用 ClassVisitor 和 MethodVisitor 类的三个方法访问：
+1.源文件名用 ClassVisitor 类的 visitSource 方法访问;
+2.源代码行号与字节代码指令之间的映射用 MethodVisitor 类的 visitLineNumber方法访问,每次访问一对;
+3.源代码中局部变量名与字节代码中局部变量槽之间的映射用 MethodVisitor 类的visitLocalVariable 方法访问,每次访问一个多元组。
 
 
 -----
