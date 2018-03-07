@@ -164,6 +164,13 @@ Annotation部分：
 
 -----
 
+      LineNumberTable:
+        line 17: 0
+        line 18: 8
+        line 19: 16
+        line 20: 22
+        line 21: 27
+        line 22: 32
       LocalVariableTable:
         Start  Length  Slot  Name   Signature
             0      34     0 globalReturnCode   Ljava/lang/String;
@@ -188,6 +195,9 @@ Annotation部分：
 代码中的注解可以具有各种不同形式, 比如 @Deprecated 、@Retention(RetentionPolicy.CLASS)或@Task(desc="refactor", id=1)。但在内部,所有注解的形式都是相同的,由一种注解类型和一组名称/值对规定,其中的取值仅限于如下几种:1.基元,String 或 Class 值;2.枚举值;3.注解值(注意,一个注解中可以包含其他注解,甚至可以包含注解数组。因此,注解可能非常复杂);4.上述值的数组。
 
 对注解访问的类都是AnnotationVisitor的子类。它的方法用于访问一个注解的名称/值对。AnnotationVisitor的visit用于基元、String 和 Class 值(后者用 Type 对象表示);visitEnum用于枚举;visitAnnotation用于注解;visitArray用于访问数组，和上一段的四种类型相对应，这四个方法间没有顺序要求。
+
+javac -g 编译的类中包含了其源文件的名字、源代码行编号与字节代码指令之间的映射、源代码中局部变量名与字节代码中局部变量槽之间的映射。当这一可选信息可用时,会在调试器中和异常栈轨迹中使用它们。见上面的LineNumberTable部分。
+
 
 -----
 
