@@ -159,6 +159,29 @@ SignatureVisitors 不得为 null,而且必须顺序使用:在完全访问一个�
 
 Annotation部分：
 
+类、字段、方法和方法参数注释,比如@Deprecated 或@Override,只要它们的保留策略不是 RetentionPolicy.SOURCE,它们就会被存储在编译后的类中。这一信息不是在运行时供字节代码指令使用,但是,如果保留策略是 RetentionPolicy.RUNTIME ,则可以通过反射 API 访问它。
+例，对于加了@Deprecated的方法，使用javap -verbose aaa.class，在该方法中：
+
+-----
+
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      34     0 globalReturnCode   Ljava/lang/String;
+            0      34     1     d   Ljava/lang/Object;
+            8      26     2  body   Lcom/aaaa/a/a/base/A;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0      34     1     d   TT;
+            8      26     2  body   Lcom/aaaa/a/a/base/A<TT;>;
+    Deprecated: true
+    Signature: #36                          // <T:Ljava/lang/Object;>(Ljava/lang/String;TT;)Lcom/aaaa/a/a/base/A;
+    RuntimeVisibleAnnotations:
+      0: #38()
+
+
+-----
+
+
 
 -----
 
