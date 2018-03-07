@@ -204,6 +204,10 @@ javac -g 编译的类中包含了其源文件的名字、源代码行编号与�
 2.源代码行号与字节代码指令之间的映射用 MethodVisitor 类的 visitLineNumber方法访问,每次访问一对;
 3.源代码中局部变量名与字节代码中局部变量槽之间的映射用 MethodVisitor 类的visitLocalVariable 方法访问,每次访问一个多元组。
 
+-----
+
+下面是另外一种方法：ASM 树 API。     
+用于生成和转换已编译 Java 类的 ASM 树 API 是基于 ClassNode 类的，其中包含一些信息和各种Node，如FieldNode和MethodNode。用树 API 生成类的过程就是:创建一个 ClassNode 对象,并初始化它的字段。使用树 API 生成类时,需要多花费大约 30%的时间,占用的内存也多于使用核心 API。但可以按任意顺序生成类元素,这在一些情况下可能非常方便。添加和删除类就是在 ClassNode 对象的 fields 或 methods 列表中添加或删除元素。
 
 -----
 
