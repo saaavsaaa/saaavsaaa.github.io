@@ -181,7 +181,11 @@ Annotation部分：
 
 -----
 
+可以看到Deprecated：true，后面RuntimeVisibleAnnotations的0:指向的常量池位置:     
+  #37 = Utf8               RuntimeVisibleAnnotations     
+  #38 = Utf8               Ljava/lang/Deprecated;     
 
+代码中的注释可以具有各种不同形式, 比如 @Deprecated 、@Retention(RetentionPolicy.CLASS)或@Task(desc="refactor", id=1)。但在内部,所有注释的形式都是相同的,由一种注释类型和一组名称/值对规定,其中的取值仅限于如下几种:
 
 -----
 
