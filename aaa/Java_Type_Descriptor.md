@@ -159,7 +159,7 @@ SignatureVisitors 不得为 null,而且必须顺序使用:在完全访问一个�
 
 Annotation部分：
 
-类、字段、方法和方法参数注释,比如@Deprecated 或@Override,只要它们的保留策略不是 RetentionPolicy.SOURCE,它们就会被存储在编译后的类中。这一信息不是在运行时供字节代码指令使用,但是,如果保留策略是 RetentionPolicy.RUNTIME ,则可以通过反射 API 访问它。
+类、字段、方法和方法参数注解,比如@Deprecated 或@Override,只要它们的保留策略不是 RetentionPolicy.SOURCE,它们就会被存储在编译后的类中。这一信息不是在运行时供字节代码指令使用,但是,如果保留策略是 RetentionPolicy.RUNTIME ,则可以通过反射 API 访问它。
 例，对于加了@Deprecated的方法，使用javap -verbose aaa.class，在该方法中：
 
 -----
@@ -185,7 +185,9 @@ Annotation部分：
   #37 = Utf8               RuntimeVisibleAnnotations     
   #38 = Utf8               Ljava/lang/Deprecated;     
 
-代码中的注释可以具有各种不同形式, 比如 @Deprecated 、@Retention(RetentionPolicy.CLASS)或@Task(desc="refactor", id=1)。但在内部,所有注释的形式都是相同的,由一种注释类型和一组名称/值对规定,其中的取值仅限于如下几种:1.基元,String 或 Class 值;2.枚举值;3.注释值(注意,一个注释中可以包含其他注释,甚至可以包含注释数组。因此,注释可能非常复杂);4.上述值的数组。
+代码中的注解可以具有各种不同形式, 比如 @Deprecated 、@Retention(RetentionPolicy.CLASS)或@Task(desc="refactor", id=1)。但在内部,所有注解的形式都是相同的,由一种注解类型和一组名称/值对规定,其中的取值仅限于如下几种:1.基元,String 或 Class 值;2.枚举值;3.注解值(注意,一个注解中可以包含其他注解,甚至可以包含注解数组。因此,注解可能非常复杂);4.上述值的数组。
+
+对注解访问的类都是AnnotationVisitor的子类。它的方法用于访问一个注解的名称/值对。AnnotationVisitor的visit用于基元、String 和 Class 值(后者用 Type 对象表示);visitEnum用于枚举;visitAnnotation用于注解;visitArray用于访问数组，和上一段的四种类型相对应，这四个方法间没有顺序要求。
 
 -----
 
