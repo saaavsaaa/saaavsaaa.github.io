@@ -155,6 +155,9 @@ SignatureVisitors 不得为 null,而且必须顺序使用:在完全访问一个�
 
 与类和方法的Reader、Writer一样，signatureReader 组件分析一个签名,并针对一个给定的签名访问器调用适当的访问方法;SignatureWriter 组件基于它接收到的方法调用生成一个签名。[改签名的例子](https://github.com/saaavsaaa/warn-report/blob/master/src/main/java/code/visit/SignatureAdapter.java)  
 
+-----
+
+Annotation部分：
 
 
 -----
