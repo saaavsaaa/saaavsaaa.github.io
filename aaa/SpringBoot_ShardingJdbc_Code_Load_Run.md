@@ -9,7 +9,7 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
 ->prepareStatement(StatementHandler handler, Log statementLog) :     
         Connection connection = getConnection(statementLog);     
         stmt = handler.prepare(connection, transaction.getTimeout());     
-        这个connection根据开头可知是ShardingConnection     
+        这个connection根据开头可知是ShardingConnection类型     
 --> org/apache/ibatis/executor/statement/RoutingStatementHandler.prepare (delegate==PreparedStatementHandler)     
 --> org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->[abstract]instantiateStatement     
 --> org/apache/ibatis/executor/statement/PreparedStatementHandler.instantiateStatement     
@@ -61,9 +61,20 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
     }
 
 -----
-sql和路由规则都有了     
-回到org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->setFetchSize(statement)
+sql和路由规则都有了       
+回到 >> org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->setFetchSize(statement)          
+>> org/apache/ibatis/executor/SimpleExecutor.prepareStatement:handler.parameterize(stmt : stmt==ShardingPreparedStatement)
+--> org/apache/ibatis/executor/statement/RoutingStatementHandler.parameterize
+--> org/apache/ibatis/executor/statement/PreparedStatementHandler.parameterize
 
+-----
+
+  @Override
+  public void parameterize(Statement statement) throws SQLException {
+    parameterHandler.setParameters((PreparedStatement) statement);
+  }
+
+-----
 
 
 
