@@ -63,20 +63,43 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
 -----
 sql和路由规则都有了       
 回到 <<< org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->setFetchSize(statement)          
-<<< org/apache/ibatis/executor/SimpleExecutor.prepareStatement:handler.parameterize(stmt : stmt==ShardingPreparedStatement)
---> org/apache/ibatis/executor/statement/RoutingStatementHandler.parameterize
---> org/apache/ibatis/executor/statement/PreparedStatementHandler.parameterize
+<<< org/apache/ibatis/executor/SimpleExecutor.prepareStatement:handler.parameterize(stmt : stmt==ShardingPreparedStatement)     
+--> org/apache/ibatis/executor/statement/RoutingStatementHandler.parameterize     
+--> org/apache/ibatis/executor/statement/PreparedStatementHandler.parameterize     
+<<< org/apache/ibatis/executor/SimpleExecutor.doUpdate : return handler.update(stmt);     
+--> org/apache/ibatis/executor/statement/PreparedStatementHandler.update(statement==ShardingPreparedStatement) :
 
 -----
 
-  @Override
-  public void parameterize(Statement statement) throws SQLException {
-    parameterHandler.setParameters((PreparedStatement) statement);
-  }
+        @Override
+        public int update(Statement statement) throws SQLException {
+                PreparedStatement ps = (PreparedStatement) statement;
+                ps.execute();
+                int rows = ps.getUpdateCount();
+                Object parameterObject = boundSql.getParameterObject();
+                KeyGenerator keyGenerator = mappedStatement.getKeyGenerator();
+                keyGenerator.processAfter(executor, mappedStatement, ps, parameterObject);
+                return rows;
+        }
 
 -----
 
+ps.execute == io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute:
 
+-----
+
+    @Override
+    public boolean execute() throws SQLException {
+        try {
+            Collection<PreparedStatementUnit> preparedStatementUnits = route();
+            return new PreparedStatementExecutor(
+                    getConnection().getShardingContext().getExecutorEngine(), routeResult.getSqlStatement().getType(), preparedStatementUnits, getParameters()).execute();
+        } finally {
+            clearBatch();
+        }
+    }
+
+-----
 
 
 
