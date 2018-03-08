@@ -157,12 +157,12 @@ io/shardingjdbc/core/routing/router/ParsingSQLRouter.parse [例:logicSQL=insert 
 
 -----
 
-io/shardingjdbc/core/parsing/SQLParsingEngine.parse:
+io/shardingjdbc/core/parsing/SQLParsingEngine.parse[lexer:词法分析器]：
 
 -----
 
     public SQLStatement parse() {
-        LexerEngine lexerEngine = LexerEngineFactory.newInstance(dbType, sql);[lexer:词法分析器]
+        LexerEngine lexerEngine = LexerEngineFactory.newInstance(dbType, sql);
         lexerEngine.nextToken();
         return SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine).parse();
     }
