@@ -161,11 +161,11 @@ io/shardingjdbc/core/parsing/SQLParsingEngine.parse[lexer:词法分析器]：
 
 -----
 
-    public SQLStatement parse() {
-        LexerEngine lexerEngine = LexerEngineFactory.newInstance(dbType, sql);
-        lexerEngine.nextToken();
-        return SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine).parse();
-    }
+        public SQLStatement parse() {
+                LexerEngine lexerEngine = LexerEngineFactory.newInstance(dbType, sql);
+                lexerEngine.nextToken();
+                return SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine).parse();
+        }
 
 -----
 
