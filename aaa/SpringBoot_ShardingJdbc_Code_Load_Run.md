@@ -52,6 +52,13 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
     public static SQLRouter createSQLRouter(final ShardingContext shardingContext) {
         return HintManagerHolder.isDatabaseShardingOnly() ? new DatabaseHintSQLRouter(shardingContext) : new ParsingSQLRouter(shardingContext);
     }
+    
+    public ParsingSQLRouter(final ShardingContext shardingContext) {
+        shardingRule = shardingContext.getShardingRule();
+        databaseType = shardingContext.getDatabaseType();
+        showSQL = shardingContext.isShowSQL();
+        generatedKeys = new LinkedList<>();
+    }
 
 -----
 
