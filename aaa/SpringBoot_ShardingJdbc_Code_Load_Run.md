@@ -62,8 +62,8 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
 
 -----
 sql和路由规则都有了       
-回到 >> org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->setFetchSize(statement)          
->> org/apache/ibatis/executor/SimpleExecutor.prepareStatement:handler.parameterize(stmt : stmt==ShardingPreparedStatement)
+回到 <<< org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->setFetchSize(statement)          
+<<< org/apache/ibatis/executor/SimpleExecutor.prepareStatement:handler.parameterize(stmt : stmt==ShardingPreparedStatement)
 --> org/apache/ibatis/executor/statement/RoutingStatementHandler.parameterize
 --> org/apache/ibatis/executor/statement/PreparedStatementHandler.parameterize
 
