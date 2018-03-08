@@ -167,33 +167,33 @@ io/shardingjdbc/core/parsing/SQLParsingEngine.parse[lexer:词法分析器]：
                 return SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine).parse();
         }
 
-            public MySQLLexer(final String input) {
+        public MySQLLexer(final String input) {
                 super(input, dictionary);
-            }
-
-    public final void nextToken() {
-        skipIgnoredToken();
-        if (isVariableBegin()) {
-            currentToken = new Tokenizer(input, dictionary, offset).scanVariable();
-        } else if (isNCharBegin()) {
-            currentToken = new Tokenizer(input, dictionary, ++offset).scanChars();
-        } else if (isIdentifierBegin()) {
-            currentToken = new Tokenizer(input, dictionary, offset).scanIdentifier();
-        } else if (isHexDecimalBegin()) {
-            currentToken = new Tokenizer(input, dictionary, offset).scanHexDecimal();
-        } else if (isNumberBegin()) {
-            currentToken = new Tokenizer(input, dictionary, offset).scanNumber();
-        } else if (isSymbolBegin()) {
-            currentToken = new Tokenizer(input, dictionary, offset).scanSymbol();
-        } else if (isCharsBegin()) {
-            currentToken = new Tokenizer(input, dictionary, offset).scanChars();
-        } else if (isEnd()) {
-            currentToken = new Token(Assist.END, "", offset);
-        } else {
-            throw new SQLParsingException(this, Assist.ERROR);
         }
-        offset = currentToken.getEndPosition();
-    }
+
+        public final void nextToken() {
+                skipIgnoredToken();
+                if (isVariableBegin()) {
+                    currentToken = new Tokenizer(input, dictionary, offset).scanVariable();
+                } else if (isNCharBegin()) {
+                    currentToken = new Tokenizer(input, dictionary, ++offset).scanChars();
+                } else if (isIdentifierBegin()) {
+                    currentToken = new Tokenizer(input, dictionary, offset).scanIdentifier();
+                } else if (isHexDecimalBegin()) {
+                    currentToken = new Tokenizer(input, dictionary, offset).scanHexDecimal();
+                } else if (isNumberBegin()) {
+                    currentToken = new Tokenizer(input, dictionary, offset).scanNumber();
+                } else if (isSymbolBegin()) {
+                    currentToken = new Tokenizer(input, dictionary, offset).scanSymbol();
+                } else if (isCharsBegin()) {
+                    currentToken = new Tokenizer(input, dictionary, offset).scanChars();
+                } else if (isEnd()) {
+                    currentToken = new Token(Assist.END, "", offset);
+                } else {
+                    throw new SQLParsingException(this, Assist.ERROR);
+                }
+                offset = currentToken.getEndPosition();
+        }
 
 -----
 
