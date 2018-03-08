@@ -140,7 +140,21 @@ ps.execute == io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement
 
 -----
 
+io/shardingjdbc/core/routing/router/ParsingSQLRouter.parse [例:logicSQL=insert into aaatest(a,b,c) values(?,?,?), parameters=1,1,1] :
 
+-----
+
+    @Override
+    public SQLStatement parse(final String logicSQL, final int parametersSize) {
+        SQLParsingEngine parsingEngine = new SQLParsingEngine(databaseType, logicSQL, shardingRule);
+        SQLStatement result = parsingEngine.parse();
+        if (result instanceof InsertStatement) {
+            ((InsertStatement) result).appendGenerateKeyToken(shardingRule, parametersSize);
+        }
+        return result;
+    }
+
+-----
 
 
 
