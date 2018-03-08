@@ -121,8 +121,18 @@ ps.execute == io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement
 
 -----
 
+--> io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route:
 
+-----
 
+    public SQLRouteResult route(final List<Object> parameters) {
+        if (null == sqlStatement) {
+            sqlStatement = sqlRouter.parse(logicSQL, parameters.size());
+        }
+        return sqlRouter.route(logicSQL, parameters, sqlStatement);
+    }
+
+-----
 
 
 
