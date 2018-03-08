@@ -237,6 +237,14 @@ io/shardingjdbc/core/parsing/SQLParsingEngine.parse[lexer:词法分析器]：
 -----
 
 这个例子是INSERT。
+--> io/shardingjdbc/core/parsing/parser/sql/dml/insert/InsertParserFactory.newInstance      
+--> return new MySQLInsertParser(shardingRule, lexerEngine);      
+--> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/facade/MySQLInsertClauseParserFacade     
+--> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLTableReferencesClauseParser      
+aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/ExpressionParserFactory.createAliasExpressionParser [return new MySQLAliasExpressionParser(lexerEngine);basicExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/ExpressionParserFactory.createBasicExpressionParser]     
+<<< MySQLInsertClauseParserFacade --> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLInsertValuesClauseParser : basicExpressionParser     
+<<< MySQLInsertClauseParserFacade --> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLInsertSetClauseParser
+
 
 
 -----
