@@ -267,6 +267,32 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 
 -----
 
+--> io/shardingjdbc/core/parsing/parser/clause/InsertIntoClauseParser :     
+
+-----
+
+    public void parse(final InsertStatement insertStatement) {
+        lexerEngine.unsupportedIfEqual(getUnsupportedKeywordsBeforeInto());
+        lexerEngine.skipUntil(DefaultKeyword.INTO);
+        lexerEngine.nextToken();
+        tableReferencesClauseParser.parse(insertStatement, true);
+        skipBetweenTableAndValues(insertStatement);
+    }
+
+-----
+
+--> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser
+
+-----
+
+    public final void parse(final SQLStatement sqlStatement, final boolean isSingleTableOnly) {
+        do {
+            parseTableReference(sqlStatement, isSingleTableOnly);
+        } while (lexerEngine.skipIfEqual(Symbol.COMMA));
+    }
+
+-----
+
 -----
 
 
