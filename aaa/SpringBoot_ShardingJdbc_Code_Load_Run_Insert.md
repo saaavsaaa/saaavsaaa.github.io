@@ -293,7 +293,9 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 
 -----
 
+此处开始分析SQL，细看
+
 -----
 
 
-[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/SpringBoot_ShardingJdbc_Code_Load_Run.md)
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/SpringBoot_ShardingJdbc_Code_Load_Run_Insert.md)
