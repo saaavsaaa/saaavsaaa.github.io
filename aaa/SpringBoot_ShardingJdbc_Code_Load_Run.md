@@ -2,6 +2,7 @@
 ->  对象或类内调用     
 []  方法本身或方法体补充说明     
 ==  类型相同     
+=== 值相等     
 <<< 回到方法的被调用链某处继续向下执行
 
 Insert 只分表：
@@ -146,7 +147,7 @@ io/shardingjdbc/core/routing/router/ParsingSQLRouter.parse [例:logicSQL=insert 
 
     @Override
     public SQLStatement parse(final String logicSQL, final int parametersSize) {
-        SQLParsingEngine parsingEngine = new SQLParsingEngine(databaseType, logicSQL, shardingRule);
+        SQLParsingEngine parsingEngine = new SQLParsingEngine(databaseType, logicSQL, shardingRule); [databaseType==MySQL]
         SQLStatement result = parsingEngine.parse();
         if (result instanceof InsertStatement) {
             ((InsertStatement) result).appendGenerateKeyToken(shardingRule, parametersSize);
