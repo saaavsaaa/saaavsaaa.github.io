@@ -1,9 +1,15 @@
+-->  对象或类间调用     
+->  对象或类内调用     
+[]  方法本身或方法体补充说明     
+==  类型相同     
+<<< 回到方法的被调用链某处继续向下执行
+
 Insert 只分表：
 org/springframework/jdbc/datasource/DataSourceTransactionManager.doBegin --> this.dataSource.getConnection()     
 --> io/shardingjdbc/core/jdbc/core/datasource/ShardingDataSource.getConnection --> new ShardingConnection(shardingContext)     
 
 org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/spring/SqlSessionTemplate.insert ->     SqlSessionInterceptor.invoke - invoke --> sun/reflect/NativeMethodAccessorImpl.invoke0     
---> org/apache/ibatis/executor/CachingExecutor.update (delegate==SimpleExecutor)     
+--> org/apache/ibatis/executor/CachingExecutor.update [delegate==SimpleExecutor]     
 --> org/apache/ibatis/executor/BaseExecutor.update(MappedStatement ms, Object parameter)     
 --> org/apache/ibatis/executor/SimpleExecutor.[abstract]doUpdate(ms, parameter)
 ->prepareStatement(StatementHandler handler, Log statementLog) :     
