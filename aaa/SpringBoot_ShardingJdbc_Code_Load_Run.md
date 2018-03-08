@@ -10,8 +10,10 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
         Connection connection = getConnection(statementLog);
         stmt = handler.prepare(connection, transaction.getTimeout());
         这个connection根据开头可知是ShardingConnection
---> org/apache/ibatis/executor/statement/RoutingStatementHandler.prepare
-
+--> org/apache/ibatis/executor/statement/RoutingStatementHandler.prepare (delegate==PreparedStatementHandler)
+--> org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->[abstract]instantiateStatement
+--> org/apache/ibatis/executor/statement/PreparedStatementHandler.instantiateStatement
+--> io/shardingjdbc/core/jdbc/core/connection/ShardingConnection.prepareStatement(final String sql)
 
 
 
