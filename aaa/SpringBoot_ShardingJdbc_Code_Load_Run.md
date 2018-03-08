@@ -13,7 +13,12 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
 --> org/apache/ibatis/executor/statement/RoutingStatementHandler.prepare (delegate==PreparedStatementHandler)     
 --> org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->[abstract]instantiateStatement     
 --> org/apache/ibatis/executor/statement/PreparedStatementHandler.instantiateStatement     
---> io/shardingjdbc/core/jdbc/core/connection/ShardingConnection.prepareStatement(final String sql)     
+--> io/shardingjdbc/core/jdbc/core/connection/ShardingConnection.prepareStatement(final String sql):     
+    @Override
+    public PreparedStatement prepareStatement(final String sql) throws SQLException {
+        return new ShardingPreparedStatement(this, sql);
+    }
+
 
 
 
