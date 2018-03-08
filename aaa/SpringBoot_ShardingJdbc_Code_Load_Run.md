@@ -36,7 +36,15 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
 
 -----
 
+    public ShardingPreparedStatement(final ShardingConnection connection, final String sql, final int resultSetType, final int resultSetConcurrency, final int resultSetHoldability) {
+        this.connection = connection;
+        this.resultSetType = resultSetType;
+        this.resultSetConcurrency = resultSetConcurrency;
+        this.resultSetHoldability = resultSetHoldability;
+        routingEngine = new PreparedStatementRoutingEngine(sql, connection.getShardingContext());
+    }
 
+-----
 
 
 
