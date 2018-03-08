@@ -197,6 +197,8 @@ io/shardingjdbc/core/parsing/SQLParsingEngine.parse[lexer:词法分析器]：
 
 -----
 
+io/shardingjdbc/core/parsing/lexer/analyzer/Tokenizer.scanIdentifier 截出Token，例如insert     
+
 
 
 -----
