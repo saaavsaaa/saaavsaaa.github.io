@@ -48,6 +48,10 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
         this.logicSQL = logicSQL;
         sqlRouter = SQLRouterFactory.createSQLRouter(shardingContext);
     }
+    
+    public static SQLRouter createSQLRouter(final ShardingContext shardingContext) {
+        return HintManagerHolder.isDatabaseShardingOnly() ? new DatabaseHintSQLRouter(shardingContext) : new ParsingSQLRouter(shardingContext);
+    }
 
 -----
 
