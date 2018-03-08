@@ -197,8 +197,46 @@ io/shardingjdbc/core/parsing/SQLParsingEngine.parse[lexer:词法分析器]：
 
 -----
 
-io/shardingjdbc/core/parsing/lexer/analyzer/Tokenizer.scanIdentifier 截出Token，例如insert     
+--> io/shardingjdbc/core/parsing/lexer/analyzer/Tokenizer.scanIdentifier 截出Token，例如INSERT  
+<<< io/shardingjdbc/core/parsing/parser/sql/SQLParserFactory.newInstance:     
 
+-----
+
+    public static SQLParser newInstance(final DatabaseType dbType, final TokenType tokenType, final ShardingRule shardingRule, final LexerEngine lexerEngine) {
+        if (!(tokenType instanceof DefaultKeyword)) {
+            throw new SQLParsingUnsupportedException(tokenType);
+        }
+        switch ((DefaultKeyword) tokenType)  {
+            case SELECT:
+                return SelectParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case INSERT:
+                return InsertParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case UPDATE:
+                return UpdateParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case DELETE:
+                return DeleteParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case CREATE:
+                return CreateParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case ALTER:
+                return AlterParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case DROP:
+                return DropParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case TRUNCATE:
+                return TruncateParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            case SET:
+            case COMMIT:
+            case ROLLBACK:
+            case SAVEPOINT:
+            case BEGIN:
+                return TCLParserFactory.newInstance(dbType, shardingRule, lexerEngine);
+            default:
+                throw new SQLParsingUnsupportedException(lexerEngine.getCurrentToken().getType());
+        }
+    }
+
+-----
+
+这个例子是INSERT。
 
 
 -----
