@@ -61,7 +61,8 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
     }
 
 -----
-sql和路由规则都有了     
+sql和路由规则都有了     
+回到org/apache/ibatis/executor/statement/BaseStatementHandler.prepare->setFetchSize(statement)
 
 
 
