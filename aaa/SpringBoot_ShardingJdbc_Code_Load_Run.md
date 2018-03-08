@@ -44,6 +44,11 @@ org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/sprin
         routingEngine = new PreparedStatementRoutingEngine(sql, connection.getShardingContext());
     }
 
+    public PreparedStatementRoutingEngine(final String logicSQL, final ShardingContext shardingContext) {
+        this.logicSQL = logicSQL;
+        sqlRouter = SQLRouterFactory.createSQLRouter(shardingContext);
+    }
+
 -----
 
 
