@@ -245,7 +245,27 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 <<< MySQLInsertClauseParserFacade --> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLInsertValuesClauseParser : basicExpressionParser     
 <<< MySQLInsertClauseParserFacade --> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLInsertSetClauseParser
 
+回到上面SQLParsingEngine.parse 方法中 InsertParserFactory.newInstance 之后还有个链式的parse调用[return SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine).parse();]     
+--> io/shardingjdbc/core/parsing/parser/sql/dml/insert/AbstractInsertParser.parse : 
 
+-----
+
+    @Override
+    public final DMLStatement parse() {
+        lexerEngine.nextToken();
+        InsertStatement result = new InsertStatement();
+        insertClauseParserFacade.getInsertIntoClauseParser().parse(result);
+        insertClauseParserFacade.getInsertColumnsClauseParser().parse(result);
+        if (lexerEngine.equalAny(DefaultKeyword.SELECT, Symbol.LEFT_PAREN)) {
+            throw new UnsupportedOperationException("Cannot INSERT SELECT");
+        }
+        insertClauseParserFacade.getInsertValuesClauseParser().parse(result);
+        insertClauseParserFacade.getInsertSetClauseParser().parse(result);
+        appendGenerateKey(result);
+        return result;
+    }
+
+-----
 
 -----
 
