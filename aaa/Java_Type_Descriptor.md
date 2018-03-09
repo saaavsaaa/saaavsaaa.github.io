@@ -210,7 +210,7 @@ javac -g 编译的类中包含了其源文件的名字、源代码行编号与�
 用于生成和转换已编译 Java 类的 ASM 树 API 是基于 ClassNode 类的，其中包含一些信息和各种Node，如FieldNode和MethodNode。用树 API 生成类的过程就是:创建一个 ClassNode 对象,并初始化它的字段。使用树 API 生成类时,需要多花费大约 30%的时间,占用的内存也多于使用核心 API。但可以按任意顺序生成类元素,这在一些情况下可能非常方便。添加和删除类就是在 ClassNode 对象的 fields 或 methods 列表中添加或删除元素。
 
 方法的 ASM 树 API 是基于 MethodNode的。instructions 字段是一个指令列表,InsnList类型。InsnList 是一个由指令组成的双向链表, AbstractInsnNode 中有两个属性AbstractInsnNode prev和AbstractInsnNode next保持指向的引用。书上重点强调了：一个 AbstractInsnNode 对象在一个指令列表中最多出现一次。
-一个 AbstractInsnNode 对象不能同时属于多个指令列表。一个结果是:如果一个 AbstractInsnNode 属于某个列表,要将它添加到另一列表,必须先将其从原列表中删除。另一结果是:将一个列表中的所有元素都添加到另一个列表中,将会清空第一个列表。这些其实都是在强调一点，AbstractInsnNode对象唯一。
+一个 AbstractInsnNode 对象不能同时属于多个指令列表。一个结果是:如果一个 AbstractInsnNode 属于某个列表,要将它添加到另一列表,必须先将其从原列表中删除。另一结果是:将一个列表中的所有元素都添加到另一个列表中,将会清空第一个列表。这些其实都是在强调一点，AbstractInsnNode对象唯一。AbstractInsnNode 类是表示字节代码指令的抽象类。已有子类的命名方式 Xxx InsnNode 类,对应于 MethodVisitor 接口的 visitXxx Insn 方法,而且其构造方式完全相同。例如,VarInsnNode 类对应于 visitVarInsn 方法。
 
 
 
