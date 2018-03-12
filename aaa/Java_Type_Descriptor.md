@@ -244,6 +244,10 @@ unchecked/AnalyzerTest.java
 
 作为被编译类来源的源文件存储在 ClassNode 中的 sourceFile 字段中。关于源代码行号的信息存储在 LineNumberNode 对象中,它的类继承自 AbstractInsnNode。在核心 API中,关于行号的信息是与指令同时受访问的,与此类似,LineNumberNode 对象是指令列表的一部分。最后,源局部变量的名字和类型存储在 MethodNode 的 localVariables 字段中,它是 LocalVariableNode 对象的一个列表。
 
+向后兼容部分以我目前的目的来说没有什么要求，有需要时候再细看吧：
+如果使用树 API 编写一个类生成器,那就不需要遵循什么规则(和核心 API 一样)。可以用任意构造器创建 ClassNode 和其他元素,可以使用这些类的任意方法。
+另一方面,如果要用树 API 编写类分析器或类适配器,也就是说,如果使用 ClassNode或其他直接或间接地通过 ClassReader.accept()填充的类似类,或者如果重写这些类中的一个则必须注意。总之就是版本的问题的一些原则，核心API和树API都有。
+
 -----
 
 
