@@ -233,6 +233,8 @@ ASM代码分析的两个重要类型：
 
 用于代码分析的 ASM API 在 org.objectweb.asm.tree.analysis 包中。由包的名字可以看出,它是基于树 API 的。事实上,这个包提供了一个进行正向数据流分析的框架。整体数据流分析算法、将适当数量的值从栈中弹出和压回栈中的任务仅实现一次,用于Analyzer 和 Frame 类中的所有内容。合并值的任何和计算值集并集的任务需要自己通过 Interpreter 和 Value 抽象类的子类实现。尽管框架的主要目的是执行数据流分析,但 Analyzer 类也可构造所分析方法的控制流图。可以重写这个类的 newControlFlowEdge 和 newControlFlowExceptionEdge 方法,它们默认情况下不做任何事情。其结果可用于进行控制流分析。
 
+unchecked/AnalyzerTest.java
+
 -----
 
 
