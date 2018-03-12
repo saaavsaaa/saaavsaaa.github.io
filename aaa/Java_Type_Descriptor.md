@@ -244,9 +244,25 @@ unchecked/AnalyzerTest.java
 
 作为被编译类来源的源文件存储在 ClassNode 中的 sourceFile 字段中。关于源代码行号的信息存储在 LineNumberNode 对象中,它的类继承自 AbstractInsnNode。在核心 API中,关于行号的信息是与指令同时受访问的,与此类似,LineNumberNode 对象是指令列表的一部分。最后,源局部变量的名字和类型存储在 MethodNode 的 localVariables 字段中,它是 LocalVariableNode 对象的一个列表。
 
-向后兼容部分以我目前的目的来说没有什么要求，有需要时候再细看吧：
+向后兼容部分以我目前的目的来说没有什么要求，先简单抄这了：
 如果使用树 API 编写一个类生成器,那就不需要遵循什么规则(和核心 API 一样)。可以用任意构造器创建 ClassNode 和其他元素,可以使用这些类的任意方法。
 另一方面,如果要用树 API 编写类分析器或类适配器,也就是说,如果使用 ClassNode或其他直接或间接地通过 ClassReader.accept()填充的类似类,或者如果重写这些类中的一个则必须注意。总之就是版本的问题的一些原则，核心API和树API都有。
+
+规则 1:要为 ASM X 编写一个 ClassVisitor 子类,就以这个版本号为参数,调用ClassVisitor 构造器,在这个版本的 ClassVisitor 类中,绝对不要重写或调用弃用的方法(或者将在之后版本引入的方法)。
+
+规则 2:不要使用访问器的继承,而要使用委托(即访问器链)。一种好的做法是让你的访问器类在默认情况为 final 的,以确保这一特性。(此规则有两个例外，总之自己确定就好)
+
+规则 3:要用 ASM 版本 X 的树 API 编写类分析器或适配器,则使用以这一确切版本为参数的构造器创建 ClassNode(而不是使用没有参数的默认构造器)。
+
+规则 4:要用 ASM 版本 X 的树 API 编写一个类分析器或适配器,使用别人创建的ClassNode,在以任何方式使用这个 ClassNode 之前,都要以这个确切版本号为参数,调用它的 check()方法。
+
+还有一些特定情况的规则比如继承规则就是对上面规则的应用，就不抄了。
+
+asm.util 和 asm.commons 中的类都有两个构造函数变体:一个有 ASM 版本参数,一个没有。
+如果只是希望像 asm.util 中的 ASMifier、Textifier 或 CheckXxx Adapter 类或者asm.commons 包中的任意类一样,加以实例化和应用,那可以用没有 ASM 版本参数的构造器
+来实例化它们。也可以使用带有 ASM 版本参数的构造器,那就会不必要地将这些组件限制于特定的 ASM 版本(而使用无参数构造器相当于在说“使用最新的 ASM 版本”)。这就是为什么使用 ASM 版本参数的构造器被声明为 protected。
+另一方面,如果希望重写 asm.util 中的 ASMifier、 Textifier 或 CheckXxx Adapter类或者 asm.commons 包中的任意类,那适用规则 1 和 2。具体来说,你的构造器必须以你希望用作参数的 ASM 版本来调用 super(...)。
+最后,如果希望使用或重写 asm.tree.analysis 中的 Interpreter 类或其子类,必须做出同样的区分。还要注意,在使用这个分析包之前,创建一个 MethodNode 或者从别人那里获取一个,那在将这一代码传送给 Analyzer 之前必须使用规则 3 和 4。
 
 -----
 
