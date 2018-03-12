@@ -293,7 +293,7 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 
 -----
 
---> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLTableReferencesClauseParser.java
+--> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLTableReferencesClauseParser
 
 -----
 
@@ -306,7 +306,10 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 
 -----
 
+--> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parseTableFactor
+先根据当前token的偏移量截出literals，这个例子里就是表名，于是当前token从into变成LEFT_PAREN就是左括号
 
+--> io/shardingjdbc/core/parsing/parser/clause/expression/AliasExpressionParser.parseTableAlias
 
 
 
