@@ -293,6 +293,20 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 
 -----
 
+--> io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLTableReferencesClauseParser.java
+
+-----
+
+    @Override
+    protected void parseTableReference(final SQLStatement sqlStatement, final boolean isSingleTableOnly) {
+        parseTableFactor(sqlStatement, isSingleTableOnly);
+        parsePartition();
+        parseIndexHint(sqlStatement);
+    }
+
+-----
+
+
 
 
 
