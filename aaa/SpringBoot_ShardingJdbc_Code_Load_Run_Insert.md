@@ -318,8 +318,9 @@ while判断应该是对(...),(...)情况的处理
 
 <<< io/shardingjdbc/core/parsing/parser/clause/InsertIntoClauseParser.parse -> skipBetweenTableAndValues
 
-<<< io/shardingjdbc/core/parsing/parser/sql/dml/insert/AbstractInsertParser.parse
---> io/shardingjdbc/core/parsing/parser/clause/InsertColumnsClauseParser.parse
+<<< io/shardingjdbc/core/parsing/parser/sql/dml/insert/AbstractInsertParser.parse     
+--> io/shardingjdbc/core/parsing/parser/clause/InsertColumnsClauseParser.parse     
+取出所有列
 
 -----
 
