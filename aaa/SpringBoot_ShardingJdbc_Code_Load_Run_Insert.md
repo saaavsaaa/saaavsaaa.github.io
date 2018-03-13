@@ -313,12 +313,13 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 ->parseIndexHint判断是否包含USE、IGNORE、FORCE关键字，如果用跳过，同时跳过相关的INDEX, KEY, FOR, JOIN, ORDER, GROUP, BY关键字
 跳过方法是通过lexer.nextToken()；我这里不包含这几个关键字，如果包含还会处理跳过括号，同时处理语句中的?，计入参数数量，截取括号内列的逻辑。
 
->>> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parse
+<<< io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parse
 while判断应该是对(...),(...)情况的处理
 
->>> io/shardingjdbc/core/parsing/parser/clause/InsertIntoClauseParser.parse
-skipBetweenTableAndValues
+<<< io/shardingjdbc/core/parsing/parser/clause/InsertIntoClauseParser.parse -> skipBetweenTableAndValues
 
+<<< io/shardingjdbc/core/parsing/parser/sql/dml/insert/AbstractInsertParser.parse
+--> io/shardingjdbc/core/parsing/parser/clause/InsertColumnsClauseParser.parse
 
 -----
 
