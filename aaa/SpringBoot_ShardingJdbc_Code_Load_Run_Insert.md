@@ -309,10 +309,9 @@ aliasExpressionParser === io/shardingjdbc/core/parsing/parser/dialect/Expression
 --> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parseTableFactor
 先根据当前token的偏移量截出literals，这个例子里就是表名，于是当前token从into变成LEFT_PAREN就是左括号，
 判断as什么的，还有一堆key没细看
-
---> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parseJoinTable
-parseJoinType匹配与多表连接相关的9个关键字，因为是insert并没有，所以这里连表的相关逻辑没有走
-
+->parseJoinTable->parseJoinType匹配与多表连接相关的9个关键字，因为是insert并没有，所以这里连表的相关逻辑没有走
+->parseIndexHint判断是否包含USE、IGNORE、FORCE关键字，如果用跳过，同时跳过相关的INDEX, KEY, FOR, JOIN, ORDER, GROUP, BY关键字
+跳过方法是通过lexer.nextToken()；跳过括号，同时处理语句中的?，计入参数数量
 
 
 
