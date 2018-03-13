@@ -5,11 +5,12 @@
 === 值相等     
 <<< 回到方法的被调用链某处继续向下执行
 
-Insert 只分表：
+Insert ：
 org/springframework/jdbc/datasource/DataSourceTransactionManager.doBegin --> this.dataSource.getConnection()     
 --> io/shardingjdbc/core/jdbc/core/datasource/ShardingDataSource.getConnection --> new ShardingConnection(shardingContext)     
 
-org/apache/ibatis/binding/MapperMethod.execute case INSERT --> org/mybatis/spring/SqlSessionTemplate.insert ->     SqlSessionInterceptor.invoke - invoke --> sun/reflect/NativeMethodAccessorImpl.invoke0     
+org/apache/ibatis/binding/MapperMethod.execute [case INSERT]   
+--> org/mybatis/spring/SqlSessionTemplate.insert -> SqlSessionInterceptor.invoke - invoke --> sun/reflect/NativeMethodAccessorImpl.invoke0     
 --> org/apache/ibatis/executor/CachingExecutor.update [delegate==SimpleExecutor]     
 --> org/apache/ibatis/executor/BaseExecutor.update(MappedStatement ms, Object parameter)     
 --> org/apache/ibatis/executor/SimpleExecutor.[abstract]doUpdate(ms, parameter)
@@ -334,8 +335,14 @@ while判断应该是对(...),(...)情况的处理
 由于我这就是一个简单的insert所以--> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.route
 先获取tableRule，就是配置的那些，这个sql表对应了哪些库的哪些表
 然后获取databaseShardingValues和tableShardingValues库和表的分片键
-
-
+-> routeDataSources 获取目标数据库
+-> routeTables 获取目标表名
+routeDataSources × routeTables两层循环合成数据节点：库名.表名
+-> generateRoutingResult
+<<< ParsingSQLRouter.ParsingSQLRouter
+通过SQLRewriteEngine将对应逻辑表和物理表做对应SQLRewriteEngine.getTableTokens
+--> io/shardingjdbc/core/rewrite/SQLBuilder.toSQL 替换表
+<<< ParsingSQLRouter.route将替换好的所有sql放入SQLRouteResult中返回
 
 
 -----
