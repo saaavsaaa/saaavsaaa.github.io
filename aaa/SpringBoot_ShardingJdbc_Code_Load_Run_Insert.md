@@ -319,13 +319,16 @@ while判断应该是对(...),(...)情况的处理
 <<< io/shardingjdbc/core/parsing/parser/clause/InsertIntoClauseParser.parse -> skipBetweenTableAndValues
 
 <<< io/shardingjdbc/core/parsing/parser/sql/dml/insert/AbstractInsertParser.parse     
---> io/shardingjdbc/core/parsing/parser/clause/InsertColumnsClauseParser.parse  取出所有列（会检查shardingrule配置）加入insertStatement对象
+--> io/shardingjdbc/core/parsing/parser/clause/InsertColumnsClauseParser.parse  取出所有列（会检查shardingrule配置）加入insertStatement对象     
 -->io/shardingjdbc/core/parsing/parser/clause/InsertValuesClauseParser.parse
 ->parseValues
 -->io/shardingjdbc/core/parsing/parser/clause/expression/BasicExpressionParser.parse
 ->parseExpression 判断"？"或具体的数据类型，创建对应的SQLExpression
-根据列生成Condition并和shardingRule加入insertStatement对象，如果循环的列是主键将则:insertStatement.setGeneratedKey(createGeneratedKey(each, sqlExpression))
-<<< InsertValuesClauseParser.parse 如果是(...),(...)情况，调用parseMultipleValues处理
+根据列生成Condition并和shardingRule加入insertStatement对象，如果循环的列是主键将则:insertStatement.setGeneratedKey(createGeneratedKey(each, sqlExpression))     
+<<< InsertValuesClauseParser.parse 如果是(...),(...)情况，调用parseMultipleValues处理     
+<<< AbstractInsertParser.parse
+--> io/shardingjdbc/core/parsing/parser/clause/InsertSetClauseParser.parse Insert还有一种set c=v,c=v...的写法，这里是处理这个写法的     
+<<< AbstractInsertParser.parse -> appendGenerateKey
 
 
 
