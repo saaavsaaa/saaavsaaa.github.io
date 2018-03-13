@@ -329,7 +329,8 @@ while判断应该是对(...),(...)情况的处理
 <<< AbstractInsertParser.parse
 --> io/shardingjdbc/core/parsing/parser/clause/InsertSetClauseParser.parse Insert还有一种set c=v,c=v...的写法，这里是处理这个写法的     
 <<< AbstractInsertParser.parse -> appendGenerateKey
-
+<<< io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
+--> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route 根据表数量和语句类型使用用不同的routingEngine进行路由
 
 
 
