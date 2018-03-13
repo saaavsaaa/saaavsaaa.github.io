@@ -342,7 +342,19 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 <<< ParsingSQLRouter.ParsingSQLRouter
 通过SQLRewriteEngine将对应逻辑表和物理表做对应SQLRewriteEngine.getTableTokens
 --> io/shardingjdbc/core/rewrite/SQLBuilder.toSQL 替换表
-<<< ParsingSQLRouter.route将替换好的所有sql放入SQLRouteResult中返回
+<<< ParsingSQLRouter.route 将替换好的所有sql放入SQLRouteResult中返回
+<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.route -> generatePreparedStatement:
+
+-----
+
+    private PreparedStatement generatePreparedStatement(final SQLExecutionUnit sqlExecutionUnit) throws SQLException {
+        Connection connection = getConnection().getConnection(sqlExecutionUnit.getDataSource(), routeResult.getSqlStatement().getType());
+        return returnGeneratedKeys ? connection.prepareStatement(sqlExecutionUnit.getSql(), Statement.RETURN_GENERATED_KEYS)
+                : connection.prepareStatement(sqlExecutionUnit.getSql(), resultSetType, resultSetConcurrency, resultSetHoldability);
+    }
+
+-----
+
 
 
 -----
