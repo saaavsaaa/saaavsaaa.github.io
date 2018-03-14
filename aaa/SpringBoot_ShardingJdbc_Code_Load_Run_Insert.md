@@ -382,7 +382,7 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 -----
 
 <<< generatePreparedStatement --> com/alibaba/druid/pool/DruidPooledConnection.prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability)
-
+<<< ShardingPreparedStatement.route
 
 
 
