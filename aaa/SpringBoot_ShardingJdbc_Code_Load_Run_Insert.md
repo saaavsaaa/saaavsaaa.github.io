@@ -344,6 +344,7 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 --> io/shardingjdbc/core/rewrite/SQLBuilder.toSQL 替换表
 <<< ParsingSQLRouter.route 将替换好的所有sql放入SQLRouteResult中返回
 <<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.route -> generatePreparedStatement:
+[创建数据源连接]
 
 -----
 
@@ -380,7 +381,9 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 
 -----
 
-根据sql创建连接
+<<< generatePreparedStatement --> com/alibaba/druid/pool/DruidPooledConnection.prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability)
+
+
 
 
 -----
