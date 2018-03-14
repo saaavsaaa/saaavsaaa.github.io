@@ -391,12 +391,49 @@ JdbcMethodInvocation.invoke : [.target  ** NOT SPECIFIED ** => 1 com.mysql.jdbc.
 
 SQLExecutionUnit each end <<< route 返回笛卡尔积个元素的Collection<PreparedStatementUnit>
 <<< execute
---> io/shardingjdbc/core/executor/type/prepared/PreparedStatementExecutor.execute
+--> io/shardingjdbc/core/executor/type/prepared/PreparedStatementExecutor.execute [PreparedStatementExecutor.execute.execute]
 --> io/shardingjdbc/core/executor/ExecutorEngine.execute
 用baseStatementUnits(PreparedStatementUnit)创建OverallExecutionEvent，发给事件总线 --> com/google/common/eventbus/EventBus.post
 
+ExecutorEngine.execute:
 
--->io/shardingjdbc/core/executor/ExecutorEngine.executeInternal
+-----
+
+    private  <T> List<T> execute(
+            final SQLType sqlType, final Collection<? extends BaseStatementUnit> baseStatementUnits, 
+            final List<List<Object>> parameterSets, final ExecuteCallback<T> executeCallback) throws SQLException {
+        if (baseStatementUnits.isEmpty()) {
+            return Collections.emptyList();
+        }
+        OverallExecutionEvent event = new OverallExecutionEvent(sqlType, baseStatementUnits.size());
+        EventBusInstance.getInstance().post(event);
+        Iterator<? extends BaseStatementUnit> iterator = baseStatementUnits.iterator();
+        BaseStatementUnit firstInput = iterator.next();
+        ListenableFuture<List<T>> restFutures = asyncExecute(sqlType, Lists.newArrayList(iterator), parameterSets, executeCallback);
+        T firstOutput;
+        List<T> restOutputs;
+        try {
+            firstOutput = syncExecute(sqlType, firstInput, parameterSets, executeCallback);
+            restOutputs = restFutures.get();
+            //CHECKSTYLE:OFF
+        } catch (final Exception ex) {
+            //CHECKSTYLE:ON
+            event.setException(ex);
+            event.setEventExecutionType(EventExecutionType.EXECUTE_FAILURE);
+            EventBusInstance.getInstance().post(event);
+            ExecutorExceptionHandler.handleException(ex);
+            return null;
+        }
+        event.setEventExecutionType(EventExecutionType.EXECUTE_SUCCESS);
+        EventBusInstance.getInstance().post(event);
+        List<T> result = Lists.newLinkedList(restOutputs);
+        result.add(0, firstOutput);
+        return result;
+    }
+
+-----
+
+->asyncExecute --> io/shardingjdbc/core/executor/ExecutorEngine.executeInternal [PreparedStatementExecutor.execute.execute]
 用用baseStatementUnits构建DMLExecutionEvent，发给事件总线 --> com/google/common/eventbus/EventBus.post
 --> io/shardingjdbc/core/executor/type/prepared/PreparedStatementExecutor.execute.execute[executorEngine.executePreparedStatement的@Override]
 --> com/alibaba/druid/pool/DruidPooledPreparedStatement.execute
