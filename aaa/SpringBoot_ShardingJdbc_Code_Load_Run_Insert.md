@@ -393,8 +393,13 @@ SQLExecutionUnit each end <<< route 返回笛卡尔积个元素的Collection<Pre
 <<< execute
 --> io/shardingjdbc/core/executor/type/prepared/PreparedStatementExecutor.execute
 --> io/shardingjdbc/core/executor/ExecutorEngine.execute
-用baseStatementUnits(PreparedStatementUnit)创建OverallExecutionEvent，发给时间总线 --> com/google/common/eventbus/EventBus.post
+用baseStatementUnits(PreparedStatementUnit)创建OverallExecutionEvent，发给事件总线 --> com/google/common/eventbus/EventBus.post
 
+
+-->io/shardingjdbc/core/executor/ExecutorEngine.java
+用用baseStatementUnits构建DMLExecutionEvent，发给事件总线 --> com/google/common/eventbus/EventBus.post
+--> io/shardingjdbc/core/executor/type/prepared/PreparedStatementExecutor.execute.execute[executorEngine.executePreparedStatement的@Override]
+--> com/alibaba/druid/pool/DruidPooledPreparedStatement.execute
 
 -----
 
