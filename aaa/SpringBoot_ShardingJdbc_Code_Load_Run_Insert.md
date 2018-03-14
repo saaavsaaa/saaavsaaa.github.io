@@ -1,7 +1,8 @@
 -->  对象或类间调用     
 ->  对象或类内调用     
 []  方法本身或方法体补充说明     
-==  类型相同     
+=>  值变化     
+==  类型相同     
 === 值相等     
 <<< 回到方法的被调用链某处继续向下执行
 
@@ -386,7 +387,12 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 --> io/shardingjdbc/core/jdbc/adapter/AbstractShardingPreparedStatementAdapter.replaySetParameter
 --> io/shardingjdbc/core/jdbc/adapter/invocation/JdbcMethodInvocation.invoke
 --> com/alibaba/druid/pool/DruidPooledPreparedStatement.setInt [因为我用的sql参数类型是int]
-JdbcMethodInvocation.invoke : [.target  ** NOT SPECIFIED ** => 1 com.mysql.jdbc.JDBC4PreparedStatement@1a405a21: insert into aaatest_0(a,b,c) values(1,** NOT SPECIFIED **,** NOT SPECIFIED **)]
+JdbcMethodInvocation.invoke : [.target  ** NOT SPECIFIED ** => 1 com.mysql.jdbc.JDBC4PreparedStatement@hashcode: insert into \*\**_0(*,*,*) values(1,** NOT SPECIFIED **,** NOT SPECIFIED **)]
+
+SQLExecutionUnit each end <<< route 返回笛卡尔积个元素的Collection<PreparedStatementUnit>
+<<< execute
+
+
 
 
 -----
