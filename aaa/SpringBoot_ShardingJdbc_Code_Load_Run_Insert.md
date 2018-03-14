@@ -343,8 +343,8 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 通过SQLRewriteEngine将对应逻辑表和物理表做对应SQLRewriteEngine.getTableTokens
 --> io/shardingjdbc/core/rewrite/SQLBuilder.toSQL 替换表
 <<< ParsingSQLRouter.route 将替换好的所有sql放入SQLRouteResult中返回
-<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.route -> generatePreparedStatement:
-[创建数据源连接]
+<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.route
+循环SQLRouteResult的所有SQLExecutionUnit ：-> generatePreparedStatement:[创建每个sql对应的数据源连接]
 
 -----
 
