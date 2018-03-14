@@ -401,6 +401,7 @@ SQLExecutionUnit each end <<< route 返回笛卡尔积个元素的Collection<Pre
 --> io/shardingjdbc/core/executor/type/prepared/PreparedStatementExecutor.execute.execute[executorEngine.executePreparedStatement的@Override]
 --> com/alibaba/druid/pool/DruidPooledPreparedStatement.execute
 <<< ExecutorEngine.executeInternal 发送成功事件
+事件总线目前似乎只发现了BestEffortsDeliveryListener事务部分中了，其他功能没有发现，可能是用来加自定义监控的
 
 
 -----
