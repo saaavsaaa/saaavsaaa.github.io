@@ -355,6 +355,31 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 
 -----
 
+    public Connection getConnection(final String dataSourceName, final SQLType sqlType) throws SQLException {
+        if (getCachedConnections().containsKey(dataSourceName)) {
+            return getCachedConnections().get(dataSourceName);
+        }
+        DataSource dataSource = shardingContext.getShardingRule().getDataSourceMap().get(dataSourceName);
+        Preconditions.checkState(null != dataSource, "Missing the rule of %s in DataSourceRule", dataSourceName);
+        String realDataSourceName;
+        if (dataSource instanceof MasterSlaveDataSource) {
+            NamedDataSource namedDataSource = ((MasterSlaveDataSource) dataSource).getDataSource(sqlType);
+            realDataSourceName = namedDataSource.getName();
+            if (getCachedConnections().containsKey(realDataSourceName)) {
+                return getCachedConnections().get(realDataSourceName);
+            }
+            dataSource = namedDataSource.getDataSource();
+        } else {
+            realDataSourceName = dataSourceName;
+        }
+        Connection result = dataSource.getConnection();
+        getCachedConnections().put(realDataSourceName, result);
+        replayMethodsInvocation(result);
+        return result;
+    }
+
+-----
+
 根据sql创建连接
 
 
