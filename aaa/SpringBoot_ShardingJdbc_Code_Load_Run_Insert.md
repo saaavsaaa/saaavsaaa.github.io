@@ -402,7 +402,30 @@ SQLExecutionUnit each end <<< route 返回笛卡尔积个元素的Collection<Pre
 --> com/alibaba/druid/pool/DruidPooledPreparedStatement.execute
 <<< ExecutorEngine.executeInternal 发送成功事件
 事件总线目前似乎只发现了BestEffortsDeliveryListener事务部分中了，其他功能没有发现，可能是用来加自定义监控的
+<<< asyncExecute :
 
+-----
+
+    private <T> ListenableFuture<List<T>> asyncExecute(
+            final SQLType sqlType, final Collection<BaseStatementUnit> baseStatementUnits, final List<List<Object>> parameterSets, final ExecuteCallback<T> executeCallback) {
+        List<ListenableFuture<T>> result = new ArrayList<>(baseStatementUnits.size());
+        final boolean isExceptionThrown = ExecutorExceptionHandler.isExceptionThrown();
+        final Map<String, Object> dataMap = ExecutorDataMap.getDataMap();
+        for (final BaseStatementUnit each : baseStatementUnits) {
+            result.add(executorService.submit(new Callable<T>() {
+                
+                @Override
+                public T call() throws Exception {
+                    return executeInternal(sqlType, each, parameterSets, executeCallback, isExceptionThrown, dataMap);
+                }
+            }));
+        }
+        return Futures.allAsList(result);
+    }
+
+-----
+
+特别记录一下，这里用于执行的executorService是com.google.common.util.concurrent.ListeningExecutorService
 
 -----
 
