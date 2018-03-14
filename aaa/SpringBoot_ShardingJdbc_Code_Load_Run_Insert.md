@@ -464,6 +464,15 @@ ExecutorEngine.execute:
 
 特别记录一下，这里用于执行的executorService是com.google.common.util.concurrent.ListeningExecutorService
 
+<<< PreparedStatementExecutor.execute     
+从n个结果集里get了第一个结果返回     
+然后是clear包括参数，执行单元等 --> io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.clearBatch     
+
+<<< org/apache/ibatis/executor/statement/PreparedStatementHandler.update
+<<< org/apache/ibatis/executor/SimpleExecutor.doUpdate
+
+Insert大致就这样了
+
 -----
 
 
