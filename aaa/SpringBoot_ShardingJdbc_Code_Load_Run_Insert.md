@@ -344,7 +344,7 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 --> io/shardingjdbc/core/rewrite/SQLBuilder.toSQL 替换表
 <<< ParsingSQLRouter.route 将替换好的所有sql放入SQLRouteResult中返回
 <<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.route
-循环SQLRouteResult的所有SQLExecutionUnit ：-> generatePreparedStatement:[创建每个sql对应的数据源连接]
+循环SQLRouteResult的所有SQLExecutionUnit each：-> generatePreparedStatement:[创建每个sql对应的数据源连接]
 
 -----
 
@@ -383,7 +383,10 @@ routeDataSources × routeTables两层循环合成数据节点：库名.表名
 
 <<< generatePreparedStatement --> com/alibaba/druid/pool/DruidPooledConnection.prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability)
 <<< ShardingPreparedStatement.route
-
+--> io/shardingjdbc/core/jdbc/adapter/AbstractShardingPreparedStatementAdapter.replaySetParameter
+--> io/shardingjdbc/core/jdbc/adapter/invocation/JdbcMethodInvocation.invoke
+--> com/alibaba/druid/pool/DruidPooledPreparedStatement.setInt [因为我用的sql参数类型是int]
+JdbcMethodInvocation.invoke : [.target  ** NOT SPECIFIED ** => 1 com.mysql.jdbc.JDBC4PreparedStatement@1a405a21: insert into aaatest_0(a,b,c) values(1,** NOT SPECIFIED **,** NOT SPECIFIED **)]
 
 
 -----
