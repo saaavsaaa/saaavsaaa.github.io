@@ -391,8 +391,9 @@ JdbcMethodInvocation.invoke : [.target  ** NOT SPECIFIED ** => 1 com.mysql.jdbc.
 
 SQLExecutionUnit each end <<< route 返回笛卡尔积个元素的Collection<PreparedStatementUnit>
 <<< execute
-
-
+--> io/shardingjdbc/core/executor/type/prepared/PreparedStatementExecutor.execute
+--> io/shardingjdbc/core/executor/ExecutorEngine.execute
+用baseStatementUnits(PreparedStatementUnit)创建OverallExecutionEvent，发给时间总线 --> com/google/common/eventbus/EventBus.post
 
 
 -----
