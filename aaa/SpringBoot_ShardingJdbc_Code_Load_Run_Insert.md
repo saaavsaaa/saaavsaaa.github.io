@@ -11,6 +11,7 @@ org/springframework/jdbc/datasource/DataSourceTransactionManager.doBegin --> thi
 --> io/shardingjdbc/core/jdbc/core/datasource/ShardingDataSource.getConnection --> new ShardingConnection(shardingContext)     
 
 org/apache/ibatis/binding/MapperMethod.execute [case INSERT]   
+[org/apache/ibatis/session/Configuration.newExecutor : executor = new CachingExecutor(executor);]
 --> org/mybatis/spring/SqlSessionTemplate.insert -> SqlSessionInterceptor.invoke - invoke --> sun/reflect/NativeMethodAccessorImpl.invoke0     
 --> org/apache/ibatis/executor/CachingExecutor.update [delegate==SimpleExecutor]     
 --> org/apache/ibatis/executor/BaseExecutor.update(MappedStatement ms, Object parameter)     
