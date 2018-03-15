@@ -9,4 +9,6 @@ org/apache/ibatis/binding/MapperMethod.execute [case SELECT]
 org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 --> org/apache/ibatis/executor/statement/PreparedStatementHandler.query [ps.execute();]
 
---> io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute
+--> io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute -> route     
+
+--> io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route [参数就是sql的参数 == final List<Object> parameters]
