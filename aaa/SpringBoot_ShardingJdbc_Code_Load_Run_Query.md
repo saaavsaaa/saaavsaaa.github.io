@@ -7,3 +7,6 @@ org/apache/ibatis/binding/MapperMethod.execute [case SELECT]
 因为是简单版，所以依然是CachingExecutor == SimpleExecutor
 
 org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
+--> org/apache/ibatis/executor/statement/PreparedStatementHandler.query [ps.execute();]
+
+--> io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute
