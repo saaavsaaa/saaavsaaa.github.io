@@ -17,7 +17,7 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 --> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.routeDataSources      
 与insert不同会走到根据分表分库的策略选库上[shardingRule.getDatabaseShardingStrategy(tableRule).doSharding(availableTargetDatabases, databaseShardingValues);]     
 --> io/shardingjdbc/core/routing/strategy/standard/StandardShardingStrategy.doSharding
-[参数中有所有待选的数据库，另外还有逻辑表名（例如：配置的没有后缀数字的表名）和列以及参数]     
+[参数中有所有待选的数据库:final Collection\<String> availableTargetNames，另外还有逻辑表名（例如：配置的没有后缀数字的表名）和列以及参数:List\<PreciseShardingValue>]     
 
 -----
 
@@ -35,6 +35,7 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 
 shardingValue instanceof ListShardingValue判断（如果是就循环，不是就直接走分库逻辑）后会走进自定义的分库策略逻辑，例如：
 <sharding:standard-strategy id="databaseStrategy" sharding-column=" \*** " precise-algorithm-class="\*\*\*" \> 中的配置。    
-根据分库策略返回一个库     
-<<< SimpleRoutingEngine.routeDataSources <<< route
+根据分库策略返回一个或多个库     
+<<< SimpleRoutingEngine.routeDataSources <<< route -> each : routeTables     
+从所有数据源[库.表]中选出刚刚策略计算出的库中对应的所有表。当分表键存在时，对这些表使用自定义分表策略（与上面分库逻辑基本一样），键不存在直接使用刚选出的库中所有匹配的表。再用这些库和表创建数据节点。
 
