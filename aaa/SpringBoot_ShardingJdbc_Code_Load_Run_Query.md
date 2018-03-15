@@ -39,3 +39,9 @@ shardingValue instanceof ListShardingValue判断（如果是就循环，不是�
 <<< SimpleRoutingEngine.routeDataSources <<< route -> each : routeTables     
 从所有数据源[库.表]中选出刚刚策略计算出的库中对应的所有表。当分表键存在时，对这些表使用自定义分表策略（与上面分库逻辑基本一样），键不存在直接使用刚选出的库中所有匹配的表。再用这些库和表创建数据节点。
 
+
+-----
+
+
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/SpringBoot_ShardingJdbc_Code_Load_Run_Query.md)
+
