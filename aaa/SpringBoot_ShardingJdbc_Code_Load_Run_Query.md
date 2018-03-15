@@ -11,6 +11,27 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 
 --> io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute -> route     
 
---> io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route [参数就是sql的参数 == final List<Object> parameters]
+--> io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route [参数就是sql的参数 == final List\<Object> parameters]
 除了类型是select，前面这大部分和前略的insert都是类似的
 
+--> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.routeDataSources      
+与insert不同会走到根据分表分库的策略选库上[shardingRule.getDatabaseShardingStrategy(tableRule).doSharding(availableTargetDatabases, databaseShardingValues);]     
+--> io/shardingjdbc/core/routing/strategy/standard/StandardShardingStrategy.doSharding
+[参数中有所有待选的数据库，另外还有逻辑表名（例如：配置的没有后缀数字的表名）和列以及参数]     
+
+-----
+
+    @Override
+    public Collection<String> doSharding(final Collection<String> availableTargetNames, final Collection<ShardingValue> shardingValues) {
+        ShardingValue shardingValue = shardingValues.iterator().next();
+        Collection<String> shardingResult = shardingValue instanceof ListShardingValue
+                ? doSharding(availableTargetNames, (ListShardingValue) shardingValue) : doSharding(availableTargetNames, (RangeShardingValue) shardingValue);
+        Collection<String> result = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        result.addAll(shardingResult);
+        return result;
+    }
+
+-----
+
+shardingValue instanceof ListShardingValue判断（如果是就循环，不是就直接走分库逻辑）后会走进自定义的分库策略逻辑，例如：
+<sharding:standard-strategy id="databaseStrategy" sharding-column=" \*** " precise-algorithm-class="\*\*\*" \> 中的配置。     
