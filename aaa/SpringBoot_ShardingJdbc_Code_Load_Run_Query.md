@@ -6,4 +6,4 @@ org/apache/ibatis/binding/MapperMethod.execute [case SELECT]
 
 因为是简单版，所以依然是CachingExecutor == SimpleExecutor
 
-org/apache/ibatis/executor/BaseExecutor.query
+org/apache/ibatis/executor/BaseExecutor.query -> doQuery
