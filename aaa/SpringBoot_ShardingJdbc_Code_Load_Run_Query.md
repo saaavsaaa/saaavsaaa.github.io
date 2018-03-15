@@ -34,4 +34,6 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 -----
 
 shardingValue instanceof ListShardingValue判断（如果是就循环，不是就直接走分库逻辑）后会走进自定义的分库策略逻辑，例如：
-<sharding:standard-strategy id="databaseStrategy" sharding-column=" \*** " precise-algorithm-class="\*\*\*" \> 中的配置。     
+<sharding:standard-strategy id="databaseStrategy" sharding-column=" \*** " precise-algorithm-class="\*\*\*" \> 中的配置。    
+根据分库策略返回一个库
+<<< 
