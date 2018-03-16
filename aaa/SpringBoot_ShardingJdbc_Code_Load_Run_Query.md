@@ -14,6 +14,8 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 --> io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route [参数就是sql的参数 == final List\<Object> parameters]
 除了类型是select，前面这大部分和前略的insert都是类似的
 
+[io/shardingjdbc/core/parsing/parser/sql/SQLParserFactory.newInstance return SelectParserFactory.newInstance(dbType, shardingRule, lexerEngine);]
+
 --> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.routeDataSources      
 与insert不同会走到根据分表分库的策略选库上[shardingRule.getDatabaseShardingStrategy(tableRule).doSharding(availableTargetDatabases, databaseShardingValues);]     
 --> io/shardingjdbc/core/routing/strategy/standard/StandardShardingStrategy.doSharding
