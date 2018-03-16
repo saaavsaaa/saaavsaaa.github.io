@@ -44,7 +44,7 @@ shardingValue instanceof ListShardingValue判断（如果是就循环，不是�
 
 -----
 
-上面简单版解析sql的部分都跳过了，这里看一下：
+上面简单版解析sql的部分都跳过了，这里看一下(以下所有解析出来的全都放在一个sqlStatement对象里了)：
 io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route     
 --> io/shardingjdbc/core/routing/router/ParsingSQLRouter.parse     
 --> SQLParsingEngine.parse [SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine) == SQLParser == MySQLSelectParser]     
@@ -55,7 +55,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -> parseSelectList [io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parse -> parseSelectItem:分别处理不同类型的列，如行号、\*、聚合函数（Count等）和正常情况(parseCommonSelectItem拼不同列的列名或别名)]
 -> parseFrom [
 不支持INTO,parseTable(如果跟着左括号,处理子查询) --> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parse --> MySQLTableReferencesClauseParser.parseTableReference和前略里的处理差不多，不同的就是这里有别名AS和连表，连表还要处理ON和USING的连接条件]
--> parseWhere [io/shardingjdbc/core/parsing/parser/clause/WhereClauseParser.parse -> parseConditions -> parseConditions]
+-> parseWhere [io/shardingjdbc/core/parsing/parser/clause/WhereClauseParser.parse -> parseConditions -> parseConditions 条件是分左右两个SQLExpression对象存在condition里的]
 
 -----
 
