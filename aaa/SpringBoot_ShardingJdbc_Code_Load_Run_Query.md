@@ -44,6 +44,12 @@ shardingValue instanceof ListShardingValue判断（如果是就循环，不是�
 
 -----
 
+ 上面简单版解析sql的部分都跳过了，这里看一下：
+ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route     
+ --> io/shardingjdbc/core/routing/router/ParsingSQLRouter.parse     
+ --> SQLParsingEngine.parse [SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine) == SQLParser == MySQLSelectParser]     
+ --> io.shardingjdbc.core.parsing.parser.sql.dql.select.AbstractSelectParser.parse -> parseInternal      
+ --> io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parseInternal     
 
 -----
 
