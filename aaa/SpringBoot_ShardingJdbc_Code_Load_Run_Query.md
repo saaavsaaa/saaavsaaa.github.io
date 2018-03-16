@@ -52,7 +52,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 --> io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parseInternal     
 -> parseDistinct不支持Distinct     
 -> parseSelectOption [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLSelectOptionClauseParser.parse]
--> parseSelectList --> [io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parse -> parseSelectItem:分别处理不同类型的列，如行号、\*、聚合函数（Count等）和正常情况else]
+-> parseSelectList --> [io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parse -> parseSelectItem:分别处理不同类型的列，如行号、\*、聚合函数（Count等）和正常情况(parseCommonSelectItem拼不同列的列名字符串)]
 
 -----
 
