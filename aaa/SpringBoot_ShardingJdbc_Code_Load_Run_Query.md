@@ -58,7 +58,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -> parseWhere [io/shardingjdbc/core/parsing/parser/clause/WhereClauseParser.parse -> parseConditions -> parseConditions 条件是分左右两个SQLExpression对象存在condition里的，这里判断了OR目前是不支持的]
 -> parseGroupBy [io/shardingjdbc/core/parsing/parser/clause/GroupByClauseParser.parse]
 -> parseHaving [不支持having]
--> parseOrderBy [io/shardingjdbc/core/parsing/parser/clause/OrderByClauseParser.parse 默认排序是ASC，必须得加一个，不然就把Limit当顺序的token读了，会解析出错]
+-> parseOrderBy [io/shardingjdbc/core/parsing/parser/clause/OrderByClauseParser.parse 默认排序是ASC]
 -> parseLimit [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLLimitClauseParser.parse]
 -> parseSelectRest [io/shardingjdbc/core/parsing/parser/clause/SelectRestClauseParser.parse 一些不支持的关键字]
 
