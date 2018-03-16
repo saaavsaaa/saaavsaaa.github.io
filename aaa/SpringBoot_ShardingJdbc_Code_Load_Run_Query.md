@@ -56,6 +56,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -> parseFrom [
 不支持INTO,parseTable(如果跟着左括号,处理子查询) --> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parse --> MySQLTableReferencesClauseParser.parseTableReference和前略里的处理差不多，不同的就是这里有别名AS和连表，连表还要处理ON和USING的连接条件]
 -> parseWhere [io/shardingjdbc/core/parsing/parser/clause/WhereClauseParser.parse -> parseConditions -> parseConditions 条件是分左右两个SQLExpression对象存在condition里的，这里判断了OR目前是不支持的]
+-> parseGroupBy [io/shardingjdbc/core/parsing/parser/clause/GroupByClauseParser.parse]
 
 -----
 
