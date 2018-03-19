@@ -86,7 +86,8 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 <<< ComplexRoutingEngine.route [return new CartesianRoutingEngine(result).route();]
 --> io/shardingjdbc/core/routing/type/complex/CartesianRoutingEngine.route [用join的表构造笛卡尔组合的TableUnits的Set，放在RoutingResult的routingTableReferences中返回]     
 <<< io/shardingjdbc/core/routing/router/ParsingSQLRouter.route     
--> processLimit
+-> processLimit     
+<<<--> io/shardingjdbc/core/rewrite/SQLRewriteEngine.rewrite [用sqlToken构建SQLBuilder对象实例]     
 
 
 -----
