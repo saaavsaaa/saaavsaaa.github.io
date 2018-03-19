@@ -76,6 +76,8 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 
 -----
 
+-> appendDerivedColumns [和appendDerivedOrderBy有todo注释(move to rewrite)，处理聚合函数，如count]
+
 -----
 
 
