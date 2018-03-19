@@ -88,7 +88,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 <<< io/shardingjdbc/core/routing/router/ParsingSQLRouter.route     
 -> processLimit     
 <<< ParsingSQLRouter.route --> io/shardingjdbc/core/rewrite/SQLRewriteEngine.rewrite [用sqlToken构建SQLBuilder对象实例]    
-<<< ParsingSQLRouter.route [循环数据源创建SQLExecutionUnit,routingResult instanceof CartesianRoutingResult的情况，else见前略]:
+<<< ParsingSQLRouter.route [循环数据源创建SQLExecutionUnit生成完整SQL,routingResult instanceof CartesianRoutingResult的情况，else见前略]:
 
 -----
 
@@ -100,7 +100,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 
 -----
 
-
+<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute
 
 -----
 
