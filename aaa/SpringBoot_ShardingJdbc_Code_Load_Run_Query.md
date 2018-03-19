@@ -87,7 +87,19 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 --> io/shardingjdbc/core/routing/type/complex/CartesianRoutingEngine.route [用join的表构造笛卡尔组合的TableUnits的Set，放在RoutingResult的routingTableReferences中返回]     
 <<< io/shardingjdbc/core/routing/router/ParsingSQLRouter.route     
 -> processLimit     
-<<<--> io/shardingjdbc/core/rewrite/SQLRewriteEngine.rewrite [用sqlToken构建SQLBuilder对象实例]     
+<<< ParsingSQLRouter.route --> io/shardingjdbc/core/rewrite/SQLRewriteEngine.rewrite [用sqlToken构建SQLBuilder对象实例]    
+<<< ParsingSQLRouter.route [循环数据源创建SQLExecutionUnit,routingResult instanceof CartesianRoutingResult的情况，else见前略]:
+
+-----
+
+            for (CartesianDataSource cartesianDataSource : ((CartesianRoutingResult) routingResult).getRoutingDataSources()) {
+                for (CartesianTableReference cartesianTableReference : cartesianDataSource.getRoutingTableReferences()) {
+                    result.getExecutionUnits().add(new SQLExecutionUnit(cartesianDataSource.getDataSource(), rewriteEngine.generateSQL(cartesianTableReference, sqlBuilder)));
+                }
+            }
+
+-----
+
 
 
 -----
