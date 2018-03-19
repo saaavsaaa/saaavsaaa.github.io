@@ -100,7 +100,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 
 -----
 
-<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute
+<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute [参见前略]
 
 -----
 
