@@ -18,7 +18,7 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 [io/shardingjdbc/core/parsing/parser/sql/SQLParserFactory.newInstance return SelectParserFactory.newInstance(dbType, shardingRule, lexerEngine);]
 
 --> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.routeDataSources      
-与insert不同会走到根据分表分库的策略选库上[shardingRule.getDatabaseShardingStrategy(tableRule).doSharding(availableTargetDatabases, databaseShardingValues);]     
+与前略的insert不同会走到根据分表分库的策略选库上[shardingRule.getDatabaseShardingStrategy(tableRule).doSharding(availableTargetDatabases, databaseShardingValues);]     
 --> io/shardingjdbc/core/routing/strategy/standard/StandardShardingStrategy.doSharding
 [参数中有所有待选的数据库:final Collection\<String> availableTargetNames，另外还有逻辑表名（例如：配置的没有后缀数字的表名）和列以及参数:List\<PreciseShardingValue>]     
 
@@ -82,7 +82,12 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 <<< io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route     
 --> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route [取出逻辑表名，构造ComplexRoutingEngine路由引擎对象]     
 --> io/shardingjdbc/core/routing/type/complex/ComplexRoutingEngine.route     
-[在ShardingRule中找对应逻辑表的规则配置，并对单个逻辑表构建SimpleRoutingEngine对象，执行route方法（此处参见前略）]
+[在ShardingRule中找对应逻辑表的规则配置，并对单个逻辑表构建SimpleRoutingEngine对象，执行route方法（此处参见上面那个简单的SQL）]    
+<<< ComplexRoutingEngine.route [return new CartesianRoutingEngine(result).route();]
+--> io/shardingjdbc/core/routing/type/complex/CartesianRoutingEngine.route [用join的表构造笛卡尔组合的TableUnits的Set，放在RoutingResult的routingTableReferences中返回]     
+<<< io/shardingjdbc/core/routing/router/ParsingSQLRouter.route     
+-> processLimit
+
 
 -----
 
