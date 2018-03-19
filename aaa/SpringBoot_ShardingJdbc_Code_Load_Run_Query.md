@@ -63,11 +63,16 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -> parseOrderBy [io/shardingjdbc/core/parsing/parser/clause/OrderByClauseParser.parse 默认排序是ASC]     
 -> parseLimit [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLLimitClauseParser.parse]     
 -> parseSelectRest [io/shardingjdbc/core/parsing/parser/clause/SelectRestClauseParser.parse 一些不支持的关键字:UNION,INTERSECT,EXCEPT,MINUS,PROCEDURE,INTO]     
-
+<<< AbstractSelectParser.parse --> io/shardingjdbc/core/parsing/parser/sql/dql/select/SelectStatement [containsSubQuery, 判断是否包含子查询，如果包含，执行mergeSubQueryStatement]：
 
 -----
 
-
+    public SelectStatement mergeSubQueryStatement() {
+        SelectStatement result = processLimitForSubQuery();
+        processItems(result);
+        processOrderByItems(result);
+        return result;
+    }
 
 -----
 
