@@ -77,8 +77,12 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -----
 
 -> appendDerivedColumns [和appendDerivedOrderBy有todo注释(move to rewrite)，处理聚合函数，如遇到avg会增加count和sum函数列到avg的derived项中，并以AVG_DERIVED_COUNT/SUM\_+ derived项序号等形式做别名]     
-<<< -> appendDerivedOrderColumns [根据参数不同分别为order和group项加别名]
+<<< -> appendDerivedOrderColumns [根据参数不同分别为order和group项加别名]     
 
+<<< io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route     
+--> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route [取出逻辑表名，构造ComplexRoutingEngine路由引擎对象]     
+--> io/shardingjdbc/core/routing/type/complex/ComplexRoutingEngine.route     
+[在ShardingRule中找对应逻辑表的规则配置，并对单个逻辑表构建SimpleRoutingEngine对象，执行route方法（此处参见前略）]
 
 -----
 
