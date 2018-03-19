@@ -51,16 +51,17 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 --> io.shardingjdbc.core.parsing.parser.sql.dql.select.AbstractSelectParser.parse -> parseInternal      
 --> io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parseInternal     
 -> parseDistinct不支持Distinct     
--> parseSelectOption [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLSelectOptionClauseParser.parse]
--> parseSelectList [io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parse -> parseSelectItem:分别处理不同类型的列，如行号、\*、聚合函数（Count等）和正常情况(parseCommonSelectItem拼不同列的列名或别名)]
+-> parseSelectOption [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLSelectOptionClauseParser.parse]     
+-> parseSelectList [io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parse -> parseSelectItem:分别处理不同类型的列，如行号、\*、聚合函数（Count等）和正常情况(parseCommonSelectItem拼不同列的列名或别名)] b    
 -> parseFrom [
 不支持INTO,parseTable(如果跟着左括号,处理子查询) --> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parse --> MySQLTableReferencesClauseParser.parseTableReference和前略里的处理差不多，不同的就是这里有别名AS和连表，连表还要处理ON和USING的连接条件]
--> parseWhere [io/shardingjdbc/core/parsing/parser/clause/WhereClauseParser.parse -> parseConditions -> parseConditions 条件是分左右两个SQLExpression对象存在condition里的，这里判断了OR目前是不支持的]
--> parseGroupBy [io/shardingjdbc/core/parsing/parser/clause/GroupByClauseParser.parse]
--> parseHaving [不支持having]
--> parseOrderBy [io/shardingjdbc/core/parsing/parser/clause/OrderByClauseParser.parse 默认排序是ASC]
--> parseLimit [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLLimitClauseParser.parse]
--> parseSelectRest [io/shardingjdbc/core/parsing/parser/clause/SelectRestClauseParser.parse 一些不支持的关键字]
+-> parseWhere [io/shardingjdbc/core/parsing/parser/clause/WhereClauseParser.parse -> parseConditions -> parseConditions 条件是分左右两个SQLExpression对象存在condition里的，这里判断了OR目前是不支持的]     
+-> parseGroupBy [io/shardingjdbc/core/parsing/parser/clause/GroupByClauseParser.parse]     
+-> parseHaving [不支持having]     
+-> parseOrderBy [io/shardingjdbc/core/parsing/parser/clause/OrderByClauseParser.parse 默认排序是ASC]     
+-> parseLimit [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLLimitClauseParser.parse]     
+-> parseSelectRest [io/shardingjdbc/core/parsing/parser/clause/SelectRestClauseParser.parse 一些不支持的关键字]     
+
 
 -----
 
