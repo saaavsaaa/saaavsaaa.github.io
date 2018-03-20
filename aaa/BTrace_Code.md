@@ -9,9 +9,37 @@ xxd一个编译后的用于单元测试的class脚本就可以发现，这些脚
 --> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/Instrumentor.visitMethod
 --> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/InstrumentingMethodVisitor.ctor -> initLocals [load被拦截方法参数类型，这里isInstance是true，加载的本地变量算上变量所有者owner（自身实例）=参数个数+1，但是argSize由于循环增加时对owner加了两次于是=参数个数+2]
 
-<<< Instrumentor.visitMethod : methodVisitor = new TemplateExpanderVisitor(methodVisitor, mHelper, className, name, desc); [ctor : this.expanders.add(new MethodTrackingExpander(MethodID.getMethodId(className, methodName, desc), mHelper)); this.asm = new Assembler(mv, mHelper);]     
+<<< Instrumentor.visitMethod : methodVisitor = new TemplateExpanderVisitor(methodVisitor, mHelper, className, name, desc); [ctor : this.expanders.add(new MethodTrackingExpander(MethodID.getMethodId(className, methodName, desc), mHelper)); this.asm = new Assembler(mv, mHelper);]     
+循环脚本（脚本参数中本来Throw我是放在被拦截参数前面的，编译后读出来就在后面了，这一点要确认下）的拦截方法
+each -> instrumentorFor[**这个方法比较重要，它根据location = @Location(Kind.?)创建处理对应情况的MethodVisitor**](既然是循环，多个返回是如何处理的？)
+<<< Instrumentor.visitMethod [new一个MethodVisitor返回]:
 
+-----
 
+        return new MethodVisitor(Opcodes.ASM5, methodVisitor) {
+            @Override
+            public AnnotationVisitor visitAnnotation(String annoDesc, boolean visible) {
+                for (OnMethod om : annotationMatchers) {
+                    String extAnnoName = Type.getType(annoDesc).getClassName();
+                    String annoName = om.getMethod();
+                    if (om.isMethodRegexMatcher()) {
+                        try {
+                            if (extAnnoName.matches(annoName)) {
+                                mv = instrumentorFor(om, mv, mHelper, mAccess, name, desc);
+                            }
+                        } catch (PatternSyntaxException pse) {
+                            reportPatternSyntaxException(extAnnoName);
+                        }
+                    } else if (annoName.equals(extAnnoName)) {
+                        mv = instrumentorFor(om, mv, mHelper, mAccess, name, desc);
+                    }
+                }
+                return mv.visitAnnotation(annoDesc, visible);
+            }
+        };
+    }
+
+-----
 
 
 
