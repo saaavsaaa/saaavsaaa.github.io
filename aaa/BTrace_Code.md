@@ -2,12 +2,14 @@ xxd一个编译后的用于单元测试的class脚本就可以发现，这些脚
 
 /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/BTraceClassWriter.instrument
 --> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/InstrumentUtils.accept
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/BTraceClassReader.accept     
+--> btrace-asm-5.2.jar!/com/sun/btrace/org/objectweb/asm/ClassReader.accept     
 --> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/BTraceClassReader.accept
---> btrace-asm-5.2.jar!/com/sun/btrace/org/objectweb/asm/ClassReader.accept
+--> btrace-asm-5.2.jar!/com/sun/btrace/org/objectweb/asm/ClassReader.accept -> b     
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/Instrumentor.visitMethod
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/InstrumentingMethodVisitor.ctor -> initLocals load参数     
 
 
-
---> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/InstrumentingMethodVisitor.initLocals load参数
 
 
 脚本被Btrace编译后读入：
