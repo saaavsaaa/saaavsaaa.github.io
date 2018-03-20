@@ -1,5 +1,15 @@
 xxd一个编译后的用于单元测试的class脚本就可以发现，这些脚本都是Btrace自己编译的，魔数位是0xbacecaca。因为在开发环境调试方便，我就直接用的com/sun/btrace/compiler/Compiler.java的main方法编译脚本了。
 
+/home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/BTraceClassWriter.instrument
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/InstrumentUtils.accept
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/BTraceClassReader.accept
+--> btrace-asm-5.2.jar!/com/sun/btrace/org/objectweb/asm/ClassReader.accept
+
+
+
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/InstrumentingMethodVisitor.initLocals load参数
+
+
 脚本被Btrace编译后读入：
         File f = new File(path);
         InputStream is = new FileInputStream(f)
