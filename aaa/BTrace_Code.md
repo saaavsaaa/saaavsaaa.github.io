@@ -11,7 +11,7 @@ xxd一个编译后的用于单元测试的class脚本就可以发现，这些脚
 
 <<< Instrumentor.visitMethod : methodVisitor = new TemplateExpanderVisitor(methodVisitor, mHelper, className, name, desc); [ctor : this.expanders.add(new MethodTrackingExpander(MethodID.getMethodId(className, methodName, desc), mHelper)); this.asm = new Assembler(mv, mHelper);]     
 循环脚本（脚本参数中本来Throw我是放在被拦截参数前面的，编译后读出来就在后面了，这一点要确认下）的拦截方法
-each -> instrumentorFor[**这个方法比较重要，它根据location = @Location(Kind.?)创建处理对应情况的MethodVisitor**](既然是循环，多个返回是如何处理的？)
+each -> instrumentorFor[**这个方法比较重要，它根据location = @Location(Kind.?)创建处理对应情况的MethodVisitor**(既然是循环，多个返回是如何处理的？)]
 <<< Instrumentor.visitMethod [new一个MethodVisitor返回]:
 
 -----
