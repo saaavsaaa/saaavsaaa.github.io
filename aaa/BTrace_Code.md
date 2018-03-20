@@ -8,7 +8,8 @@ xxd一个编译后的用于单元测试的class脚本就可以发现，这些脚
 --> btrace-asm-5.2.jar!/com/sun/btrace/org/objectweb/asm/ClassReader.accept -> b     
 --> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/Instrumentor.visitMethod
 --> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/InstrumentingMethodVisitor.ctor -> initLocals [load被拦截方法参数类型，这里isInstance是true，加载的本地变量算上变量所有者owner（自身实例）=参数个数+1，但是argSize由于循环增加时对owner加了两次于是=参数个数+2]
-<<< Instrumentor.visitMethod : methodVisitor = new TemplateExpanderVisitor(methodVisitor, mHelper, className, name, desc); [ctor : this.expanders.add(new MethodTrackingExpander(MethodID.getMethodId(className, methodName, desc), mHelper));]     
+
+<<< Instrumentor.visitMethod : methodVisitor = new TemplateExpanderVisitor(methodVisitor, mHelper, className, name, desc); [ctor : this.expanders.add(new MethodTrackingExpander(MethodID.getMethodId(className, methodName, desc), mHelper)); this.asm = new Assembler(mv, mHelper);]     
 
 
 
