@@ -41,6 +41,25 @@ each -> instrumentorFor[**这个方法比较重要，它根据location = @Locati
 
 -----
 
+--> btrace-asm-5.2.jar!/com/sun/btrace/org/objectweb/asm/ClassReader.accept -> b  
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/instr/MethodInstrumentor.visitCode
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/Instrumentor.visitMethodPrologue
+--> /home/aaa/Github/btrace/src/share/classes/com/sun/btrace/runtime/instr/ErrorReturnInstrumentor.visitMethodPrologue [因为我跑的这个是Error类型的] -> visitTryCatchBlock     
+---> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 脚本被Btrace编译后读入：
