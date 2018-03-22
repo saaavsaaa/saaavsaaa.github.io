@@ -118,7 +118,9 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 
 -----
 
---> io/shardingjdbc/core/merger/MergeEngine.java
+--> io/shardingjdbc/core/merger/MergeEngine.merge
+-> build [合并结果集 GroupByStreamResultSetMerger > OrderByStreamResultSetMerger > IteratorStreamResultSetMerger]
+-> decorate [处理limit, LimitDecoratorResultSetMerger]
 
 -----
 
