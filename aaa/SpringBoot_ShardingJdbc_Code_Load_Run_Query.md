@@ -83,7 +83,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 --> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route [取出逻辑表名，构造ComplexRoutingEngine路由引擎对象]     
 --> io/shardingjdbc/core/routing/type/complex/ComplexRoutingEngine.route     
 [在ShardingRule中找对应逻辑表的规则配置，并对单个逻辑表构建SimpleRoutingEngine对象，执行route方法（此处参见上面那个简单的SQL）]    
-<<< ComplexRoutingEngine.route [return new CartesianRoutingEngine(result).route();CartesianRoutingEngine的route -> getDataSourceLogicTablesMap返回数据源交集共有的逻辑表 -> getIntersectionDataSources这个方法对数据源取交集返回]
+<<< ComplexRoutingEngine.route [return new CartesianRoutingEngine(result).route();CartesianRoutingEngine的route -> getDataSourceLogicTablesMap返回数据源交集共有的逻辑表 -> getIntersectionDataSources这个方法对数据源取交集返回，取交集就是说同一个CartesianTableReference中的tableUnits都应该在同一个数据库]
 --> io/shardingjdbc/core/routing/type/complex/CartesianRoutingEngine.route [用join的表构造笛卡尔组合的TableUnits的Set，放在RoutingResult的routingTableReferences中返回]     
 <<< io/shardingjdbc/core/routing/router/ParsingSQLRouter.route     
 -> processLimit     
