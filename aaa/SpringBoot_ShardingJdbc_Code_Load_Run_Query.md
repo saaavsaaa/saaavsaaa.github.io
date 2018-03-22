@@ -101,9 +101,9 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -----
 
 <<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute [参见前略]     
-<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.query [return resultSetHandler.<E> handleResultSets(ps);]     
+<<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.query [return resultSetHandler.\<E> handleResultSets(ps);]     
 --> org/apache/ibatis/executor/resultset/DefaultResultSetHandler.handleResultSets -> getFirstResultSet [stmt.getResultSet()]     
---> <<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.getResultSet [多结果集拼到一起] : 
+--> <<< io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.getResultSet [多结果集拼到一起]
 
 -----
 
@@ -118,7 +118,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 
 -----
 
-
+--> io/shardingjdbc/core/merger/MergeEngine.java
 
 -----
 
