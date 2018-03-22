@@ -122,6 +122,15 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -> build [合并结果集 GroupByStreamResultSetMerger > OrderByStreamResultSetMerger > IteratorStreamResultSetMerger]
 -> decorate [处理limit, LimitDecoratorResultSetMerger]
 
+<<< ShardingPreparedStatement.getResultSet     
+<<< DefaultResultSetHandler.getFirstResultSet [ResultSetWrapper构建结果的元数据，列什么的]
+<< DefaultResultSetHandler.handleResultSets     
+-> handleResultSet -> handleRowValues      
+-> handleRowValuesForSimpleResultMap [shouldProcessMoreRows (判断Limit，context.getResultCount() < rowBounds.getLimit()继续循环)] each :
+-> getRowValue -> applyAutomaticMappings [向元数据对象里填查询回来的结果值]
+-> storeObject -> callResultHandler [结果放进泛型对象实例]
+循环结束后基本也没什么可说的了
+
 -----
 
 
