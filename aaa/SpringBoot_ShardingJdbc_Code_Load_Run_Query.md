@@ -129,7 +129,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -> handleRowValuesForSimpleResultMap [shouldProcessMoreRows (判断Limit，context.getResultCount() < rowBounds.getLimit()继续循环)] each :
 -> getRowValue -> applyAutomaticMappings [向元数据对象里填查询回来的结果值]
 -> storeObject -> callResultHandler [结果放进泛型对象实例]
-循环结束后基本也没什么可说的了
+后面似乎也没什么关系了。
 
 -----
 
