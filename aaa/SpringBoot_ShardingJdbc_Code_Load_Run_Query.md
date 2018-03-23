@@ -80,10 +80,10 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 <<< -> appendDerivedOrderColumns [根据参数不同分别为order和group项加别名]     
 
 <<< io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route     
---> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route [取出逻辑表名，构造ComplexRoutingEngine路由引擎对象]     
---> io/shardingjdbc/core/routing/type/complex/ComplexRoutingEngine.route     
+--> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route [取出逻辑表名，构造ComplexRoutingEngine路由引擎对象]       
+--> io/shardingjdbc/core/routing/type/complex/ComplexRoutingEngine.route      
 [在ShardingRule中找对应逻辑表的规则配置，并对单个逻辑表构建SimpleRoutingEngine对象，执行route方法（此处参见上面那个简单的SQL）]    
-<<< ComplexRoutingEngine.route [return new CartesianRoutingEngine(result).route();CartesianRoutingEngine的route -> getDataSourceLogicTablesMap返回数据源交集共有的逻辑表 -> getIntersectionDataSources这个方法对数据源取交集返回，取交集就是说同一个CartesianTableReference中的tableUnits都应该在同一个数据库]     
+<<< ComplexRoutingEngine.route [return new CartesianRoutingEngine(result).route();CartesianRoutingEngine的route -> getDataSourceLogicTablesMap返回数据源交集共有的逻辑表 -> getIntersectionDataSources这个方法对数据源取交集返回，取交集就是说同一个CartesianTableReference中的tableUnits都应该在同一个数据库，ComplexRoutingEngine.route所有库的逻辑表对应真实库和表对应关系List\<CartesianTableReference>放到CartesianRoutingResult对象实例中]     
 --> io/shardingjdbc/core/routing/type/complex/CartesianRoutingEngine.route [用join的表构造笛卡尔组合的TableUnits的Set，放在RoutingResult的routingTableReferences中返回]     
 <<< io/shardingjdbc/core/routing/router/ParsingSQLRouter.route     
 -> processLimit     
