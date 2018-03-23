@@ -138,7 +138,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 <<< DefaultResultSetHandler.getFirstResultSet [ResultSetWrapper构建结果的元数据，列什么的]
 << DefaultResultSetHandler.handleResultSets     
 -> handleResultSet -> handleRowValues      
--> handleRowValuesForSimpleResultMap [shouldProcessMoreRows (判断Limit，context.getResultCount() < rowBounds.getLimit()继续循环)，此处判断的Limit值是怎么来的要看一下?????????????????????????] each :     
+-> handleRowValuesForSimpleResultMap [此处DefaultResultSetHandler的Limit没什么用是最开始DefaultSqlSession处的RowBounds.DEFAULT] each :     
 -> getRowValue -> applyAutomaticMappings [向元数据对象里填查询回来的结果值]
 -> storeObject -> callResultHandler [结果放进泛型对象实例]
 后面似乎也没什么关系了。
