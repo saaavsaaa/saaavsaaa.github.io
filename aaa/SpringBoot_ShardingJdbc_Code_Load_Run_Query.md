@@ -39,6 +39,7 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 shardingValue instanceof ListShardingValue判断（如果是就循环，不是就直接走分库逻辑）后会走进自定义的分库策略逻辑，例如：
 <sharding:standard-strategy id="databaseStrategy" sharding-column=" \*** " precise-algorithm-class="\*\*\*" \> 中的配置。    
 对已有分片键值使用自定义的分片算法选出所有符合自定义算法的数据库     
+
 <<< SimpleRoutingEngine.routeDataSources <<< route -> each : routeTables     
 从所有数据源[库.表]中选出刚刚策略计算出的库中对应的所有表。当分表键存在时，对这些表使用自定义分表策略（与上面分库逻辑基本一样），键不存在直接使用刚选出的库中所有匹配的表。再用这些库和表创建DataNode。
 
@@ -49,20 +50,25 @@ shardingValue instanceof ListShardingValue判断（如果是就循环，不是�
 上面简单版解析sql的部分都跳过了，这里看一下(以下所有解析出来的全都放在一个sqlStatement对象里了)：
 io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route     
 --> io/shardingjdbc/core/routing/router/ParsingSQLRouter.parse     
---> SQLParsingEngine.parse [SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine) == SQLParser == MySQLSelectParser]     
+--> SQLParsingEngine.parse [SQLParserFactory.newInstance(dbType, lexerEngine.getCurrentToken().getType(), shardingRule, lexerEngine) == SQLParser == MySQLSelectParser] 
+
 --> io.shardingjdbc.core.parsing.parser.sql.dql.select.AbstractSelectParser.parse -> parseInternal      
 --> io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parseInternal     
+
 -> parseDistinct不支持Distinct     
 -> parseSelectOption [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLSelectOptionClauseParser.parse]     
--> parseSelectList [io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parse -> parseSelectItem:分别处理不同类型的列，如行号、\*、聚合函数（Count等,要处理括号，以及计算如count()+等数值计算）和正常情况(parseCommonSelectItem拼不同列的列名或别名)] b    
+-> parseSelectList [io/shardingjdbc/core/parsing/parser/dialect/mysql/sql/MySQLSelectParser.parse -> parseSelectItem:分别处理不同类型的列，如行号、\*、聚合函数（Count等,要处理括号，以及计算如count()+等数值计算）和正常情况(parseCommonSelectItem拼不同列的列名或别名)]     
+
 -> parseFrom [
 不支持INTO,parseTable(如果跟着左括号,处理子查询) --> io/shardingjdbc/core/parsing/parser/clause/TableReferencesClauseParser.parse --> MySQLTableReferencesClauseParser.parseTableReference和前略里的处理差不多，不同的就是这里有别名AS和连表，连表还要处理ON和USING的连接条件]
+
 -> parseWhere [io/shardingjdbc/core/parsing/parser/clause/WhereClauseParser.parse -> parseConditions -> parseConditions 条件是分左右两个SQLExpression对象存在condition里的，这里判断了OR目前是不支持的]     
 -> parseGroupBy [io/shardingjdbc/core/parsing/parser/clause/GroupByClauseParser.parse]     
 -> parseHaving [不支持having]     
 -> parseOrderBy [io/shardingjdbc/core/parsing/parser/clause/OrderByClauseParser.parse 默认排序是ASC]     
 -> parseLimit [io/shardingjdbc/core/parsing/parser/dialect/mysql/clause/MySQLLimitClauseParser.parse]     
 -> parseSelectRest [io/shardingjdbc/core/parsing/parser/clause/SelectRestClauseParser.parse 一些不支持的关键字:UNION,INTERSECT,EXCEPT,MINUS,PROCEDURE,INTO]     
+
 <<< AbstractSelectParser.parse --> io/shardingjdbc/core/parsing/parser/sql/dql/select/SelectStatement [containsSubQuery, 判断是否包含子查询，如果包含，执行mergeSubQueryStatement]：
 
 -----
@@ -76,18 +82,24 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 
 -----
 
--> appendDerivedColumns [和appendDerivedOrderBy有todo注释(move to rewrite)，处理聚合函数，如遇到avg会增加count和sum函数列到avg的derived项中，并以AVG_DERIVED_COUNT/SUM\_+ derived项序号等形式做别名]     
+-> appendDerivedColumns [和appendDerivedOrderBy有todo注释(move to rewrite)，处理聚合函数，如遇到avg会增加count和sum函数列到avg的derived项中，并以AVG_DERIVED_COUNT/SUM\_+ derived项序号等形式做别名]  
+
 <<< -> appendDerivedOrderColumns [根据参数不同分别为order和group项加别名]     
 
 <<< io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route     
 --> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route [取出逻辑表名，构造ComplexRoutingEngine路由引擎对象]       
+
 --> io/shardingjdbc/core/routing/type/complex/ComplexRoutingEngine.route      
-[在ShardingRule中找对应逻辑表的规则配置，并对单个逻辑表构建SimpleRoutingEngine对象，执行route方法（此处参见上面那个简单的SQL）]     
+[在ShardingRule中找对应逻辑表的规则配置，并对单个逻辑表构建SimpleRoutingEngine对象，执行route方法（此处参见上面那个简单的SQL）]   
+
 <<< ComplexRoutingEngine.route [return new CartesianRoutingEngine(result).route();CartesianRoutingEngine的route -> getDataSourceLogicTablesMap返回数据源交集共有的逻辑表 -> getIntersectionDataSources这个方法对数据源取交集返回，取交集就是说同一个CartesianTableReference中的tableUnits都应该在同一个数据库，ComplexRoutingEngine.route所有库的逻辑表对应真实库和表对应关系List\<CartesianTableReference>放到CartesianRoutingResult对象实例中]     
---> io/shardingjdbc/core/routing/type/complex/CartesianRoutingEngine.route [用join的表构造笛卡尔组合的TableUnits的Set，放在RoutingResult的routingTableReferences中返回]     
+
+--> io/shardingjdbc/core/routing/type/complex/CartesianRoutingEngine.route [用join的表构造笛卡尔组合的TableUnits的Set，放在RoutingResult的routingTableReferences中返回]   
+
 <<< io/shardingjdbc/core/routing/router/ParsingSQLRouter.route     
 -> processLimit     
-<<< ParsingSQLRouter.route --> io/shardingjdbc/core/rewrite/SQLRewriteEngine.rewrite [用sqlToken构建SQLBuilder对象实例]    
+<<< ParsingSQLRouter.route --> io/shardingjdbc/core/rewrite/SQLRewriteEngine.rewrite [用sqlToken构建SQLBuilder对象实例]   
+
 <<< ParsingSQLRouter.route [循环数据源创建SQLExecutionUnit生成完整SQL,routingResult instanceof CartesianRoutingResult的情况，else见前略]:
 
 -----
