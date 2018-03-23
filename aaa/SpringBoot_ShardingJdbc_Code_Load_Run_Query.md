@@ -13,8 +13,19 @@ org/apache/ibatis/executor/BaseExecutor.query -> queryFromDatabase -> doQuery
 --> io/shardingjdbc/core/jdbc/core/statement/ShardingPreparedStatement.execute -> route     
 
 --> io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route [参数就是sql的参数 == final List\<Object> parameters]
-除了类型是select，前面这大部分和前略的insert都是类似的
 
+-----
+
+    public SQLRouteResult route(final List<Object> parameters) {
+        if (null == sqlStatement) {
+            sqlStatement = sqlRouter.parse(logicSQL, parameters.size());
+        }
+        return sqlRouter.route(logicSQL, parameters, sqlStatement);
+    }
+
+-----
+
+除了类型是select，前面这大部分和前略的insert都是类似的     
 [io/shardingjdbc/core/parsing/parser/sql/SQLParserFactory.newInstance return SelectParserFactory.newInstance(dbType, shardingRule, lexerEngine);]
 
 --> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.routeDataSources      
