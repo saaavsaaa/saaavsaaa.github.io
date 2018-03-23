@@ -1,5 +1,6 @@
 跟着调式看代码的笔记，其中我觉得不重要的部分就直接用符号略过了，关于符号可参见
-[前略](https://saaavsaaa.github.io/aaa/SpringBoot_ShardingJdbc_Code_Load_Run_Insert.html) 
+[前略](https://saaavsaaa.github.io/aaa/SpringBoot_ShardingJdbc_Code_Load_Run_Insert.html)      
+我是mybatis+shardingjdbc
 
 select语句（简单版）
 
@@ -142,7 +143,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 -----
 
 --> io/shardingjdbc/core/merger/MergeEngine.merge     
--> build [合并结果集 GroupByStreamResultSetMerger > OrderByStreamResultSetMerger > IteratorStreamResultSetMerger]     
+-> build [合并结果集 GroupByStreamResultSetMerger > OrderByStreamResultSetMerger > IteratorStreamResultSetMerger这里顺序会有影响，前面的resultSetMerger会传给后面，在最后mybatis拼装结果集时会被类似链式的方式调用]     
 -> decorate [处理limit, LimitDecoratorResultSetMerger]     
 
 <<< ShardingPreparedStatement.getResultSet     
