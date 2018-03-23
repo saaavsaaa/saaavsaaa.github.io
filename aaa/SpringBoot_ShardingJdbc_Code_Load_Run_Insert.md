@@ -396,7 +396,7 @@ SQLExecutionUnit each end <<< route 返回笛卡尔积个元素的Collection<Pre
 --> io/shardingjdbc/core/executor/ExecutorEngine.execute
 用baseStatementUnits(PreparedStatementUnit)创建OverallExecutionEvent，发给事件总线 --> com/google/common/eventbus/EventBus.post
 
-ExecutorEngine.execute:
+ExecutorEngine.execute [这里可以看出来，用ListenableFuture起了几个线程执行，当前线程执行一个，然后restFutures.get()回加过，将当前线程结果与子线程结果合成一个LinkedList]:
 
 -----
 
