@@ -1,6 +1,6 @@
 跟着调式看代码的笔记，其中我觉得不重要的部分就直接用符号略过了，关于符号可参见
 [前略](https://saaavsaaa.github.io/aaa/SpringBoot_ShardingJdbc_Code_Load_Run_Insert.html)      
-我是mybatis+shardingjdbc
+我是mybatis+shardingjdbc+druid
 
 select语句（简单版）
 
