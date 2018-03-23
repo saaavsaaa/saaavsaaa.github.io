@@ -150,7 +150,7 @@ io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
 <<< DefaultResultSetHandler.getFirstResultSet [返回ShardingResultSet，包装成new ResultSetWrapper:rsw构建结果的元数据，列什么的]     
 << DefaultResultSetHandler.handleResultSets     
 -> handleResultSet -> handleRowValues      
--> handleRowValuesForSimpleResultMap [此处DefaultResultSetHandler的Limit没什么用是最开始DefaultSqlSession处的RowBounds.DEFAULT，循环的判断条件中rsw.getResultSet()是返回ShardingResultSet，next方法:return mergeResultSet.next() --> LimitDecoratorResultSetMerger.next 此处控制从多数据源返回的结果集合并后只返回前Limit行记录]
+-> handleRowValuesForSimpleResultMap [此处DefaultResultSetHandler的Limit没什么用是最开始DefaultSqlSession处的RowBounds.DEFAULT，循环的判断条件中rsw.getResultSet()是返回ShardingResultSet，我的这个例子next方法:return mergeResultSet.next() --> LimitDecoratorResultSetMerger.next 此处控制从多数据源返回的结果集合并后只返回前Limit行记录，这里Limit还会调用前面OrderByStreamResultSetMerger的next]
 each :     
 -> getRowValue -> applyAutomaticMappings [向元数据对象里填查询回来的结果值]     
 -> storeObject -> callResultHandler [结果放进泛型对象实例]      
