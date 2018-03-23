@@ -156,6 +156,33 @@ each :
 -> storeObject -> callResultHandler [结果放进泛型对象实例]      
 后面似乎也没什么关系了。
 
+备注：OrderByStreamResultSetMerger.next:
+
+-----
+
+    @Override
+    public boolean next() throws SQLException {
+        if (orderByValuesQueue.isEmpty()) {
+            return false;
+        }
+        if (isFirstNext) {
+            isFirstNext = false;
+            return true;
+        }
+        OrderByValue firstOrderByValue = orderByValuesQueue.poll();
+        if (firstOrderByValue.next()) {  // --> io/shardingjdbc/core/merger/orderby/OrderByValue.next --> com/alibaba/druid/pool/DruidPooledResultSet.next --> com/mysql/jdbc/ResultSetImpl.next
+            orderByValuesQueue.offer(firstOrderByValue);
+        }
+        if (orderByValuesQueue.isEmpty()) {
+            return false;
+        }
+        setCurrentResultSet(orderByValuesQueue.peek().getResultSet());
+        return true;
+    }
+
+-----
+
+
 -----
 
 
