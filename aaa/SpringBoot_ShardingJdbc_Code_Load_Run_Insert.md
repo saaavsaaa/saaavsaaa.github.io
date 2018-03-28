@@ -333,8 +333,8 @@ while判断应该是对(...),(...)情况的处理
 --> io/shardingjdbc/core/parsing/parser/clause/InsertSetClauseParser.parse Insert还有一种set c=v,c=v...的写法，这里是处理这个写法的     
 <<< AbstractInsertParser.parse -> appendGenerateKey
 <<< io/shardingjdbc/core/routing/PreparedStatementRoutingEngine.route
---> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route 根据表数量和语句类型使用用不同的routingEngine进行路由
-由于我这就是一个简单的insert所以--> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.route
+--> io/shardingjdbc/core/routing/router/ParsingSQLRouter.route 根据表数量和语句类型使用用不同的routingEngine进行路由，如果有配置cn.tellwhy.support.test.service.sharding.ShardingKeyGenerator，会生成自定义key -> processGeneratedKey     
+由于我这就是一个简单的insert所以--> io/shardingjdbc/core/routing/type/simple/SimpleRoutingEngine.route     
 先获取tableRule，就是配置的那些，这个sql表对应了哪些库的哪些表
 然后获取databaseShardingValues和tableShardingValues库和表的分片键
 -> routeDataSources 获取目标数据库
