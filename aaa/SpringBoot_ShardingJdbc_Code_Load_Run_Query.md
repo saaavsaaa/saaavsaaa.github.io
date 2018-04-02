@@ -156,6 +156,10 @@ each :
 -> storeObject -> callResultHandler [结果放进泛型对象实例]      
 后面似乎也没什么关系了。
 
+备注：
+sharding-jdbc 配置tag :io/shardingjdbc/spring/namespace/constants/ShardingStrategyBeanDefinitionParserTag.class(META-INF/spring.handlers)
+
+
 
 -----
 
