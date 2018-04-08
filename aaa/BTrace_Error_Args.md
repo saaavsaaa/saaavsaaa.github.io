@@ -1,3 +1,104 @@
+  btrace已经修改了这个功能https://github.com/btraceio/btrace/issues/327
+  我之前自己改了之后，抽空修了一下，然后给提了个pull request，将脚本中是否包含原方法参数和是否包含异常参数分开处理，有参数就打印参数：
+  
+-----
+
+                        Type[] sources = Type.getArgumentTypes(getDescriptor());
+                        useArgs = sources.length == 0 || om.getMethodParameter() == -1;
+    
+                        if (useArgs){
+                            vr = validateArguments(om, actionArgTypes, new Type[]{THROWABLE_TYPE});
+                        } else {
+                            vr = validateArguments(om, actionArgTypes, Type.getArgumentTypes(getDescriptor()));
+                        }
+			
+                            ArgumentProvider[] actionArgs;
+                            Label l;
+                            if (useArgs){
+                                actionArgs = buildArgsWithoutParas(throwableIndex);
+                                l = levelCheck(om, bcn.getClassName(true));
+                                loadArguments(actionArgs);
+                            } else {
+                                actionArgs = loadArgsWithParas(throwableIndex);
+                                l = levelCheck(om, bcn.getClassName(true));
+                                loadArguments(vr, actionArgTypes, isStatic(), actionArgs);
+                            }
+			
+		    private ArgumentProvider[] loadArgsWithParas(int throwableIndex){
+
+                        ArgumentProvider[] actionArgs = new ArgumentProvider[5];
+                        actionArgs[0] = constArg(throwableIndex, THROWABLE_TYPE);
+                        actionArgs[1] = constArg(om.getClassNameParameter(), className.replace('/', '.'));
+                        actionArgs[2] = constArg(om.getMethodParameter(), getName(om.isMethodFqn()));
+                        actionArgs[3] = selfArg(om.getSelfParameter(), Type.getObjectType(className));
+                        actionArgs[4] = new ArgumentProvider(asm, om.getDurationParameter()) {
+                            @Override
+                            public void doProvide() {
+                                MethodTrackingExpander.DURATION.insert(mv);
+                            }
+                        };
+        
+                        return actionArgs;
+                    }
+    
+                    private ArgumentProvider[] buildArgsWithoutParas(int throwableIndex){
+                        ArgumentProvider[] actionArgs = new ArgumentProvider[5];
+        
+                        actionArgs[0] = localVarArg(vr.getArgIdx(0), THROWABLE_TYPE, throwableIndex);
+                        actionArgs[1] = constArg(om.getClassNameParameter(), className.replace('/', '.'));
+                        actionArgs[2] = constArg(om.getMethodParameter(), getName(om.isMethodFqn()));
+                        actionArgs[3] = selfArg(om.getSelfParameter(), Type.getObjectType(className));
+                        actionArgs[4] = new ArgumentProvider(asm, om.getDurationParameter()) {
+                            @Override
+                            public void doProvide() {
+                                MethodTrackingExpander.DURATION.insert(mv);
+                            }
+                        };
+                        return actionArgs;
+                    }
+
+-----
+
+  然后作者给提了个修改建议，让加一个@Targetinstance，然后不对是否包含做区分，不过我一直没理解，他就自己改了，大体思路没变，就是在脚本中一定要有 @Targetinstance Throwable err这个参数，限制了必须有之后就不用在分开判断了，直接一起处理就好了，这样代码简洁了很多：
+
+-----
+
+                        addExtraTypeInfo(om.getTargetInstanceParameter(), THROWABLE_TYPE);
+                        vr = validateArguments(om, actionArgTypes, Type.getArgumentTypes(getDescriptor()));
+			
+
+                            ArgumentProvider[] actionArgs = new ArgumentProvider[5];
+
+                            actionArgs[0] = localVarArg(om.getTargetInstanceParameter(), THROWABLE_TYPE, throwableIndex);
+                            actionArgs[1] = constArg(om.getClassNameParameter(), className.replace('/', '.'));
+                            actionArgs[2] = constArg(om.getMethodParameter(), getName(om.isMethodFqn()));
+                            actionArgs[3] = selfArg(om.getSelfParameter(), Type.getObjectType(className));
+                            actionArgs[4] = new ArgumentProvider(asm, om.getDurationParameter()) {
+                                @Override
+                                public void doProvide() {
+                                    MethodTrackingExpander.DURATION.insert(mv);
+                                }
+                            };
+
+                            Label l = levelCheck(om, bcn.getClassName(true));
+
+                            loadArguments(vr, actionArgTypes, isStatic(), actionArgs);
+
+-----
+
+  下面是脚本的写法：
+
+-----
+		@onmethod(clazz="/.*\.OnMethodTest/", method="args", location=@location(value=Kind.ERROR))
+		public static void args(@self Object self, @return long retVal, @duration long dur, String a, long b, String[] c, int[] d, @Targetinstance Throwable err) {
+		println("args");
+		}
+-----
+
+  以下是最开始的查问题的时候，为了快，临时修改代码的记录：
+
+-----
+
   子公司线上的一个项目偶尔会报一个异常，问题出在一个Filter里，由于Filter是由web容器调用的，所以全都没有走自己的代码，也不容易加日志，由于搬的位置比较近，我就帮着看看，先是想用BTrace拦截到Filter的参数：
 
 ```markdown
