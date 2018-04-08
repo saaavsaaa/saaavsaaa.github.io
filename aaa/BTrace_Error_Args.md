@@ -1,6 +1,6 @@
-  btrace已经修改了这个功能https://github.com/btraceio/btrace/issues/327
-  我之前自己改了之后，抽空修了一下，然后给提了个pull request，将脚本中是否包含原方法参数和是否包含异常参数分开处理，有参数就打印参数：
-  
+  btrace已经修改了这个功能https://github.com/btraceio/btrace/issues/327     
+  我之前自己改了之后，抽空修了一下，然后给提了个pull request，将脚本中是否包含原方法参数和是否包含异常参数分开处理，有参数就打印参数：     
+
 -----
 
                         Type[] sources = Type.getArgumentTypes(getDescriptor());
