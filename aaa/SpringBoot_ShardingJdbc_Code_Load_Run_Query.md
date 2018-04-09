@@ -160,6 +160,9 @@ each :
 sharding-jdbc 配置tag :io/shardingjdbc/spring/namespace/constants/ShardingStrategyBeanDefinitionParserTag.class(META-INF/spring.handlers)
 
 
+-----
+
+增加sharding-jdbc对MySQL强制索引Force INDEX语法的支持：https://github.com/shardingjdbc/sharding-jdbc/pull/683
 
 -----
 
