@@ -163,6 +163,9 @@ sharding-jdbc 配置tag :io/shardingjdbc/spring/namespace/constants/ShardingStra
 -----
 
 增加sharding-jdbc对MySQL强制索引Force INDEX语法的支持：https://github.com/shardingjdbc/sharding-jdbc/pull/683
+看过了前面的代码之后，偶然发现一个比较简单的ISSUE(https://github.com/shardingjdbc/sharding-jdbc/issues/671)，于是决定试着改一下，同时熟悉sharding-jdbc
+这个功能主要就是在表名之后增加对Force INDEX的支持，最开始我就判断如果表名之后跟着MySQLKeyword.FORCE和DefaultKeyword.INDEX，就直接对之后括号及括号内跳过，这样这个语法就可以正常执行了。不过看了张亮（sharding-jdbc开源社区的管理员）的代码建议才知道sharding-jdbc本身有创建索引的功能，而兼容pg这种全库索引名唯一，于是sj自己创建的索引是使用了逻辑索引的，像表名一样，对分表会进行真实索引与逻辑索引的映射，比如配置了logicIndex: order_index，如果语句中包含order_index，就会把它映射成"order_index_真实表名"。
+
 
 -----
 
