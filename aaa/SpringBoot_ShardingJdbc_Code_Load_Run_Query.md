@@ -162,13 +162,83 @@ sharding-jdbc 配置tag :io/shardingjdbc/spring/namespace/constants/ShardingStra
 
 -----
 
-增加sharding-jdbc对MySQL强制索引Force INDEX语法的支持：https://github.com/shardingjdbc/sharding-jdbc/pull/683
-看过了前面的代码之后，偶然发现一个比较简单的ISSUE(https://github.com/shardingjdbc/sharding-jdbc/issues/671)，于是决定试着改一下，同时熟悉sharding-jdbc
-这个功能主要就是在表名之后增加对Force INDEX的支持，最开始我就判断如果表名之后跟着MySQLKeyword.FORCE和DefaultKeyword.INDEX，就直接对之后括号及括号内跳过，这样这个语法就可以正常执行了。不过看了张亮（sharding-jdbc开源社区的管理员）的代码建议才知道sharding-jdbc本身有创建索引的功能，而兼容pg这种全库索引名唯一，于是sj自己创建的索引是使用了逻辑索引的，像表名一样，对分表会进行真实索引与逻辑索引的映射，比如配置了logicIndex: order_index，如果语句中包含order_index，就会把它映射成"order_index_真实表名"。
-
+增加sharding-jdbc对MySQL强制索引Force INDEX语法的支持     
+看过了前面的代码之后，偶然发现一个比较简单的ISSUE(https://github.com/shardingjdbc/sharding-jdbc/issues/671)，于是决定试着改一下，同时熟悉sharding-jdbc     
+这个功能主要就是在表名之后增加对Force INDEX的支持，最开始我就判断如果表名（代码在TableReferencesClauseParser.parseTableFactor）之后跟着MySQLKeyword.FORCE(我查了下，这个语法只有MySQL支持)和DefaultKeyword.INDEX，就直接对之后括号及括号内跳过，这样这个语法就可以正常执行了。不过看了张亮（sharding-jdbc开源社区的管理员）的代码建议才知道sharding-jdbc本身有创建索引的功能，而兼容pg这种全库索引名唯一，于是sj自己创建的索引是使用了逻辑索引的，像表名一样，对分表会进行真实索引与逻辑索引的映射，比如配置了logicIndex: order_index，如果语句中包含order_index，就会把它映射成"order_index_真实表名"。     
+于是就将原来直接跳过改为，通过分片规则判断括号里的索引是否是逻辑索引，如果是逻辑索引，就创建一个它的IndexToken实例并加入sqlStatement的SqlTokens中，这样最后在创建执行单元的时候就会将它映射为真实的索引，代码如下：
 
 -----
 
+        boolean skipIfForce = lexerEngine.skipIfEqual(MySQLKeyword.FORCE) && this.lexerEngine.skipIfEqual(DefaultKeyword.INDEX);
+        if (skipIfForce) {
+            lexerEngine.accept(Symbol.LEFT_PAREN);
+            do {
+                String literals = lexerEngine.getCurrentToken().getLiterals();
+                if (shardingRule.isLogicIndex(literals, tableName)) {
+                    int beginPosition = lexerEngine.getCurrentToken().getEndPosition() - literals.length();
+                    sqlStatement.getSqlTokens().add(new IndexToken(beginPosition, literals, tableName));
+                }
+                lexerEngine.nextToken();
+            } while (lexerEngine.skipIfEqual(Symbol.COMMA));
+            lexerEngine.accept(Symbol.RIGHT_PAREN);
+        }
+
+-----
+
+还有通过分片规则判断是否为逻辑索引，代码在ShardingRule中，原本我是分几行写的，最后根据代码建议合为一行了：
+
+-----
+
+    /**
+     * Adjust is logic index or not.
+     *
+     * @param logicIndexName logic index name
+     * @param logicTableName logic table name
+     * @return is logic index or not
+     */
+    public boolean isLogicIndex(final String logicIndexName, final String logicTableName) {
+        return logicIndexName.equals(getTableRule(logicTableName).getLogicIndex());
+    }
+
+-----
+
+基本功能就是这些了，之后就是加单元测试和集成测试了，sharding-jdbc中封装好了对sql的测试功能，所以这部分我这个简单的代码就需要配置就可以了
+
+-----
+
+    parser-rule.yaml中加入logicIndex: order_index
+
+    <sql-case id="assertSelectWithJoinForceIndex" value="SELECT o.*,i.* FROM t_order o FORCE INDEX(order_index) JOIN t_order_item i WHERE o.order_id = %s" db-types="MySQL" />
+
+    <parser-result sql-case-id="assertSelectWithJoinForceIndex" parameters="1000">
+        <tables>
+            <table name="t_order" alias="o" />
+            <table name="t_order_item" alias="i"/>
+        </tables>
+        <tokens>
+            <table-token begin-position="20" original-literals="t_order" />
+            <table-token begin-position="60" original-literals="t_order_item" />
+            <index-token begin-position="42" original-literals="order_index" table-name="t_order" />
+        </tokens>
+        <conditions>
+            <condition column-name="order_id" table-name="t_order" operator="EQUAL">
+                <value index="0" literal="1000" type="int" />
+            </condition>
+        </conditions>
+    </parser-result>
+    
+    集成测试：
+    <sql id="assertSelectWithJoinForceIndex">
+        <sharding-rule value="tbl">
+            <data parameter="1000" expected="select/SelectWithJoinForceIndex.xml" />
+        </sharding-rule>
+    </sql>
+
+-----
+
+    提交的pr地址（其中有沟通和根据建议修改的过程）:https://github.com/shardingjdbc/sharding-jdbc/pull/683
+
+-----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/SpringBoot_ShardingJdbc_Code_Load_Run_Query.md)
 
