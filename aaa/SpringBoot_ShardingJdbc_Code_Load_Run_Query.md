@@ -226,8 +226,13 @@ sharding-jdbc 配置tag :io/shardingjdbc/spring/namespace/constants/ShardingStra
             </condition>
         </conditions>
     </parser-result>
+
+-----
     
     集成测试：
+    
+-----
+
     <sql id="assertSelectWithJoinForceIndex">
         <sharding-rule value="tbl">
             <data parameter="1000" expected="select/SelectWithJoinForceIndex.xml" />
