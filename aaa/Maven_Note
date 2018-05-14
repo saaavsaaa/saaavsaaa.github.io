@@ -1,0 +1,2 @@
+mvn clean install -U
+-U means force update of snapshot dependencies. Release dependencies can't not be updated this way.
