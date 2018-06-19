@@ -25,15 +25,21 @@
                |                             |                                    |                                    |
           UsualStrategy             SyncRetryStrategy                       AsyncRetryStratety                   ContentStrategy
      最基本zk功能的封装或直接         目前主要使用的策略           原本想用的重试策略，后来发现原有功能是同步重试   TransactionContentStrategy
-     使用最基础接口的直接实现      用Callable包装了执行来实现重试     把执行包装为BaseOperation的子类对象
-                                 这里的有一点不顺的地方后面会说      发送到DelayQueue，开线程做异步重试
+     使用最基础接口的直接实现      用Callable包装了执行来实现重试     把执行包装为BaseOperation的子类对象           Content是指竞争节点的写权限
+               |                 这里的有一点不顺的地方后面会说      发送到DelayQueue，开线程做异步重试            后面细说
+               |                             |
+               |                             |
+                                                                                         
+                                                                                         
+                                                                                                              
+                                                                                                              
          
          
          
          
          
          
-         
-zk事务
+zk事务,分成两个是因为想事务和非事务的拆开，现有没拆开的,之后也想拆开，因为没事务的部分是可以支持全版本的zk
 ICallbackProvider
+LeaderElection
 后续要做的 todo
