@@ -45,7 +45,14 @@
     action 主要的接口，为了找代码方便就放一处了
     cache 主要用于缓存zk节点树数据
     election 节点竞争，未来选举的功能准备放这
-    
+    retry 重试功能，之后把Callable移到这个包里，同步和异步重试的功能就基本都在这了
+    utility 工具
+    zookeeper zk客户端
+      base 各种基类和基础组件Holder
+      operation 用于异步重试的操作对象
+      section 各种没想好怎么归类的组件
+      strategy 执行策略的各种实现
+      transaction 事务封装
     
 ### 下面是开发过程:
   UsualClient的基类BaseClient中有一个必要重要的类型Holder，因为没有顺眼的地方现在放在base包里。最开始是没有这个类型的，zk的连接是由BaseClient维护的，但是在做重试功能的时候觉得怎么实现怎么别扭，因为重试功能按说是Client内部实现的，但是如果连接由Client维护，那重试策略势必要操作Client，这引用关系就相当凌乱了。而且由于先做的异步重试（其实同步重试一样），在重试过程中会涉及到连接和监听，如果传递Client，重试的Operation立场就十分尴尬了。于是，根据书上有别扭就必然是因为有隐含的概念没有抽取出来的理论来寻找一个合适解耦的中间层抽取出来，那就比较明显了，把zk连接的维护独立出来，Client中只负责对节点的操作，由Holder来维护节点连接。同时在Client中创建Provider实例的时候可以把Holder实例传递给Provider，这样重试策略Provider就完全hold得住了。
