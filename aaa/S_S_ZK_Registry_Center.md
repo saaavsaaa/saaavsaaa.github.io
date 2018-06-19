@@ -29,7 +29,7 @@
           UsualStrategy             SyncRetryStrategy                       AsyncRetryStratety                   ContentStrategy
      最基本zk功能的封装或直接         目前主要使用的策略           原本想用的重试策略，后来发现原有功能是同步重试   TransactionContentStrategy
      使用最基础接口的直接实现      用Callable包装了执行来实现重试     把执行包装为BaseOperation的子类对象           Content是指竞争节点的写权限
-               |                 这里的有一点不顺的地方后面会说      发送到DelayQueue，开线程做异步重试                  后面细说
+               |                 这里的有一点不顺的地方后面会说      发送到DelayQueue，开线程做异步重试            这实现比较糙，后面细说
                |                             |                                    |                                    |
                |                             |                                    |                                    |
                ---------------------------------------------------------------------------------------------------------
@@ -40,6 +40,10 @@
                                包装了基本的zk操作，现在正准备加一个TransactionProvider把事务部分独立
 
 -----                                                                                    
+
+  包结构：
+    action 主要的接口，为了找代码方便就放一处了
+    cache 主要用于缓存zk节点树数据
 
   UsualClient的基类BaseClient中有一个必要重要的类型Holder，因为没有顺眼的地方现在放在base包里。最开始是没有这个类型的，zk的连接是由BaseClient维护的，但是在做重试功能的时候觉得怎么实现怎么别扭，因为重试功能按说是Client内部实现的，但是如果连接由Client维护，那重试策略势必要操作Client，这引用关系就相当凌乱了。而且由于先做的异步重试（其实同步重试一样），在重试过程中会涉及到连接和监听，如果传递Client，重试的Operation立场就十分尴尬了。于是，根据书上有别扭就必然是因为有隐含的概念没有抽取出来的理论来寻找一个合适解耦的中间层抽取出来，那就比较明显了，把zk连接的维护独立出来，Client中只负责对节点的操作，由Holder来维护节点连接。同时在Client中创建Provider实例的时候可以把Holder实例传递给Provider，这样重试策略Provider就完全hold得住了。
   
