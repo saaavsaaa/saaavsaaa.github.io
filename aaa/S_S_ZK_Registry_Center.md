@@ -63,6 +63,7 @@
   
   BaseClient主要功能有start、close、注册、认证和创建删除根节点。start这有一个blockUntilConnected方法，主要功能是如果在一定时间内启动不成功就返回启动失败。这个方法是在curator同名方法上稍微简化了一下，我比较不喜欢这种实现方式，holder里实现的start是用CountDownLatch阻塞的，CountDownLatch的await本身就有时间参数的重载，我现在在准备用await的重载方法替代blockUntilConnected，功能是没问题了，只是两个单元测试出现了互相影响的现象，还没调好。创建和删除根节点是为了实现namespace的功能的，使用namespace做根节点，不同的namespace下的节点就不会互相影响了。
   
+  现在注册中心的Client使用的执行策略是同步重试SyncRetryStrategy，
   
 
   
