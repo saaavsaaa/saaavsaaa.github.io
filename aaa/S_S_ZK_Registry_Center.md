@@ -69,14 +69,19 @@
   
   然后说竞争策略ContentionStrategy和TransactionContentionStrategy，竞争的逻辑在抽象类LeaderElection中，就是竞争者发起创建一个临时节点的请求，如果报NodeExistsException就注册一个该临时节点删除的事件监听，一旦监听触发就再次发起创建请求直到成功。这里有两个todo，一是创建节点的时候并没有使用节点序列号，如果需要选举功能，这一点是需要的；另外一个是目前只对根节点竞争，并不是对指定节点，这也需要补完。
   
-  BaseProvider里不止有草图中说的拆分事务专用Provider，还有一个比较大的事没做，就是zk的回调类api，我是准备增加一个ICallbackProvider的接口：
+  BaseProvider里不止有草图中说的拆分事务专用Provider，还有一个比较大的事没做，就是zk的回调类api，我是准备增加一个ICallbackProvider的接口，如：
 
 -----
 
-ICallbackProvider
+    public interface ICallbackProvider {
+        void exists(String path, AsyncCallback.StatCallback cb, Object ctx);
+        void getChildren(String path, AsyncCallback.ChildrenCallback cb, Object ctx);
+        void createCurrentOnly(final String path, byte data[], CreateMode createMode, AsyncCallback.StringCallback cb, Object ctx);
+        void update(final String path, byte data[], AsyncCallback.StatCallback cb, Object ctx);
+    }
 
 -----
          
-zk事务,分成两个是因为想事务和非事务的拆开，现有没拆开的,之后也想拆开，因为没事务的部分是可以支持全版本的zk
+  将zk事务和非事务分成两个是因为没事务的部分是可以支持全版本的zk，我排除掉事务测试过3.3.0开始的所有版本都可以支持。但是事务是3.4.0才有的功能。ZKTransaction也是为了排除事务方便做的包装。
 
 后续要做的 todo
