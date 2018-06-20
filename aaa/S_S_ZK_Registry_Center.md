@@ -67,7 +67,7 @@
   
   异步重试策略AsyncRetryStrategy是由AsyncRetryCenter执行的，在该策略的api执行时，如果捕捉到需要重试的异常，就创建当前操作的对象加入到延迟队列中。操作类的基类BaseOperation派生自java.util.concurrent.Delayd，并且与上面的同步重试一样都是使用延迟策略的执行者来判断下一次执行的。DelayQueue的消费是在RetryThread中。先跑个题，这里可以看到有一些常数，其实是应该抽出来了，utility包里还有一些常量，虽然目前没什么用，不过其实是应该做成配置文件的。接着说消费，消费就是一个for (;;)不停的take，take出来提交给线程池执行，这里使用线程池是防备会在一个时间节点有很多个操作到期，我测试zk 3.3.x版本时发现连接失败是比较容易出现的。
   
-
+  然后说竞争策略ContentionStrategy和
   
          
          
