@@ -65,6 +65,8 @@
   
   现在注册中心的Client使用的执行策略是同步重试SyncRetryStrategy，是用Callable实现的。Callable会从section包移到retry包里去的。主要逻辑就是根据延迟策略创建延迟策略的执行者，每次执行失败先判断失败的异常是否是需要重新连接zk server的，如果是resetConnection后延迟重试，否则直接延迟重试期待延迟过程中zk自动重连，之后由执行者判断是否还有下一次执行。
   
+  异步重试策略AsyncRetryStrategy是由AsyncRetryCenter执行的，在该策略的api执行时，如果捕捉到需要reset
+  
 
   
          
