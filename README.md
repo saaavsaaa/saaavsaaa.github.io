@@ -64,6 +64,10 @@
 
 -----
 
+### [一个static乱用的问题](https://saaavsaaa.github.io/aaa/Static_Disorderly_Use.html)
+
+-----
+
 testing:
  |
  
