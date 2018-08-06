@@ -1,4 +1,4 @@
-  前略：[关于SS注册中心ZK客户端的封装](https://saaavsaaa.github.io/aaa/S_S_ZK_Registry_Center.html)
-  在做前略的事时，最初因为[assertWatch这个单元测试](https://github.com/sharding-sphere/sharding-sphere/blob/dev/sharding-jdbc-orchestration/src/test/java/io/shardingsphere/jdbc/orchestration/reg/newzk/client/zookeeper/UsualClientTest.java)对watcher产生了误解，当然也是之前对zk的监听事件了解不够。
-  因为这个单元测试跑过了，所以我误以为可以再启动时注册的watcher里获取所有的事件。当然，确实是可以的，只不过并没有解决一个监听器只会触发一次的问题。只是因为这个单元测试中最开头的exist和没执行一次更新就assert一下数据是否正确的getData导致每次都重新注册了一个监听。可以归类为对节点的查询都会注册响应的时间监听。而增删改就不一样了，删除是每次都会触发事件，无论是否监听；创建只会对监听的节点触发创建事件；修改事件会对监听的节点和其子节点触发对应NodeDataChanged和NodeChildrenChanged。
-  
+  前略：[关于SS注册中心ZK客户端的封装](https://saaavsaaa.github.io/aaa/S_S_ZK_Registry_Center.html)     
+  在做前略的事时，最初因为[assertWatch这个单元测试](https://github.com/sharding-sphere/sharding-sphere/blob/dev/sharding-jdbc-orchestration/src/test/java/io/shardingsphere/jdbc/orchestration/reg/newzk/client/zookeeper/UsualClientTest.java)对watcher产生了误解，当然也是之前对zk的监听事件了解不够。     
+  因为这个单元测试跑过了，所以我误以为可以再启动时注册的watcher里获取所有的事件。当然，确实是可以的，只不过并没有解决一个监听器只会触发一次的问题。只是因为这个单元测试中最开头的exist和没执行一次更新就assert一下数据是否正确的getData导致每次都重新注册了一个监听。可以归类为对节点的查询都会注册相应的事件监听。而增删改就不一样了，删除是每次都会触发事件，无论是否监听；创建只会对监听的节点触发创建事件；修改事件会对监听的节点和其子节点触发对应NodeDataChanged和NodeChildrenChanged。     
+  对于解决这个问题，我的第一反应是先包装一下事件。如果是节点变化，因为监听到的事件是不带节点的值的，那么在接收到事件时get事件的值就可以了。同时，注册监听的时候去exist一下对应的节点，如果不存在就等接收到创建的事件时再去getData。然而单元测试的效果非常不理想，因为返回事件时，有很大概率zk的连接已经丢失，虽然似乎没对获取数据造成什么特别的影响，但是那些warning的存在就不能忍。这个方法不行，我就想只能每个节点去exist了，但是总觉得方法有些low，一时又想不到什么好办法，于是我就去翻了翻curator的源码，发现它似乎也没什么好办法，curator中对节点的操作都使用forPath指定了节点路径，forPath方法中就有对指定路径的exist。我一直就挺奇怪为什么单元测试用curator客户端去跑的时候非常慢，现在看可能就因为多了一些此类操作。既然如此，我又没有更好的办法，我就也参考这种思路，不过没必要什么操作都exist，对于目前SS的需求，只要在创建和更新时判断一下节点是否存在就好了（而且看上去也毫不违和）。
