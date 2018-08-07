@@ -71,6 +71,10 @@
 ### [之前对Watcher的误解](https://saaavsaaa.github.io/aaa/Watcher_Change.html)
 
 -----
+
+### [Docker使用中问题记录](https://saaavsaaa.github.io/aaa/Docker_Record.html)
+
+-----
 testing:
  |
  
