@@ -3,7 +3,7 @@
   
   监督学习中主要有两类问题：分类问题、回归问题
   
-  分类中主要：决策树 decision tree、svm
+  分类中主要：决策树 decision tree、svm 支持向量机Support Vector Machine
 
 
 
