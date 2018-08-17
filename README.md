@@ -134,7 +134,7 @@ testing:
  
  |
  
- 
+ $x^p_ {ij}$
  
 ## [**默认** *AAA* ***AAA***](/aaa/aaa.md)
 ```markdown
