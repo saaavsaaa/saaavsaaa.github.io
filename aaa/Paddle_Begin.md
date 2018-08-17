@@ -23,7 +23,11 @@
   模型的主要能力：     
   1 拟合(fit)：模型必须很好的描述已有数据间的映射关系     
   2 预测(generalization泛化)：对未知数据（没有的标记label）有预测能力 a = 9      
+  
   机器学习就是从数据中产生模型的过程     
+  假设函数 hypothesis function     
+  损失函数 cost function     
+  优化算法 gradient descent     
 
 
 假设函数
