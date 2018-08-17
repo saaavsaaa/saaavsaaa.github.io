@@ -36,11 +36,14 @@
 
 ```markdown
 
-  \frac{7x+5}{1+y^2}
+<img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" style="border:none;">
   
   ```
   
   优化算法 gradient descent(梯度下降)     
 
 
+-----
+
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Paddle_Begin.md)
 
