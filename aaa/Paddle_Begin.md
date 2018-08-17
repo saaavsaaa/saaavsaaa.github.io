@@ -27,7 +27,7 @@
   机器学习就是从数据中产生模型的过程     
   假设函数 hypothesis function     
   损失函数 cost function     
-  优化算法 gradient descent     
+  优化算法 gradient descent(梯度下降)     
 
 
 假设函数
