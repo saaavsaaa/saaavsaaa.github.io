@@ -25,7 +25,7 @@
   2 预测(generalization泛化)：对未知数据（没有的标记label）有预测能力 a = 9      
   
   机器学习就是从数据中产生模型的过程     
-  假设函数 hypothesis function     
+  假设函数 hypothesis function:用数学的方法描述自变量x和因变量y之间的关系，比如上面假设是线性关系y=θx，一个描述x，y之间关系的假设的方程       
   损失函数 cost function     
   优化算法 gradient descent(梯度下降)     
 
