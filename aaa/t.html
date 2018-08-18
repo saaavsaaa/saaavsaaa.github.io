@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>MathJax AsciiMath Test Page</title>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" />
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
-});
-</script>
-</head>
+    <head>
+    <meta charset="utf-8">
+    <title>MathJax AsciiMath Test Page</title>
+    </head>
 <body>
-<div id="pop">
-$$\frac{1}{2}$$
-</div>
+    <div id="pop">
+    $$\frac{1}{2}$$
+    </div>
 
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+        });
+    </script>
+    
+<!--   MathJax.Hub.Queue(["Typeset", MathJax.Hub]);   -->
 </body>
 </html>
