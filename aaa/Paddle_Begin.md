@@ -34,9 +34,9 @@
   **损失函数** cost function:用数学方法衡量假设函数预测结果与真实值之间的“误差”。通常数据可能不会完全契合假设函数，类似上面的例子中可能不会刚好所有样本都是3的倍数。对于假设函数，数据是已知量，另外模型中还有一些未知量，如θ<sub>0</sub>、 θ<sub>1</sub>，要衡量模型的好坏就可以用损失函数。比如均方差(MSE,Mean Squared Error，就是标准差，方差的算术平方根,能反映一个数据集的离散程度): 
   <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%20J%28%5Ctheta%29%3D%5Csqrt%7B%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5E%7BN%7D%7B%28h_%5Ctheta%28x_i%29-y_i%29%5E2%7D%7D%20%24%24" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>
   
-  因为假设的是一次函数，所以结果都在一条线上，h<sub>θ</sub>(x<sub>i</sub>)就是预测的线上的值，而实际值在坐标系中可能是离散的点y<sub>i</sub>，数据集样本之间的差值的代数平均数的平方根就是均方差，可以用来做损失函数衡量模型。由于计算机并不会解方程，所以要借助损失函数不断的迭代找到J(θ)中θ的最小值，即导数为0的点的θ值，来修正模型的误差。如果有两个未知数θ<sub>0</sub>和θ<sub>1</sub>图像就是一个凹面，同样是找最低点。如果是复杂的损失函数有多个极值点的，现在还没学到，之后学了再说。
+  因为假设的是一次函数，所以结果都在一条线上，h<sub>θ</sub>(x<sub>i</sub>)就是预测的线上的值，而实际值在坐标系中可能是离散的点y<sub>i</sub>，数据集样本之间的差值的代数平均数的平方根就是均方差，可以用来做损失函数衡量模型。由于计算机并不会解方程，所以要借助损失函数不断的迭代找到J(θ)中θ的最小值，即导数为0的点的θ值，用以找到误差最小的模型。如果有两个未知数θ<sub>0</sub>和θ<sub>1</sub>图像就是一个凹面，同样是找最低点。如果是复杂的损失函数有多个极值点的，现在还没学到，之后学了再说。
 
-  **优化算法** gradient descent(梯度下降)是一种迭代的方法。θ<sub>i</sub>定义为:
+  **优化算法** gradient descent(梯度下降)算法是一种寻找最优模型的方法。θ<sub>i</sub>定义为:
     <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%20%5Ctheta_i%3A%3D%5Ctheta_i-%5Calpha%5Cfrac%7B%5Cdelta%7D%7B%5Cdelta%5Ctheta_i%7DJ%28%5Ctheta_i%29%20%24%24" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>
     
 
