@@ -5,8 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<!-- based on MathJax/test/sample-dynamic-2.html -->
-
 <style>
 body {
     width: 40em;
@@ -250,16 +248,14 @@ Preview.callback.autoReset = true;  // make sure it can run more than once</scri
 
 <body>
 
-  <textarea id="marked-mathjax-input" onkeyup="Preview.Update()" name="comment" "autofocus">
+  <textarea id="marked-mathjax-input" onkeyup="Preview.Update()" name="comment" "autofocus" 
+            style="display:none;position:absolute;top:0; left: 0">
 $$ \sqrt{\frac{1}{N}\sum_{i=1}^{N}{(h_\theta(x_i)-y_i)^2}} $$
   </textarea>
 
 
   <div class="preview" id="marked-mathjax-preview"></div>
-  <div class="preview" id="marked-mathjax-preview-buffer" 
-       style="display:none;
-              position:absolute; 
-              top:0; left: 0"></div>
+  <div class="preview" id="marked-mathjax-preview-buffer" style="display:none;position:absolute;top:0; left: 0"></div>
 
 <script>
 Preview.Init();
