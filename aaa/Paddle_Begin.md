@@ -32,7 +32,7 @@
   假设函数 hypothesis function:用数学的方法描述自变量x和因变量y之间的关系，比如上面假设是线性关系y = θx + 0，一个描述x，y之间关系的假设的方程。单变量线性假设函数（并不都过原点）：h<sub>θ</sub>(x) = θ<sub>0</sub> + θ<sub>1</sub>x<sub>1</sub>是其中最简单的，还可以有多元多次的情况。     
   
   损失函数 cost function:用数学方法衡量假设函数预测结果与真实值之间的“误差”。通常数据可能不会完全契合假设函数，类似上面的例子中可能不会刚好所有样本都是3的倍数。对于假设函数，数据是已知量，另外模型中还有一些未知量，如θ<sub>0</sub>、 θ<sub>1</sub>，要衡量模型的好坏就可以用损失函数。比如均方差(MSE,Mean Squared Error，就是标准差，方差的算术平方根,能反映一个数据集的离散程度): 
-  <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%20%5Csqrt%7B%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5E%7BN%7D%7B%28h_%5Ctheta%28x_i%29-y_i%29%5E2%7D%7D%20%24%24" width="700px" height="500px" frameborder="0" scrolling="no"> </iframe>
+  <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%20%5Csqrt%7B%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi%3D1%7D%5E%7BN%7D%7B%28h_%5Ctheta%28x_i%29-y_i%29%5E2%7D%7D%20%24%24" height="100px" frameborder="0" scrolling="no"> </iframe>
   
 
   优化算法 gradient descent(梯度下降)     
