@@ -56,7 +56,6 @@ blockquote > blockquote > blockquote > blockquote > blockquote > blockquote {
 blockquote > blockquote > blockquote > blockquote > blockquote > blockquote > blockquote {
     border-color: #888;
 }
-
 blockquote p:first-of-type {
     margin-top: 0;
 }
@@ -92,14 +91,11 @@ marked.setOptions({
 <script>
 var Preview = {
   delay: 50,        // delay after keystroke before updating
-
   preview: null,     // filled in by Init below
   buffer: null,      // filled in by Init below
-
   timeout: null,     // store setTimout id
   mjRunning: false,  // true when MathJax is processing
   oldText: null,     // used to check if an update is needed
-
   //
   //  Get the preview and buffer DIV's
   //
@@ -108,7 +104,6 @@ var Preview = {
     this.buffer = document.getElementById("marked-mathjax-preview-buffer");
     this.textarea = document.getElementById("marked-mathjax-input");
   },
-
   //
   //  Switch the buffer and preview, and display the right one.
   //  (We use visibility:hidden rather than display:none since
@@ -124,7 +119,6 @@ var Preview = {
     preview.style.position = ""; 
     preview.style.display = "";
   },
-
   //
   //  This gets called when a key is pressed in the textarea.
   //  We check if there is already a pending update and clear it if so.
@@ -137,7 +131,6 @@ var Preview = {
     if (this.timeout) {clearTimeout(this.timeout)}
     this.timeout = setTimeout(this.callback,this.delay);
   },
-
   //
   //  Creates the preview and runs MathJax on it.
   //  If MathJax is already trying to render the code, return
@@ -159,7 +152,6 @@ var Preview = {
       ["resetEquationNumbers", MathJax.InputJax.TeX]
     );
   },
-
   //
   //  Indicate that MathJax is no longer running,
   //  do markdown over MathJax's result, 
@@ -172,7 +164,6 @@ var Preview = {
     this.buffer.innerHTML = marked (text);
     this.SwapBuffers();
   },
-
   Escape: function (html, encode) {
     return html
       .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
@@ -181,11 +172,9 @@ var Preview = {
       .replace(/"/g, '&quot;')
      .replace(/'/g, '&#39;');
   },
-
   PartialDescape: function (html) {
     var lines = html.split('\n');
     var out = '';
-
     // is true when we are 
     // ```
     //  inside a code block
@@ -197,7 +186,6 @@ var Preview = {
       if (lines[i].startsWith('&gt;')) {
         lines[i] = lines[i].replace(/&gt;/g, '>');
       }
-
       // rendrer properly stuff like this
       // ```c
       //  if (a > b)
@@ -217,7 +205,6 @@ var Preview = {
     }
     return out;    
   },
-
   // The idea here is to perform fast updates.
   // See http://stackoverflow.com/questions/11228558/let-pagedown-and-mathjax-work-together/21563171?noredirect=1#comment46869312_21563171
   // But our implementation is a bit buggy: flickering, bad rendering when someone types very fast.
@@ -233,7 +220,6 @@ var Preview = {
   }
   
 };
-
 //
 //  Cache a callback to the CreatePreview action
 //
@@ -245,23 +231,25 @@ Preview.callback.autoReset = true;  // make sure it can run more than once</scri
 
 <h4>Type something:</h4>
 
-  <textarea id="marked-mdathjax-input" onkeyup="Preview.Update()" name="comment" "autofocus">
-
+  <textarea id="marked-mathjax-input" onkeyup="Preview.Update()" name="comment"
+            "autofocus">
 $$
 \sqrt{\frac{1}{N}\sum_{i=1}^{N}{(h_\theta(x_i)-y_i)^2}}
 $$
-      
   </textarea>
 
   <div class="hint">Use 
     <a href="http://en.wikibooks.org/wiki/LaTeX/Mathematics">$\LaTeX$</a>
-    to type formulæ and 
-      <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown</a> 
-      to format text.
+    to type formulæ 
+    and <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown</a> to format text.
   </div>
 
   <div class="preview" id="marked-mathjax-preview"></div>
-  <div class="preview" id="marked-mathjax-preview-buffer" style="display:none;position:absolute; top:0; left: 0"></div>
+  <div class="preview" id="marked-mathjax-preview-buffer" 
+       style="display:none;
+              position:absolute; 
+              top:0; left: 0"></div>
+
 <script>
 Preview.Init();
 Preview.Update();
