@@ -74,7 +74,21 @@ blockquote p:last-of-type {
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/javascript" src="/lib/marked/lib/marked.js"></script>
 
-<script>
+<script> 
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    var q = window.location.pathname.substr(1).match(reg_rewrite);
+    if(r != null){
+        return unescape(r[2]);
+    }else if(q != null){
+        return unescape(q[2]);
+    }else{
+        return null;
+    }
+}
+
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -102,7 +116,8 @@ var Preview = {
   Init: function () {
     this.preview = document.getElementById("marked-mathjax-preview");
     this.buffer = document.getElementById("marked-mathjax-preview-buffer");
-    this.textarea = document.getElementById("marked-mathjax-input");
+//     this.textarea = document.getElementById("marked-mathjax-input");
+      this.textarea = getQueryString("a");
   },
   //
   //  Switch the buffer and preview, and display the right one.
@@ -230,9 +245,7 @@ Preview.callback.autoReset = true;  // make sure it can run more than once</scri
 <body>
 
   <textarea id="marked-mathjax-input" onkeyup="Preview.Update()" name="comment" "autofocus">
-$$
-\sqrt{\frac{1}{N}\sum_{i=1}^{N}{(h_\theta(x_i)-y_i)^2}}
-$$
+$$ \sqrt{\frac{1}{N}\sum_{i=1}^{N}{(h_\theta(x_i)-y_i)^2}} $$
   </textarea>
 
 
