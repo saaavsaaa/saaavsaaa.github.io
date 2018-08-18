@@ -36,7 +36,9 @@
   
   因为假设的是一次函数，所以结果都在一条线上，h<sub>θ</sub>(x<sub>i</sub>)就是预测的线上的值，而实际值在坐标系中可能是离散的点y<sub>i</sub>，数据集样本之间的差值的代数平均数的平方根就是均方差，可以用来做损失函数衡量模型。由于计算机并不会解方程，所以要借助损失函数不断的迭代找到J(θ)中θ的最小值，即导数为0的点的θ值，来修正模型的误差。如果有两个未知数θ<sub>0</sub>和θ<sub>1</sub>图像就是一个凹面，同样是找最低点。如果是复杂的损失函数有多个极值点的，现在还没学到，之后学了再说。
 
-  **优化算法** gradient descent(梯度下降)是一种迭代的方法。     
+  **优化算法** gradient descent(梯度下降)是一种迭代的方法。θ<sub>i</sub>定义为:
+    <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%20%5Ctheta_i%3A%3D%5Ctheta_i-%5Calpha%5Cfrac%7B%5Cdelta%7D%7B%5Cdelta%5Ctheta_i%7DJ%28%5Ctheta_i%29%20%24%24" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>
+    
 
 
 -----
