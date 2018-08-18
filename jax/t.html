@@ -122,8 +122,7 @@ var Preview = {
   Init: function () {
     this.preview = document.getElementById("marked-mathjax-preview");
     this.buffer = document.getElementById("marked-mathjax-preview-buffer");
-//     this.textarea = document.getElementById("marked-mathjax-input");
-      this.textarea = "%24%24%20sqrt%7B%0Crac%7B1%7D%7BN%7Dsum_%7Bi%3D1%7D%5E%7BN%7D%7B%28h_%09heta%28x_i%29-y_i%29%5E2%7D%7D%20%24%24";
+    this.textarea = document.getElementById("marked-mathjax-input");
   },
   //
   //  Switch the buffer and preview, and display the right one.
@@ -162,7 +161,8 @@ var Preview = {
   CreatePreview: function () {
     Preview.timeout = null;
     if (this.mjRunning) return;
-    var text = this.textarea.value;
+//     var text = this.textarea.value;
+    var text = getQueryString('a');
     if (text === this.oldtext) return;
     text = this.Escape(text);                       //Escape tags before doing stuff
     this.buffer.innerHTML = this.oldtext = text;
