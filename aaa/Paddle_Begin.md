@@ -67,7 +67,7 @@
 
 -----
 
-  友情提示，下面的和例子代码不太一样，例子在github上paddle/book:01
+  友情提示，下面的和例子代码不太一样，例子在github上paddle/book:01，同时还配有非常详细的[说明](https://github.com/PaddlePaddle/book/blob/develop/01.fit_a_line/README.cn.md)，应该比我说的细
 
   **预处理**：     
   创建一个uci housing data的reader，它首先会对数据做归一化处理统一范围，它本身是iterator一次返回一条数据:     
@@ -131,6 +131,10 @@
   术语对应：数据集操作 paddle.dataset/paddle.reader;全连接层 paddle.layer.fc();线性激活函数 paddle.activation.linear();均方差损失函数 paddle.layer.mse_cost();参数优化器 paddle.optimizer.Momentum;梯度下降训练器 paddle.trainer.SGD。
 
 -----
+
+微信公众号：
+
+![Image](/ppp/20170902204445.jpg)
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Paddle_Begin.md)
 
