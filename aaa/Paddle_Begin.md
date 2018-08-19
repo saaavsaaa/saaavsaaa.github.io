@@ -67,6 +67,8 @@
 
 -----
 
+  友情提示，下面的和例子代码不太一样，例子在github上paddle/book:01
+
   **预处理**：     
   创建一个uci housing data的reader，它首先会对数据做归一化处理统一范围，它本身是iterator一次返回一条数据:     
   reader = paddle.dataset.uci_housing.train()     
@@ -98,7 +100,9 @@
   根据之前的公式，这里学习率α选择0.0001     
   optimizer = paddle.optimizer.Momentum(momentum=0, learning_rate=0.0001)     
   构造SGD trainer:     
-  trainer = paddle.trainer.SGD(cost=cost,parameters=parameters,update_equaltion=optimizer)     
+  trainer = paddle.trainer.SGD(cost=cost,parameters=parameters,update_equation=optimizer)     
+  开始训练，30轮
+  trainer.train(reader=batch_reader,feeding=feeding,event_handler=event_handler,num_passes=30)     
   
 
 -----
