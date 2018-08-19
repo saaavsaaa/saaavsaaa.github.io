@@ -110,13 +110,17 @@
 &#160; test_data_creator = paddle.dataset.uci_housing.**test**()     
 &#160; test_data = []     
 &#160; for item in test_data_creator():     
-&#160;&#160; test_data.append((item[0],))    
-&#160;&#160; if len(test_data) == 5:     
-&#160;&#160;&#160; break     
+&#160;&#160;&#160; test_data.append((item[0],))    
+&#160;&#160;&#160; if len(test_data) == 5:     
+&#160;&#160;&#160;&#160;&#160; break     
 
   这5条数据，每条有13个维度     
   2.预测(inference)
   probs = paddle.infer(ouput_layer=y_predict,parameters=paramters,input=test_data)
+  for data in probs:
+&#160;&#160; print data
+
+
   
 
 -----
