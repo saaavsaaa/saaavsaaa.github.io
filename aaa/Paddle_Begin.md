@@ -97,11 +97,11 @@
   之后不断优化cost，找到使之最小的参数值     
   
   **线性回归之梯度下降**     
-  根据之前的公式，这里学习率α选择0.0001     
+  方程momentum=0就是上面优化算法处公式的方法，这里学习率α选择0.0001，这个值不一定合理可以大一点     
   optimizer = paddle.optimizer.Momentum(momentum=0, learning_rate=0.0001)     
-  构造SGD trainer:     
+  构造SGD trainer，需要调整的参数parameters是需要提前构造出来的，优化参数θ的公式就用optimizer:     
   trainer = paddle.trainer.SGD(cost=cost,parameters=parameters,update_equation=optimizer)     
-  开始训练，30轮
+  开始训练，30轮，event_handler用于查看训练过程中的信息：
   trainer.train(reader=batch_reader,feeding=feeding,event_handler=event_handler,num_passes=30)     
   
 
