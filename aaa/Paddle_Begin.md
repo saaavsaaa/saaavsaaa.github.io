@@ -116,8 +116,8 @@
 
   这5条数据，每条有13个维度     
   2.预测(inference)
-  probs = paddle.infer(ouput_layer=y_predict,parameters=paramters,input=test_data)
-  for data in probs:
+  probs = paddle.infer(ouput_layer=y_predict,parameters=paramters,input=test_data)     
+  for data in probs:     
 &#160;&#160; print data
 
   效果的话，可以通过做一个直角坐标系，横轴用实际价格，纵轴用对应的预测价格，如果完全贴合点会落在x=y的直线上或者在附近。
