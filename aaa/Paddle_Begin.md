@@ -79,13 +79,19 @@
   假设13个属性和房价之间可以被线性关系描述：   
  <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%20h_%5CTheta%28x%29%3D%5Csum_%7Bi%3D0%7D%5E%7Bd%7D%7B%5CTheta_iX_i%7D%3D%5CTheta_0+%5CTheta_1X_1+%5CTheta_2X_2+...+%5CTheta_dX_d%20%24%24" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>       
  
- 模型的要学习的参数：θ<sub>0</sub>、θ<sub>1</sub>、θ<sub>2</sub>、...、θ<sub>d</sub> (d=13) + dias
- 线性回归本质上是一个采用线性激活函数（linear activation）的全连接层(fully-connected layer):     
- 输入数据：     
- x = paddle.layer.data(name='x',type=paddle.data_type.dense_vector(13))     
- 模型输出：     
- y_predict = paddle.layer.fc(input=x,size=1,act=paddle.activation.linear())     
+  模型的要学习的参数：θ<sub>0</sub>、θ<sub>1</sub>、θ<sub>2</sub>、...、θ<sub>d</sub> (d=13) + dias
+  线性回归本质上是一个采用线性激活函数（linear activation）的全连接层(fully-connected layer):     
+  输入数据，生成一个类型是dense_vector的data来描述数据，宽度13对应13个属性：     
+  x = paddle.layer.data(name='x',type=paddle.data_type.dense_vector(13))     
+  模型输出，模型的结果，对应了一个全连接网络(fc_layer)，激活函数使用的是线性激活函数：     
+  y_predict = paddle.layer.fc(input=x,size=1,act=paddle.activation.linear())     
   
+  **损失函数** 
+  评估模型，这里使用均方差，线性回归模型最常见的损失函数就是使用均方误差     
+  标注数据：     
+  y_lable = paddle.layer.data(name='y_lable', paddle.data_type.dense_vector(1))     
+  损失函数：     
+  cost = paddle.layer.mse_cost(input=y_predict,lable=y_lable)     
 
 -----
 
