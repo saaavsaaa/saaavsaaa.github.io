@@ -67,13 +67,15 @@
 
 -----
 
+  **预处理**：
   创建一个uci housing data的reader，它首先会对数据做归一化处理统一范围，它本身是iterator一次返回一条数据:     
   reader = paddle.dataset.uci_housing.train()     
-  shuffle，会按buf_size大小读取数据，并且自动做shuffle是数据随机化:     
+  shuffle，会先按buf_size大小从reader中读取数据，并且自动做shuffle是数据随机化，打乱数据:     
   shuffle_reader = paddle.reader.shuffle(reader, buf_size=500)     
-  batch，组成batch_reader，可以设置batch_size：
+  batch，从shuffle_reader读取batch_size大小的数据集，之后会送入训练器进行进一步的迭代训练，这里是两条数据：
   batch_reader = paddle.batch(shuffle_reader,batch_size=2)     
 
+  
 
 -----
 
