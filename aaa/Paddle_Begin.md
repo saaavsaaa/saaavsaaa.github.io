@@ -104,6 +104,8 @@
   开始训练，30轮，event_handler用于查看训练过程中的信息：
   trainer.train(reader=batch_reader,feeding=feeding,event_handler=event_handler,num_passes=30)     
   
+  **应用模型**     
+  训练完后就得到了一个模型     
 
 -----
 
