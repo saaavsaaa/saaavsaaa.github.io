@@ -91,7 +91,15 @@
   标注数据：     
   y_lable = paddle.layer.data(name='y_lable', paddle.data_type.dense_vector(1))     
   损失函数：     
-  cost = paddle.layer.mse_cost(input=y_predict,lable=y_lable)     
+  cost = paddle.layer.mse_cost(input=y_predict,lable=y_lable)    
+  之后不断优化cost，找到使之最小的参数值     
+  
+  **线性回归之梯度下降**     
+  根据之前的公式，这里学习率α选择0.0001     
+  optimizer = paddle.optimizer.Momentum(momentum=0, learning_rate=0.0001)     
+  构造SGD trainer:     
+  trainer = paddle.trainer.SGD(cost=cost,parameters=parameters,update_equaltion=optimizer)     
+  
 
 -----
 
