@@ -78,7 +78,9 @@
   **假设函数**:     
   假设13个属性和房价之间可以被线性关系描述：   
  <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%20h_%5CTheta%28x%29%3D%5Csum_%7Bi%3D0%7D%5E%7Bd%7D%7B%5CTheta_iX_i%7D%3D%5CTheta_0+%5CTheta_1X_1+%5CTheta_2X_2+...+%5CTheta_dX_d%20%24%24" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>       
+ 
  模型的要学习的参数：θ<sub>0</sub>、θ<sub>1</sub>、θ<sub>2</sub>、...、θ<sub>d</sub> (d=13)
+ 线性回归本质上是一个采用线性激活函数（linear activation）的全连接层(fully-connected layer)
   
 
 -----
