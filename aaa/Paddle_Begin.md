@@ -115,7 +115,7 @@
 &#160;&#160;&#160;&#160;&#160; break     
 
   这5条数据，每条有13个维度     
-  2.预测(inference)
+  2.预测(inference)     
   probs = paddle.infer(ouput_layer=y_predict,parameters=paramters,input=test_data)     
   for data in probs:     
 &#160;&#160; print data
