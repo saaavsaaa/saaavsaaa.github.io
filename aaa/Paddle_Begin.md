@@ -128,6 +128,7 @@
     形式简单，易于建模，可以解决许多实际问题，实现也很简单，同时蕴含了机器学习的各种重要基本思想，如假设函数、损失函数...；      
     可以演变成其他复杂模型，加上一些非线性激活函数使它具备一些非线性的描述能力，可以以它为基础逐渐演变出许多非常强大的非线性模型（unlinear mode）       可解释性好，可以根据模型清楚的了解它的一些属性的含义和重要性，比如某个属性的参数是0,就可以认为这个属性对模型是没用的
 
+  术语对应：数据集操作 paddle.dataset/paddle.reader;全连接层 paddle.layer.fc();线性激活函数 paddle.activation.linear();均方差损失函数 paddle.layer.mse_cost();参数优化器 paddle.optimizer.Momentum;梯度下降训练器 paddle.trainer.SGD。
 
 -----
 
