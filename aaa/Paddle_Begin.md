@@ -107,12 +107,12 @@
   **应用模型**     
   训练完后就得到了一个模型，应用这个模型做预测     
   1.生成一些测试数据，做预测要使用一些数据做，从测试集里取5条数据放到需要预测的数据集     
-  test_data_creator = paddle.dataset.uci_housing.**test**()     
-  test_data = []     
-  for item in test_data_creator():     
-    test_data.append((item[0],))    
-    if len(test_data) == 5:     
-      break     
+&nbps; test_data_creator = paddle.dataset.uci_housing.**test**()     
+&nbps; test_data = []     
+&nbps; for item in test_data_creator():     
+&nbps;&nbps; test_data.append((item[0],))    
+&nbps;&nbps; if len(test_data) == 5:     
+&nbps;&nbps;&nbps; break     
 
   这5条数据，每条有13个维度     
   2.预测(inference)
