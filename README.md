@@ -75,6 +75,10 @@
 ### [Paddle使用中问题记录](https://saaavsaaa.github.io/aaa/PaddlePaddle_Record.html)
 
 -----
+
+### [Paddle 入门](https://saaavsaaa.github.io/aaa/Paddle_Begin.html)
+
+-----
 testing:
  |
  
