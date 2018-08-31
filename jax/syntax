@@ -1,9 +1,16 @@
 上标：^
 下标：_
 
-矢量
+矢量:
 \vec a 
 \overrightarrow{xy}
+
+字体：
+Typewriter：\mathtt{A}
+Blackboard Bold：\mathbb{A}
+Sans Serif：\mathsf{A}
+
+
 
 
 
