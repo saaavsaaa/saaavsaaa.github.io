@@ -10,6 +10,12 @@ Typewriter：\mathtt{A}
 Blackboard Bold：\mathbb{A}
 Sans Serif：\mathsf{A}
 
+10^{10}10的10次方，10^10：10的1次方×0
+
+\langle,\rangle:⟨⟩ 
+
+使用\left(或\right)使符号大小与邻近的公式相适应；该语句适用于所有括号类型 
+\left(\frac{x}{y}\right)
 
 
 
