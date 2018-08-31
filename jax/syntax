@@ -18,6 +18,25 @@ Sans Serif：\mathsf{A}
 \left(\frac{x}{y}\right)
 
 
+\sum_{i=1}^n{a_i} ∑ni=1ai
+\lim_{x\to 0} limx→0
+\int_0^\infty{fxdx} ∫∞0fxdx
+
+分式(fractions)：\frac{公式1}{公式2}
+根式：\sqrt[x]{y}
+
+\sin x，\ln x，\max(A,B,C) 
+sinx，lnx，max(A,B,C)
+
+小空格：a\ b 
+4格空格：a\quad b 
+
+$$\begin{matrix}
+1&0&0\\                       1 0 0
+0&1&0\\                       0 1 0
+0&0&1\\                       0 0 1
+\end{matrix}$$
+
 
 
 https://saaavsaaa.github.io/jax/e.html
