@@ -1,3 +1,6 @@
 [submodule "lib/marked"]
 	path = lib/marked
 	url = https://github.com/markedjs/marked.git
+[submodule "lib/oldmarked"]
+	path = lib/oldmarked
+	url = https://github.com/saaavsaaa/marked.git
