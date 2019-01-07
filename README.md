@@ -79,6 +79,10 @@
 ### [Paddle 入门](https://saaavsaaa.github.io/aaa/Paddle_Begin.html)
 
 -----
+
+### [Spark同步到ElasticSearch(EsSparkSQL)的配置属性](https://saaavsaaa.github.io/aaa/Spark_ES_C.html)
+
+-----
 testing:
  |
  
