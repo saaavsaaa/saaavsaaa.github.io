@@ -83,6 +83,10 @@
 ### [Spark同步到ElasticSearch(EsSparkSQL)的配置属性](https://saaavsaaa.github.io/aaa/Spark_ES_C.html)
 
 -----
+
+### [Livy提交Spark的可选参数](https://saaavsaaa.github.io/aaa/Livy_Spark_Request.html)
+
+-----
 testing:
  |
  
