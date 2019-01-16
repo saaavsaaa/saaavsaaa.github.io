@@ -12,6 +12,21 @@ pyFiles : 会话中要提交的py文件
 
 files : 随便什么文件了
 
-driverMemory : 对应spark的spark.driver.memory参数，Driver进程的内存
+driverMemory : 对应spark的driver-memory参数，Driver进程的内存
 
+./bin/spark-submit \
+  --master spark://xxx.xxx.xxx.xxx:xxxx \
+  --num-executors 50 \
+  --executor-memory 512m \                             //spark.executor.memory
+  --executor-cores 4 \                                 //spark.executor.cores
+　--total-executor-cores 400 \                         //standalone default all cores
+  --driver-memory 1G \                                 //spark.driver.memory
+  --driver-cores 1                                     //spark.driver.cores仅在standalone集群deploy模式下使用
+  
 driverCores ：对应spark的spark.driver.cores参数，CPU核数
+
+executorMemory : 对应executor-memory，每个executor进程使用的内存数
+
+executorCores : 对应executor-cores，每个executor进程使用的CPU核数
+
+numExecutors : 对应num-executors，executor个数
