@@ -18,7 +18,7 @@ kind ：spark, pyspark or sparkr等，这个参数我没用过，官方文档上
   --driver-cores 1                                     //spark.driver.cores仅在standalone集群deploy模式下使用     
   --queue                                              //YARN队列的名称     
   --name     
-  --conf <key>=<value>      
+  --conf \<key\>=\<value\>      
   
 jars : 对应上面 --jars     
 
