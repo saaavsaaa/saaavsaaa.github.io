@@ -11,10 +11,10 @@ kind ：spark, pyspark or sparkr等，这个参数我没用过，官方文档上
   --py-files                                           //逗号分隔的”.zip”,”.egg”或者“.py”文件，这些文件放在python app的PYTHONPATH下面     
   --files                                              //逗号分隔的文件，这些文件放在每个executor的工作目录下面     
   --num-executors 50      
-  --executor-memory 512m                               //spark.executor.memory     
+  --executor-memory  6G                                //spark.executor.memory  512m   
   --executor-cores 4                                   //spark.executor.cores     
 　--total-executor-cores 400                           //standalone default all cores     
-  --driver-memory 1G                                   //spark.driver.memory     
+  --driver-memory 1G                                   //spark.driver.memory 通常可不设置，默认1G    
   --driver-cores 1                                     //spark.driver.cores仅在standalone集群deploy模式下使用     
   --queue                                              //YARN队列的名称     
   --name     
