@@ -4,6 +4,15 @@
 
 kind ：spark, pyspark or sparkr等，这个参数我没用过，官方文档上说现在是可选的，也没什么特别的用处，有想限制提交语法的可以自己看上面官方文档
 
+      client = new LivyClientBuilder()
+        .setURI(new URI(Constants.livyUrl))
+        .setConf("numExecutors", "50")
+        .setConf("spark.default.parallelism", "500")
+        .setConf("spark.dynamicAllocation.enabled", "true")
+        .setConf("spark.dynamicAllocation.maxExecutors", "100")
+        .setConf("spark.shuffle.service.enabled", "true")
+
+
 ./bin/spark-submit \     
   --master spark://xxx.xxx.xxx.xxx:xxxx      
   --proxy-user aaa                                     //模拟提交Job的用户     
