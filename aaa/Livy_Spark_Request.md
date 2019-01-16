@@ -46,4 +46,4 @@ name : 对应 --name
 
 conf : 对应 --conf
 
-heartbeatTimeoutInSecond : 心跳
+heartbeatTimeoutInSecond : 心跳超时，单位秒
