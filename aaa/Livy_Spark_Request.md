@@ -4,15 +4,6 @@
 
 kind ：spark, pyspark or sparkr等，这个参数我没用过，官方文档上说现在是可选的，也没什么特别的用处，有想限制提交语法的可以自己看上面官方文档
 
-      client = new LivyClientBuilder()
-        .setURI(new URI(Constants.livyUrl))
-        .setConf("numExecutors", "50")
-        .setConf("spark.default.parallelism", "500")
-        .setConf("spark.dynamicAllocation.enabled", "true")
-        .setConf("spark.dynamicAllocation.maxExecutors", "100")
-        .setConf("spark.shuffle.service.enabled", "true")
-
-
 ./bin/spark-submit \     
   --master spark://xxx.xxx.xxx.xxx:xxxx      
   --proxy-user aaa                                     //模拟提交Job的用户     
@@ -56,6 +47,23 @@ name : 对应 --name
 conf : 对应 --conf     
 
 heartbeatTimeoutInSecond : 心跳超时，单位秒     
+
+我用的是LivyClient，例：
+
+      client = new LivyClientBuilder()
+        .setURI(new URI(Constants.livyUrl))
+        .setConf("numExecutors", "50") //        .setConf("num-executors", "50")
+        .setConf("spark.default.parallelism", "500")
+        .setConf("spark.dynamicAllocation.enabled", "true")
+        .setConf("spark.dynamicAllocation.maxExecutors", "100")
+        .setConf("spark.shuffle.service.enabled", "true")
+        ...
+        .build()
+
+这两种用法都是可以起作用的：.setConf("numExecutors", "50")  .setConf("num-executors", "50")
+所以，这种情况下，前半部分不看也是可以的
+另外，需要注意，有时候不设置"spark.dynamicAllocation.enabled", "true"，num-executors是不起作用的
+以上
 
 -----
 微信公众号：
