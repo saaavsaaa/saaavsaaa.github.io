@@ -48,7 +48,7 @@ conf : 对应 --conf
 
 heartbeatTimeoutInSecond : 心跳超时，单位秒     
 
-我用的是LivyClient，例：
+我用的是LivyClient，虽然是用scala写的，但是没用Scala的client：     
 
       client = new LivyClientBuilder()
         .setURI(new URI(Constants.livyUrl))
@@ -60,9 +60,9 @@ heartbeatTimeoutInSecond : 心跳超时，单位秒
         ...
         .build()
 
-这两种用法都是可以起作用的：.setConf("numExecutors", "50")  .setConf("num-executors", "50")
-所以，这种情况下，前半部分不看也是可以的
-另外，需要注意，有时候不设置"spark.dynamicAllocation.enabled", "true"，num-executors是不起作用的
+这两种用法都是可以起作用的：.setConf("numExecutors", "50")  .setConf("num-executors", "50")     
+所以，这种情况下，前半部分不看也是可以的     
+另外，需要注意，有时候不设置"spark.dynamicAllocation.enabled", "true"，num-executors是不起作用的     
 以上
 
 -----
