@@ -1,4 +1,4 @@
-Iterative Selforganizing Data Analysis Techniques Algorithm
+Iterative Self-organizing Data Analysis Techniques Algorithm
 
 先在现有点中随便选几个点，以这几个点的位置为中心聚类     
 
