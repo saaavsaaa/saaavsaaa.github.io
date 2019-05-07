@@ -1,3 +1,5 @@
+Iterative Selforganizing Data Analysis Techniques Algorithm
+
 先在现有点中随便选几个点，以这几个点的位置为中心聚类     
 
 然后按设定好的次数开始循环调整聚类中心的位置，循环次数还需要做一些实验？     
