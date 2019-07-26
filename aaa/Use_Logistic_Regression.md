@@ -16,13 +16,13 @@
 
 -----
 
-  protected[spark] def train
-        ...
+  protected[spark] def train     
+        ...     
         val costFun = new RDDLossFunction(instances, getAggregatorFunc, regularization,
-          $(aggregationDepth))
-        ...
-        val states = optimizer.iterations(new CachedDiffFunction(costFun),
-          new BDV[Double](initialCoefWithInterceptMatrix.toArray))
+          $(aggregationDepth))     
+        ...     
+        val states = optimizer.iterations(new CachedDiffFunction(costFun),     
+          new BDV[Double](initialCoefWithInterceptMatrix.toArray))     
 
 -----
 
