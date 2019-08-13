@@ -74,3 +74,9 @@
 5.模型持久化 ： gmm.write.overwrite().save(savedPath)
 
 另：由于业务系统的特殊要求，原本spark我这个版本中混合高斯模型中的predict方法是不允许访问的，我放开了，直接调用，用业务数据凑成向量就可以直接调用了。
+
+-----
+
+![Image](/ppp/0.png)
+
+
