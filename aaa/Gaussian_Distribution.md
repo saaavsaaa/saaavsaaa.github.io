@@ -6,7 +6,8 @@
 
 2.此算法在特征数据呈正态分布时，有更好的效果。如果所选特征的数据分布不符合正态分布，可通过取对数并调整底数或类似的方法，将数据分布调整为正态分布。类似如下图例子：     
   用得是octave,此处模拟了与我们某项数据非常相似的数据分布(x = randn(1000,1); a = x . * x)：
-  ![Image](/ppp/gaussion/order_distribution.png)
+  ![Image](/ppp/gaussion/order_distribution.png)     
+  
   然后就是各种log，开方，加常数的常规量子力学式调参:     
 
   ![Image](/ppp/gaussion/log_order_distribution.png)      
