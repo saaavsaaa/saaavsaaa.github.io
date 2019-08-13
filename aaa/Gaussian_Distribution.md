@@ -13,8 +13,6 @@
 
 -----
 
-val positiveSql = "SELECT * FROM dwb.ll_r_5w_set where order_count is not null " +
-      "order by cst_id LIMIT 20000"
     var parsedData = sparkSession.sql(positiveSql)
     implicit val encoder: Encoder[Vector] = org.apache.spark.sql.Encoders.kryo[Vector]
     var vectorData = parsedData.map((row: Row) => {
