@@ -48,6 +48,23 @@
 
 -----
 
+如果不传initialModel，spark就生成一个：
+
+-----
+
+      val (weights, gaussians) = initialModel match {
+        case Some(gmm) => (gmm.weights, gmm.gaussians)
+
+        case None =>
+          val samples = breezeData.takeSample(withReplacement = true, k * nSamples, seed)
+          (Array.fill(k)(1.0 / k), Array.tabulate(k) { i =>
+            val slice = samples.view(i * nSamples, (i + 1) * nSamples)
+            new MultivariateGaussian(vectorMean(slice), initCovariance(slice))
+          })
+      }
+
+-----
+
 实际使用中的部分代码：
 
 -----
