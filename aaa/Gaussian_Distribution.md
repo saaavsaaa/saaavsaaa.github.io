@@ -30,7 +30,7 @@
 
 -----
 
-4.在确定特征以及后续的训练中，有两个主要参数需要不断调整，最后以得到合适的模型。这两个参数是数据的平均值和协方差，平均值主要调整数据分布的中心点，通常离中心点越近，可能性越大；协方差主要调整数据分布区间在空间中的形态，比如某个概率分布在某个维度上的范围有多大，数据点落在某个分布区间预测为正的可能性更大或者更小。协方差变化的效果示例如下图（这图应该来自吴恩达的课程，实际使用中维度较高，难以画图）：     
+4.在确定特征以及后续的训练中，多元高斯有两个主要参数需要不断调整，最后以得到合适的模型。这两个参数是数据的平均值和协方差，平均值主要调整数据分布的中心点，通常离中心点越近，可能性越大；协方差主要调整数据分布区间在空间中的形态，比如某个概率分布在某个维度上的范围有多大，数据点落在某个分布区间预测为正的可能性更大或者更小。协方差变化的效果示例如下图（这图应该来自吴恩达的课程，实际使用中维度较高，难以画图）：     
 
 ![Image](/ppp/gaussion/tzt.png) 
 
@@ -38,6 +38,11 @@
 
 -----
 
+     * @param weights Weights for each Gaussian distribution in the mixture, where weights(i) is
+     *                the weight for Gaussian i, and weights.sum == 1
+     * @param gaussians Array of MultivariateGaussian where gaussians(i) represents
+     *                  the Multivariate Gaussian (Normal) Distribution for Gaussian i
+     参数一个是多个多元高斯在混合中的权重，另外一个是多个多元高斯分布
      val initial = new GaussianMixtureModel(
         Array(0.5, 0.5),
         Array(
