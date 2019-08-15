@@ -62,6 +62,24 @@
             new MultivariateGaussian(vectorMean(slice), initCovariance(slice))
           })
       }
+      
+    /** Average of dense breeze vectors */
+    private def vectorMean(x: IndexedSeq[BV[Double]]): BDV[Double] = {
+      val v = BDV.zeros[Double](x(0).length)
+      x.foreach(xi => v += xi)
+      v / x.length.toDouble
+    }
+
+    /**
+     * Construct matrix where diagonal entries are element-wise
+     * variance of input vectors (computes biased variance)
+     */
+    private def initCovariance(x: IndexedSeq[BV[Double]]): BreezeMatrix[Double] = {
+      val mu = vectorMean(x)
+      val ss = BDV.zeros[Double](x(0).length)
+      x.foreach(xi => ss += (xi - mu) ^:^ 2.0)
+      diag(ss / x.length.toDouble)
+    }
 
 -----
 
