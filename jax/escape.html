@@ -71,7 +71,7 @@ blockquote p:last-of-type {
     TeX: { equationNumbers: {autoNumber: "AMS"} }
   });
 </script>
-<script type="text/javascript" src="MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/javascript" src="/lib/marked/lib/marked.js"></script>
 
 <script>
@@ -217,6 +217,7 @@ var Preview = {
     if (event.keyCode < 16 || event.keyCode > 47) {
       this.preview.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
       this.buffer.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
+      this.escapeText.innerText = '<p>' + escape(this.textarea.value) + '</p>';
     }
     this.Update();
   }
