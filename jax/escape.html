@@ -164,7 +164,6 @@ var Preview = {
     text = this.PartialDescape(text);
     this.buffer.innerHTML = marked (text);
     this.SwapBuffers();
-    this.escapeText.innerText = escape(text);
   },
   Escape: function (html, encode) {
     return html
