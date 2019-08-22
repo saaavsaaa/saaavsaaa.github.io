@@ -217,7 +217,7 @@ var Preview = {
     if (event.keyCode < 16 || event.keyCode > 47) {
       this.preview.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
       this.buffer.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
-      this.escapeText.innerText = '<p>' + escape(this.textarea.value) + '</p>';
+      this.escapeText.innerText = '<p>' + escape(marked(this.textarea.value)) + '</p>';
     }
     this.Update();
   }
