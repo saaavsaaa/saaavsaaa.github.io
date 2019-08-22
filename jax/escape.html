@@ -146,6 +146,7 @@ var Preview = {
     if (text === this.oldtext) return;
     text = this.Escape(text);                       //Escape tags before doing stuff
     this.buffer.innerHTML = this.oldtext = text;
+    this.escapeText.innerText = text;
     this.mjRunning = true;
     MathJax.Hub.Queue(
       ["Typeset",MathJax.Hub,this.buffer],
@@ -163,7 +164,7 @@ var Preview = {
     text = this.buffer.innerHTML;
     text = this.PartialDescape(text);
     this.buffer.innerHTML = marked (text);
-    this.escapeText.innerText = escape(text);
+    this.escapeText.innerText = escape(this.textarea.value);
     this.SwapBuffers();
   },
   Escape: function (html, encode) {
@@ -217,7 +218,7 @@ var Preview = {
     if (event.keyCode < 16 || event.keyCode > 47) {
       this.preview.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
       this.buffer.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
-      this.escapeText.innerText = '<p>' + escape(marked(this.textarea.value)) + '</p>';
+      this.escapeText.innerText = '<p>' + escape(this.textarea.value) + '</p>';
     }
     this.Update();
   }
