@@ -103,7 +103,7 @@ var Preview = {
     this.preview = document.getElementById("marked-mathjax-preview");
     this.buffer = document.getElementById("marked-mathjax-preview-buffer");
     this.textarea = document.getElementById("marked-mathjax-input");
-    this.escapeText = document.getElementById("marked-mathjax-preview-escape");
+    this.escapeText = document.getElementById("preview-escape");
   },
   //
   //  Switch the buffer and preview, and display the right one.
@@ -163,7 +163,7 @@ var Preview = {
     text = this.buffer.innerHTML;
     text = this.PartialDescape(text);
     this.buffer.innerHTML = marked (text);
-    this.escapeText.innerText = escape(text)
+    this.escapeText.innerText = escape(text);
     this.SwapBuffers();
   },
   Escape: function (html, encode) {
@@ -252,7 +252,7 @@ $$
               position:absolute; 
               top:0; left: 0"></div>
 
-  <div class="preview" id="marked-mathjax-preview-escape"></div>
+  <div id="preview-escape"></div>
 
 <script>
 Preview.Init();
