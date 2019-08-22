@@ -146,7 +146,6 @@ var Preview = {
     if (text === this.oldtext) return;
     text = this.Escape(text);                       //Escape tags before doing stuff
     this.buffer.innerHTML = this.oldtext = text;
-    this.escapeText.innerText = escape(text);
     this.mjRunning = true;
     MathJax.Hub.Queue(
       ["Typeset",MathJax.Hub,this.buffer],
