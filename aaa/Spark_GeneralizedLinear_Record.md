@@ -1,4 +1,6 @@
+这是本来打算看一下有没有办法在Spark的支持向量机上搞核函数时看代码的记录。看上去，实在想实现的话，Spark现有的支持向量机代码基本也是用不上的。准备用TensorFlow搞一下看看。
 
+训练模型调用的是SVMWithSGD的run，这个run方法就是GeneralizedLinearAlgorithm的run:
 
 -----
 
@@ -20,9 +22,9 @@
       }
 
       //数据标准化后每个特征的平均值变为0(每个特征值都减掉该特征原平均值)、标准差变为1
-    //withMean和withStd同时false什么都不做;withMean=true:向量中的各元素均减去它相应的均值。withStd=true:除以它们相应的方差。
-    //withMean=true，只能处理稠密的向量，不能处理稀疏向量。稀疏向量由顺序和值两个并列数组组成
-    //如向量(1.0,0.0,1.0,3.0)用稀疏格式表示为(4,[0,2,3],[1.0,1.0,3.0])，[0,2,3]表示[1.0,1.0,3.0]各值的索引
+      //withMean和withStd同时false什么都不做;withMean=true:向量中的各元素均减去它相应的均值。withStd=true:除以它们相应的方差。
+      //withMean=true，只能处理稠密的向量，不能处理稀疏向量。稀疏向量由顺序和值两个并列数组组成
+      //如向量(1.0,0.0,1.0,3.0)用稀疏格式表示为(4,[0,2,3],[1.0,1.0,3.0])，[0,2,3]表示[1.0,1.0,3.0]各值的索引
       val scaler = if (useFeatureScaling) { // 在模型训练之前是否执行特征缩放以减少条件数，这将显著帮助优化器更快地收敛
         new StandardScaler(withStd = true, withMean = false).fit(input.map(_.features))
       } else {
@@ -52,16 +54,16 @@
         initialWeights
       }
 
-    //SVMWithSGD小批量随机梯度下降GradientDescent.runMiniBatchSGD,override val optimizer = new GradientDescent(gradient, updater)
+      //SVMWithSGD小批量随机梯度下降GradientDescent.runMiniBatchSGD,override val optimizer = new GradientDescent(gradient, updater)
       val weightsWithIntercept = optimizer.optimize(data, initialWeightsWithIntercept)//凸优化
 
-    //执行梯度下降
+      //执行梯度下降
       val intercept = if (addIntercept && numOfLinearPredictor == 1) {
         weightsWithIntercept(weightsWithIntercept.size - 1)
       } else {
         0.0
       }
-    //执行梯度下降
+      //执行梯度下降
       var weights = if (addIntercept && numOfLinearPredictor == 1) {
         Vectors.dense(weightsWithIntercept.toArray.slice(0, weightsWithIntercept.size - 1))
       } else {
