@@ -6,11 +6,11 @@
 
     // 权重，各维度系数，也就是要求的模型变量的系数
     def run(input: RDD[LabeledPoint], initialWeights: Vector): M = {
-    //向量的维度
+      //向量的维度
       if (numFeatures < 0) {
         numFeatures = input.map(_.features.size).first()
       }
-    //优化警告，.cache()就可以
+      //优化警告，.cache()就可以
       if (input.getStorageLevel == StorageLevel.NONE) {
         logWarning("The input data is not directly cached, which may hurt performance if its"
           + " parent RDDs are also uncached.")
@@ -33,7 +33,7 @@
 
       val data =
         if (addIntercept) { // 是否设置了截距，也就是添加常数项，它参数就是那个θ0
-        // 向量增加一列1
+          // 向量增加一列1
           if (useFeatureScaling) {
             input.map(lp => (lp.label, appendBias(scaler.transform(lp.features)))).cache()
           } else {
@@ -70,9 +70,9 @@
         weightsWithIntercept
       }
 
-    // 如果是经过标准化的向量，需要把结果转换回来。如果只标准化，没有减均值，截距不变。
-    //Math shows that if we only perform standardization without subtracting means, the intercept will not be changed. 
-    // w_i = w_i' / v_i where w_i' is the coefficient in the scaled space, w_i is the coefficient in the original space, and v_i is the variance of the column i.
+      // 如果是经过标准化的向量，需要把结果转换回来。如果只标准化，没有减均值，截距不变。
+      //Math shows that if we only perform standardization without subtracting means, the intercept will not be changed. 
+      // w_i = w_i' / v_i where w_i' is the coefficient in the scaled space, w_i is the coefficient in the original space, and v_i is the variance of the column i.
       if (useFeatureScaling) {
         if (numOfLinearPredictor == 1) {
           weights = scaler.transform(weights)
