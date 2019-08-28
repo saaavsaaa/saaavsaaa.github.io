@@ -118,7 +118,7 @@ Spark支持向量机用的是HingeGradient做梯度下降：
 -----
 
       private val gradient = new HingeGradient()
-      private val updater = new SquaredL2Updater()
+      private val updater = new SquaredL2Updater() // R(w) = 1/2 ||w||^2  w' = w - thisIterStepSize * (gradient + regParam * w) or w' = (1 - thisIterStepSize * regParam) * w - thisIterStepSize * gradient
       @Since("0.8.0")
       override val optimizer = new GradientDescent(gradient, updater)
         .setStepSize(stepSize)
