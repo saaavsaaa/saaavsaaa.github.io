@@ -146,7 +146,7 @@ Spark支持向量机用的是HingeGradient做梯度下降：
             val labelScaled = 2 * label - 1.0
             if (1.0 > labelScaled * dotProduct) {
               val gradient = data.copy
-              scal(-labelScaled, gradient)
+              scal(-labelScaled, gradient) //x (gradient) = a(-labelScaled) * x 缩放，增量为1:dscal(x.values.length, a, x.values, 1)
               (gradient, 1.0 - labelScaled * dotProduct)
             } else {
               (Vectors.sparse(weights.size, Array.empty, Array.empty), 0.0)
@@ -163,7 +163,7 @@ Spark支持向量机用的是HingeGradient做梯度下降：
             // Therefore the gradient is -(2y - 1)*x
             val labelScaled = 2 * label - 1.0
             if (1.0 > labelScaled * dotProduct) {
-              axpy(-labelScaled, data, cumGradient)
+              axpy(-labelScaled, data, cumGradient) //y(cumGradient) += a(-labelScaled) * x(cumGradient)
               1.0 - labelScaled * dotProduct
             } else {
               0.0
