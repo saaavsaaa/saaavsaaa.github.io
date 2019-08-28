@@ -190,3 +190,6 @@ Spark支持向量机用的是HingeGradient做梯度下降：
 
 -----
 
+微信公众号：
+
+![Image](/ppp/0.png)
