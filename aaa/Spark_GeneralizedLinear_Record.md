@@ -170,5 +170,23 @@ Spark支持向量机用的是HingeGradient做梯度下降：
             }
           }
         }
-  
-  -----
+
+-----
+
+预测就是向量内积加截距，结果和设定的置信度比较，默认置信度是0.0
+
+-----
+
+      override protected def predictPoint(
+          dataMatrix: Vector,
+          weightMatrix: Vector,
+          intercept: Double) = {
+        val margin = weightMatrix.asBreeze.dot(dataMatrix.asBreeze) + intercept
+        threshold match {
+          case Some(t) => if (margin > t) 1.0 else 0.0
+          case None => margin
+        }
+      }
+
+-----
+
