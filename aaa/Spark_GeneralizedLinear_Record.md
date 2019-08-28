@@ -129,7 +129,7 @@ Spark支持向量机用的是HingeGradient做梯度下降：
   
 -----
   
-  HingeGradient
+  HingeGradient，就是一些计算，实际上Spark支持向量机的部分看上去就这点，其他的大多是线性算法通用的
   
 -----
   
@@ -140,7 +140,7 @@ Spark支持向量机用的是HingeGradient做梯度下降：
         @DeveloperApi
         class HingeGradient extends Gradient {
           override def compute(data: Vector, label: Double, weights: Vector): (Vector, Double) = {
-            val dotProduct = dot(data, weights)
+            val dotProduct = dot(data, weights) //点积
             // Our loss function with {0, 1} labels is max(0, 1 - (2y - 1) (f_w(x)))
             // Therefore the gradient is -(2y - 1)*x
             val labelScaled = 2 * label - 1.0
