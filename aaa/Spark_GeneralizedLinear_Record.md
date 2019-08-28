@@ -134,11 +134,8 @@ Spark支持向量机用的是HingeGradient做梯度下降：
 -----
   
           /**
-         * :: DeveloperApi ::
-         * Compute gradient and loss for a Hinge loss function, as used in SVM binary classification.
-         * See also the documentation for the precise formulation.
-         *
-         * @note This assumes that the labels are {0,1}
+         * 在支持向量机二分类场景中，计算Hinge损失函数的梯度和损失。详细公式也可以看文档
+         * 注意：假设标签只有{0,1}
          */
         @DeveloperApi
         class HingeGradient extends Gradient {
