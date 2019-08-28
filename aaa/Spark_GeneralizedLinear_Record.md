@@ -113,18 +113,65 @@
 
 -----
 
-梯度下降
+Spark支持向量机用的是HingeGradient做梯度下降：
 
 -----
 
-private val gradient = new HingeGradient()
-  private val updater = new SquaredL2Updater()
-  @Since("0.8.0")
-  override val optimizer = new GradientDescent(gradient, updater)
-    .setStepSize(stepSize)
-    .setNumIterations(numIterations)
-    .setRegParam(regParam)
-    .setMiniBatchFraction(miniBatchFraction)
-  override protected val validators = List(DataValidators.binaryLabelValidator)
+      private val gradient = new HingeGradient()
+      private val updater = new SquaredL2Updater()
+      @Since("0.8.0")
+      override val optimizer = new GradientDescent(gradient, updater)
+        .setStepSize(stepSize)
+        .setNumIterations(numIterations)
+        .setRegParam(regParam)
+        .setMiniBatchFraction(miniBatchFraction)
+      override protected val validators = List(DataValidators.binaryLabelValidator)
+  
+-----
+  
+  HingeGradient
+  
+-----
+  
+          /**
+         * :: DeveloperApi ::
+         * Compute gradient and loss for a Hinge loss function, as used in SVM binary classification.
+         * See also the documentation for the precise formulation.
+         *
+         * @note This assumes that the labels are {0,1}
+         */
+        @DeveloperApi
+        class HingeGradient extends Gradient {
+          override def compute(data: Vector, label: Double, weights: Vector): (Vector, Double) = {
+            val dotProduct = dot(data, weights)
+            // Our loss function with {0, 1} labels is max(0, 1 - (2y - 1) (f_w(x)))
+            // Therefore the gradient is -(2y - 1)*x
+            val labelScaled = 2 * label - 1.0
+            if (1.0 > labelScaled * dotProduct) {
+              val gradient = data.copy
+              scal(-labelScaled, gradient)
+              (gradient, 1.0 - labelScaled * dotProduct)
+            } else {
+              (Vectors.sparse(weights.size, Array.empty, Array.empty), 0.0)
+            }
+          }
+
+          override def compute(
+              data: Vector,
+              label: Double,
+              weights: Vector,
+              cumGradient: Vector): Double = {
+            val dotProduct = dot(data, weights)
+            // Our loss function with {0, 1} labels is max(0, 1 - (2y - 1) (f_w(x)))
+            // Therefore the gradient is -(2y - 1)*x
+            val labelScaled = 2 * label - 1.0
+            if (1.0 > labelScaled * dotProduct) {
+              axpy(-labelScaled, data, cumGradient)
+              1.0 - labelScaled * dotProduct
+            } else {
+              0.0
+            }
+          }
+        }
   
   -----
