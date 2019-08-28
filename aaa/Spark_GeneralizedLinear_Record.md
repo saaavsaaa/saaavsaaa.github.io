@@ -112,3 +112,19 @@
     }
 
 -----
+
+梯度下降
+
+-----
+
+private val gradient = new HingeGradient()
+  private val updater = new SquaredL2Updater()
+  @Since("0.8.0")
+  override val optimizer = new GradientDescent(gradient, updater)
+    .setStepSize(stepSize)
+    .setNumIterations(numIterations)
+    .setRegParam(regParam)
+    .setMiniBatchFraction(miniBatchFraction)
+  override protected val validators = List(DataValidators.binaryLabelValidator)
+  
+  -----
