@@ -4,6 +4,6 @@
 [submodule "lib/oldmarked"]
 	path = lib/oldmarked
 	url = https://github.com/saaavsaaa/marked.git
-[submodule "jaxlib/jaxjs"]
-	path = jaxlib/jaxjs
+[submodule "lib/jaxjs"]
+	path = lib/jaxjs
 	url = https://github.com/mathjax/MathJax.git
