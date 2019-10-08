@@ -159,12 +159,17 @@ yarn -help
            -size <size>                                 Prints the log file's first 'n' bytes or the last 'n' bytes. Use negative values as bytes to read from the end and positive values as bytes to read from the beginning.
            -size_limit_mb <Size Limit>                  Use this option to limit the size of the total logs which could be fetched. By default, we only allow to fetch at most 10240 MB logs. If the total log size is larger than the specified number, the CLI would fail. The user could specify -1 to ignore the size limit and fetch all logs.
 
-    classpath                             prints the class path needed to   
-                                          get the Hadoop jar and the   
-                                          required libraries   
+    classpath                             prints the class path needed to get the Hadoop jar and the required libraries   
     cluster                               prints cluster information   
-    daemonlog                             get/set the log level for each   
-                                          daemon   
+          usage: yarn cluster
+           -dnl,--directly-access-node-label-store   This is DEPRECATED, will be removed in future releases. Directly access node label store, with this option, all node label related operations will NOT connect RM. Instead, they will access/modify stored node labels directly. By default, it is false (access via RM). AND PLEASE NOTE: if you configured yarn.node-labels.fs-store.root-dir to a local directory (instead of NFS or HDFS), this option will only work when the command run on the machine where RM is running. Also, this option is UNSTABLE, could be removed in future releases. Displays help for all commands.
+           -lnl,--list-node-labels                   List cluster node-label collection
+
+    daemonlog                             get/set the log level for each daemon   
+          Usage: General options are:
+                  [-getlevel <host:port> <classname> [-protocol (http|https)]
+                  [-setlevel <host:port> <classname> <level> [-protocol (http|https)]
+
     envvars                               display computed Hadoop environment variables   
     top                                   run cluster usage tool   
 
