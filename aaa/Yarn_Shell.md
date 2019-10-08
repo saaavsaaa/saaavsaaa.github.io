@@ -3,6 +3,7 @@ yarn -help
     CLASSNAME                             run the class named CLASSNAME   
    or   
     where COMMAND is one of:   
+    
     resourcemanager                       run the ResourceManager   
                                           Use -format-state-store for deleting the RMStateStore.   
                                           Use -remove-application-from-state-store <appId> for   
@@ -17,6 +18,22 @@ yarn -help
     jar <jar>                             run a jar file   
     application                           prints application(s)   
                                           report/kill application   
+
+         -appStates <States>             Works with -list to filter applications based on input comma-separated list of   
+                                         application states. The valid application state can be one of the following:   
+                                         ALL,NEW,NEW_SAVING,SUBMITTED,ACCEPTED,RUNNING,FINISHED,FAILED,KILLED   
+         -appTypes <Types>               Works with -list to filter applications based on input comma-separated list of   
+                                         application types.   
+         -help                           Displays help for all commands.   
+         -kill <Application ID>          Kills the application.   
+         -list                           List applications. Supports optional use of -appTypes to filter applications based   
+                                         on application type, and -appStates to filter applications based on application state.   
+         -movetoqueue <Application ID>   Moves the application to a different queue.   
+         -queue <Queue Name>             Works with the movetoqueue command to
+                                         specify which queue to move an
+                                         application to.
+         -status <Application ID>        Prints the status of the application.
+   
     applicationattempt                    prints applicationattempt(s)   
                                           report   
     container                             prints container(s) report   
