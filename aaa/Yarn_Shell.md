@@ -94,10 +94,33 @@ yarn -help
                                          application to.
          -status <Application ID>        Prints the status of the application.
    
-    applicationattempt                    prints applicationattempt(s)   
-                                          report   
+    applicationattempt                    prints applicationattempt(s) report   
+          usage: applicationattempt
+           -help                              Displays help for all commands.
+           -list <Application ID>             List application attempts for
+                                              aplication.
+           -status <Application Attempt ID>   Prints the status of the application
+                                              attempt.
+
     container                             prints container(s) report   
+          usage: container
+           -help                            Displays help for all commands.
+           -list <Application Attempt ID>   List containers for application attempt.
+           -status <Container ID>           Prints the status of the container.
+
     node                                  prints node report(s)   
+          usage: node
+           -all               Works with -list to list all nodes.
+           -help              Displays help for all commands.
+           -list              List all running nodes. Supports optional use of
+                              -states to filter nodes based on node state, all -all
+                              to list all nodes, -showDetails to display more
+                              details about each node.
+           -showDetails       Works with -list to show more details about each node.
+           -states <States>   Works with -list to filter nodes based on input
+                              comma-separated list of node states.
+           -status <NodeId>   Prints the status report of the node.
+
     queue                                 prints queue information   
     logs                                  dump container logs   
     classpath                             prints the class path needed to   
