@@ -140,6 +140,25 @@ yarn -help
            -status <Queue Name>   List queue information about given queue.
 
     logs                                  dump container logs   
+          usage: yarn logs -applicationId <application ID> [OPTIONS]
+
+          general options are:
+           -am <AM Containers>                          Prints the AM Container logs for this application. Specify comma-separated value to get logs for related AM Container. For example, If we specify -am 1,2, we will get the logs for the first AM Container as well as the second AM Container. To get logs for all AM Containers, use -am ALL. To get logs for the latest AM Container, use -am -1. By default, it will print all available logs. Work with -log_files to get only specific logs.
+           -appOwner <Application Owner>                AppOwner (assumed to be current user if not specified)
+           -client_max_retries <Max Retries>            Set max retry number for a retry client to get the container logs for the running applications. Use a negative value to make retry forever. The default value is 30.
+           -client_retry_interval_ms <Retry Interval>   Work with --client_max_retries to create a retry client. The default value is 1000.
+           -containerId <Container ID>                  ContainerId. By default, it will print all available logs. Work with -log_files to get only specific logs. If specified, the applicationId can be omitted
+           -help                                        Displays help for all commands.
+           -list_nodes                                  Show the list of nodes that successfully aggregated logs. This option can only be used with finished applications.
+           -log_files <Log File Name>                   Specify comma-separated value to get exact matched log files. Use "ALL" or "*" to fetch all the log files for the container.
+           -log_files_pattern <Log File Pattern>        Specify comma-separated value to get matched log files by using java regex. Use ".*" to fetch all the log files for the container.
+           -nodeAddress <Node Address>                  NodeAddress in the format nodename:port
+           -out <Local Directory>                       Local directory for storing individual container logs. The container logs will be stored based on the node the container ran on.
+           -show_application_log_info                   Show the containerIds which belong to the specific Application. You can combine this with --nodeAddress to get containerIds for all the containers on the specific NodeManager.
+           -show_container_log_info                     Show the container log metadata, including log-file names, the size of the logfiles. You can combine thiwith --containerId to getlog metadata for thespecific container, or with--nodeAddress to get logmetadata for all thecontainers on the specific NodeManager.
+           -size <size>                                 Prints the log file's first 'n' bytes or the last 'n' bytes. Use negative values as bytes to read from the end and positive values as bytes to read from the beginning.
+           -size_limit_mb <Size Limit>                  Use this option to limit the size of the total logs which could be fetched. By default, we only allow to fetch at most 10240 MB logs. If the total log size is larger than the specified number, the CLI would fail. The user could specify -1 to ignore the size limit and fetch all logs.
+
     classpath                             prints the class path needed to   
                                           get the Hadoop jar and the   
                                           required libraries   
