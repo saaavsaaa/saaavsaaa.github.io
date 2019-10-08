@@ -122,6 +122,23 @@ yarn -help
            -status <NodeId>   Prints the status report of the node.
 
     queue                                 prints queue information   
+          usage: node
+           -all               Works with -list to list all nodes.
+           -help              Displays help for all commands.
+           -list              List all running nodes. Supports optional use of
+                              -states to filter nodes based on node state, all -all
+                              to list all nodes, -showDetails to display more
+                              details about each node.
+           -showDetails       Works with -list to show more details about each node.
+           -states <States>   Works with -list to filter nodes based on input
+                              comma-separated list of node states.
+           -status <NodeId>   Prints the status report of the node.
+          [manager@SL010A-AnalysisDB1 ~]$ yarn queue -help
+          19/10/08 15:28:22 INFO client.AHSProxy: Connecting to Application History server at sl010a-hopdb4/10.0.2.128:10200
+          usage: queue
+           -help                  Displays help for all commands.
+           -status <Queue Name>   List queue information about given queue.
+
     logs                                  dump container logs   
     classpath                             prints the class path needed to   
                                           get the Hadoop jar and the   
@@ -132,4 +149,3 @@ yarn -help
     envvars                               display computed Hadoop environment variables   
     top                                   run cluster usage tool   
 
-  Most commands print help when invoked w/o parameters.
