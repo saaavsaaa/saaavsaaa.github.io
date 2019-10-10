@@ -1,5 +1,38 @@
 Iterative Self-organizing Data Analysis Techniques Algorithm
 
+[1] J. Richards and X. Jia, Remote Sensing Digital Image Analysis. Berlin:
+Springer, 1999.
+[2] PCI Geomatics Corp., “ISOCLUS–Isodata clustering program,” http://
+www.pcigeomatics.com/cgi-bin/pcihlp/ISOCLUS.
+[3] G. H. Ball and D. J. Hall, “Some fundamental concepts and synthesis
+procedures for pattern recognition preprocessors,” in Intl. Conf. on
+Microwaves, Circuit Theory, and Inform. Theory, Tokyo, Japan, Sept.
+1964.
+[4] A. K. Jain and R. C. Dubes, Algorithms for Clustering Data. Englewood
+Cliffs, NJ: Prentice Hall, 1988.
+[5] J. T. Tou and R. C. Gonzalez, Pattern Recognition Principles. London:
+Addison-Wesley, 1974.
+[6] T. Kanungo, D. M. Mount, N. S. Netanyahu, C. Piatko, R. Silverman,
+and A. Y. Wu, “An efficient k-means clustering algorithm: Analysis and
+implementation,” IEEE Trans. Pattern Anal. Mach. Intell., vol. 24, pp.
+881–892, 2002.
+[7] J. Bentley, “Multidimensional binary search trees used for associative
+searching,” Commun. ACM, vol. 18, pp. 509–517, 1975.
+[8] S. P. Lloyd, “Least squares quantization in PCM,” IEEE Trans. Inform.
+Theory, vol. 28, pp. 129–137, 1982.
+[9] J. MacQueen, “Some methods for classification and analysis of multivariate observations,” in Proc. 5th Berkeley Symp. Math. Stat. Prob.,
+vol. 1, Berkeley, CA, 1967, pp. 281–296.
+[10] S. Z. Selim and M. A. Ismail, “K-means-type algorithms: A generalized
+convergence theorem and characterization of local optimality,” IEEE
+Trans. Patt. Anal. Mach. Intell., vol. 6, pp. 81–87, 1984.
+[11] D. Pelleg and A. Moore, “Accelerating exact k-means algorithms with
+geometric reasoning,” in Proc. ACM SIGKDD Intl. Conf. on Knowledge
+Discovery and Data Mining, San Diego, CA, Aug. 1999, pp. 277–281.
+[12] S. Phillips, “Reducing the computation time of the ISODATA and k-means unsupervised classification algorithms,” in Proc. 22nd IEEE Intl.
+Geosci. and Remote Sensing Symp., Toronto, Canada, June 2002.
+[13] G. H. Ball and D. J. Hall, “ISODATA, A novel method of data analysis and pattern classification,” Stanford Research Institute, Menlo Park, CA,
+Tech. Rep. AD 699616, 1965
+
 方差大未必距离中心点远，只是距平均值变化幅度大，填充聚类需要用实际距离。     
 
 先在现有点中随便选几个点，以这几个点的位置为中心聚类     
