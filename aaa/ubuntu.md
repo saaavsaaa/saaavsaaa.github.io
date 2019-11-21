@@ -6,8 +6,7 @@ chmod 755
 
 
 sh Anaconda3-2019.10-Linux-x86_64.sh     
-conda install jupyter notebook     
-jupyter notebook --generate-config --allow-root     
+conda install jupyter notebook         
 conda install tensorflow     
 sudo apt install git     
 sudo apt-get install openjdk-8-jdk
