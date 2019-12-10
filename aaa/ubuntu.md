@@ -15,7 +15,7 @@ sdk install scala
 pip install findspark     
 core-site.xml     
 hdfs-site.xml     
-
+fg
 
 sudo apt-get install vim     
 pip install sklearn     
