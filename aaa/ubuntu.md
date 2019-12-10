@@ -4,7 +4,8 @@ ifconfig
 source /etc/profile     
 chmod 755      
 fg
-
+lsof -i:9999
+netstat -antp
 
 sh Anaconda3-2019.10-Linux-x86_64.sh     
 conda install jupyter notebook         
