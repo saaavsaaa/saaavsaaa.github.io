@@ -3,6 +3,7 @@ conda activate dl
 ifconfig     
 source /etc/profile     
 chmod 755      
+fg
 
 
 sh Anaconda3-2019.10-Linux-x86_64.sh     
@@ -15,7 +16,6 @@ sdk install scala
 pip install findspark     
 core-site.xml     
 hdfs-site.xml     
-fg
 
 sudo apt-get install vim     
 pip install sklearn     
