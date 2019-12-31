@@ -18,8 +18,8 @@ pip install findspark
 core-site.xml     
 hdfs-site.xml     
 
-pip install opencv-python
-pip install torch torchvision
+pip install opencv-python     
+pip install torch torchvision     
 sudo apt-get install vim     
 pip install sklearn     
 conda install pandas     
