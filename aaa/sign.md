@@ -62,35 +62,25 @@ T
 Q, H的泊松括号
 
  
- ≈≡≠＝≤≥＜＞≮≯∷±＋－×÷／∫∮∝∞∧∨∑∏∪∩∈∵∴⊥‖∠⌒⊙≌∽√  
+ ≈≡≠＝≤≥＜＞≮≯∷±＋－×÷／∫∮∝∞∧∨∑∏∪∩∈∵∴⊥‖∠⌒⊙≌∽√     
 
-+           plus(positive正的)
--         minus（negative负的）
-*        multiplied by
-÷      divided by
-=          be equal to
-≈          be approximately equal to
-()          round brackets(parenthess)
-[]          square brackets
-{}          braces
-∵          because
-∴          therefore
-≤          less than or equal to
-≥          greater than or equal to
-∞          infinity
+*        multiplied by   
+÷        divided by      
+≈          be approximately equal to      
+∵          because   
+∴          therefore   
+≤          less than or equal to   
+≥          greater than or equal to   
+∞          infinity   
+a≠b      a isn't equal to b   
+x→∞    approches infinity   
+√￣x      the square root of x   
+3‰    three peimill   
+∫         integral betweens a and b   
 
-
-a≠b      a isn't equal to b
-x→∞    approches infinity
-
-√￣x      the square root of x
-
-3‰    three peimill
-∫         integral betweens a and b
- 
 ±  
-相似全等：∽ ≌  
-因为所以：∵ ∴  
+相似全等：∽ ≌     
+因为所以：∵ ∴     
 判断类：＝ ≠ ＜ ≮（不小于） ＞ ≯（不大于）  
 集合类：∈（属于） ∪（并集） ∩（交集）  
 求和符号：∑  
