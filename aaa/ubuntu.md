@@ -38,3 +38,163 @@ sudo apt-get install cifs-utils (sudo apt-get install smbclient)
 sudo mount -t cifs //10.10.19.37/share ~/share -o iocharset=utf8,username=lidongbo,dir_mode=777,file_mode=777     
 sudo apt install ubuntu-unity-desktop     
 keyboard--navigation--switch to workspace above & below 快捷键     
+
+
+
+
+git commit
+put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
+
+mkdir
+rm -rf
+ps -ef | grep tomcat
+
+df -hl
+
+tail -f
+tail -fn 500 nohup.out
+sftp aaa@ip
+
+cat /etc/sysctl.conf可修改
+cat /proc/sys/fs/file-nr
+cat /proc/sys/fs/file-max
+sysctl -a | grep fs.file-max最大文件描述符
+ulimit -n查看单进程最大文件描述符
+ulimit -n d更改为d
+ulimit -a查看限制
+lsof查看当前哪些进程打开哪些句柄，哪些文件被哪些进程占用
+
+pmap -d 
+
+find / -name rocketmq_console.tar
+ps -auxww|grep usr|grep java
+cat /proc/meminfo
+free
+ll -h /proc/kcore 
+/proc/meminfo 机器的内存使用信息
+statm 进程所占用的内存
+hostname -i 
+netstat -anp | grep 6379
+netstat -tlnp
+
+| more
+| head -10
+
+grep error -m 10 === grep error  | head -10
+grep -v 排除
+grep -r "DataSourceActionInterceptor" *
+cat /proc/(pid)/status
+top命令下按f键
+
+ls -alt
+
+source /etc/profile
+
+sh mqshutdown namesrv
+sh mqshutdown broker
+
+nohup sh mqnamesrv > ns.log &
+nohup sh mqbroker -c ../conf/2m-noslave/broker-a.properties > bk.log &
+
+
+cat nohup.out
+
+sh mqadmin topicStatus -n 192.168.1.44:9876 -t 'topicTest'
+sh mqadmin updateTopic -b 192.168.1.44:10911 -n 192.168.1.44:9876 -t 'testTopic'
+sh mqadmin brokerStatus -b 192.168.1.44:10911 -n 192.168.1.44:9876
+sh mqadmin updateTopic -n 192.168.1.45:9876 -b 192.168.1.45:10911 -t 'registerTopic'
+sh mqadmin brokerStatus -n 192.168.1.45:9876 -b 192.168.1.45:10911
+sh mqadmin consumerStatus -g cgr -t registerTopic -n 192.168.1.45:9876
+sh mqadmin deleteTopic -c DefaultCluster  -n 192.168.1.45:9876 -t 'registerTopic'
+sh mqadmin topicStatus -n 192.168.1.45:9876 -t 'registerTopic'
+
+sh mqadmin queryMsgByKey -k 201605301 -t testTopic -n 192.168.1.44:9876
+sh mqadmin queryMsgByKey -k 201605301 -t testTopic -n 192.168.1.45:9876
+
+sh mqadmin topicStatus -n 10.25.90.180:9876 -t 'registerTopic'
+sh mqadmin topicStatus -n 10.171.82.8:9876 -t 'registerTopic'
+sh mqadmin topicStatus -n 10.45.43.45:9876 -t 'registerTopic'
+
+sh mqadmin queryMsgByKey -k 18672001963 -t registerTopic -n 10.25.90.180:9876
+sh mqadmin queryMsgByKey -k 18672001963 -t registerTopic -n 10.171.82.8:9876
+
+sh mqadmin queryMsgByOffset -b broker-a -i 1 -o 0 -t registerTopic -n 10.25.90.180:9876
+
+sh mqadmin consumerProgress -g cgr -n 10.25.90.180:9876
+sh mqadmin consumerProgress -g cgr -n 10.25.90.180:9876
+sh mqadmin consumerProgress -g activitycgr1 -n 10.25.90.180:9876
+
+sh mqadmin queryMsgByKey -k 1* -t activityTopic -n 10.25.90.180:9876
+
+sh mqadmin updateTopic -b 10.25.90.180:10911 -n 10.25.90.180:9876 -t activityTopic
+sh mqadmin updateTopic -b 10.45.43.45:10911 -n 10.45.43.45:9876 -t activityTopic
+sh mqadmin deleteTopic -c DefaultCluster  -n 10.171.82.8:9876 -t 'registerTopic'
+
+sh mqadmin topicStatus -n 10.25.90.180:9876 -t '%RETRY%activitycgr1'
+sh mqadmin queryMsgByOffset -b broker-a -i 0 -o 9157 -t '%RETRY%activitycgr1' -n 10.25.90.180:9876
+
+123.57.36.172
+
+不输出  >/dev/null 2>&1 &
+chown -R jenkins:jenkins /var/build/
+
+service iptables status
+（1） 重启后永久性生效：
+　　开启：chkconfig iptables on
+　　关闭：chkconfig iptables off
+（2） 即时生效，重启后失效：
+　　开启：service iptables start
+　　关闭：service iptables stop
+
+chmod +x /usr/local/soft/tomcat/tomcat7/bin/*.sh
+chmod 777 *.sh 
+
+
+curl https://www.caijinquan.cn/app/appv4/firstShowV2/queryFirstShow.action -d "{\"hmac\":\"a749b161651e12f67452f928d58b1bc29d1e2b97\",\"params\": {}}"
+
+
+curl http://101.201.210.164/app/appv4/firstShowV2/queryFirstShow.action
+rinetd -c /etc/rinetd.conf
+
+
+jmap -dump:format=b,file=heapDump
+jstat -gc
+jstat -gccapacity
+jhat heapDump
+
+
+JAVA_OPTS='-Xloggc:/var/log/tomcat_gc.log'
+
+du -h --max-depth=1 /root/store/
+
+
+
+【一】从第3000行开始，显示1000行。即显示3000~3999行
+cat filename | tail -n +3000 | head -n 1000
+【二】显示1000行到3000行
+cat filename| head -n 3000 | tail -n +1000
+sed -n '5,10p' filename 这样你就可以只查看文件的第5行到第10行
+    tail -n +1000：从1000行开始显示，显示1000行以后的
+    head -n 1000：显示前面1000行
+
+
+1、ps -mp xxxx -o THREAD
+     在当前用户下，列出pid包含的所有线程。
+ 
+2、ps -mp xxxx -o THREAD  >> /tmp/thread.txt
+     在当前用户下，列出pid包含的所有线程。并把结果增量 输出到文件/tmp/thread.txt。
+ 
+3、ps -mp xxxx -o THREAD,tid
+     在当前用户下，列出pid包含的所有线程信息及本地线程ID (tid)。
+
+4、ps -mp xxxx -o THREAD |wc -l
+     在当前用户下，列出pid包含的所有线程的个数 。
+     “wc -l”是统计记录的行数。
+
+uname -a    
+cat /proc/version   
+cat /etc/issue   
+
+perf record -F 99 -p PID -g — sleep 10   
+perf script | ./stackcollapse-perf.pl > out.perf-folded   
+./flamegraph.pl out.perf-folded>ou.svg   
