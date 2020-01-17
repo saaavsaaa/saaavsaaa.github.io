@@ -18,7 +18,12 @@ pip install findspark
 core-site.xml     
 hdfs-site.xml     
 
-pip install opencv-python     
+pip install opencv-python  
+pip install imageio     
+pip install imageio-ffmpeg     
+pip install moviepy     
+
+pip install tensorflow   : pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow     
 pip install torch torchvision     
 sudo apt-get install vim     
 pip install sklearn     
