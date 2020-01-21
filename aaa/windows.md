@@ -1,3 +1,5 @@
+Build Tools for Visual Studio 2015+都可以
+
 conda install mmcv    
 conda install cython
 
