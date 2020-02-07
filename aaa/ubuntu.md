@@ -33,6 +33,11 @@ cd /home/aaa/Github/ScatteredCode/python/web/
 export FLASK_APP=hello.py     
 python -m flask run --host=0.0.0.0     
 
+c.NotebookApp.iopub_data_rate_limit = 10000000000    
+c.NotebookApp.port = 9999    
+#c.NotebookApp.notebook_dir = ''    
+c.NotebookApp.ip = '*'    
+c.NotebookApp.password = ''    
 
 Ctrl+L 地址栏     
 jupyter notebook --generate-config --allow-root     
