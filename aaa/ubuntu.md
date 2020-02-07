@@ -43,6 +43,8 @@ Ctrl+L 地址栏
 jupyter notebook --generate-config --allow-root     
 /home/aaa/.jupyter/jupyter_notebook_config.py     
 nohup jupyter notebook --allow-root >/dev/null 2>&1 &     
+. /home/ubuntu/anaconda3/etc/profile.d/conda.sh     
+conda create -n       
 linux在执行shell命令之前，会确定好所有输入输出位置，并且从左往右依次执行重定向命令，所以>/dev/null 2>&1的作用就是让标准输出重定向到/dev/null中
 sudo apt-get install cifs-utils (sudo apt-get install smbclient)
 sudo mount -t cifs //10.10.19.37/share ~/share -o iocharset=utf8,username=lidongbo,dir_mode=777,file_mode=777     
