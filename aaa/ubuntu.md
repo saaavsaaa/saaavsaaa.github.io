@@ -57,6 +57,7 @@ keyboard--navigation--switch to workspace above & below 快捷键
 git commit
 put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
 
+tar zxvf
 mkdir
 rm -rf
 ps -ef | grep tomcat
