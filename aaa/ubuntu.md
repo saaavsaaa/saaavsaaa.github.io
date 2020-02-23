@@ -39,7 +39,9 @@ c.NotebookApp.port = 9999
 c.NotebookApp.ip = '*'    
 c.NotebookApp.password = ''    
 
-Ctrl+L 地址栏     
+Ctrl+L 地址栏  
+jobs -l
+nohup &
 jupyter notebook --generate-config --allow-root     
 /home/aaa/.jupyter/jupyter_notebook_config.py     
 nohup jupyter notebook --allow-root >/dev/null 2>&1 &     
