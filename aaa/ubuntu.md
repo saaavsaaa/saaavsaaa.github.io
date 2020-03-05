@@ -53,6 +53,24 @@ sudo mount -t cifs //10.10.19.37/share ~/share -o iocharset=utf8,username=lidong
 sudo apt install ubuntu-unity-desktop     
 keyboard--navigation--switch to workspace above & below 快捷键     
 
+git clone https://github.com/kaldi-asr/kaldi.git kaldi-trunk --origin golden
+sudo apt-get install automake
+sudo apt-get install autoconf
+sudo apt-get install libtool
+sudo apt-get install g++
+cd kaldi-trunk/
+cd tools/
+extras/check_dependencies.sh
+sudo apt-get install sox subversion
+extras/check_dependencies.sh
+extras/install_mkl.sh
+extras/check_dependencies.sh
+make -j 4
+cd ..
+cd src/
+./configure --shared
+make depend -j 4
+make -j 4
 
 
 
