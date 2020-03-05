@@ -71,6 +71,26 @@ cd src/
 ./configure --shared   
 make depend -j 4   
 make -j 4   
+
+git clone https://github.com/kaldi-asr/kaldi.git kaldi-trunk --origin golden   
+cd kaldi-trunk/   
+git clone https://github.com/alibaba/Alibaba-MIT-Speech   
+git checkout 04b1f7d6658bc035df93d53cb424edc127fab819   
+git apply --stat Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch   
+git apply --check Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch   
+git am --signoff < Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch   
+cd tools/   
+extras/check_dependencies.sh      
+cat /proc/cpuinfo |grep "cores"|uniq   
+cat /proc/cpuinfo |grep "physical id"|sort |uniq|wc -l   
+make -j 4   
+cd ../src    
+./configure --shared   
+make depend -j 4   
+make -j 4   
+make ext   
+cd ../egs/yesno/s5/   
+./run.sh   
   
 mkdir   
 rm -rf   
