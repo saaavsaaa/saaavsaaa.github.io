@@ -53,26 +53,68 @@ sudo mount -t cifs //10.10.19.37/share ~/share -o iocharset=utf8,username=lidong
 sudo apt install ubuntu-unity-desktop     
 keyboard--navigation--switch to workspace above & below 快捷键     
 
-git clone https://github.com/kaldi-asr/kaldi.git kaldi-trunk --origin golden
-sudo apt-get install automake
-sudo apt-get install autoconf
-sudo apt-get install libtool
-sudo apt-get install g++
-cd kaldi-trunk/
-cd tools/
-extras/check_dependencies.sh
-sudo apt-get install sox subversion
-extras/check_dependencies.sh
-extras/install_mkl.sh
-extras/check_dependencies.sh
-make -j 4
-cd ..
-cd src/
-./configure --shared
-make depend -j 4
-make -j 4
+git clone https://github.com/kaldi-asr/kaldi.git kaldi-trunk --origin golden    
+sudo apt-get install automake     
+sudo apt-get install autoconf     
+sudo apt-get install libtool     
+sudo apt-get install g++     
+cd kaldi-trunk/     
+cd tools/     
+extras/check_dependencies.sh     
+sudo apt-get install sox subversion     
+extras/check_dependencies.sh   
+extras/install_mkl.sh   
+extras/check_dependencies.sh   
+make -j 4   
+cd ..   
+cd src/   
+./configure --shared   
+make depend -j 4   
+make -j 4   
+  
+mkdir   
+rm -rf   
+ps -ef | grep tomcat   
 
+git reset HEAD +文件名 取消add    
 
+tail -f    
+tail -fn 500 nohup.out   
+
+cat /etc/sysctl.conf可修改   
+cat /proc/sys/fs/file-nr   
+cat /proc/sys/fs/file-max   
+sysctl -a | grep fs.file-max最大文件描述符   
+ulimit -n查看单进程最大文件描述符   
+ulimit -n d更改为d   
+ulimit -a查看限制   
+lsof查看当前哪些进程打开哪些句柄，哪些文件被哪些进程占用   
+
+pmap -d    
+
+find / -name rocketmq_console.tar   
+ps -auxww|grep usr|grep java   
+cat /proc/meminfo   
+free    
+ll -h /proc/kcore    
+/proc/meminfo 机器的内存使用信息   
+statm 进程所占用的内存   
+hostname -i    
+netstat -anp | grep 6379   
+netstat -tlnp   
+
+| more   
+| head -10   
+
+grep error -m 10 === grep error  | head -10   
+grep -v 排除   
+grep -r "DataSourceActionInterceptor" *   
+cat /proc/(pid)/status   
+top命令下按f键   
+
+ls -alt   
+
+source /etc/profile   
 
 git commit
 put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
