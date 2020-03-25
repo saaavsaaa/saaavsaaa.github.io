@@ -134,6 +134,8 @@ top命令下按f键
 
 ls -alt   
 
+sort -u test1 同 sort test1 | uniq 排序后去重     
+
 source /etc/profile   
 
 git commit
