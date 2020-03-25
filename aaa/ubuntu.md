@@ -137,6 +137,7 @@ ls -alt
 sort -u test1 同 sort test1 | uniq 排序后去重     
 basename [pathname] 不加后缀可去除路径 basename /tmp/test/file.txt   :   file.txt       
 basename [string] [suffix] 加后缀同时去除路径和后缀 basename /tmp/test/file.txt .txt    :   file     
+awk -F"_" '{print "" $1}' 以_为分隔符，打印第一项
 
 http://www.ruanyifeng.com/blog/2019/08/xargs-tutorial.html
 xargs命令的作用，是将标准输入转为命令行参数     echo "one two three" | xargs mkdir    同   mkdir one two three创建三个目录，如果要创建一个可以 -d 加分隔符  xargs -d "\t"    
