@@ -135,6 +135,8 @@ top命令下按f键
 ls -alt   
 
 sort -u test1 同 sort test1 | uniq 排序后去重     
+basename [pathname] 不加后缀可去除路径 basename /tmp/test/file.txt   :   file.txt     
+basename [string] [suffix] 加后缀同时去除路径和后缀 basename /tmp/test/file.txt .txt    :   file
 
 source /etc/profile   
 
