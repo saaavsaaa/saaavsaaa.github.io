@@ -87,3 +87,11 @@ shift有数组做参数时类似队列的pop，弹出数组第一个值，并返
     }     
 
 -----
+
+  回到 run.sh
+
+    # 分别在 train dev test中创建mfcc目录,-p创建多级
+    # mkdir -p data/mfcc && cp -R data/train data/mfcc && cp -R data/dev data/mfcc && cp -R data/test data/mfcc && cp -R data/test_phone data/mfcc || exit 1;
+    
+    下面就是提取 mfcc (梅尔频率倒谱系数Mel Frequency Cepstrum Coefficient)特征了，不过我还没写完，
+-----
