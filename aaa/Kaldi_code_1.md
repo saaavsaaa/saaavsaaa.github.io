@@ -4,7 +4,7 @@
 
 -----
 
-/kaldi-ali/kaldi-trunk/egs/thchs30/s5/run.sh
+  起点：/kaldi-ali/kaldi-trunk/egs/thchs30/s5/run.sh
 
 -----
 
@@ -51,10 +51,39 @@
     done # train dev test三个目录
 
     # perl语言以前没有认真接触过，不过好在语法都差不多，个别符号百度一下就好
-    utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt
+    utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt # 下一块里 解释
     utils/utt2spk_to_spk2utt.pl data/dev/utt2spk > data/dev/spk2utt
     utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt
 
     cd data/test_phone && rm text &&  cp phone.txt text #test_phone用于测试训练出的模型，对比识别结果和真实语句
+
+-----
+  utils/utt2spk_to_spk2utt.pl: 聚合为一个说话人对应其所有说的话，A02 A02_000 A02_001 A02_002 A02_003 A02_004...     
+  
+     
+  
+  
+
+数组变量以字符 @ 开头
+shift有数组做参数时类似队列的pop，弹出数组第一个值，并返回它。数组的索引值也依次减一； 没有数组时移动@_
+
+    while(<>){                   # <> 句柄 默认为stdin      
+
+        @A = split(" ", $_);     # 这里$_就是<>传入的    
+        
+        ($u,$s) = @A;
+        
+        # 每个说话者只加入一次，把spkid加入到list中，并将加入标记设为1     
+        if(!$seen_spk{$s}) {     
+            $seen_spk{$s} = 1;     
+            push @spklist, $s;     
+        }     
+        push (@{$spk_hash{$s}}, "$u");   # $spk_hash{$s}是一个ARRAY，同一个speaker的utternace(发言)加入到一个ARRAY里     
+    }     
+    # 循环所有speaker
+    foreach $s (@spklist) {     
+        $l = join(' ',@{$spk_hash{$s}}); #将ARRAY中的uttid用空格连接成字符串     
+        print "$s $l\n";     
+    }     
 
 -----
