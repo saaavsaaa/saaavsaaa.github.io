@@ -1,5 +1,5 @@
   这一篇主要是 kalid 的 thchs30 示例的数据预处理部分。之前没写完的线性代数系列的可能要拖一段时间了，搞不好要拖到疫情结束了。因为上一篇写完之后，就上班了。虽然我没离开北京，但是我租的公寓因为我春节不在，不让我进。我工作时晚上就只好住在公司，晚上的精力和环境都不太适合思考数学证明，而周末回家要处理的事儿很多，只好先拖一拖了。只要公寓能进了，还是会继续写的。    
-  我现在主要工作是在做语音识别，选型定了kalid，目前只用了 thchs30 。用训练出的模型测试同事的普通话，准确率大概在30%出头。只不过实际识别客服的录音惨不忍睹，另外能发现有不少是谐音问题。一方面收集语料，一方面开始研究kalid，方便后续自制语料的使用等。    
+  我现在主要工作是在做语音识别，选型定了kalid，目前只用了 thchs30 。用训练出的模型测试同事的普通话，准确率大概在30%出头。只不过实际识别客服的录音惨不忍睹，另外能发现有不少是谐音问题。于是就开始进行优化工作了，一方面收集语料，一方面开始研究kalid，方便后续自制语料的使用等。    
   基本的内容，网上都很全面，我都不写了，我就把我看的代码做个流水账的描述，由于刚开始看，所以只有一小部分：    
 
 -----
@@ -90,8 +90,8 @@
     # 分别在 train dev test中创建mfcc目录,-p创建多级
     # mkdir -p data/mfcc && cp -R data/train data/mfcc && cp -R data/dev data/mfcc && cp -R data/test data/mfcc && cp -R data/test_phone data/mfcc || exit 1;
     
-    下面就是提取 mfcc (梅尔频率倒谱系数Mel Frequency Cepstrum Coefficient)特征了，不过我还没写完。
-    进行的部分在：
+    下面就是提取 mfcc (梅尔频率倒谱系数Mel Frequency Cepstrum Coefficient)特征了，不过我还没写完。     
+    进行的部分在（为了在公司时候用单独申请的账号）：
     https://github.com/co-develop-drv/kaldi/blob/master/egs/thchs30/s5/     
     https://github.com/co-develop-drv/kaldi/blob/master/egs/thchs30/s5/compiled_steps/make_mfcc.sh(未完)     
     https://github.com/co-develop-drv/kaldi/blob/master/egs/thchs30/s5/compiled_utils/validate_data_dir.sh     
