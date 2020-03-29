@@ -39,39 +39,36 @@
           echo $uttid $spkid >> utt2spk       # 数位变换后的文件名uttid与新第一项对应spkid写入utt2spk。例如：A11_000 A11     
           
           echo $uttid `sed -n 1p $corpus_dir/data/$nn.wav.trn` >> word.txt    # 数位变换后的文件名uttid与对应汉字写入word.txt，data/*trn第一行是汉字     
+
           echo $uttid `sed -n 3p $corpus_dir/data/$nn.wav.trn` >> phone.txt   # 数位变换后的文件名uttid与对应音素写入phone.txt 第三行是音素     
-        done # 一个wav文件的处理结束
+
+        done # 一个wav文件的处理结束     
         
-        # 创建text文件，对text、wav.scp、utt2spk、phone.txt内容排序：
-        cp word.txt text 
-        sort wav.scp -o wav.scp
-        sort utt2spk -o utt2spk
-        sort text -o text
-        sort phone.txt -o phone.txt
-    done # train dev test三个目录
+        # 创建text文件，对text、wav.scp、utt2spk、phone.txt内容排序：    
+        cp word.txt text     
+        sort wav.scp -o wav.scp    
+        sort utt2spk -o utt2spk   
+        sort text -o text   
+        sort phone.txt -o phone.txt   
 
-    # perl语言以前没有认真接触过，不过好在语法都差不多，个别符号百度一下就好
-    utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt # 下一块里 解释
-    utils/utt2spk_to_spk2utt.pl data/dev/utt2spk > data/dev/spk2utt
-    utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt
+    done # train dev test三个目录    
 
-    cd data/test_phone && rm text &&  cp phone.txt text #test_phone用于测试训练出的模型，对比识别结果和真实语句
+    # perl语言以前没有认真接触过，不过好在语法都差不多，个别符号百度一下就好    
+    utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt       # 下一块里 解释   
+    utils/utt2spk_to_spk2utt.pl data/dev/utt2spk > data/dev/spk2utt   
+    utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt    
+
+    cd data/test_phone && rm text &&  cp phone.txt text      # test_phone用于测试训练出的模型，对比识别结果和真实语句     
 
 -----
+
   utils/utt2spk_to_spk2utt.pl: 聚合为一个说话人对应其所有说的话，A02 A02_000 A02_001 A02_002 A02_003 A02_004...     
   
-     
-  
-  
-
-数组变量以字符 @ 开头
-shift有数组做参数时类似队列的pop，弹出数组第一个值，并返回它。数组的索引值也依次减一； 没有数组时移动@_
-
     while(<>){                   # <> 句柄 默认为stdin      
 
         @A = split(" ", $_);     # 这里$_就是<>传入的    
         
-        ($u,$s) = @A;
+        ($u,$s) = @A;           # 数组变量以字符 @ 开头
         
         # 每个说话者只加入一次，把spkid加入到list中，并将加入标记设为1     
         if(!$seen_spk{$s}) {     
@@ -93,5 +90,7 @@ shift有数组做参数时类似队列的pop，弹出数组第一个值，并返
     # 分别在 train dev test中创建mfcc目录,-p创建多级
     # mkdir -p data/mfcc && cp -R data/train data/mfcc && cp -R data/dev data/mfcc && cp -R data/test data/mfcc && cp -R data/test_phone data/mfcc || exit 1;
     
-    下面就是提取 mfcc (梅尔频率倒谱系数Mel Frequency Cepstrum Coefficient)特征了，不过我还没写完，
+    下面就是提取 mfcc (梅尔频率倒谱系数Mel Frequency Cepstrum Coefficient)特征了，不过我还没写完。
+    进行的部分在：
+
 -----
