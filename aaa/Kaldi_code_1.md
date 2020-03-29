@@ -92,5 +92,8 @@
     
     下面就是提取 mfcc (梅尔频率倒谱系数Mel Frequency Cepstrum Coefficient)特征了，不过我还没写完。
     进行的部分在：
+    https://github.com/co-develop-drv/kaldi/blob/master/egs/thchs30/s5/     
+    https://github.com/co-develop-drv/kaldi/blob/master/egs/thchs30/s5/compiled_steps/make_mfcc.sh(未完)     
+    https://github.com/co-develop-drv/kaldi/blob/master/egs/thchs30/s5/compiled_utils/validate_data_dir.sh     
 
 -----
