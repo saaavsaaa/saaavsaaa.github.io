@@ -17,32 +17,39 @@
   
   corpus_dir参数指定了data_thchs30语料所在的目录。     
   语料中音频文件名的命名方式如A1_2.wav，A1是说话人speaker，A1_2是A1说的编号为2的话utternace。     
-for x in train dev test; do
-    for nn in `find  $corpus_dir/$x -name "*.wav" | sort -u | xargs -I {} basename {} .wav`; do
-      spkid=`echo $nn | awk -F"_" '{print "" $1}'` #文件名以"_"分隔的第一项 A1_1 -> A1
-      spk_char=`echo $spkid | sed 's/\([A-Z]\).*/\1/'` #sed s/ / / 替换 \1第一个匹配字符 A1 -> A
-      spk_num=`echo $spkid | sed 's/[A-Z]\([0-9]\)/\1/'` #第一项中的数字 A1 -> 1
-      spkid=$(printf '%s%.2d' "$spk_char" "$spk_num") #第一项中如果数字是一位的变成两位 A1 -> A01
-      utt_num=`echo $nn | awk -F"_" '{print $2}'` #文件名以"_"分隔的第二项 A1_2 -> 2
-      uttid=$(printf '%s%.2d_%.3d' "$spk_char" "$spk_num" "$utt_num") # 第二项变3位 A1_1 -> A01_001
-      echo $uttid $corpus_dir/$x/$nn.wav >> wav.scp #数位变换后的文件名uttid与真实文件全路径对应写入wav.scp  A11_000 /home/.../A11_0.wav
-      echo $uttid $spkid >> utt2spk #数位变换后的文件名uttid与新第一项对应spkid写入utt2spk   A11_000 A11
-      echo $uttid `sed -n 1p $corpus_dir/data/$nn.wav.trn` >> word.txt #数位变换后的文件名uttid与对应汉字写入word.txt，data/*trn第一行是汉字
-      echo $uttid `sed -n 3p $corpus_dir/data/$nn.wav.trn` >> phone.txt #数位变换后的文件名uttid与对应音素写入phone.txt 第三行是音素
+  
+    for x in train dev test; do  # train dev test是音频文件所在的三个目录，分别的作用就是它们各自的名字     
+    
+        for nn in `find  $corpus_dir/$x -name "*.wav" | sort -u | xargs -I {} basename {} .wav`; do     # 所有wav文件的basename
+        
+          spkid=`echo $nn | awk -F"_" '{print "" $1}'` # 文件名以"_"分隔，取第一项 A1_1 -> A1     
+          
+          spk_char=`echo $spkid | sed 's/\([A-Z]\).*/\1/'` # sed s/ / / 替换 \1第一个匹配字符 A1 -> A     
+          
+          spk_num=`echo $spkid | sed 's/[A-Z]\([0-9]\)/\1/'` # 第一项中的数字 A1 -> 1     
+          
+          spkid=$(printf '%s%.2d' "$spk_char" "$spk_num") # 第一项中如果数字是一位的变成两位 A1 -> A01     
+          
+          utt_num=`echo $nn | awk -F"_" '{print $2}'` #文件名以"_"分隔的第二项 A1_2 -> 2
+          uttid=$(printf '%s%.2d_%.3d' "$spk_char" "$spk_num" "$utt_num") # 第二项变3位 A1_1 -> A01_001
+          echo $uttid $corpus_dir/$x/$nn.wav >> wav.scp #数位变换后的文件名uttid与真实文件全路径对应写入wav.scp  A11_000 /home/.../A11_0.wav
+          echo $uttid $spkid >> utt2spk #数位变换后的文件名uttid与新第一项对应spkid写入utt2spk   A11_000 A11
+          echo $uttid `sed -n 1p $corpus_dir/data/$nn.wav.trn` >> word.txt #数位变换后的文件名uttid与对应汉字写入word.txt，data/*trn第一行是汉字
+          echo $uttid `sed -n 3p $corpus_dir/data/$nn.wav.trn` >> phone.txt #数位变换后的文件名uttid与对应音素写入phone.txt 第三行是音素
+        done 
+        #排序：
+        cp word.txt text
+        sort wav.scp -o wav.scp
+        sort utt2spk -o utt2spk
+        sort text -o text
+        sort phone.txt -o phone.txt
     done 
-    #排序：
-    cp word.txt text
-    sort wav.scp -o wav.scp
-    sort utt2spk -o utt2spk
-    sort text -o text
-    sort phone.txt -o phone.txt
-done 
 
-perl
-utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt
-utils/utt2spk_to_spk2utt.pl data/dev/utt2spk > data/dev/spk2utt
-utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt
+    perl
+    utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt
+    utils/utt2spk_to_spk2utt.pl data/dev/utt2spk > data/dev/spk2utt
+    utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt
 
-cd data/test_phone && rm text &&  cp phone.txt text #test_phone用于测试训练出的模型，对比识别结果和真实语句
+    cd data/test_phone && rm text &&  cp phone.txt text #test_phone用于测试训练出的模型，对比识别结果和真实语句
 
 -----
