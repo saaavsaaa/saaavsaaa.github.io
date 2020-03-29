@@ -4,6 +4,15 @@
 
 -----
 
+/kaldi-ali/kaldi-trunk/egs/thchs30/s5/run.sh
 
+-----
+
+  首先是 cmd.sh，没什么好说的。本地调代码比较方便，暂时也没有很多语料，也没有很多机器，于是run.pl。    
+  path.sh：引用了必须的目录，之后要用的代码主要都在这里了。tools/python:${PATH}、egs/thchs30/s5/utils、tools/openfst/bin...、tools/openfst/bin:$PWD:$PATH，其中PATH= src下的十几个目录。 
+
+-----
+
+  接着，kaldi-trunk/egs/thchs30/s5/local/thchs-30_data_prep.sh生成了必须的文件，主要逻辑：
 
 -----
