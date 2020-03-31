@@ -112,6 +112,8 @@ lsof查看当前哪些进程打开哪些句柄，哪些文件被哪些进程占�
 
 pmap -d    
 
+chown -R jenkins:jenkins /var/build/
+
 find / -name rocketmq_console.tar   
 ps -auxww|grep usr|grep java   
 cat /proc/meminfo   
@@ -205,8 +207,7 @@ sh mqadmin queryMsgByOffset -b broker-a -i 0 -o 9157 -t '%RETRY%activitycgr1' -n
 
 123.57.36.172
 
-不输出  >/dev/null 2>&1 &
-chown -R jenkins:jenkins /var/build/
+不输出  >/dev/null 2>&1 &     
 
 service iptables status
 （1） 重启后永久性生效：
