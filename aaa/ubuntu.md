@@ -161,6 +161,7 @@ git commit
 put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
 
 tar zxvf     
+sudo tar zcvf aaa.tar.gz aaa/   
 
 sh mqshutdown namesrv
 sh mqshutdown broker
