@@ -87,6 +87,18 @@
 ### [Livy提交Spark的可选参数](https://saaavsaaa.github.io/aaa/Livy_Spark_Request.html)
 
 -----
+
+.
+.
+.
+中间很多直接去公众号看吧，懒得贴链接了
+
+-----
+
+### [Kaldi的thchs30预处理](https://saaavsaaa.github.io/aaa/Kaldi_code_1.html)
+
+-----
+
 testing:
  |
  
