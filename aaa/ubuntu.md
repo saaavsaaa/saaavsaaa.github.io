@@ -160,6 +160,11 @@ source /etc/profile
 git commit
 put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
 
+git init
+git remote add origin
+git branch --set-upstream-to=origin/master
+git pull origin master --allow-unrelated-histories
+
 tar zxvf     
 sudo tar zcvf aaa.tar.gz aaa/   
 
