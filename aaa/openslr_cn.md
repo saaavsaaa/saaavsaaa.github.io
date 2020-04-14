@@ -27,7 +27,7 @@ MobvoiHotwords : 17G 用于关键字检索 我能不能用上还得试一下才�
   provided by Mobvoi CO.,LTD
   License: Apache License v.2.0
 
-MAGICDATA Mandarin Chinese Read Speech Corpus : 755小时 多个文件不到10G 它是10566.9 hours Chinese Mandarin Speech Corpus的子集，需要business@magicdatatech.com申请，学术用途免费  http://www.openslr.org/68/ MagicData中文手机录音音频语料库包含755小时的中文普通话朗读语音数据，其中分为训练集712.09小时、开发集14.84小时和测试集28.08小时  
+MAGICDATA Mandarin Chinese Read Speech Corpus : 755小时 约55G 它是10566.9 hours Chinese Mandarin Speech Corpus的子集，需要business@magicdatatech.com申请，学术用途免费  http://www.openslr.org/68/ MagicData中文手机录音音频语料库包含755小时的中文普通话朗读语音数据，其中分为训练集712.09小时、开发集14.84小时和测试集28.08小时  
  http://www.openslr.org/resources/68/train_set.tar.gz   
  http://www.openslr.org/resources/68/dev_set.tar.gz   
  http://www.openslr.org/resources/68/test_set.tar.gz   
