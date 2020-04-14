@@ -1,6 +1,6 @@
 THCHS-30 : 30小时 6.4G http://www.openslr.org/18/      
 
-Aishell : 178小时 15G http://www.openslr.org/33/     
+Aishell1 : 178小时 15G http://www.openslr.org/33/     
 
 primewords_md_2018_set1 : 100 小时 9.0G http://www.openslr.org/47/     
 
