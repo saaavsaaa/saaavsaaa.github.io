@@ -1,10 +1,17 @@
 THCHS-30 : 30小时 6.4G http://www.openslr.org/18/      
+ http://www.openslr.org/resources/18/data_thchs30.tgz    
+ http://www.openslr.org/resources/18/test-noise.tgz   
+ http://www.openslr.org/resources/18/resource.tgz   
 
 Aishell1 : 178小时 15G http://www.openslr.org/33/     
+ http://cn-mirror.openslr.org/resources/33/data_aishell.tgz
+ http://cn-mirror.openslr.org/resources/33/resource_aishell.tgz   
 
-primewords_md_2018_set1 : 100 小时 9.0G http://www.openslr.org/47/     
+primewords_md_2018_set1 : 100 小时 9.0G http://www.openslr.org/47/      
+ http://cn-mirror.openslr.org/resources/47/primewords_md_2018_set1.tar.gz
 
-aidatatang_200zh : 200小时 18G http://www.openslr.org/62/  http://cn-mirror.openslr.org/resources/62/aidatatang_200zh.tgz 它是数据堂1500小时开源音频的子集，需要高校和科研机构申请       
+aidatatang_200zh : 200小时 18G http://www.openslr.org/62/   它是数据堂1500小时开源音频的子集，需要高校和科研机构申请       
+ http://cn-mirror.openslr.org/resources/62/aidatatang_200zh.tgz
 
 MobvoiHotwords : 17G 用于关键字检索 我能不能用上还得试一下才知道，于是懒得翻译 另有220小时非关键字 as negative training samples, collected from the same smart speaker. keyword data,  there are about 36k utterances. All keyword data is collected from 788 subjects, ages 3-65, with different distances from the smart speaker (1, 3 and 5 meters). Different noises (typical home environment noises like music and TV) with varying sound pressure levels are played in the background during the collection. The keyword data is identical to the keyword data used in the paper : Region Proposal Network Based Small-Footprint Keyword Spotting. http://www.openslr.org/87/
 
