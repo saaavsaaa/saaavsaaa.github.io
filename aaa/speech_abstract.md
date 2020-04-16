@@ -28,4 +28,8 @@ P(w)，用前n-1个词预测第n个词，n一般取3、4，已知w0...w(l-1)，�
 
 
 Kaldi集群    
+小型集群：
 需要子任务进程对同一目录有读写权限，需要搭建网络文件系统(NFS),需要确保同一用户在不同机器上使用相同的UID和GID：id -u xxx和id -g xxx     
+完成NFS后，在要加入集群的机器上设置互相之间的免密登录，确认NFS的挂载点在所有机器上有相同的访问权限     
+大型集群：
+Kaldi支持：SGE(Sun Grid Engine) 和 SLURM(Simple Linux Utility for Resource Management)，默认用SGE，但书上推荐自己维护的读者使用SLURM。     
