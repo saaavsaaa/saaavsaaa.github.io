@@ -1,3 +1,5 @@
+sudo passwd user
+
 lsof -i:9999
 netstat -antp
 
