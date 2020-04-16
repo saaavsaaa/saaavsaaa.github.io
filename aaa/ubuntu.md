@@ -1,11 +1,11 @@
-conda deactivate     
-conda activate dl     
-ifconfig     
-source /etc/profile     
-chmod 755      
-fg
 lsof -i:9999
 netstat -antp
+
+sudo apt --fix-broken install
+chmod +x 
+ifconfig
+chmod 755 
+audacity
 
 sh Anaconda3-2019.10-Linux-x86_64.sh     
 conda install jupyter notebook         
