@@ -53,4 +53,12 @@ task.arpabo 语言模型
 prepare_lang.sh 生成语言文件夹 data/lang 存储了待识别的单词集、音素集等信息
 local/prepare_lm.sh 把语言模型构建成图   
 
-接下来是定义声学特征，它是训练声学模型的基础：   
+接下来是定义声学特征，它是训练声学模型的基础：执行完生成 feats.scp 记录了声学特征的存储位置   
+steps/make_mfcc.sh compute_cmvn_stats.sh utils/fix_data_dir.sh
+
+之后是声学模型训练和测试,steps/train_mono.sh   
+
+识别也叫解码steps/decode.sh，解码前需要构建状态图utils/mkgraph.sh   
+
+解码会使用不同的解码参数生成多个文件，WER有微小的差异，最后找到最好的结果   
+
