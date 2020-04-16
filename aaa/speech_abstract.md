@@ -53,4 +53,4 @@ task.arpabo 语言模型
 prepare_lang.sh 生成语言文件夹 data/lang 存储了待识别的单词集、音素集等信息
 local/prepare_lm.sh 把语言模型构建成图   
 
-
+接下来是定义声学特征，它是训练声学模型的基础：   
