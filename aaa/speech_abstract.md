@@ -33,3 +33,7 @@ Kaldi集群
 完成NFS后，在要加入集群的机器上设置互相之间的免密登录，确认NFS的挂载点在所有机器上有相同的访问权限     
 大型集群：
 Kaldi支持：SGE(Sun Grid Engine) 和 SLURM(Simple Linux Utility for Resource Management)，默认用SGE，但书上推荐自己维护的读者使用SLURM。     
+
+脚本解析：     
+utils/run.pl 这个Perl脚本的作用是用多任务执行某个程序，可以独立于Kaldi之外使用。在steps的train_mono.sh、decode.sh等很多脚本都可以通过cmd参数使用它。   
+utils/run.pl JOB=1:n(数字) /...(路径)/log.JOB.txt echo "This is a job JOB"     该命令同时执行n个echo命令，并发屏幕显示分别写入log.[1-n].txt这n个文本中     
