@@ -39,3 +39,18 @@ utils/run.pl 这个Perl脚本的作用是用多任务执行某个程序，可以
 utils/run.pl JOB=1:n(数字) /...(路径)/log.JOB.txt echo "This is a job JOB"     该命令同时执行n个echo命令，并发屏幕显示分别写入log.[1-n].txt这n个文本中     
 Kaldi提供了 run.pl、queue.pl 和 slurm.pl。     
 数据整理主要有两个目的，一是整理成Kaldi规范的数据文件夹格式；二是划分测试集和训练集。     
+每个句子被指定了一个唯一ID   
+wav.scp 记录每个ID的音频文件路径   
+text 记录每个ID的文本内容
+spk2utt 和 utt2spk 记录每个ID的说话人信息   
+还需要手工准备：   
+发音词典 lexicon.txt   
+lexicon_nosil.txt 和 lexicon类似，只是去掉了<SIL>   
+phones.txt 音素集，也可硬从lexicon.txt 文件中的所有音素去重得到   
+
+task.arpabo 语言模型   
+
+prepare_lang.sh 生成语言文件夹 data/lang 存储了待识别的单词集、音素集等信息
+local/prepare_lm.sh 把语言模型构建成图   
+
+
