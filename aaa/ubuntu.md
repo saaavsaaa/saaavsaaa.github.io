@@ -47,7 +47,7 @@ Ctrl+L 地址栏
 jobs -l
 nohup &
 jupyter notebook --generate-config --allow-root     
-/home/aaa/.jupyter/jupyter_notebook_config.py     
+vim /home/aaa/.jupyter/jupyter_notebook_config.py     
 nohup jupyter notebook --allow-root >/dev/null 2>&1 &     
 . /home/ubuntu/anaconda3/etc/profile.d/conda.sh     
 conda create -n       
