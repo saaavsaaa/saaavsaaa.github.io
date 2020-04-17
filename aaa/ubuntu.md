@@ -76,6 +76,11 @@ cd src/
 make depend -j 4   
 make -j 4   
 
+sudo ln -s /home/ubuntu/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh     
+echo "conda activate" >> ~/.bashrc     
+export PATH="/home/ubuntu/anaconda3/bin:$PATH"     
+https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=debnetwork     
+
 git clone https://github.com/kaldi-asr/kaldi.git kaldi-trunk --origin golden   
 cd kaldi-trunk/   
 git clone https://github.com/alibaba/Alibaba-MIT-Speech   
