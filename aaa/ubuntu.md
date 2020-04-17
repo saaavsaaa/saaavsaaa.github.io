@@ -1,13 +1,13 @@
 sudo passwd user
-
+find / -name    
 lsof -i:9999
 netstat -antp
 
-sudo apt --fix-broken install
-chmod +x 
-ifconfig
-chmod 755 
-audacity
+sudo apt --fix-broken install     
+chmod +x      
+ifconfig   
+chmod 755     
+audacity     
 
 sh Anaconda3-2019.10-Linux-x86_64.sh     
 conda install jupyter notebook         
@@ -24,6 +24,8 @@ pip install opencv-python
 pip install imageio     
 pip install imageio-ffmpeg     
 pip install moviepy     
+
+cat /usr/local/cuda/version.txt
 
 pip install tensorflow   : pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow     
 pip install torch torchvision     
@@ -115,8 +117,7 @@ lsof查看当前哪些进程打开哪些句柄，哪些文件被哪些进程占�
 pmap -d    
 
 chown -R jenkins:jenkins /var/build/
-
-find / -name rocketmq_console.tar   
+ 
 ps -auxww|grep usr|grep java   
 cat /proc/meminfo   
 free    
