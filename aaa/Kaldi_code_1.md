@@ -58,7 +58,33 @@
     utils/utt2spk_to_spk2utt.pl data/dev/utt2spk > data/dev/spk2utt   
     utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt    
 
-    cd data/test_phone && rm text &&  cp phone.txt text      # test_phone用于测试训练出的模型，对比识别结果和真实语句     
+    cd data/test_phone && rm text &&  cp phone.txt text      # test_phone用于测试训练出的模型，对比识别结果和真实语句  
+
+-----
+
+text:   
+A02_000 绿 是 阳春 烟 景 大块 文章 的 底色 四月 的 林 峦 更是 绿 得 鲜活 秀媚 诗意 盎然   
+A02_001 他 仅 凭 腰部 的 力量 在 泳道 上下 翻腾 蛹 动 蛇行 状 如 海豚 一直 以 一头 的 优势 领先   
+
+wav.scp:   
+A02_000 /home/ubuntu/github/DeepSpeechRecognition/data_thchs30/data_thchs30/train/A2_0.wav   
+A02_001 /home/ubuntu/github/DeepSpeechRecognition/data_thchs30/data_thchs30/train/A2_1.wav   
+
+utt2spk:   
+A02_000 A02   
+A02_001 A02   
+
+spk2utt:   
+A02 A02_033 A02_058 A02_085 A02_092 A02_103 A02_108 A02_116 A02_119 A02_167 A02_206   
+A04 A04_004 A04_010 A04_026 A04_048 A04_052 A04_074 A04_125 A04_140 A04_157 A04_182 A04_197 A04_204 A04_209 A04_210 A04_235 A04_240 A04_243   
+
+phone.txt:因素集   
+A02_033 vv v3 uu uang2 uu ui3 s iy4 p ing2 sh ix4 h uo4 ch e1 s iy1 j i1 d u4 d a4 p ing2 vv ve4 vv v4 j ie2 zh uang1 x ie4 g ong1 l iu2 ch un1 sh an1 ii i4 t ong2 zh ui1 g an3 t ao2 p ao3 d e5 aa an4 f an4   
+A02_058 t e4 b ie2 sh ix4 k ua4 sh eng3 q v1 d ian4 uu uang3 ch ao1 j i4 h ua4 ii iong4 d ian4 b u4 j in3 s un3 h ai4 z iy4 j i3 ii ie3 s un3 h ai4 b ie2 r en2 s un3 h ai4 d ian4 uu uang3 s un3 h ai4 g uo2 j ia1   
+
+word.txt:   
+A11_101 七十 年代 末 我 外出 求学 母亲 叮咛 我 吃饭 要 细嚼慢咽 学习 要 深 钻 细 研   
+A11_119 陈云 同志 同时 要求 干部 认真学习 业务 精通 业务 向 一切 业务 内 行人 学习   
 
 -----
 
