@@ -65,20 +65,30 @@
 text:   
 A02_000 绿 是 阳春 烟 景 大块 文章 的 底色 四月 的 林 峦 更是 绿 得 鲜活 秀媚 诗意 盎然   
 A02_001 他 仅 凭 腰部 的 力量 在 泳道 上下 翻腾 蛹 动 蛇行 状 如 海豚 一直 以 一头 的 优势 领先   
+shell1:   
+BAC009S0724W0121     广州  市  房地  产中  介  协会  分析     
+BAC009S0724W0122     广州  市  房地  产中  介  协会  还  表示    
 
 wav.scp:   
 A02_000 /home/ubuntu/github/DeepSpeechRecognition/data_thchs30/data_thchs30/train/A2_0.wav   
 A02_001 /home/ubuntu/github/DeepSpeechRecognition/data_thchs30/data_thchs30/train/A2_1.wav   
+shell1:   
+BAC009S0724W0121 /export1/data/data_aishell/wav/dev/S0724/BAC009S0724W0121.wav   
+BAC009S0724W0122 /export1/data/data_aishell/wav/dev/S0724/BAC009S0724W0122.wav   
 
 utt2spk:   
 A02_000 A02   
 A02_001 A02   
+shell1:   
+BAC009S0724W0121 S0724   
+BAC009S0724W0122 S0724   
 
 spk2utt:   
 A02 A02_033 A02_058 A02_085 A02_092 A02_103 A02_108 A02_116 A02_119 A02_167 A02_206   
 A04 A04_004 A04_010 A04_026 A04_048 A04_052 A04_074 A04_125 A04_140 A04_157 A04_182 A04_197 A04_204 A04_209 A04_210 A04_235 A04_240 A04_243   
+shell1:S0724 BAC009S0724W0121 BAC009S0724W0122 BAC009S0724W0123 BAC009S0724W0124 BAC009S0724W0125 BAC009S0724W0126 BAC009S0724W0127 BAC009S0724W0128 BAC009S0724W0129 BAC009S0724W0130 BAC009S0724W0131 BAC009S0724W0132 BAC009S0724W0133 BAC009S0724W0134   
 
-phone.txt:因素集   
+phone.txt:因素集可从lexicon去重   
 A02_033 vv v3 uu uang2 uu ui3 s iy4 p ing2 sh ix4 h uo4 ch e1 s iy1 j i1 d u4 d a4 p ing2 vv ve4 vv v4 j ie2 zh uang1 x ie4 g ong1 l iu2 ch un1 sh an1 ii i4 t ong2 zh ui1 g an3 t ao2 p ao3 d e5 aa an4 f an4   
 A02_058 t e4 b ie2 sh ix4 k ua4 sh eng3 q v1 d ian4 uu uang3 ch ao1 j i4 h ua4 ii iong4 d ian4 b u4 j in3 s un3 h ai4 z iy4 j i3 ii ie3 s un3 h ai4 b ie2 r en2 s un3 h ai4 d ian4 uu uang3 s un3 h ai4 g uo2 j ia1   
 
