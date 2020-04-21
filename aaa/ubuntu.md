@@ -95,6 +95,8 @@ cp -r ../../../s5/exp/tri5a .
 cd ../..
 bash run.sh 
 cp ../../thchs30/online_demo_tri4b_ali/online-data.tar.bz2 .
+cp online-data/models/tri3a/graph/words.txt online-data/models/tri3a
+cp online-data/models/tri3a/graph/HCLG.fst online-data/models/tri3a
 
 sudo ln -s /home/ubuntu/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh     
 echo "conda activate" >> ~/.bashrc     
