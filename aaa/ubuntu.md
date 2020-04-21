@@ -1,4 +1,4 @@
-sudo passwd user
+sudo passwd user   
 find / -name    
 lsof -i:9999
 netstat -antp
