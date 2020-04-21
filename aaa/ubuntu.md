@@ -76,6 +76,26 @@ cd src/
 make depend -j 4   
 make -j 4   
 
+mkdir online
+cd online/
+cd ..
+cp ../voxforge/online_demo/run.sh online/
+cd online/
+mkdir online-data
+mkdir work
+cd online-data/
+mkdir audio
+mkdir models
+cd models/
+cp -r ../../../s5/exp/tri1 .
+cp -r ../../../s5/exp/tri2 .
+cp -r ../../../s5/exp/tri3a .
+cp -r ../../../s5/exp/tri4a .
+cp -r ../../../s5/exp/tri5a .
+cd ../..
+bash run.sh 
+cp ../../thchs30/online_demo_tri4b_ali/online-data.tar.bz2 .
+
 sudo ln -s /home/ubuntu/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh     
 echo "conda activate" >> ~/.bashrc     
 export PATH="/home/ubuntu/anaconda3/bin:$PATH"     
