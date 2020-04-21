@@ -62,3 +62,16 @@ steps/make_mfcc.sh compute_cmvn_stats.sh utils/fix_data_dir.sh
 
 解码会使用不同的解码参数生成多个文件，WER有微小的差异，最后找到最好的结果   
 
+多数示例默认用sge集群 queue.pl   
+
+单机 run.pl    
+
+配置了 NFS 和免密登录，可以使用 ssh.pl 进行任务分发，需要在训练环境目录创建 .queue 文件夹没在其中创建 machines 文件，将要使用的机器名写在里面：   
+$ cat  .queue/machines   
+a01   
+a02   
+a03   
+
+SLURM集群 slurm.pl   
+
+
