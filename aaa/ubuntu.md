@@ -1,3 +1,4 @@
+sudo -i   
 sudo passwd user   
 find / -name    
 lsof -i:9999
