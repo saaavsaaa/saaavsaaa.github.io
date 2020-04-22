@@ -9,6 +9,7 @@ ifconfig
 chmod 755     
 audacity     
 
+vim /etc/apt/sources-list
 sh Anaconda3-2019.10-Linux-x86_64.sh     
 conda install jupyter notebook         
 conda install tensorflow     
