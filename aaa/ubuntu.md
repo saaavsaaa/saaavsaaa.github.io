@@ -65,6 +65,7 @@ sudo apt-get install automake
 sudo apt-get install autoconf     
 sudo apt-get install libtool     
 sudo apt-get install g++     
+If you really want to use python 3.7.6 as default, add an empty file /export1/kaldi/tools/python/.use_default_python and run this script again   
 cd kaldi-trunk/     
 cd tools/     
 extras/check_dependencies.sh     
