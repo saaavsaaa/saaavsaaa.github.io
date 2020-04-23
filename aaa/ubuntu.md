@@ -78,6 +78,21 @@ cd src/
 make depend -j 4   
 make -j 4   
 
+extras/install_mkl.sh   
+sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak   
+vim /etc/apt/sources.list   
+
+deb http://http.kali.org/kali kali-rolling main contrib non-free
+deb http://old.kali.org/kali sana main non-free contrib
+
+sudo apt-key add archive-key.asc   
+sudo wget https://archive.kali.org/archive-key.asc   
+cat /etc/apt/apt.conf  apt代理   
+sudo apt install gnutls-bin   
+gnutls-cli -V -p 443 apt.repos.intel.com   
+apt policy apt-transport-https   
+docs.kali.org/general-use/kali-linux-sources-list-repositories   
+
 mkdir online
 cd online/
 cd ..
