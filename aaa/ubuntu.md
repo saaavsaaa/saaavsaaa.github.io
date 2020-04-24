@@ -1,6 +1,6 @@
 sudo -i   
 sudo passwd user   
-find / -name    
+find / -name *    
 lsof -i:9999
 netstat -antp   
 df -h   
@@ -10,6 +10,64 @@ chmod +x
 ifconfig   
 chmod 755     
 audacity     
+
+cat /etc/sysctl.conf可修改   
+cat /proc/sys/fs/file-nr   
+cat /proc/sys/fs/file-max   
+
+grep error -m 10 === grep error  | head -10   
+grep -v 排除   
+grep -r "DataSourceActionInterceptor" *   
+cat /proc/(pid)/status   
+top命令下按f键   
+sysctl -a | grep fs.file-max最大文件描述符   
+ulimit -n查看单进程最大文件描述符   
+ulimit -n d更改为d   
+ulimit -a查看限制   
+lsof查看当前哪些进程打开哪些句柄，哪些文件被哪些进程占用   
+
+pmap -d    
+mkdir   
+rm -rf   
+
+tail -f    
+tail -fn 500 nohup.out
+chown -R jenkins:jenkins /var/build/
+ 
+ps -auxww|grep usr|grep java   
+cat /proc/meminfo   
+free    
+ll -h /proc/kcore    
+/proc/meminfo 机器的内存使用信息   
+statm 进程所占用的内存   
+hostname -i    
+netstat -anp | grep 6379   
+netstat -tlnp   
+
+tar zxvf     
+sudo tar zcvf aaa.tar.gz aaa/ 
+source /etc/profile   
+
+| more   
+ls -alt   
+
+sort -u test1 同 sort test1 | uniq 排序后去重     
+basename [pathname] 不加后缀可去除路径 basename /tmp/test/file.txt   :   file.txt       
+basename [string] [suffix] 加后缀同时去除路径和后缀 basename /tmp/test/file.txt .txt    :   file   
+nl 输出内容加行号
+awk -F"_" '{print "" $1}' 以_为分隔符，打印第一项
+
+http://www.ruanyifeng.com/blog/2019/08/xargs-tutorial.html
+xargs命令的作用，是将标准输入转为命令行参数     echo "one two three" | xargs mkdir    同   mkdir one two three创建三个目录，如果要创建一个可以 -d 加分隔符  xargs -d "\t"    
+-p参数打印出要执行的命令，询问用户是否要执行    
+-t参数打印出最终要执行的命令，然后直接执行，不需要用户确认     
+-0参数表示用null当作分隔符     
+-L参数指定多少行作为一个命令行参数   
+-n参数指定每次将多少项，作为命令行参数   
+-I指定每一项命令行参数的替代字符串   
+--max-procs参数指定同时用多少个进程并行执行命令     
+xargs [-options] [command]      
+$ xargs 等同于 $ xargs echo    $ xargs find -name "*.txt"    :   ./foo.txt。。。   
 
 vim /etc/apt/sources-list   
 sh Anaconda3-2019.10-Linux-x86_64.sh     
@@ -142,69 +200,9 @@ make ext
 cd ../egs/yesno/s5/   
 ./run.sh   
   
-mkdir   
-rm -rf   
-ps -ef | grep tomcat   
-
-git reset HEAD +文件名 取消add    
-
-tail -f    
-tail -fn 500 nohup.out   
-
-cat /etc/sysctl.conf可修改   
-cat /proc/sys/fs/file-nr   
-cat /proc/sys/fs/file-max   
-sysctl -a | grep fs.file-max最大文件描述符   
-ulimit -n查看单进程最大文件描述符   
-ulimit -n d更改为d   
-ulimit -a查看限制   
-lsof查看当前哪些进程打开哪些句柄，哪些文件被哪些进程占用   
-
-pmap -d    
-
-chown -R jenkins:jenkins /var/build/
- 
-ps -auxww|grep usr|grep java   
-cat /proc/meminfo   
-free    
-ll -h /proc/kcore    
-/proc/meminfo 机器的内存使用信息   
-statm 进程所占用的内存   
-hostname -i    
-netstat -anp | grep 6379   
-netstat -tlnp   
-
-| more   
-| head -10   
-
-grep error -m 10 === grep error  | head -10   
-grep -v 排除   
-grep -r "DataSourceActionInterceptor" *   
-cat /proc/(pid)/status   
-top命令下按f键   
-
-ls -alt   
-
-sort -u test1 同 sort test1 | uniq 排序后去重     
-basename [pathname] 不加后缀可去除路径 basename /tmp/test/file.txt   :   file.txt       
-basename [string] [suffix] 加后缀同时去除路径和后缀 basename /tmp/test/file.txt .txt    :   file   
-nl 输出内容加行号
-awk -F"_" '{print "" $1}' 以_为分隔符，打印第一项
-
-http://www.ruanyifeng.com/blog/2019/08/xargs-tutorial.html
-xargs命令的作用，是将标准输入转为命令行参数     echo "one two three" | xargs mkdir    同   mkdir one two three创建三个目录，如果要创建一个可以 -d 加分隔符  xargs -d "\t"    
--p参数打印出要执行的命令，询问用户是否要执行    
--t参数打印出最终要执行的命令，然后直接执行，不需要用户确认     
--0参数表示用null当作分隔符     
--L参数指定多少行作为一个命令行参数   
--n参数指定每次将多少项，作为命令行参数   
--I指定每一项命令行参数的替代字符串   
---max-procs参数指定同时用多少个进程并行执行命令     
-xargs [-options] [command]      
-$ xargs 等同于 $ xargs echo    $ xargs find -name "*.txt"    :   ./foo.txt。。。     
-
-
-source /etc/profile   
+ps -ef | grep tomcat      
+| head -10  
+git reset HEAD +文件名 取消add      
 
 git commit
 put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
@@ -212,10 +210,7 @@ put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
 git init
 git remote add origin
 git branch --set-upstream-to=origin/master
-git pull origin master --allow-unrelated-histories
-
-tar zxvf     
-sudo tar zcvf aaa.tar.gz aaa/   
+git pull origin master --allow-unrelated-histories  
 
 sh mqshutdown namesrv
 sh mqshutdown broker
