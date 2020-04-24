@@ -2,7 +2,7 @@ sudo -i
 sudo passwd user   
 find / -name    
 lsof -i:9999
-netstat -antp
+netstat -antp   
 df -h   
 
 sudo apt --fix-broken install     
