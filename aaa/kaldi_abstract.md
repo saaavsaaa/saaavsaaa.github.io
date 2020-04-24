@@ -32,7 +32,19 @@ P(w)，用前n-1个词预测第n个词，n一般取3、4，已知w0...w(l-1)，�
 需要子任务进程对同一目录有读写权限，需要搭建网络文件系统(NFS),需要确保同一用户在不同机器上使用相同的UID和GID：id -u xxx和id -g xxx     
 完成NFS后，在要加入集群的机器上设置互相之间的免密登录，确认NFS的挂载点在所有机器上有相同的访问权限     
 大型集群：
-Kaldi支持：SGE(Sun Grid Engine) 和 SLURM(Simple Linux Utility for Resource Management)，默认用SGE，但书上推荐自己维护的读者使用SLURM。     
+Kaldi支持：SGE(Sun Grid Engine) 和 SLURM(Simple Linux Utility for Resource Management)，默认用SGE，但书上推荐自己维护的读者使用SLURM。  
+
+多数示例默认用sge集群 queue.pl   
+
+单机 run.pl    
+
+配置了 NFS 和免密登录，可以使用 ssh.pl 进行任务分发，需要在训练环境目录创建 .queue 文件夹没在其中创建 machines 文件，将要使用的机器名写在里面：   
+$ cat  .queue/machines   
+a01   
+a02   
+a03   
+
+SLURM集群 slurm.pl   
 
 ### 脚本解析：     
 utils/run.pl 这个Perl脚本的作用是用多任务执行某个程序，可以独立于Kaldi之外使用。在steps的train_mono.sh、decode.sh等很多脚本都可以通过cmd参数使用它。   
@@ -61,18 +73,6 @@ steps/make_mfcc.sh compute_cmvn_stats.sh utils/fix_data_dir.sh
 识别也叫解码steps/decode.sh，解码前需要构建状态图utils/mkgraph.sh   
 
 解码会使用不同的解码参数生成多个文件，WER有微小的差异，最后找到最好的结果   
-
-多数示例默认用sge集群 queue.pl   
-
-单机 run.pl    
-
-配置了 NFS 和免密登录，可以使用 ssh.pl 进行任务分发，需要在训练环境目录创建 .queue 文件夹没在其中创建 machines 文件，将要使用的机器名写在里面：   
-$ cat  .queue/machines   
-a01   
-a02   
-a03   
-
-SLURM集群 slurm.pl   
 
 local 包含用于处理当前示例数据的脚本、识别测试的脚本及除 GMM 训练外其他训练步骤的脚本   
 
