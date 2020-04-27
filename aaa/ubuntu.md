@@ -45,7 +45,7 @@ netstat -anp | grep 6379
 netstat -tlnp   
 
 tar zxvf     
-sudo tar zcvf aaa.tar.gz aaa/ 
+sudo tar zcvf aaa.tar.gz aaa/    
 source /etc/profile   
 
 | more   
