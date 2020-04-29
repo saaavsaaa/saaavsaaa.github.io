@@ -31,7 +31,7 @@ mkdir
 rm -rf   
 
 tail -f    
-tail -fn 500 nohup.out
+tail -fn 500 nohup.out     
 chown -R jenkins:jenkins /var/build/
  
 ps -auxww|grep usr|grep java   
