@@ -120,7 +120,8 @@ keyboard--navigation--switch to workspace above & below 快捷键
 
 slurmctld -Dvvv   
 slurmd -Dvvv   
-
+scontrol show partition   
+scontrol show node ...2,...3   
 
 git clone https://github.com/kaldi-asr/kaldi.git kaldi-trunk --origin golden    
 sudo apt-get install automake     
