@@ -118,6 +118,10 @@ sudo mount -t cifs //10.10.19.37/share ~/share -o iocharset=utf8,username=lidong
 sudo apt install ubuntu-unity-desktop     
 keyboard--navigation--switch to workspace above & below 快捷键     
 
+slurmctld -Dvvv   
+slurmd -Dvvv   
+
+
 git clone https://github.com/kaldi-asr/kaldi.git kaldi-trunk --origin golden    
 sudo apt-get install automake     
 sudo apt-get install autoconf     
