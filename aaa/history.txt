@@ -1,0 +1,1000 @@
+  281  git apply --stat Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+  282  git apply --check Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+  283  git am --signoff < Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+  284  git config --global user.email "draculav@hotmail.com"
+  285  git am --signoff < Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+  286  cd ..
+  287  rm -rf kaldi-trunk/
+  288  ll
+  289  sftp aaa@10.10.19.94
+  290  cd kaldi-trunk/
+  291  git checkout 04b1f7d6658bc035df93d53cb424edc127fab819
+  292  git apply --stat Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+  293  git apply --check Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+  294  git am --signoff < Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+  295  cd tools/
+  296  extras/check_dependencies.sh
+  297  make -j 4
+  298  rm -rf kaldi-trunk/
+  299  cd ../cc
+  300  cd ../..
+  301  rm -rf kaldi-trunk/
+  302  ls
+  303  cd kaldi-ali/
+  304  cp -r kaldi-trunk/ /export1/
+  305  ll
+  306  cd ..
+  307  ll
+  308  cd trunk-kaldi/
+  309  cd egs/thchs30/online_demo_tri4b_ali/
+  310  bash run.sh 
+  311  cd /export1/
+  312  cd trunk-kaldi/
+  313  cd tools/
+  314  extras/check_dependencies.sh
+  315  make -j 4
+  316  cd ../src
+  317  ./configure --shared
+  318  make depend -j 4
+  319  make -j 4
+  320  make ext
+  321  cd ../egs/thchs30/online_demo_tri4b_ali/
+  322  bash run.sh 
+  323  cd ../..
+  324  mv thchs30 thchs30_bak
+  325  sftp aaa@10.10.19.94
+  326  ll
+  327  sftp aaa@10.10.19.94
+  328  cd thchs30
+  329  cd s5/
+  330  sh run.sh 
+  331  cd /export1/trunk-kaldi/tools/
+  332  extras/check_dependencies.sh
+  333  extras/install_mkl.sh
+  334  make -j 4
+  335  cd ../src
+  336  ./configure --shared
+  337  make depend -j 4
+  338  make -j 4
+  339  cd ../egs/thchs30/s5/
+  340  sh run.sh 
+  341  cd /export1/trunk-kaldi/src/
+  342  make ext
+  343  history
+  344  cd ../egs/thchs30/s5/
+  345  ls
+  346  cd ../..
+  347  rm -rf thchs30
+  348  sftp aaa@10.10.19.94
+  349  cd thchs30
+  350  ll
+  351  cd s5/
+  352  ll
+  353  history
+  354  cd /export1/trunk-kaldi/tools/
+  355  extras/check_dependencies.sh
+  356  extras/install_mkl.sh
+  357  make -j 4
+  358  cd ../src
+  359  ./configure --shared
+  360  make depend -j 4
+  361  history
+  362  make -j 4
+  363  make ext
+  364  cd ../egs/
+  365  cp -r wsj/s5/steps/ thchs30/s5/
+  366  cp -r wsj/s5/utils thchs30/s5/
+  367  cd thchs30
+  368  cd s5/
+  369  sh run.sh 
+  370  cd /export1/
+  371  cd kaldi-ali/
+  372  cd kaldi-trunk/egs/
+  373  grep -r 'http://www.openslr.org/' .
+  374  grep -r 'http://www.openslr.org/' . > openslr.txt
+  375  history | grep ssh
+  376  cd /export1/kaldi-ali/kaldi-trunk/egs/
+  377  ssh aaa@10.10.19.94
+  378  history
+  379  sftp aaa@10.10.19.94
+  380  cd /export1/trunk-kaldi/egs/thchs30/s5/exp/
+  381  history
+  382  df -h
+  383  cd ../../online_demo_tri4b_ali/online-data/models/
+  384  ll
+  385  rm -rf tri1
+  386  ll
+  387  rm -rf tri2b/
+  388  rm -rf tri3b/
+  389  rm -rf tri4b
+  390  ll
+  391  cp -r ../../../s5/exp/tri1 .
+  392  ll
+  393  cp -r ../../../s5/exp/tri2b .
+  394  cp -r ../../../s5/exp/tri3b .
+  395  cp -r ../../../s5/exp/tri4b .
+  396  ll
+  397  cd ..
+  398  ll
+  399  cd ..
+  400  bash run.sh 
+  401  cd /export1/
+  402  history
+  403  df -h
+  404  mv trunk-kaldi/ /usr/bak/
+  405  df -h
+  406  cd kaldi-ali/kaldi-trunk/egs/thchs30/s5/
+  407  cd ../online_demo_tri4b_ali/
+  408  bash run.sh 
+  409  cp online-data/audio/cv4.wav /usr/bak/trunk-kaldi/egs/thchs30/online_demo_tri4b_ali/online-data/audio/
+  410  cd /usr/bak/trunk-kaldi/egs/thchs30/online_demo_tri4b_ali/online-data/audio/
+  411  cd ../..
+  412  bash run.sh 
+  413  cd /usr/bak/trunk-kaldi
+  414  cd tools/
+  415  make -j 4
+  416  cd ../src
+  417  ./configure --shared
+  418  make depend -j 4
+  419  make -j 4
+  420  make ext
+  421  history
+  422  cd /usr/bak/trunk-kaldi/egs/thchs30/online_demo_tri4b_ali
+  423  bash run.sh 
+  424  cd /export1/
+  425  git clone https://github.com/co-develop-drv/jupyter_collect_code.git
+  426  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  427  cd v1/
+  428  bash run.sh 
+  429  bg
+  430  fg
+  431  history
+  432  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  433  cd v1/
+  434  bash run.sh 
+  435  pwd
+  436  cd /export1/
+  437  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  438  cd v1/
+  439  bash run.sh 
+  440  bg
+  441  cd /export1/
+  442  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  443  cd v1/
+  444  bash run.sh 
+  445  cd /export1/
+  446  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  447  cd s5/
+  448  bash run.sh 
+  449  nohup bash run.sh &
+  450  tail -f nohup.out 
+  451  bg
+  452  ps -aux | grep "run.sh"
+  453  cd ../../..
+  454  sh tools/extra/install_kaldi_lm.sh
+  455  bash tools/extra/install_kaldi_lm.shtools/extra/install_kaldi_lm.sh
+  456  cd tools/extras/
+  457  ll
+  458  sh install_kaldi_lm.sh 
+  459  bash install_kaldi_lm.sh 
+  460  sftp aaa@10.10.19.94
+  461  bash install_kaldi_lm.sh 
+  462  ll
+  463  chmod 777 kaldi_lm.tar.gz 
+  464  bash install_kaldi_lm.sh 
+  465  tar -xvzf kaldi_lm.tar.gz 
+  466  bash install_kaldi_lm.sh 
+  467  sh install_kaldi_lm.sh 
+  468  bash install_kaldi_lm.sh 
+  469  cd ..
+  470  bash extras/install_kaldi_lm.sh 
+  471  source tools/env.sh
+  472  ll tools/env.sh
+  473  source env.sh 
+  474  history
+  475  cd /export1/
+  476  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  477  cd s5/
+  478  nohup bash run.sh &
+  479  tail -f nohup.out 
+  480  ps -aux | grep 'run.sh'
+  481  tail -f nohup.out 
+  482  cd /export1/
+  483  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  484  cd s5/
+  485  tail -f nohup.out 
+  486  ps -aux | grep 'run.sh'
+  487  tail -f nohup.out 
+  488  tail -f nohup.out 
+  489  ll
+  490  df -h
+  491  git config --global http.proxy 'http://10.8.16.17:3128'
+  492  git config --global https.proxy 'http://10.8.16.17:3128/'
+  493  git config --global http.proxy 'http://10.8.16.17:3128/'
+  494  ll
+  495  ll -a
+  496  ll -a
+  497  ls -a
+  498  vim .gitconfig 
+  499  vim .gitconfig 
+  500  exit
+  501  ll
+  502  vim .wgetrc
+  503  vim .bashrc 
+  504  vim .profile 
+  505  grep ll ./ -R
+  506  ll
+  507  wget www.baidu.com/index.php
+  508  vim .wgetrc 
+  509  wget www.baidu.com/index.php
+  510  ll
+  511  rm index.php 
+  512  ll
+  513  cd .local/
+  514  ll
+  515  cd ..
+  516  vim .profile 
+  517  vim .bashrc 
+  518  ll
+  519  vim .bashrc 
+  520  l
+  521  exit
+  522  history
+  523  cd /export1/
+  524  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  525  history | grep onlinew
+  526  history | grep online
+  527  mkdir online
+  528  ll
+  529  history
+  530  cd online/
+  531  cd ..
+  532  cp ../voxforge/online_demo/run.sh online/
+  533  cd online/
+  534  ll
+  535  mkdir online-data
+  536  mkdir work
+  537  cd online-data/
+  538  mkdir audio
+  539  mkdir models
+  540  cp /export1/kaldi-ali/kaldi-trunk/egs/thchs30/online_demo_tri4b_ali/online-data/audio/* audio/
+  541  history | grep 'cp'
+  542  cd models/
+  543  cp -r ../../../s5/exp/tri1 .
+  544  cp -r ../../../s5/exp/tri2 .
+  545  cp -r ../../../s5/exp/tri3a .
+  546  cp -r ../../../s5/exp/tri4a .
+  547  cp -r ../../../s5/exp/tri5a .
+  548  cd ../..
+  549  ll
+  550  bash run.sh 
+  551  cp ../../thchs30/online_demo_tri4b_ali/online-data.tar.bz2 .
+  552  ll
+  553  history
+  554  bash run.sh 
+  555  cp online-data/models/tri1/graph/words.txt online-data/models/tri1
+  556  cp online-data/models/tri1/graph/HCLG.fst online-data/models/tri1
+  557  bash run.sh 
+  558  cp online-data/models/tri3a/graph/HCLG.fst online-data/models/tri3a
+  559  cp online-data/models/tri3a/graph/words.txt online-data/models/tri3a
+  560  bash run.sh 
+  561  echo "" > online-data/audio/trans.txt 
+  562  cat online-data/audio/trans.txt 
+  563  bash run.sh 
+  564  sudo find / -name gmm-latgen-faster
+  565  bash run.sh 
+  566  sudo find / -name online2-wav-nnet3-latgen-faster
+  567  cd ../../
+  568  grep -r online2-wav-nnet3-latgen-faster *
+  569  sudo find / -name run.pl
+  570  sudo find / -name slurm.conf
+  571  cd ..
+  572  cd tools/
+  573  make -j 4
+  574  cd ../src
+  575  ./configure --shared
+  576  make depend -j 4
+  577  make -j 4
+  578  make ext
+  579  cd ~
+  580  git clone https://github.com/saaavsaaa/rocketmq-console.git
+  581  history
+  582  cd /export1/
+  583  cd kaldi-ali/kaldi-trunk/egs/aishell/
+  584  cd online/
+  585  bash run.sh 
+  586  cd /export1/
+  587  ll
+  588  git clone https://github.com/kaldi-asr/kaldi.git
+  589  cd kaldi
+  590  ll
+  591  cd tools/
+  592  extras/check_dependencies.sh
+  593  sudo apt-get install unzip sox gfortran
+  594  extras/check_dependencies.sh
+  595  extras/install_mkl.sh
+  596  pwd
+  597  cd ../../..
+  598  cd export1/
+  599  wget http://10.10.19.37:9999/edit/kaldi/egs/wsj/s5/utils/parallel/slurm.pl
+  600  ll
+  601  cat slurm.pl 
+  602  cd kaldi
+  603  cd tools/
+  604  exit
+  605  cat /etc/netplan/50-cloud-init.yaml 
+  606  vim /etc/netplan/50-cloud-init.yaml 
+  607  free
+  608  df -h
+  609  ll
+  610  ll -a
+  611  ll
+  612  df -h
+  613  df -h|grep sda
+  614  df -h|grep sd
+  615  ls
+  616  ll
+  617  ll -a
+  618  cat .wgetrc 
+  619  cat .gitconfig 
+  620  cat /etc/apt/apt.conf
+  621  cat /proc/cpuinfo 
+  622  exit
+  623  sudo vim /etc/apt/apt.conf
+  624  sudo -i
+  625  exit
+  626  cat /etc/apt/apt.conf
+  627  exit
+  628  cat .gitconfig 
+  629  cat .wget
+  630  cat .wgetrc 
+  631  exit
+  632  cd /export1/kaldi-ali/kaldi-trunk/egs/thchs30/online_demo_tri4b_ali/
+  633  bash run.sh
+  634  cd /export1/
+  635  cd kaldi-ali/kaldi-trunk/egs/aishell/online
+  636  bash aaa.sh 
+  637  cd /export1/
+  638  cd kaldi-ali/kaldi-trunk/egs/aishell/online/
+  639  cd /export1/
+  640  cd kaldi-ali/kaldi-trunk/egs/aishell/online/
+  641  bash decode1-3.sh 
+  642  ll online-data/require/.backup/
+  643  bash decode1-3.sh 
+  644  bash aaa.sh 
+  645  cd ../s5/utils/filter_scps.pl ./utils/
+  646  cp ../s5/utils/filter_scps.pl ./utils/
+  647  bash aaa.sh 
+  648  cat ../s5/exp/tri5a/trans.1 
+  649  cat ../s5/exp/tri5a/tree
+  650  cp ../exp/tri5a/tree result/
+  651  cp ../s5/exp/tri5a/tree result/
+  652  bash aaa.sh 
+  653  rm -rf exp/
+  654  rm -rf data/
+  655  cd ../s5/
+  656  steps/decode_fmllr.sh --cmd "run.pl" --nj 1 --config conf/decode.config exp/tri5a/graph data/dev exp/tri5a/decode_dev
+  657  cd ../online/
+  658  bash decode45a.sh 
+  659  bash decode1-3.sh 
+  660  bash decode45a.sh 
+  661  history
+  662  bash decode45a.sh 
+  663  bash decode1-3.sh 
+  664  bash decode45a.sh 
+  665  sox
+  666  cd /export1/
+  667  cd kaldi-ali/kaldi-trunk/egs/aishell/online/online-data/audio/
+  668  sox a1.wav -b 16 aa1.wav
+  669  sox aa1.wav -r 16000 a1.wav
+  670  top
+  671  cd /export1/
+  672  cd data_thchs30/data_thchs30/
+  673  ll
+  674  cd data/
+  675  ls
+  676  cp D6_* /export1/kaldi-ali/kaldi-trunk/egs/aishell/online/online-data/audio/
+  677  cd /export1/kaldi-ali/kaldi-trunk/egs/aishell/online/online-data/audio/
+  678  ll
+  679  history
+  680  rm *.trn
+  681  ll
+  682  cd ../..
+  683  bash decode45a.sh 
+  684  cd /export1/
+  685  cd kaldi
+  686  ll
+  687  cd windows/
+  688  ll
+  689  cd ../tools/
+  690  extras/install_mkl.sh
+  691  extras/check_dependencies.sh
+  692  extras/install_mkl.sh
+  693  sudo extras/install_mkl.sh
+  694  cd /etc/apt/sources.list.d
+  695  ls
+  696  sudo rm intel-mkl.list 
+  697  cd /export1/kaldi/tools/
+  698  extras/install_mkl.sh
+  699  sudo apt-get upgrade
+  700  extras/install_mkl.sh
+  701  cat /etc/apt/sources.list.d/intel-mkl.list 
+  702  cat /usr/share/keyrings/intel-sw-products.gpg
+  703  cat /etc/apt/sources.list
+  704  vim /etc/apt/sources-list
+  705  vim /etc/apt/sources.list
+  706  sudo vim /etc/apt/sources.list
+  707  extras/install_mkl.sh
+  708  sudo rm /etc/apt/sources.list.d/intel-mkl.list 
+  709  extras/install_mkl.sh
+  710  sudo gpg --keyserver keyserver.ubuntu.com --recv 5523BAEEB01FA116
+  711  sudo gpg --keyserver keyserver.ubuntu.com --recv ED444FF07D8D0BF6
+  712  wget -q -O - https://archive.kali.org/archive-key.asc | apt-key add
+  713  sudo wget -q -O - https://archive.kali.org/archive-key.asc | apt-key add
+  714  su -
+  715  sudo -i
+  716  sudo wget -q -O - https://archive.kali.org/archive-key.asc
+  717  sudo apt-key update
+  718  sudo wget-O - https://archive.kali.org/archive-key.asc
+  719  sudo wget -O - https://archive.kali.org/archive-key.asc
+  720  ll
+  721  cd ..
+  722  ll
+  723  cd ..
+  724  ll
+  725  sudo wget -O - https://archive.kali.org/archive-key.asc
+  726  sudo wget https://archive.kali.org/archive-key.asc
+  727  ll
+  728  sudo apt-key add archive-key.asc 
+  729  cd kaldi/tools/
+  730  extras/install_mkl.sh
+  731  history
+  732  sudo extras/install_mkl.sh
+  733  vim /etc/apt/sources-list
+  734  vim /etc/apt/sources.list
+  735  sudo vim /etc/apt/sources.list
+  736  mv /etc/apt/sources.list /etc/apt/sources.list.bak
+  737  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+  738  touch /etc/apt/sources.list
+  739  sudo touch /etc/apt/sources.list
+  740  sudo vim /etc/apt/sources.list
+  741  source deb http://http.kali.org/kali kali-rolling main contrib non-free 
+  742  source /etc/apt/sources.list
+  743  sudo extras/install_mkl.sh
+  744  cat /etc/apt/apt.conf
+  745  gnutls-cli -V -p 443 https://apt.repos.intel.com/mkl
+  746  sudo apt install gnutls-bin
+  747  gnutls-cli -V -p 443 https://apt.repos.intel.com/mkl
+  748  gnutls-cli -V -p 443 apt.repos.intel.com
+  749  apt policy apt-transport-https
+  750  cat /etc/apt/apt.conf
+  751  sudo extras/install_mkl.sh
+  752  history
+  753  extras/check_dependencies.sh
+  754  make -j 4  
+  755  cd ../src/
+  756  ./configure --shared
+  757  make depend -j 4
+  758  make -j 4
+  759  make ext
+  760  cd ../egs/yesno/s5/
+  761  ./run.sh 
+  762  find /export1/kaldi/ -name gmm-latgen-faster
+  763  gmm-latgen-faster
+  764  /export1/kaldi/src/gmmbin/gmm-latgen-faster
+  765  /export1/kaldi/src/gmmbin/gmm-latgen-faster --help
+  766  cd /export1/
+  767  sudo apt-get install munge
+  768  history
+  769  sudo rm /etc/apt/sources.list
+  770  mv /etc/apt/sources.list.bak /etc/apt/sources.list
+  771  sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list
+  772  cat /etc/apt/sources.list
+  773  sudo apt-get install munge
+  774  cd kaldi/egs/aishell
+  775  cp -r /export1/kaldi-ali/kaldi-trunk/egs/aishell/online .
+  776  ll
+  777  cd online/
+  778  bash run.sh 
+  779  cd ..
+  780  rm -rf online/
+  781  ll
+  782  cd /export1/
+  783  sudo apt-get remove munge
+  784  sudo apt-get install munge
+  785  sudo apt-get install libmunge2
+  786  sudo apt-get install munge
+  787  sudo apt-get update
+  788  sudo apt-get install munge
+  789  sudo apt-get remove libmunge2
+  790  sudo apt-get install munge
+  791  df -h
+  792  find / -name munge
+  793  sudo find / -name munge
+  794  service munge start
+  795  cd kaldi-ali/kaldi-trunk/egs/aishell/online/
+  796  bash aaa.sh 
+  797  sudo find / -name munge
+  798  sudo /usr/sbin/create-munge-key
+  799  cat /etc/munge/munge.key
+  800  sudo cat /etc/munge/munge.key
+  801  ls /etc/munge/
+  802  sudo ls /etc/munge/
+  803  history
+  804  sftp 10.8.16.94
+  805  sudo sftp 10.8.16.94
+  806  sudo sftp manager@10.8.16.94
+  807  sudo -i
+  808  sudo sftp manager@10.8.16.94
+  809  ll
+  810  sudo -i
+  811  bash aaa.sh 
+  812  cp ../s5/local/aishell_data_prep.sh .
+  813  bash aaa.sh 
+  814  cp ../s5/utils/
+  815  cp ../s5/utils/filter_scp.pl .
+  816  cp ../s5/utils/utt2spk_to_spk2utt.pl .
+  817  bash aaa.sh 
+  818  bash run.sh 
+  819  bash aaa.sh 
+  820  cp -r ../s5/conf .
+  821  bash aaa.sh 
+  822  cp ../s5/utils/validate_data_dir.sh ./utils/
+  823  bash aaa.sh 
+  824  cat ../s5/conf/pitch.conf 
+  825  cp ../s5/conf/pitch.conf ./conf/
+  826  bash aaa.sh 
+  827  cp ../s5/utils/spk2utt_to_utt2spk.pl ./utils/
+  828  bash aaa.sh 
+  829  cp ../s5/utils/create_data_link.pl ./utils/
+  830  cp ../s5/utils/split_scp.pl ./utils/
+  831  bash aaa.sh 
+  832  cd ../../thchs30/online_demo_tri4b_ali/online-data/
+  833  sudo tar zcvf thchs30.tar.gz models/
+  834  cd /export1/
+  835  grep -r run_gmm.sh kaldi-ali/
+  836  cat kaldi-ali/kaldi-trunk/egs/chime4/s5_2ch/run.sh
+  837  grep chime4_data kaldi-ali/kaldi-trunk/egs/chime4/s5_2ch/run.sh
+  838  sudo find / -name online_decoding.conf
+  839  sudo find ./kaldi-ali -name online_decoding.conf
+  840  sudo find kaldi-ali/ -name online_decoding.conf
+  841  sudo find / -name online_decoding.conf
+  842  cd kaldi-ali/kaldi-trunk/egs/wsj/s5/steps/online/
+  843  bash prepare_online_decoding.sh 
+  844  cd ../..
+  845  bash  steps/online/prepare_online_decoding.sh 
+  846  grep prepare_online_decoding.sh *
+  847  grep -r "prepare_online_decoding.sh" *
+  848  cd ../../aishell/
+  849  cd online/
+  850  bash run.sh
+  851  sudo find / -name *online_decoding.conf
+  852  bash run.sh
+  853  sudo find /export1/kaldi-ali/ -name *faster*
+  854  bash test.sh
+  855  sudo find /export1/kaldi-ali/ -name delta_opts
+  856  sudo top
+  857  ps -aux|grep apt-key
+  858  sudo find /export1/kaldi-ali/ -name splice_opts
+  859  sudo find /export1/kaldi-ali/ -name delta_opts
+  860  bash test.sh
+  861  sudo apt-key list
+  862  bash test.sh
+  863  history
+  864  sudo find /export1/kaldi-ali/ -name gmm-latgen-faster
+  865  bash test.sh
+  866  grep -r "SequentialTableReaderArchiveImpl" /export1/kaldi-ali/kaldi-trunk
+  867  dpkg --list apt*| grep "^ii"
+  868  history
+  869  cd ../s5/
+  870  bash test.sh 
+  871  rm test.sh 
+  872  cp ../online/test.sh .
+  873  bash test.sh 
+  874  cd ../online/
+  875  bash test.sh 
+  876  cp ../s5/utils/parse_options.sh .
+  877  bash test.sh 
+  878  cp ../s5/utils/split_data.sh .
+  879  bash test.sh 
+  880  cp ../s5/steps/decode.sh .
+  881  bash test.sh 
+  882  cp ../s5/utils/run.pl .
+  883  bash test.sh 
+  884  find / -name lattices.ark
+  885  sudo find / -name lattices.ark
+  886  bash test.sh 
+  887  bash gmm-demo.sh 
+  888  mv online-data/audio/D6_* online-data/audio/
+  889  mv online-data/audio/D6_* online-data/
+  890  bash gmm-demo.sh 
+  891  ssh 10.8.16.94
+  892  cd /export1/
+  893  systemctl start munge
+  894  systemctl status munge.service
+  895  journalctl -xe
+  896  sudo apt-get remove munge
+  897  sudo apt-get install munge
+  898  sudo apt-get upgrade 
+  899  sudo apt-get remove munge
+  900  sudo apt-get upgrade 
+  901  sudo apt autoremove
+  902  sudo apt-get upgrade 
+  903  sudo apt-get update 
+  904  cat /etc/apt/sources.list
+  905  cat /etc/apt/apt.conf
+  906  sudo apt-get install munge
+  907  sudo apt-get remove munge
+  908  sudo apt autoremove
+  909  cd /var/lib/dpkg/info/
+  910  ll
+  911  cat munge.list 
+  912  cat munge.postrm 
+  913  sudo rm munge*
+  914  ll | grep munge
+  915  sudo aptitude install munge
+  916  sudo apt-get install munge
+  917  ll | grep munge
+  918  sudo apt-get remove munge
+  919  sudo apt autoremove
+  920  ll | grep munge
+  921  sudo rm munge*
+  922  sudo aptitude install munge
+  923  sudo apt-get install aptitude
+  924  sudo apt-get install aptitude --fix-missing
+  925  sudo aptitude install munge
+  926  sudo apt-get install munge --fix-missing
+  927  sudo apt-get update
+  928  date -R
+  929  sudo apt-get update
+  930  history
+  931  sudo apt-get install munge --fix-missing
+  932  sudo apt-get remove munge
+  933  sudo apt-get remove aptitude
+  934  sudo apt autoremove
+  935  exit
+  936  sudo apt-get update
+  937  history
+  938  cat /etc/apt/sources.list
+  939  cat /etc/apt/apt.conf
+  940  date
+  941  sudo apt-get update
+  942  exit
+  943  history
+  944  exit
+  945  sudo apt update
+  946  sudo apt clean all
+  947  sudo apt update
+  948  vim /etc/apt/apt.conf
+  949  sudo vim /etc/apt/apt.conf
+  950  vim /etc/apt/apt.conf
+  951  sudo apt update
+  952  vim /etc/apt/apt.conf
+  953  sudo vim /etc/apt/apt.conf
+  954  sudo apt update
+  955  date
+  956  sudo apt update
+  957  exit
+  958  sudo apt update
+  959  ll
+  960  date
+  961  exit
+  962  sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+  963  date
+  964  ntpdate
+  965  sudo -i
+  966  date
+  967  exit
+  968  date
+  969  sudo -i
+  970  cd /var/lib/munge/
+  971  ll
+  972  sudo -i
+  973  date
+  974  exit
+  975  ll
+  976  date
+  977  chronyc sources
+  978  chronyc status
+  979  chronyc stat
+  980  chronyc help
+  981  chronyc settime 16:30:05
+  982  df -h
+  983  ll
+  984  sudo apt ll
+  985  sudo apt clean all 
+  986  sudo apt update
+  987  date
+  988  tzselect 
+  989  ll /etc/localtime 
+  990  date
+  991  exit
+  992  history
+  993  sudo apt-get update
+  994  sudo apt-get list
+  995  sudo apt list 
+  996  sudo apt list | grep munge
+  997  sudo apt-get install munge
+  998  sudo apt install munge
+  999  sudo apt-get update
+ 1000  cat /etc/apt/apt.conf
+ 1001  sudo apt-get update
+ 1002  sudo apt install munge
+ 1003  sudo apt-get remove munge
+ 1004  sudo apt autoremove
+ 1005  sudo apt-get update
+ 1006  sudo apt install munge
+ 1007  cd /export1/
+ 1008  sudo apt install munge
+ 1009  cd kaldi-ali/kaldi-trunk/egs/aishell/online/
+ 1010  bash gmm-demo.sh 
+ 1011  sudo apt-get upgrade 
+ 1012  history
+ 1013  sudo apt-get remove munge
+ 1014  sudo apt autoremove
+ 1015  sudo apt-get update
+ 1016  sudo apt-get upgrade 
+ 1017  sudo apt install munge
+ 1018  date -R
+ 1019  history | grep 10.10.19.94
+ 1020  history
+ 1021  history | grep sftp
+ 1022  sudo -i
+ 1023  sudo sftp manager@10.8.16.93
+ 1024  sudo ls /etc/munge/
+ 1025  sudo sftp manager@10.8.16.93
+ 1026  cd /export1/
+ 1027  ll
+ 1028  sudo cp /etc/munge/munge.key .
+ 1029  ll
+ 1030  sudo sftp manager@10.8.16.93
+ 1031  date -R
+ 1032  ntpdate cn.pool.ntp.org
+ 1033  sudo apt install munge
+ 1034  who
+ 1035  reboot
+ 1036  systemctl reboot -i
+ 1037  sudo apt-get update
+ 1038  sudo apt install munge
+ 1039  df -h
+ 1040  date
+ 1041  sudo apt update
+ 1042  sudo apt upgrade
+ 1043  sudo apt remove munge
+ 1044  sudo apt upgrade
+ 1045  y
+ 1046  sudo apt upgrade
+ 1047  sudo reboot
+ 1048  sudo apt autoremove
+ 1049  sudo apt update
+ 1050  sudo -i
+ 1051  ll
+ 1052  munge
+ 1053  sudo apt update
+ 1054  exit
+ 1055  history
+ 1056  systemctl start munge
+ 1057  systemctl status munge
+ 1058  sudo -i
+ 1059  ll
+ 1060  cd /export1/
+ 1061  ll
+ 1062  systemctl stop munge
+ 1063  sudo /usr/sbin/create-munge-key
+ 1064  rm munge.key 
+ 1065  ls
+ 1066  sudo cp /etc/munge/munge.key .
+ 1067  history | grep sftp
+ 1068  sudo sftp manager@10.8.16.94
+ 1069  sudo sftp manager@10.8.16.93
+ 1070  systemctl start munge
+ 1071  systemctl status munge
+ 1072  history | grep munge
+ 1073  sudo find / -name munge
+ 1074  date -r
+ 1075  date -R
+ 1076  id 111
+ 1077  sudo cd /etc/munge
+ 1078  sudo -i
+ 1079  sudo apt-get install slurm-llnl
+ 1080  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+ 1081  sudo vim /etc/apt/sources.list
+ 1082  sudo apt-get update
+ 1083  sudo apt-get install slurm-llnl
+ 1084  sudo ll /etc/slurm-llnl/
+ 1085  sudo ls /etc/slurm-llnl/
+ 1086  ldconfig -n /usr/lib6
+ 1087  cd /usr/lib6
+ 1088  cat /usr/lib6
+ 1089  cat /usr/lib64
+ 1090  cd /usr/lib64
+ 1091  ldconfig -n /usr/lib64
+ 1092  cd /usr/lib64
+ 1093  cat /usr/lib64
+ 1094  slurmd -C 
+ 1095  history
+ 1096  slurmd -C 
+ 1097  mkdir spool
+ 1098  cd spool/
+ 1099  mkdir slurmd
+ 1100  chown -R slurm:slurm slurmd/
+ 1101  sudo chown -R slurm:slurm slurmd/
+ 1102  ll
+ 1103  cd ,,
+ 1104  cd ..
+ 1105  sudo chown -R slurm:slurm spool/
+ 1106  ll
+ 1107  history
+ 1108  cd  /etc/slurm-llnl/
+ 1109  ll
+ 1110  cd /export1/
+ 1111  history | grep sftp
+ 1112  sftp aaa@10.10.19.94
+ 1113  sudo sftp manager@10.8.16.94
+ 1114  sudo sftp manager@10.8.16.93
+ 1115  sudo cp slurm.conf /etc/slurm-llnl/
+ 1116  slurmd -C
+ 1117  sudo ls /etc/slurm-llnl/
+ 1118  systemctl start slurmctld
+ 1119  systemctl status slurmctld.service
+ 1120  journalctl -xe
+ 1121  /etc/init.d/slurm-llnl start
+ 1122  slurm-llnl start
+ 1123  sinfo
+ 1124  find / -name slurm.conf.example
+ 1125  sudo find / -name slurm.conf.example
+ 1126  sudo find / -name slurm*
+ 1127  sudo find / -name slurm
+ 1128  sudo find / -name *slurm*
+ 1129  sudo find / -name '*slurm*'
+ 1130  sudo cp /usr/share/doc/slurm-client/examples/slurm.conf.simple.gz .
+ 1131  nohup jupyter notebook --allow-root >/dev/null 2>&1 &
+ 1132  sudo find / -name '*slurm*'
+ 1133  history
+ 1134  sudo ls /etc/slurm-llnl/
+ 1135  sudo cp slurm.conf /etc/slurm-llnl/
+ 1136  systemctl start slurmctld
+ 1137  sudo cp slurm.conf /etc/slurm-llnl/
+ 1138  systemctl start slurmctld
+ 1139  journalctl -xe
+ 1140  history
+ 1141  sudo sftp manager@10.8.16.94
+ 1142  sudo sftp manager@10.8.16.93
+ 1143  systemctl start slurmctld
+ 1144  journalctl -xe
+ 1145  systemctl status slurmctld.service
+ 1146  journalctl -xe
+ 1147  systemd-tmpfiles-clean.service
+ 1148  sudo ll /var/lib/slurm
+ 1149  sudo ls /var/lib/slurm
+ 1150  sudo ls /var/lib/slurm-llnl/
+ 1151  sudo -i
+ 1152  sudo cp slurm.conf /etc/slurm-llnl/
+ 1153  systemctl start slurmctld
+ 1154  systemctl status slurmctld.service
+ 1155  journalctl -xe
+ 1156  sudo -i
+ 1157  systemctl status slurmctld.service
+ 1158  sudo find / -name "*slurm*"
+ 1159  cat /var/log/slurm-llnl/slurmctld.log
+ 1160  sudo find / -name "*slurm*log"
+ 1161  journalctl -xe
+ 1162  systemctl status slurmctld.service
+ 1163  journalctl -xe
+ 1164  systemctl start slurmctld
+ 1165  systemctl status slurmctld.service
+ 1166  journalctl -xe
+ 1167  history
+ 1168  sudo cat /etc/slurm-llnl/slurm.conf
+ 1169  cat slurm.conf
+ 1170  cd /export1/
+ 1171  cat slurm.conf
+ 1172  journalctl -xe
+ 1173  systemctl stop slurmctld.service
+ 1174  history
+ 1175  sudo cp slurm.conf /etc/slurm-llnl/
+ 1176  sudo cat /etc/slurm-llnl/slurm.conf
+ 1177  sudo sftp manager@10.8.16.94
+ 1178  sudo sftp manager@10.8.16.93
+ 1179  systemctl start slurmctld
+ 1180  history
+ 1181  cat /var/log/slurm-llnl/slurmctld.log
+ 1182  sudo cat /var/log/slurm-llnl/slurmctld.log
+ 1183  systemctl status slurmctld.service
+ 1184  slurmctld -Dvvv
+ 1185  slurmd -Dvvv
+ 1186  sinfo
+ 1187  systemctl status slurmctld.service
+ 1188  cd /var/run/slurm-llnl
+ 1189  ll
+ 1190  cd ..
+ 1191  ll
+ 1192  ls
+ 1193  cd /export1/
+ 1194  history
+ 1195  sudo cat /var/log/slurm-llnl/slurmctld.log
+ 1196  scontrol show partition
+ 1197  scontrol show node SL311A-T-Speech2,sl311a-t-speech3
+ 1198  srun -l hostname
+ 1199  squeue
+ 1200  squeue -a
+ 1201  sinfo
+ 1202  date -R
+ 1203  ping SL311A-T-Speech2
+ 1204  systemctl stop slurmctld.service
+ 1205  sudo cp slurm.conf /etc/slurm-llnl/
+ 1206  sudo cat /var/log/slurm-llnl/slurmctld.log
+ 1207  history
+ 1208  sudo cat /etc/slurm-llnl/slurm.conf
+ 1209  history
+ 1210  sudo sftp manager@10.8.16.94
+ 1211  sudo sftp manager@10.8.16.93
+ 1212  systemctl start slurmctld
+ 1213  sinfo
+ 1214  slurmd -Dcvvv
+ 1215  sudo cat /etc/resolv.conf
+ 1216  slurmd -Dcvvv
+ 1217  slurmctld -Dvvv
+ 1218  slurmd -Dcvvv
+ 1219  cat /var/log/slurm-llnl/slurmctld.log
+ 1220  sudo cat /var/log/slurm-llnl/slurmctld.log
+ 1221  slurm -v
+ 1222  slurm --version
+ 1223  netstat -anp | grep 6818
+ 1224  sudo netstat -anp | grep 6818
+ 1225  sacctmgr -vvvv
+ 1226  vim /etc/hosts
+ 1227  sudo vim /etc/hosts
+ 1228  sudo cat /etc/hosts
+ 1229  systemctl start slurmctld
+ 1230  history
+ 1231  sinfo
+ 1232  sudo cat /var/log/slurm-llnl/slurmctld.log
+ 1233  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1234  sinfo
+ 1235  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1236  slurmctld -V
+ 1237  sudo vim /etc/hosts
+ 1238  systemctl stop slurmctld
+ 1239  sudo cat /etc/hosts
+ 1240  systemctl start slurmctld
+ 1241  sinfo
+ 1242  systemctl stop slurmctld
+ 1243  sudo reboot
+ 1244  sudo -i
+ 1245  exit
+ 1246  sinfo
+ 1247  exit
+ 1248  slurm
+ 1249  sinfo
+ 1250  exit
+ 1251  srun -N1 /bin/hostname
+ 1252  history
+ 1253  sudo systemctl start slurmd
+ 1254  systemctl status slurmd.service
+ 1255  journalctl -xe
+ 1256  sudo systemctl enable slurmd
+ 1257  srun -N1 /bin/hostname
+ 1258  systemctl status slurmd.service
+ 1259  slurmd -Dvvv
+ 1260  squeue
+ 1261  slurmd -vvv
+ 1262  squeue
+ 1263  sudo slurmd -vvv
+ 1264  squeue
+ 1265  srun -N1 /bin/hostname
+ 1266  sinfo 
+ 1267  srun -N1 /bin/hostname
+ 1268  sinfo 
+ 1269  squeue
+ 1270  cd /export1/
+ 1271  wget -c http://cn-mirror.openslr.org/resources/38/ST-CMDS-20170001_1-OS.tar.gz
+ 1272  history
+ 1273  history | grep 94
+ 1274  cd /export1/
+ 1275  sudo sftp manager@10.8.16.94
+ 1276  exit
+ 1277  cat /home/manager/.jupyter/jupyter_notebook_config.py
+ 1278  exit
+ 1279  cd /export1/
+ 1280  history > history.txt
