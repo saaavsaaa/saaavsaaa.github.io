@@ -1,4 +1,4 @@
-1  cd /etc/netplan/
+    1  cd /etc/netplan/
     2  ls
     3  clear
     4  ls
@@ -322,7 +322,802 @@
   322  ls
   323  mv online/ kaldi/egs/multi_cn/online/
 
+-----
 
+1  df -h
+    2  lsblk 
+    3  blkid
+    4  sfdisk 
+    5  sfdisk -l
+    6  cfdisk 
+    7  sudo cfdisk 
+    8  clear
+    9  vim /etc/netplan/50-cloud-init.yaml
+   10  df   -h
+   11  cd /etc/netplan/
+   12  ls
+   13  cp 50-cloud-init.yaml 50-cloud-init.yamlbak
+   14  sudo cp 50-cloud-init.yaml 50-cloud-init.yamlbak
+   15  ls
+   16  vim 50-cloud-init.yaml
+   17  cat 50-cloud-init.yaml
+   18  ping 10.8.36.34
+   19  service network status
+   20  systemctl status network
+   21  sudo service network-manager status
+   22  sudo service networkmanager status
+   23  sudo systemctl restart networkmanager
+   24  sudo systemctl restart NetworkManager
+   25  sudo ifup -a
+   26  ip a
+   27  cd /
+   28  ls
+   29  sudo service network-manager restart
+   30  reboot
+   31  ip a
+   32  cat /etc/netplan/50-cloud-init.yaml
+   33  ifconfig
+   34  ip a
+   35  ls /etc/network
+   36  vim /etc/network/interfaces 
+   37  ip a
+   38  ip a a enp11s0f0 up
+   39  ip a a 10.8.36.37 enp11s0f0 up
+   40  ip a a 10.8.36.37 enp11s0f0
+   41  ip a a 10.8.36.37 dev enp11s0f0
+   42  sudo ip a a 10.8.36.37 dev enp11s0f0
+   43  ip a
+   44  sudo ip a a 10.8.36.37/24 dev enp11s0f0
+   45  ipa 
+   46  ip a 
+   47  ping 10.8.36.134
+   48  ip link set enp11s0f0 up
+   49  sudo ip link set enp11s0f0 up
+   50  ip a
+   51  sudo ip a d 10.8.36.37/32 dev enp11s0f0
+   52  ip a
+   53  route add gw enp11s0f0 10.8.36.1
+   54  sudo route add default gw 10.8.36.1
+   55  ping 10.8.36.134
+   56  vim /etc/netplan/50-cloud-init.yamlbak 
+   57  vim /etc/netplan/50-cloud-init.yaml
+   58  clear
+   59  ping 10.8.36.134
+   60  shutdown -h now
+   61  cd /etc/
+   62  ll
+   63  cd netplan/
+   64  ll
+   65  vim 50-cloud-init.yaml
+   66  sudo vim 50-cloud-init.yaml
+   67  vim /etc/hostname 
+   68  sudo vim /etc/hostname 
+   69  free
+   70  exit
+   71  ipa
+   72  ip a
+   73  history
+   74  sudo ip a a 10.8.36.37/24 dev enp11s0f0
+   75  sudo ip link set  enp11s0f0 up
+   76  ip a
+   77  sudo route add default gw 10.8.36.1
+   78  ping 10.8.36.134
+   79  free
+   80  man free
+   81  free -h
+   82  w
+   83  cat /etc/netplan/50-cloud-init.yaml
+   84  cat /etc/netplan/50-cloud-init.yamlbak 
+   85  cat /etc/netplan/50-cloud-init.yaml
+   86  w
+   87  ip a
+   88  free -h
+   89  shutdown -h now
+   90  w
+   91  shutdown -h now
+   92  sudo shutdown -h now
+   93  free -h
+   94  sudo shutdown -h now
+   95  ping -c 3 10.8.16.95
+   96  logout
+   97  sudu shutdown -h now
+   98  shutdown -h now
+   99  ll
+  100  df -h
+  101  exit
+  102  mkdir .ssh
+  103  vim .ssh/authorized_keys
+  104  chmod g-w,o-rwx .ssh
+  105  ll -a
+  106  chmod g-xr .ssh
+  107  ll
+  108  cd .ssh
+  109  ll
+  110  chmod g-rw,o-rw authorized_keys 
+  111  ll
+  112  cd ..
+  113  vim .bashrc 
+  114  ll
+  115  sudo -i
+  116  exit
+  117  ll
+  118  vim .bashrc 
+  119  ll
+  120  ls
+  121  ls -a
+  122  rm \! 
+  123  ll
+  124  ls -a
+  125  exit
+  126  ll
+  127  ls
+  128  ll -a
+  129  ll
+  130  vim .wgetrc
+  131  ll
+  132  vim .gitconfig
+  133  sudo vim /etc/apt/apt.conf
+  134  ll
+  135  ll -a
+  136  sudo apt update
+  137  exit
+  138  df -h
+  139  parted /dev/sda
+  140  sudo parted /dev/sda
+  141  sudo mkfs.ext4 /dev/sda5 
+  142  mkdir /export1
+  143  sudo mkdir /export1
+  144  sudo vim /etc/fstab 
+  145  sudo mount -a
+  146  sudo chown manager.manager /export1/
+  147  ll
+  148  df -h
+  149  cd /export1/
+  150  ll
+  151  cd ..
+  152  ll
+  153  df -h
+  154  ll -d /export1/
+  155  ll
+  156  df -h
+  157  dmidecode -t1
+  158  sudo dmidecode -t1
+  159  sudo cat /proc/cpuinfo 
+  160  exit
+  161  sudo vim /etc/apt/apt.conf
+  162  exit
+  163  df -h
+  164  cd /export1/
+  165  sudo passwd manager
+  166  sftp aaa@10.10.19.94
+  167  ll
+  168  sh Anaconda3-2020.02-Linux-x86_64.sh 
+  169  conda
+  170  exit
+  171  free
+  172  exit
+  173  free
+  174  history
+  175  cd /export1/kaldi/tools/
+  176  extras/check_dependencies.sh
+  177  make -j 4
+  178  cd ..
+  179  rm -rf kaldi/
+  180  ll
+  181  rm -rf Anaconda3-2020.02-Linux-x86_64.sh 
+  182  history
+  183  git clone https://github.com/kaldi-asr/kaldi.git
+  184  cd /export1/kaldi/tools/
+  185  extras/check_dependencies.sh
+  186  tools/env.sh
+  187  sh env.sh 
+  188  extras/check_dependencies.sh
+  189  make -j 4
+  190  extras/install_irstlm.sh
+  191  extras/env.sh
+  192  . extras/env.sh
+  193  sh extras/env.sh
+  194  cd ../src
+  195  ./configure --shared
+  196  make depend -j 4
+  197  make -j 4
+  198  make ext
+  199  bash ../egs/yesno/s5/run.sh 
+  200  cd ../egs/yesno/s5/
+  201  bash run.sh 
+  202  cd /export1/
+  203  sudo apt-get install munge
+  204  sudo find / -name *munge*
+  205  cd /etc/munge
+  206  sudo cd /etc/munge
+  207  sudo -i
+  208  ll
+  209  cat /etc/sysconfig/munge
+  210  sudo cat /etc/sysconfig/munge
+  211  sudo find / -name *munge* | grep conf
+  212  date
+  213  ll /etc/
+  214  ll /etc/localtime 
+  215  sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+  216  date
+  217  exit
+  218  date
+  219  exit
+  220  sudo apt install chrony -y
+  221  sudo vim /etc/chrony/chrony.conf 
+  222  sudo systemctl start chrony
+  223  sudo systemctl enable chrony
+  224  date
+  225  chronyc sources
+  226  sudo vim /etc/chrony/chrony.conf 
+  227  sudo systemctl restart chrony
+  228  chronyc sources
+  229  sudo vim /etc/chrony/chrony.conf 
+  230  sudo systemctl restart chrony
+  231  chronyc sources
+  232  cd /var/lib/munge/
+  233  ll
+  234  sudo -i
+  235  exit
+  236  history
+  237  cd /export1/
+  238  cat /etc/apt/apt.conf
+  239  sudo apt-get update
+  240  date -R
+  241  date
+  242  history
+  243  date
+  244  date -R
+  245  wget http://117.128.6.12/cache/archive.ubuntu.com/ubuntu/pool/main/a/autoconf/autoconf_2.69-11_all.deb
+  246  sudo cat /etc/apt/sources.list
+  247  history
+  248  cd /export1/
+  249  ls
+  250  rm munge.key
+  251  sudo rm /etc/munge/munge.key
+  252  history
+  253  history | grep sftp
+  254  sudo sftp manager@10.8.16.95
+  255  ls
+  256  ll /etc/munge/
+  257  sudo ll /etc/munge/
+  258  sudo ls /etc/munge/
+  259  sudo cp munge.key /etc/munge/
+  260  sudo ls /etc/munge/
+  261  systemctl start munge
+  262  systemctl status munge.service
+  263  systemctl stop munge.service
+  264  systemctl start munge
+  265  sudo find / -name munge
+  266  sudo find / -name *munge*
+  267  date -R
+  268  sudo find / -name *munge*
+  269  sudo find / -name munge
+  270  cat /var/log/munge
+  271  sudo cat /var/log/munge
+  272  sudo ls /var/log/munge/
+  273  sudo cat /var/log/mungemunged.log.1
+  274  sudo cat /var/log/munge/munged.log.1
+  275  sudo cat /var/log/munge/munged.log
+  276  id
+  277  sudo id 111
+  278  sudo -i
+  279  systemctl start munge
+  280  systemctl status munge
+  281  sudo apt-get install slurm-llnl
+  282  sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+  283  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+  284  sudo vim /etc/apt/sources.list
+  285  sudo apt-get install slurm-llnl
+  286  sudo apt-get update
+  287  sudo apt-get install slurm-llnl
+  288  history
+  289  slurmd -C
+  290  sudo -i
+  291  mkdir spool
+  292  cd spool/
+  293  mkdir slurmd
+  294  sudo chown -R slurm:slurm slurmd/
+  295  ll
+  296  cd ..
+  297  ll
+  298  sudo chown -R slurm:slurm spool/
+  299  ll
+  300  ls
+  301  sudo ls /etc/slurm-llnl/
+  302  systemctl start slurmctld
+  303  sudo ls /etc/slurm-llnl/
+  304  sudo cp slurm.conf /etc/slurm-llnl/
+  305  systemctl start slurmctld
+  306  systemctl stop slurmctld
+  307  cd /export1/
+  308  cat slurm.conf 
+  309  sudo cp slurm.conf /etc/slurm-llnl/
+  310  sudo cat /etc/slurm-llnl/slurm.conf 
+  311  systemctl start slurmctld
+  312  history
+  313  sinfo
+  314  systemctl status slurmctld.service
+  315  scontrol show node SL311A-T-Speech2,sl311a-t-speech3
+  316  date -R
+  317  ping 10.8.16.95
+  318  systemctl stop slurmctld
+  319  history
+  320  sudo cp slurm.conf /etc/slurm-llnl/
+  321  systemctl start slurmctld
+  322  sinfo
+  323  slurmd -Dcvvv
+  324  sinfo
+  325  history
+  326  sudo vim /etc/hosts
+  327  ping SL311A-T-Speech1
+  328  systemctl start slurmctld
+  329  slurmctld -V
+  330  sudo vim /etc/hosts
+  331  systemctl stop slurmctld
+  332  systemctl start slurmctld
+  333  systemctl stop slurmctld
+  334  sudo reboot
+  335  cd /var/spool/
+  336  ll
+  337  mkdir slurm
+  338  ps aux|grep slurm
+  339  cd /var/
+  340  ll
+  341  cd log
+  342  cd slurm-llnl/
+  343  ll
+  344  vim slurmd.log 
+  345  exit
+  346  systemctl start munge
+  347  systemctl status munge
+  348  systemctl stop munge
+  349  sudo systemctl start munge
+  350  history
+  351  sudo systemctl start slurmctld
+  352  sudo tail -f /var/log/slurm-llnl/slurmctld.lo
+  353  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  354  who
+  355  sudo apt-get update
+  356  sudo apt-get upgrade
+  357  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  358  sudo systemctl stop slurmctld
+  359  history
+  360  cat /proc/cpuinfo |grep "cores"|uniq
+  361  cat /proc/cpuinfo |grep "physical id"|sort |uniq|wc -l
+  362  cd /export1/
+  363  sudo cp slurm.conf /etc/slurm-llnl/
+  364  sudo cat /etc/slurm-llnl/slurm.conf
+  365  sudo cp slurm.conf /etc/slurm-llnl/
+  366  sudo cat /etc/slurm-llnl/slurm.conf
+  367  sudo systemctl start slurmctld
+  368  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  369  /bin/hostname -s
+  370  hostname
+  371  more /proc/sys/kernel/hostname 
+  372  more /etc/sysconfig/network
+  373  sudo cat /etc/hostname
+  374  srun -N1 /bin/hostname
+  375  /bin/hostname -f
+  376  /bin/hostname
+  377  slurmd -C
+  378  lscpu
+  379  sudo vim /etc/hosts
+  380  sudo cat /etc/hosts
+  381  sudo systemctl stop slurmctld
+  382  sudo vim /etc/hosts
+  383  sudo cat /etc/hosts
+  384  sudo systemctl start slurmctld
+  385  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  386  scontrol show nodes
+  387  squeue
+  388  srun -n 4 ./example
+  389  sudo systemctl enable slurmd
+  390  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  391  systemctl status munge
+  392  history
+  393  sudo find / -name *slurm* | grep cgroup
+  394  who
+  395  sudo systemctl stop slurmctld
+  396  sudo apt-get install slurm-wlm
+  397  sudo apt-get remove slurm-llnl
+  398  cd ~
+  399  ls
+  400  tar --bzip -x -f slurm*tar.bz2
+  401  ls
+  402  mv slurm-20.02.2 /export1/
+  403  cd /export1/
+  404  ls
+  405  cd slurm-20.02.2/
+  406  ./configure
+  407  make
+  408  jobs -l nohup & jupyter notebook --generate-config --allow-root
+  409  vim /home/manager/.jupyter/jupyter_notebook_config.py
+  410  c.NotebookApp.iopub_data_rate_limit = 10000000000
+  411  c.NotebookApp.port = 9999
+  412  c.NotebookApp.notebook_dir = '/'
+  413  c.NotebookApp.ip = '*'
+  414  nohup jupyter notebook --allow-root >/dev/null 2>&1 &
+  415  grep -r H5PTopen *
+  416  cd ..
+  417  git clone git://github.com/SchedMD/slurm.git
+  418  cd slurm-20.02.2/
+  419  make -i
+  420  sudo apt-get install libhdf5-dev
+  421  make
+  422  munge -n
+  423  sudo apt-get install munge-devel
+  424  munge -V
+  425  ./configure
+  426  make
+  427  munge -n | unmunge | grep STATUS
+  428  cat  /var/log/slurmctld.log
+  429  sudo apt-get install hdf5
+  430  ./configure --with-hdf5=no
+  431  make
+  432  sudo  make install
+  433  slurm -V
+  434  slurm
+  435  systemctl enable slurmd
+  436  ldconfig -nldconfig -nldconfig -nldconfig -nldconfig -nldconfig -nfind / -namefind / -namefind / -name
+  437  find / -name
+  438  find / -name libslurm.so
+  439  sudo find / -name libslurm.so
+  440  exit
+  441  cd /export1/
+  442  cd slurm-20.02.2/
+  443  sudo find / -name libslurm.so
+  444  ldconfig -n /usr/local/lib
+  445  history | grep "-V"
+  446  history | grep '-V'
+  447  history
+  448  slurmctld -V
+  449  history | grep ".94"
+  450  cd ..
+  451  sftp aaa@10.10.19.94
+  452  cat slurm.conf 
+  453  histroy
+  454  history
+  455  sudo cat /etc/slurm-llnl/slurm.conf
+  456  sudo cp slurm.conf /etc/slurm-llnl/
+  457  sudo cat /etc/slurm-llnl/slurm.conf
+  458  history
+  459  systemctl enable slurmd
+  460  sudo systemctl enable slurmd
+  461  history
+  462  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  463  sudo find / -name "*slurm*" | grep log
+  464  sudo cat /var/log/slurm-llnl/slurmd.log
+  465  sudo systemctl start slurmctld
+  466  sudo systemctl start slurmd
+  467  systemctl status slurmd.service
+  468  journalctl -xe
+  469  sudo systemctl enable slurmd
+  470  sinfo
+  471  slurmctld -D -vvvvvv
+  472  sudo cp slurm.conf /usr/local/etc/
+  473  slurmctld -D -vvvvvv
+  474  sudo systemctl enable slurmd
+  475  slurmctld -D -vvvvvv
+  476  sudo slurmctld -D -vvvvvv
+  477  ll /usr/local/lib/slurm
+  478  sudo slurmctld -D -vvvvvv
+  479  ll /usr/local/lib/slurm/cred_munge.so
+  480  systemctl status slurmd.service
+  481  sudo systemctl start slurmd
+  482  sudo apt-get install libmunge-dev
+  483  sudo apt-get install libmunge2
+  484  sudo systemctl disable slurmd
+  485  slurmd -D -vvvvvv
+  486  ll /export1/spool/slurmd
+  487  ll /export1/spool/
+  488  sudo chown manager:manager /export1/spool
+  489  sudo chown manager:manager /export1/spool/*
+  490  slurmd -D -vvvvvv
+  491  history
+  492  sudo find / -name proctrack_none.so
+  493  sudo find / -name "proctrack_none.so"
+  494  sudo find / -name "proctrack_*"
+  495  sudo find / -name "proctrack_*"man cgroup.conf
+  496  man cgroup.conf
+  497  sftp aaa@10.10.19.94
+  498  history
+  499  history | grep cp
+  500  sudo cp slurm.conf /usr/local/etc/
+  501  slurmd -D -vvvvvv
+  502  sftp aaa@10.10.19.94
+  503  sudo cp slurm.conf /usr/local/etc/
+  504  slurmd -D -vvvvvv
+  505  sudo find / -name "auth_munge.so"
+  506  sudo cp /usr/lib/x86_64-linux-gnu/slurm/auth_munge.so /usr/local/lib/slurm/
+  507  sudo ll /usr/local/lib/slurm/
+  508  slurmd -D -vvvvvv
+  509  sudo find / -name "auth_munge*"
+  510  cd /export1/slurm-20.02.2/src/plugins/auth/munge/
+  511* gcc 
+  512  make
+  513  cat Makefile
+  514  gcc -c auth_munge.c 
+  515  sudo find / -name "config.h"
+  516  gcc -c auth_munge.c /export1/slurm-20.02.2/config.h
+  517  cp /export1/slurm-20.02.2/config.h .
+  518  gcc -c auth_munge.c
+  519  sudo find / -name "munge.h"
+  520  rm config.h
+  521  ls
+  522  cd /export1/
+  523  sudo apt-get remove munge
+  524  tar xJf munge-0.5.14.tar.xz   && cd munge-0.5.14            && ./configure                   --prefix=/usr                 --sysconfdir=/etc             --localstatedir=/var          --runstatedir=/run         && make                       && make check                 && sudo make install
+  525  ls
+  526  wget -c https://github.com/dun/munge/releases/download/munge-0.5.14/munge-0.5.14.tar.xz
+  527  tar xJf munge-0.5.14.tar.xz   && cd munge-0.5.14            && ./configure                   --prefix=/usr                 --sysconfdir=/etc             --localstatedir=/var          --runstatedir=/run         && make                       && make check                 && sudo make install
+  528  ls
+  529  sudo ./configure
+  530  sudo apt-get install openssl openssl-devel
+  531  sudo apt-get install openssl openssl-dev
+  532  history | grep source
+  533  sudo vim /etc/apt/sources.list
+  534  sudo vim /etc/apt/sources.list.bak 
+  535  sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak1
+  536  sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list
+  537  sudo vim /etc/apt/sources.list
+  538  sudo apt-get update
+  539  sudo apt-get install openssl openssl-dev
+  540  sudo ./configure
+  541  sudo apt-get install openssl
+  542  sudo apt-get install pkg-config
+  543  ./configure
+  544  sudo apt-get install libgcrypt libgcrypt-dev
+  545  sudo apt-get install libgcrypt libgcrypt20-dev
+  546  sudo apt-get install libgcrypt20-dev
+  547  ./configure
+  548  ./configure                   --prefix=/usr                 --sysconfdir=/etc             --localstatedir=/var          --runstatedir=/run         && make                       && make check                 && sudo make install
+  549  ./configure
+  550  make
+  551  make check
+  552  sudo make install
+  553  service munge start
+  554  sudo systemctl enable munge
+  555  sudo systemctl unmask munge.service
+  556  sudo systemctl enable munge
+  557  sudo systemctl start munge
+  558  systemctl status munge.service
+  559  journalctl -xe
+  560  ll /usr/local/var/log/munge/munged.log
+  561  ll /usr/local/var/log/munge/
+  562  ll /usr/local/var/log/
+  563  sudo chown manager:manager /usr/local/var/log/munge
+  564  sudo chown manager:manager /usr/local/var/log/munge/*
+  565  ll /usr/local/var/log/munge/
+  566  sudo systemctl start munge
+  567  systemctl status munge.service
+  568  ll /usr/local/var/log/munge/
+  569  journalctl -xe
+  570  ll /usr/local/var/log/
+  571  munge -n
+  572  ll /var/run/munge
+  573  ./configure                   --prefix=/usr                 --sysconfdir=/etc             --localstatedir=/var          --runstatedir=/run
+  574  make
+  575  sudo make install
+  576  ll /etc/munge
+  577  cd /etc/munge
+  578* sudo cd /etc
+  579  ll /etc
+  580  sudo chown manager:manager /etc/munge
+  581  ll /etc/munge
+  582  sudo chown manager:manager /etc/munge/*
+  583  ll /etc/munge
+  584  sudo chmod 0700 /etc/munge
+  585  ll /etc/munge
+  586  ll /etc
+  587  ll /var/lib/munge
+  588  ll /var/lib/
+  589  sudo chown manager:manager /var/lib/munge
+  590  ll /var/lib/munge
+  591  sudo chmod 0711 /etc/munge
+  592  ll /var/lib/
+  593  ll /var/log/munge
+  594  sudo chown manager:manager /var/log/munge
+  595  ll /var/log/munge
+  596  sudo chown manager:manager /var/log/munge/*
+  597  ll /var/log/munge
+  598  sudo chmod 0700 /var/log/munge
+  599  sudo chmod 0700 /var/log/munge/*
+  600  ll /var/log/munge
+  601  ll /run/munge
+  602  ll /run
+  603  sudo chown manager:manager /run/munge
+  604  ll /run/munge
+  605  sudo chmod 0755 /run/munge
+  606  ll /run/munge
+  607  ll /run
+  608  sudo systemctl start munge
+  609  systemctl status munge.service
+  610  sudo systemctl status munge.service
+  611  history
+  612  sudo chown manager:manager /usr/local/var/log/munge
+  613  sudo chmod 0700 /usr/local/var/log/munge
+  614  ll /usr/local/var/log/munge
+  615  ll /usr/local/var/log/
+  616  sudo systemctl status munge.service
+  617  sudo chown munge:munge /usr/local/var/log/munge
+  618  sudo systemctl status munge.service
+  619  systemctl status munge.service
+  620  sudo chown manager:manager /usr/local/var/log/munge
+  621  systemctl start munge
+  622  systemctl status munge.service
+  623  journalctl -xe
+  624  ll /usr/local/var/log/munge
+  625  sudo chown root:root /usr/local/var/log/munge
+  626  systemctl start munge
+  627  systemctl status munge.service
+  628  journalctl -xe
+  629  sudo chown manager:manager /usr/local/var/log/munge
+  630  find / -name "*munge*"
+  631  sudo find / -name "*munge*"
+  632  sudo find / -name "*munge*" | grep "*con*"
+  633  cat /var/log/munge/munged.log
+  634  history
+  635  sudo systemctl disable munge
+  636  systemctl enable munge
+  637  sudo find / -name "update-rc.d"
+  638  ll /etc/munge
+  639  munge -n
+  640  chown -R munge.munge /var/{lib,log,run}/munge
+  641  sudo chown -R munge.munge /var/{lib,log,run}/munge
+  642  history | grep chown
+  643  sudo chown -R munge.munge /etc/munge
+  644  sudo chown -R munge.munge /var/lib/munge
+  645  sudo chown -R munge.munge /run/munge
+  646  sudo chown -R munge.munge /var/log/munge
+  647  sudo chown  munge.munge /run/munge
+  648  sudo systemctl disable munge
+  649  munge -n
+  650  sudo systemctl enable munge
+  651  sudo /etc/init.d/munge start
+  652  systemctl status munge.service
+  653  journalctl -xe
+  654  sudo systemctl disable munge
+  655  history
+  656  ll /etc/munge
+  657  ll /etc
+  658  history
+  659  sudo chown -R root:root /etc/munge
+  660  ll /etc
+  661  history
+  662  sudo chown -R root:root /var/lib/munge
+  663  sudo chown -R root:root /run/munge
+  664  sudo chown root:root /run/munge
+  665  ll /run
+  666  history
+  667  sudo chown -R root:root /var/log/munge
+  668  sudo chown -R root:root /usr/local/var/log/munge
+  669  history | grep chown
+  670  sudo systemctl enable munge
+  671  sudo /etc/init.d/munge start
+  672  journalctl -xe
+  673  sudo systemctl stop munge
+  674  sudo systemctl start munge
+  675  sudo systemctl stop munge
+  676  sudo systemctl disable munge
+  677  history
+  678  sudo find / -name "*munge*"
+  679  /usr/bin/remunge
+  680  sudo find /usr -name "*munge*"
+  681  sudo find /etc -name "*munge*"
+  682  cat /etc/init.d/mung
+  683  cat /etc/init.d/munge 
+  684  history
+  685  journalctl -xe
+  686  grep -r "*/usr/local/var/log/munge*" /
+  687  sudo grep -r "*/usr/local/var/log/munge*" /
+  688  history
+  689  history | grep run
+  690  history
+  691  history | grep apt-get
+  692  sudo apt-get remove slurm-wlm
+  693  sudo apt-get remove slurm-llnl
+  694  sudo apt-get remove slurm
+  695  history
+  696  history | grep enable
+  697  history | grep apt-get
+  698  sudo apt-get install munge
+  699  sudo apt-get install slurm-llnl
+  700  sudo apt-get autoremove 
+  701  sudo apt-get install slurm-llnl
+  702  sudo apt-get update
+  703  sudo apt-get install slurm-llnl
+  704  history | grep source
+  705  sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+  706  sudo mv /etc/apt/sources.list.bak1 /etc/apt/sources.list
+  707  sudo cat /etc/apt/sources.list
+  708  sudo apt-get update
+  709  sudo apt-get install slurm-llnl
+  710  history
+  711  ll
+  712  sudo apt-get remove slurm-llnl
+  713  sudo apt-get remove munge
+  714  make unistall
+  715  ls
+  716  sudo apt-get autoremove 
+  717  sudo apt-get clean
+  718  sudo apt-get autoclean 
+  719  deborphan
+  720  history
+  721  make uninstall
+  722  sudo make uninstall
+  723  cd ..
+  724  ls
+  725  rm munge-0.5.14.tar.xz
+  726  ls
+  727  cd slurm-20.02.2/
+  728  sudo make uninstall
+  729  history
+  730  sudo apt-get install munge
+  731  sudo apt-get update
+  732  sudo apt-get install munge
+  733  sudo apt-get install libmunge2=0.5.11-3ubuntu0.1
+  734  sudo apt-get install munge
+  735  history
+  736  sudo systemctl start munge
+  737  sudo systemctl status munge.service
+  738  journalctl -xe
+  739  sudo cat /bin/systemctl
+  740  sudo systemctl status munge.service
+  741  rm -rf /usr/local/var
+  742  sudo rm -rf /usr/local/var
+  743  sudo systemctl status munge.service
+  744  sudo systemctl start munge
+  745  history
+  746  sudo apt-get install munge
+  747  sudo apt-get remove munge
+  748  cd /usr/local/lib/systemd/system/
+  749  ls
+  750  cat munge.service
+  751  ll /usr/local/sbin/munged
+  752  cat /usr/local/sbin/munged*
+  753  ll /usr/local/sbin/munged
+  754  clear
+  755  ll /usr/local/sbin/munged
+  756  ls
+  757  cat munge.service 
+  758  cd /export1/
+  759  cd munge-0.5.14/
+  760  history
+  761  sudo make uninstall
+  762  history | grep munge
+  763  sudo apt-get remove munge
+  764  who
+  765  sudo find / -name "*munge*"
+  766  history
+  767  sudo systemctl start munge
+  768  sudo systemctl status munge.service
+  769  ll /usr/local/sbin/munged
+  770  ll /usr/local/lib/systemd/system/
+  771  cat /usr/local/lib/systemd/system/munge.service 
+  772  history
+  773  sudo apt-get install slurm-llnl
+  774  sudo apt-get install slurm-llnl --fix-broken
+  775  sudo apt-get install slurm-wlm
+  776  slurmd -Dvvv
+  777  cd ..
+  778  history | grep cp
+  779  sudo cp slurm.conf /etc/slurm-llnl/
+  780  cat /etc/slurm-llnl/slurm.conf 
+  781  slurmd -Dvvv
+  782  sudo slurmd -Dvvv
+  783  slurmd -Dvvv
+  784  ll /var/log/slurm-llnl
+  785  sudo chown -R manager:manager /var/log/slurm-llnl
+  786  slurmd -Dvvv
+  787  sudo chmod /var/lib/slurm-llnl/slurmd 0755
+  788  sudo chmod 0755 /var/lib/slurm-llnl/slurmd
+  789  slurmd -Dvvv
+  790  ll /var/lib/slurm-llnl
+  791  sudo chown -R manager:manager /var/lib/slurm-llnl
+  792  slurmd -Dvvv
+
+-----
 
 
 
