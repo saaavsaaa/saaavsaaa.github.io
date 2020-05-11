@@ -1,17 +1,335 @@
-  281  git apply --stat Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
-  282  git apply --check Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
-  283  git am --signoff < Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
-  284  git config --global user.email "draculav@hotmail.com"
-  285  git am --signoff < Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
-  286  cd ..
-  287  rm -rf kaldi-trunk/
-  288  ll
-  289  sftp aaa@10.10.19.94
-  290  cd kaldi-trunk/
-  291  git checkout 04b1f7d6658bc035df93d53cb424edc127fab819
-  292  git apply --stat Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
-  293  git apply --check Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
-  294  git am --signoff < Alibaba-MIT-Speech/Alibaba_MIT_Speech_DFSMN.patch
+1  cd /etc/netplan/
+    2  ls
+    3  clear
+    4  ls
+    5  cp 50-cloud-init.yaml 50-cloud-init.yamlbak
+    6  sudu cp 50-cloud-init.yaml 50-cloud-init.yamlbak
+    7  sudo cp 50-cloud-init.yaml 50-cloud-init.yamlbak
+    8  ls
+    9  vim 50-cloud-init.yamlbak 
+   10  vim 50-cloud-init.yaml
+   11  sudo vim 50-cloud-init.yaml
+   12  clear
+   13  sudu systemctl status network.service
+   14  sudo systemctl status network.service
+   15  sudo service network-manager restart
+   16  ip a
+   17  sudo netplan apply
+   18  ls
+   19  sudo vim 50-cloud-init.yaml
+   20  sudo netplan apply
+   21  sudo vim 50-cloud-init.yaml
+   22  sudo netplan apply
+   23  sudo vim 50-cloud-init.yaml
+   24  sudo netplan apply
+   25  ip a
+   26  ping 10.8.16.94
+   27  clear
+   28  ping 10.8.16.1 -c 3
+   29  sudo vim /etc/resolv.conf 
+   30  ping 10.8.16.11 -c 3
+   31  ping 10.8.16.94 -c 3
+   32  ping 10.8.36.134 -c 3
+   33  ping 10.8.16.95 -c 3
+   34  mount
+   35  clear
+   36  cat /etc/mtab
+   37  free -h
+   38  df -lh
+   39  shutdonw -h now
+   40  sudo shutdown -h now
+   41  ping 10.8.36.134 -c 3
+   42  ip a
+   43  logout
+   44  sudo -i
+   45  ll
+   46  vim .bashrc 
+   47  ll
+   48  vim .gitconfig
+   49  vim .wgetrc
+   50  df -h
+   51  exit
+   52  history
+   53  sudo passwd manager
+   54  df -h
+   55  who
+   56  df -h
+   57  exit
+   58  df -h
+   59  sudo parted 
+   60  mkfs.xfs /dev/sda5 
+   61  sudo mkfs.xfs /dev/sda5 
+   62  sudo mkdir /export1
+   63  sudo vim /etc/fstab 
+   64  sudo mount -a
+   65  df -h
+   66  sudo chown manager.manager /export1/
+   67  df -h
+   68  exit
+   69  df -h
+   70  cd /export1/
+   71  sftp aaa@10.10.19.94
+   72  sh Anaconda3-2020.02-Linux-x86_64.sh 
+   73  exit
+   74  git clone https://github.com/kaldi-asr/kaldi.git
+   75  cd kaldi/
+   76  cd /export1/kaldi/tools/
+   77  cd tools/
+   78  pwd
+   79  cd ../..
+   80  rm -rf kaldi/
+   81  ll
+   82  cd /export1/
+   83  git clone https://github.com/kaldi-asr/kaldi.git
+   84  cd /export1/kaldi/tools/
+   85  extras/check_dependencies.sh
+   86  sudo apt-get install g++ make automake autoconf unzip sox gfortran subversion
+   87  sudo apt-get install 
+   88  extras/check_dependencies.sh
+   89  sudo apt-get install g++
+   90  extras/check_dependencies.sh
+   91  sudo apt-get install zlib1g-dev
+   92  extras/check_dependencies.sh
+   93  sudo apt-get install make automake autoconf
+   94  sudo apt-get install make
+   95  extras/check_dependencies.sh
+   96  sudo apt-get install automake autoconf
+   97  sudo apt-get install automake
+   98  sudo apt-get update
+   99  sudo apt-get install automake
+  100  sudo apt-get install automake --fix-missing
+  101  sudo apt-get install autoconf autotools-dev m4
+  102  sudo apt-get install automake --fix-missing
+  103  extras/check_dependencies.sh
+  104  sudo apt-get install unzip sox gfortran subversion
+  105  sudo apt-get install unzip
+  106  sudo apt-get install sox
+  107  extras/check_dependencies.sh
+  108  sudo apt-get install gfortran
+  109  extras/check_dependencies.sh
+  110  sudo apt-get install subversion
+  111  extras/check_dependencies.sh
+  112  sudo apt-get install automake
+  113  sudo apt-get update
+  114  sudo apt-get upgrade 
+  115  extras/check_dependencies.sh
+  116  sudo apt-get install automake
+  117  sudo apt-get install automake --fix-missing
+  118  exit
+  119  sudo apt-get install automake --fix-missing
+  120  exit
+  121  df -h
+  122  cd /export1/
+  123  ll
+  124  cd ..
+  125  exit
+  126  date
+  127  sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+  128  date
+  129  sudo apt install chrony
+  130  sudo vim /etc/chrony/chrony.conf 
+  131  systemctl enable chronyd
+  132  sudo -i
+  133  exit
+  134  sudo apt-get install automake --fix-missing
+  135  sudo apt-get install automake
+  136  sudo apt-get update
+  137  cd /export1/kaldi/tools/
+  138  extras/check_dependencies.sh
+  139  extras/install_mkl.sh
+  140  extras/check_dependencies.sh
+  141  sudo apt-get install automake
+  142  ll /var/lib/apt/lists/ | grep automake
+  143  ll /var/lib/apt/lists/ | grep auto
+  144  ll /var/lib/apt/lists/ | grep make
+  145  ll /var/lib/apt/lists/ | grep InRelease
+  146  extras/check_dependencies.sh
+  147  ll /var/lib/apt/lists/ | grep subversion
+  148  ll /var/lib/apt/lists/ | grep conf
+  149  sudo apt-get install automake
+  150  sudo apt list | grep automake
+  151  sudo apt-get update 
+  152  sudo apt-get install automake
+  153  sudo apt-get install munge
+  154  sudo apt-get install automake
+  155  sudo apt-get install automake --fix-missing
+  156  sudo apt-get install autoconf --fix-missing
+  157  date
+  158  date -R
+  159  sudo -i
+  160  date -R
+  161  sudo apt-get install automake --fix-missing
+  162  sudo apt-get install automake --fix-broken install
+  163  sudo apt install automake --fix-broken install
+  164  sudo apt  --fix-broken
+  165  sudo apt install automake --fix-broken
+  166  sudo apt-get install autoconf --fix-missing
+  167  sudo apt-get install autoconf
+  168  sudo apt install autoconf --fix-broken
+  169  sudo apt-get update
+  170  sudo apt-get install autoconf --fix-missing
+  171  wget http://117.128.6.12/cache/archive.ubuntu.com/ubuntu/pool/main/a/autoconf/autoconf_2.69-11_all.deb
+  172  wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/a/autoconf/autoconf_2.69-11_all.deb
+  173  sudo apt install au
+  174  sudo apt install autoconf
+  175  ll
+  176  sudo apt install autoconf_2.69-11_all.d
+  177  sudo apt-get install autoconf_2.69-11_all.deb
+  178  autoconf_2.69-11_all.deb
+  179  sudo cat /etc/apt/sources.list
+  180  sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+  181  sudo vim /etc/apt/sources.list
+  182  sudo apt-get update
+  183  sudo apt install automake --fix-broken
+  184  sudo apt install autoconf
+  185  sudo vim /etc/apt/sources.list
+  186  sudo echo ''> /etc/apt/sources.list
+  187  sudo vim /etc/apt/sources.list
+  188  sudo apt-get update
+  189  sudo apt-get install autoconf
+  190  cat /etc/apt/apt.conf
+  191  wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/a/autoconf/autoconf_2.69-9_all.deb 
+  192  sudo apt-get install autoconf --fix-missing
+  193  extras/check_dependencies.sh
+  194  sudo apt-get install subversion
+  195  extras/check_dependencies.sh
+  196  sudo apt-get install python2.7
+  197  sudo vim /etc/apt/sources.list
+  198  sudo apt-get install python2.7
+  199  extras/check_dependencies.sh
+  200  tools/env.sh
+  201  bash tools/env.sh
+  202  sh env.sh 
+  203  extras/check_dependencies.sh
+  204  make -j 4
+  205  extras/install_irstlm.sh
+  206  cd ../src
+  207  ./configure --shared
+  208  make depend -j 4
+  209  make -j 4
+  210  make ext
+  211  cd ../egs/yesno/s5/
+  212  bash run.sh 
+  213  locale
+  214  history
+  215  cd /export1/
+  216  ll
+  217  sudo rm munge.key
+  218  ls
+  219  sudo rm /etc/munge/munge.key
+  220  sudo ll /etc/munge
+  221  sudo ls /etc/munge
+  222  ll
+  223  sudo ls /etc/munge
+  224  sudo cp munge.key /etc/munge/
+  225  sudo ls /etc/munge
+  226  systemctl start munge
+  227  systemctl status munge
+  228  date -R
+  229  sudo cat /var/log/munge/munged.log
+  230  sudo ls /var/log/munge/
+  231  sudo -i
+  232  systemctl status munge
+  233  systemctl stop munge
+  234  systemctl start munge
+  235  systemctl status munge
+  236  sudo apt-get install slurm-llnl
+  237  history
+  238  sudo vim /etc/apt/sources.list
+  239  sudo apt-get update
+  240  sudo apt-get install slurm-llnl
+  241  history
+  242  sudo cat /etc/apt/sources.list
+  243  slurmd -C
+  244  history
+  245  mkdir spool
+  246  cd spool/
+  247  mkdir slurmd
+  248  chown -R slurm:slurm slurmd/
+  249  sudo chown -R slurm:slurm slurmd/
+  250  ll
+  251  cd ..
+  252  sudo chown -R slurm:slurm spool/
+  253  ll
+  254  cd spool/
+  255  ll
+  256  cd spool/
+  257  sudo ls /etc/slurm-llnl/
+  258  sudo cp slurm.conf /etc/slurm-llnl/
+  259  cd ..
+  260  sudo cp slurm.conf /etc/slurm-llnl/
+  261  sudo ls /etc/slurm-llnl/
+  262  systemctl start slurmctld
+  263  sinfo
+  264  srun -N1 /bin/hostname
+  265  sudo cp slurm.conf /etc/slurm-llnl/
+  266  systemctl start slurmctld
+  267  systemctl stop slurmctld
+  268  cd /export1/
+  269  sudo cp slurm.conf /etc/slurm-llnl/
+  270  systemctl start slurmctld
+  271  sinfo
+  272  date -R
+  273  ping 10.8.16.95
+  274  ping SL311A-T-Speech1
+  275  history
+  276  sinfo
+  277  systemctl stop slurmctld
+  278  sudo cp slurm.conf /etc/slurm-llnl/
+  279  sudo cat /etc/slurm-llnl/slurm.conf
+  280  systemctl start slurmctld
+  281  sinfo
+  282  slurmd -Dcvvv
+  283  lsof -i:6818 netstat -antp
+  284  sudo lsof -i:6818 netstat -antp
+  285  lsof
+  286  netstat -anp | grep 6818
+  287  systemctl stop slurmctld
+  288  systemctl start slurmctld
+  289  netstat -anp | grep 6818
+  290  sudo vim /etc/hosts
+  291  reboot
+  292  sudo cat /etc/hosts
+  293  ping SL311A-T-Speech1
+  294  systemctl start slurmctld
+  295  systemctl status slurmctld
+  296  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  297  systemctl stop slurmctld
+  298  sudo vim /etc/hosts
+  299  systemctl start slurmctld
+  300  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  301  systemctl stop slurmctld
+  302  systemctl start slurmctld
+  303  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+  304  systemctl stop slurmctld
+  305  sudo reboot
+  306  cd /export1/
+  307  history | grep 94
+  308  sftp aaa@10.10.19.94
+  309  history
+  310  10.8.16.95
+  311  ssh 10.8.16.95
+  312  jobs -l nohup & jupyter notebook --generate-config --allow-root
+  313  vim /home/manager/.jupyter/jupyter_notebook_config.py
+  314  ssh 10.8.16.95
+  315  vim /home/manager/.jupyter/jupyter_notebook_config.py
+  316  nohup jupyter notebook --allow-root >/dev/null 2>&1 &
+  317  tar zxvf 0011_multi_cn_chain_sp_online_v2.tar.gz 
+  318  mv multi_cn_chain_sp_online/ kaldi/egs/multi_cn/online/
+  319  history | grep chown
+  320  sinfo 
+  321  ssh 10.8.16.95
+  322  ls
+  323  mv online/ kaldi/egs/multi_cn/online/
+
+
+
+
+
+
+
+
+
   295  cd tools/
   296  extras/check_dependencies.sh
   297  make -j 4
