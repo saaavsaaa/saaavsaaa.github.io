@@ -11,6 +11,7 @@ chmod +x
 ifconfig   
 chmod 755     
 audacity     
+grep -a 二进制文件   
 
 cat /etc/sysctl.conf可修改   
 cat /proc/sys/fs/file-nr   
