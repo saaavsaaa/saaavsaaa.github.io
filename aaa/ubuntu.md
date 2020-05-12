@@ -1,3 +1,4 @@
+env   
 sudo -i   
 sudo passwd user   
 find / -name *    
