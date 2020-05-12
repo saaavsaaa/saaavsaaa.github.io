@@ -326,7 +326,7 @@
 
 -----
 
-1  df -h
+    1  df -h
     2  lsblk 
     3  blkid
     4  sfdisk 
