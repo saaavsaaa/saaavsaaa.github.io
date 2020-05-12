@@ -2111,3 +2111,147 @@
  1278  exit
  1279  cd /export1/
  1280  history > history.txt
+ 1281  cd /export1/kaldi-ali/kaldi-trunk/egs/aishell/
+ 1282  ls
+ 1283  history | grep 93
+ 1284  sudo sftp manager@10.8.16.93
+ 1285  exit
+ 1286  history
+ 1287  nohup jupyter notebook --allow-root >/dev/null 2>&1 &
+ 1288  cd /export1/
+ 1289  systemctl start munge
+ 1290  systemctl status munge
+ 1291  systemctl start slurmctld
+ 1292  slurmctld -D
+ 1293  systemctl stop slurmctld
+ 1294  sudo systemctl start slurmctld
+ 1295  sinfo
+ 1296  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1297  hostname -s
+ 1298  sudo vim /etc/hosts
+ 1299  who
+ 1300  sudo who
+ 1301  sudo apt-get update
+ 1302  sudo apt-get upgrade
+ 1303  history
+ 1304  sinfo
+ 1305  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1306  sudo systemctl stop slurmctld
+ 1307  audacity
+ 1308  ll -h /proc/kcore
+ 1309  cat /proc/meminfo
+ 1310  statm
+ 1311  cat /proc/cpuinfo |grep "cores"|uniq
+ 1312  cat /proc/cpuinfo |grep "physical id"|sort |uniq|wc -l
+ 1313  history
+ 1314  sudo cp slurm.conf /etc/slurm-llnl/
+ 1315  sudo cat /etc/slurm-llnl/slurm.conf
+ 1316  history
+ 1317  sudo sftp manager@10.8.16.94
+ 1318  sudo sftp manager@10.8.16.93
+ 1319  sudo systemctl start slurmctld
+ 1320  sinfo
+ 1321  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1322  /bin/hostname -f
+ 1323  /bin/hostname -s
+ 1324  hostname
+ 1325  more /proc/sys/kernel/hostname 
+ 1326  more /etc/sysconfig/network
+ 1327  sudo cat /etc/hostname 
+ 1328  srun -N1 /bin/hostname
+ 1329  slurmd -C
+ 1330  /bin/hostname
+ 1331  lscpu
+ 1332  history
+ 1333  sudo vim /etc/hosts
+ 1334  sudo cat /etc/hosts
+ 1335  sudo systemctl stop slurmctld
+ 1336  sinfo
+ 1337  sudo vim /etc/hosts
+ 1338  sudo cat /etc/hosts
+ 1339  sudo systemctl start slurmctld
+ 1340  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1341  squeue
+ 1342  scontrol show nodes
+ 1343  srun -n 4 ./example
+ 1344  squeue
+ 1345  sinfo
+ 1346  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1347  date -R
+ 1348  who
+ 1349  slurmctld -Dvvv
+ 1350  slurmd -Dvvv
+ 1351  scontrol show partition
+ 1352  squeue
+ 1353  slurmd -C
+ 1354  sudo ufw status 
+ 1355  who
+ 1356  sudo systemctl enable slurmctld
+ 1357  slurmctld -Dvvv
+ 1358  sudo tail -f /var/log/slurm-llnl/slurmctld.log
+ 1359  history | grep munge
+ 1360  systemctl status munge
+ 1361  wget -c https://download.schedmd.com/slurm/slurm-20.02.2.tar.bz2
+ 1362  sudo sftp manager@10.8.16.94
+ 1363  sudo sftp manager@10.8.16.93
+ 1364  cgget
+ 1365  sudo apt-get install cgroup-bin
+ 1366  sudo apt install cgroup-tools
+ 1367  sudo apt install cgroup-lite
+ 1368  sudo apt install mountall
+ 1369  sudo apt install libnih-dbus1
+ 1370  sudo apt install libnih1
+ 1371  who
+ 1372  history
+ 1373  make
+ 1374  cat /home/manager/.jupyter/jupyter_notebook_config.py
+ 1375  history
+ 1376  sudo systemctl stop slurmctld
+ 1377  ll /var/lib/slurm-llnl/
+ 1378  sudo chown manager /etc/munge
+ 1379  sudo chown manager /var/lib/slurm-llnl/
+ 1380  ll /var/lib/slurm-llnl/
+ 1381  sudo chown -r manager /var/lib/slurm-llnl/
+ 1382  sudo chown manager /var/lib/slurm-llnl/*
+ 1383  ll /var/lib/slurm-llnl/
+ 1384  sudo chown manager:manager /var/lib/slurm-llnl/*
+ 1385  sudo chown manager:manager /etc/munge
+ 1386  history
+ 1387  sudo sftp manager@10.8.16.93
+ 1388  wget -c https://github.com/dun/munge/releases/download/munge-0.5.14/munge-0.5.14.tar.xz
+ 1389  history
+ 1390  sudo sftp manager@10.8.16.93
+ 1391  sudo cp slurm.conf /etc/slurm-llnl/
+ 1392  slurmctld -Dvvv
+ 1393  sudo cp slurm.conf /etc/slurm-llnl/
+ 1394  sudo sftp manager@10.8.16.93
+ 1395  slurmctld -Dvvv
+ 1396  /usr/sbin/munged  --num-threads=10
+ 1397  sudo /usr/sbin/munged  --num-threads=10
+ 1398  ll /var/log/munge
+ 1399  history
+ 1400  history | grep munge
+ 1401  sudo chown manager:manager /var/log/munge
+ 1402  sudo /usr/sbin/munged  --num-threads=10
+ 1403  ll /var/log/munge/
+ 1404  sudo chown -R manager:manager /var/log/munge
+ 1405  ll /var/log/munge/
+ 1406  sudo /usr/sbin/munged  --num-threads=10
+ 1407  sudo chown -R root:root /var/log/munge
+ 1408  sudo /usr/sbin/munged  --num-threads=10
+ 1409  ll /run/munge
+ 1410  ll /run
+ 1411  sudo chown -R root:root /run/munge
+ 1412  sudo /usr/sbin/munged  --num-threads=10
+ 1413  sudo chown -R root:root /var/lib/munge
+ 1414  sudo /usr/sbin/munged  --num-threads=10
+ 1415  sudo chown -R root:root /etc/munge/munge.key
+ 1416  sudo /usr/sbin/munged  --num-threads=10
+ 1417  sudo chown -R root:root /etc/munge
+ 1418  sudo /usr/sbin/munged  --num-threads=10
+ 1419  slurmctld -Dvvv
+ 1420  cd /export1/
+ 1421  ps -aux | grep slurmctld
+ 1422  fg
+ 1423  bg
+ 1424  history | grep --num-threads=10
