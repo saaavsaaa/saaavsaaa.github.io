@@ -1,3 +1,5 @@
+ sudo vim /usr/local/lib/pkgconfig/munge.pc
+ 
     1  cd /etc/netplan/
     2  ls
     3  clear
