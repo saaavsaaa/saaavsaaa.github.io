@@ -71,6 +71,9 @@ xargs命令的作用，是将标准输入转为命令行参数     echo "one two
 xargs [-options] [command]      
 $ xargs 等同于 $ xargs echo    $ xargs find -name "*.txt"    :   ./foo.txt。。。   
 
+dpkg --list | grep "^rc" | cut -d " " -f 3   
+dpkg --list | grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge   
+
 vim /etc/apt/sources-list   
 sh Anaconda3-2019.10-Linux-x86_64.sh     
 conda install jupyter notebook         
