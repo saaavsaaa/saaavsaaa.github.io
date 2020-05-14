@@ -1112,7 +1112,6 @@
   784  ll /var/log/slurm-llnl
   785  sudo chown -R manager:manager /var/log/slurm-llnl
   786  slurmd -Dvvv
-  787  sudo chmod /var/lib/slurm-llnl/slurmd 0755
   788  sudo chmod 0755 /var/lib/slurm-llnl/slurmd
   789  slurmd -Dvvv
   790  ll /var/lib/slurm-llnl
