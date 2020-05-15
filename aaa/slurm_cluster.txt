@@ -16,3 +16,5 @@ munge，我直接用的ubuntu的apt-get安装的，装上就行
 如果用apt装的，需要自己找包里带的配置文件例子改一下，官方网站上只能生成最新版的配置，好多属性对不上
 权限问题，启动会提醒的，要把一些目录 chown -R 成启动用户所有，另外，sudo chmod 0755 /var/lib/slurm/slurmd
 新加入集群的节点看状态如果dwon着，可以scontrol update NodeName=xxxxx State=RESUME
+
+使用cgroup的时候要注意系统带的一些它相关的依赖的版本是不是兼容，可以apt-get install xxx=指定版本
