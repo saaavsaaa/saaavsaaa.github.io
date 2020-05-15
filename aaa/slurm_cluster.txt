@@ -10,8 +10,9 @@ munge，我直接用的ubuntu的apt-get安装的，装上就行
   sudo chmod 0700 /var/log/munge/*
   sudo chmod 0755 /run/munge
 
+如果是自己编译的，注意配置的路径前缀，它会编译进libmunge里，如果写配置文件的时候和它不一样，比如pid文件，改任何配置文件都是不会好的。只有把这个程序集删掉重新来才行，注意 make uninstall 可能不会删，可能需要手动删除。
+
 不知道是不是 slurm 太小众了，ubuntu 的官方源里没有，换了清华的源差了好几个大版本，不过反正都能用
 如果用apt装的，需要自己找包里带的配置文件例子改一下，官方网站上只能生成最新版的配置，好多属性对不上
-如果是自己编译的，注意配置的路径前缀，它会编译进libmunge里，如果写配置文件的时候和它不一样，比如pid文件，改任何配置文件都是不会好的。只有把这个程序集删掉重新来才行，注意 make uninstall 可能不会删，可能需要手动删除。
 权限问题，启动会提醒的，要把一些目录 chown -R 成启动用户所有，另外，sudo chmod 0755 /var/lib/slurm/slurmd
 新加入集群的节点看状态如果dwon着，可以scontrol update NodeName=xxxxx State=RESUME
