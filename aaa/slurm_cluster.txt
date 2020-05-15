@@ -5,5 +5,10 @@
 munge，我直接用的ubuntu的apt-get安装的，装上就行
 配置方面，只要保证集群种所有机器的munge.key是相同的就可以了
 启动时，要保证启动 munge 的用户一致，用户的uid之类的，不然启动 slurm 时会报错：Unable to register with slurm controller
+
+不知道是不是 slurm 太小众了，ubuntu 的官方源里没有，换了清华的源差了好几个大版本，不过反正都能用
+如果用apt装的，需要自己找包里带的配置文件例子改一下，官方网站上只能生成最新版的配置，好多属性对不上
+如果是自己编译的，注意配置的路径前缀，它会编译进libmunge里，如果写配置文件的时候和它不一样，比如pid文件，改任何配置文件都是不会好的。只有把这个程序集删掉重新来才行，注意 make uninstall 可能不会删，可能需要手动删除。
+
 scontrol update NodeName=SL311A-T-Speech2 State=RESUME
 libmunge
