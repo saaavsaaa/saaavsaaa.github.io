@@ -1,1 +1,9 @@
+为了Kaldi，由于SGE收费，所以选择搭建slurm集群，花了好些时间，记录一下还记得的问题。
 
+服务器的时间要同步。
+
+munge，我直接用的ubuntu的apt-get安装的，装上就行
+配置方面，只要保证集群种所有机器的munge.key是相同的就可以了
+启动时，要保证启动 munge 的用户一致，用户的uid之类的，不然启动 slurm 时会报错：Unable to register with slurm controller
+scontrol update NodeName=SL311A-T-Speech2 State=RESUME
+libmunge
