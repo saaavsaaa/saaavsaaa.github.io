@@ -4,7 +4,7 @@
 如果DHCP有问题，就要配好hosts，总之机器名和IP都要通
 
 munge，我直接用的ubuntu的apt-get安装的，装上就行
-配置方面，只要保证集群种所有机器的munge.key是相同的就可以了
+配置方面，只要保证集群中所有机器的munge.key是相同的就可以了
 启动时，要保证启动 munge 的用户一致，用户的uid之类的，不然启动 slurm 时会报错：Unable to register with slurm controller
 官网建议的权限：
   sudo chmod 0700 /var/log/munge
