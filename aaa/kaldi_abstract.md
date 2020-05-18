@@ -119,4 +119,8 @@ utils中有一个data文件夹，其中脚本多是用于处理数据文件夹�
 句子音频表单：wav.scp，可以是切分为每句的或未切分的多句的，如果是未切分的，需要配合切分表(Segments)单使用   
 声学特征表单：feats.scp，每个元素表示一个句子   
 谱特征归一化表单：cmvn.scp，通用声学特征处理脚本提取的谱归一化系数文件，可以以句子和说话人为单位   
-VAD信息表单：vad.scp，表单元素由compute-vad提取，由提取VAD的通用脚本生成，以句子为单位   
+VAD信息表单：vad.scp，表单元素由compute-vad提取，由提取VAD的通用脚本生成，以句子为单位。（语音活动检测(Voice Activity Detection)又称语音端点检测,语音边界检测）   
+
+
+
+VTLN Vocal Tract Length Normalisation 声道长度归一化
