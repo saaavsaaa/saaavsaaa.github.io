@@ -149,16 +149,15 @@ VTLN Vocal Tract Length Normalisation 声道长度归一化
 |get_frame_shift.sh               | 获取数据文件夹的帧移信息，打印到屏幕 |
 |get_num_frames.sh                | 获取数据文件夹的总帧数信息，打印到屏幕 |
 |get_segments_for_data.sh         | 获取音频时长信息，转换为segments文件 |
-
-get utt2dur.sh
-limit feature dim.sh
-modify speaker info.sh
-perturb data dir speed.sh
-perturb_ data dir volume sh
-remove dup utts.sh
-resample data dir.sh
-shift feats.sh
-split data.sh
-subsegment data dir.sh
-subset data dir.sh
-validate_data dir.sh
+|get_utt2dur.sh                   |
+|limit_feature_dim.sh             |
+|modify_speaker_info.sh           |
+|perturb_data_dir_speed.sh        |
+|perturb_data_dir_volume sh      |
+|remove_dup_utts.sh               |
+|resample_data_dir.sh             |
+|shift_feats.sh                   |
+|split_data.sh                    |
+|subsegment_data_dir.sh           |
+|subset_data_dir.sh               |
+|validate_data_dir.sh             |
