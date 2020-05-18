@@ -141,6 +141,6 @@ VTLN Vocal Tract Length Normalisation 声道长度归一化
 
 
 |boolean       |       Z|
-| combine_data.sh | 将多个数据文件夹合并为一个，并合并对应的表单   |
-| combine_short_segments.sh | 合并原文件夹中的短句，创建一个新的数据 文件夹 |
+|combine_data.sh | 将多个数据文件夹合并为一个，并合并对应的表单|
+|combine_short_segments.sh | 合并原文件夹中的短句，创建一个新的数据 文件夹|
 
