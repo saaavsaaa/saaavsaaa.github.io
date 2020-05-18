@@ -153,7 +153,7 @@ VTLN Vocal Tract Length Normalisation 声道长度归一化
 |limit_feature_dim.sh             |
 |modify_speaker_info.sh           |
 |perturb_data_dir_speed.sh        |
-|perturb_data_dir_volume sh      |
+|perturb_data_dir_volume sh       |
 |remove_dup_utts.sh               |
 |resample_data_dir.sh             |
 |shift_feats.sh                   |
