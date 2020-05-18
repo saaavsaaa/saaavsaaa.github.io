@@ -143,10 +143,10 @@ VTLN Vocal Tract Length Normalisation 声道长度归一化
 |:-:|:-:|
 |combine_data.sh                  | 将多个数据文件夹合并为一个，并合并对应的表单 |
 |combine_short_segments.sh        | 合并原文件夹中的短句，创建一个新的数据 文件夹 |
-|copy_data_dir.sh                 | |
-|extract_wav_segments_data_dir.sh | |
-|fix_data_dir.sh                  | |
-|get_frame_shift.sh               | |
-|get_num_frames.sh                | |
-|get_segments_for_data.sh         | |
+|copy_data_dir.sh                 | 复制原文件夹，创建一个新的数据文件夹，可以指定说话人或句子的前缀、后缀，复制部分数据|
+|extract_wav_segments_data_dir.sh | 利用原文件夹中的分段信息，切分音频文件，并保存为一一 个新的数据文件夹|
+|fix_data_dir.sh                  | 为原文件夹保留一个备份，删除没有同时出现在多个表单中的句子，并修正排序|
+|get_frame_shift.sh               | 获取数据文件夹的帧移信息，打印到屏幕|
+|get_num_frames.sh                | 获取数据文件夹的总帧数信息，打印到屏幕|
+|get_segments_for_data.sh         | 获取音频时长信息，转换为segments文件|
 
