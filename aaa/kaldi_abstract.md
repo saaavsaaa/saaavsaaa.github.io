@@ -158,7 +158,7 @@ perturb_ data dir volume sh
 remove dup utts.sh
 resample data dir.sh
 shift feats.sh
-split datash
-subscgment data dir.sh
+split data.sh
+subsegment data dir.sh
 subset data dir.sh
-validate _data dirsh
+validate_data dir.sh
