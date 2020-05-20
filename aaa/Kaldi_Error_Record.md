@@ -85,7 +85,7 @@ slurmd: error: Unable to get user's local environment, running only with passed 
 
 
 
-服务器所在网络问题：
+###### 服务器所在网络问题：
 
 -----
 
@@ -114,7 +114,7 @@ slurmd: error: Unable to get user's local environment, running only with passed 
 
 查了下 cat local/prepare_dict.sh，由于服务器环境原因 wget http://sourceforge.net/projects/kaldi/files/sequitur-model4 -O conf/g2p_model 下载不下来，但是conf/g2p_model文件存在了，本地下载了上传上去就可以了     
 
-集群批处理失败：
+###### 集群批处理失败：
 
 -----
 
@@ -165,7 +165,7 @@ slurmd: error: Unable to get user's local environment, running only with passed 
 
 由于默认的sbatch -p 是shared，和我的不一样，改下参数就好了。
 
-内存资源不足及配置依赖:
+###### 内存资源不足及配置依赖:
 
 ------
 
