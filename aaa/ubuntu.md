@@ -87,6 +87,11 @@ grep
 dpkg --list | grep "^rc" | cut -d " " -f 3   
 dpkg --list | grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge   
 
+ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' |  sort -nrk5     
+-k 5 :按第5个参数 rsz实际内存大小进行排序     
+-r：逆序     
+-n：numeric，按数字来排序     
+
 vim /etc/apt/sources-list   
 sh Anaconda3-2019.10-Linux-x86_64.sh     
 conda install jupyter notebook         
