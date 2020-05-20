@@ -187,3 +187,5 @@ $free -g
 |Mem:       |    23   |       0   |       0  |        0 |        22  |       22   | 
 |Swap:      |     7   |       0   |       7  |  |||
 
+https://slurm.schedmd.com/sbatch.html   --mem 参数     
+
