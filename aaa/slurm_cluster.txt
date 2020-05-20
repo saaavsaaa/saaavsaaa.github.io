@@ -19,3 +19,6 @@ munge，我直接用的ubuntu的apt-get安装的，装上就行
 新加入集群的节点看状态如果dwon着，可以scontrol update NodeName=xxxxx State=RESUME
 
 使用cgroup的时候要注意系统带的一些它相关的依赖的版本是不是兼容，可以apt-get install xxx=指定版本
+
+https://slurm.schedmd.com/quickstart_admin.html#Config
+https://slurm.schedmd.com/configurator.htm
