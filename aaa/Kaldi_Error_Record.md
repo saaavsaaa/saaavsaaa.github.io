@@ -176,9 +176,14 @@ kaldi/egs/multi_cn ：
 
 -----
 
-scontrol show nodes发现有个节点，FreeMem=642不到1G了    
+$scontrol show nodes发现有个节点，FreeMem=642不到1G了    
      srun -N2 --mem=2GB /bin/hostname    
      srun: error: Memory specification can not be satisfied    
      srun: Force Terminated job 36    
      srun: error: Unable to allocate resources: Requested node configuration is not available    
+$free -g     
+|           | total   |    used   |    free  |   shared | buff/cache | available  |
+|:-:|--:|--:|--:|--:|--:|--:|
+|Mem:       |    23   |       0   |       0  |        0 |        22  |       22   | 
+|Swap:      |     7   |       0   |       7  |  |||
 
