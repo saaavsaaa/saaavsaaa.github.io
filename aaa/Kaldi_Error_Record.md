@@ -27,7 +27,7 @@ kaldi/egs/multi_cn ：
     EOFError: Ran out of input
 -----
 
-查了下 cat local/prepare_dict.sh，由于服务器环境原因 wget http://sourceforge.net/projects/kaldi/files/sequitur-model4 -O conf/g2p_model 下载不下来，但是conf/g2p_model文件存在了，我在本地下载了上传上去的     
+查了下 cat local/prepare_dict.sh，由于服务器环境原因 wget http://sourceforge.net/projects/kaldi/files/sequitur-model4 -O conf/g2p_model 下载不下来，但是conf/g2p_model文件存在了，本地下载了上传上去就可以了     
 
 -----
 
