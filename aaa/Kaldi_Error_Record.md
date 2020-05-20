@@ -73,6 +73,8 @@ kaldi/egs/multi_cn ：
     slurm_load_jobs error: Invalid job id specified
 
 -----
+slurmd: error: SlurmdUser must be root to use --get-user-env
+slurmd: error: Unable to get user's local environment, running only with passed environment
 
 
 
