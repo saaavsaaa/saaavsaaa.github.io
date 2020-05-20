@@ -189,3 +189,88 @@ $free -g
 
 https://slurm.schedmd.com/sbatch.html   --mem 参数     
  scontrol show config     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tail: cannot open 'exp/make_mfcc/primewords/train/make_mfcc_pitch_train.1.log' for reading: No such file or directory
+/export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: Error: Job 68 seems to no longer exists:
+'squeue -j 68' returned error code 1 and said:
+  slurm_load_jobs error: Invalid job id specified
+
+Syncfile exp/make_mfcc/primewords/train/q/done.5145.1 does not exist, meaning that the job did not finish.
+Log is in exp/make_mfcc/primewords/train/make_mfcc_pitch_train.1.log. Last line '' does not end in 'status 0'.
+Possible reasons:
+  a) Exceeded time limit? -> Use more jobs!
+  b) Shutdown/Frozen machine? -> Run again! squeue:
+slurm_load_jobs error: Invalid job id specified
+tail: cannot open 'exp/make_mfcc/stcmds/train/make_mfcc_pitch_train.1.log' for reading: No such file or directory
+/export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: Error: Job 69 seems to no longer exists:
+'squeue -j 69' returned error code 1 and said:
+  slurm_load_jobs error: Invalid job id specified
+
+Syncfile exp/make_mfcc/stcmds/train/q/done.5215.1 does not exist, meaning that the job did not finish.
+Log is in exp/make_mfcc/stcmds/train/make_mfcc_pitch_train.1.log. Last line '' does not end in 'status 0'.
+Possible reasons:
+  a) Exceeded time limit? -> Use more jobs!
+  b) Shutdown/Frozen machine? -> Run again! squeue:
+slurm_load_jobs error: Invalid job id specified
+tail: cannot open 'exp/make_mfcc/aishell/train/make_mfcc_pitch_train.1.log' for reading: No such file or directory
+/export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: Error: Job 70 seems to no longer exists:
+'squeue -j 70' returned error code 1 and said:
+  slurm_load_jobs error: Invalid job id specified
+
+Syncfile exp/make_mfcc/aishell/train/q/done.5240.1 does not exist, meaning that the job did not finish.
+Log is in exp/make_mfcc/aishell/train/make_mfcc_pitch_train.1.log. Last line '' does not end in 'status 0'.
+Possible reasons:
+  a) Exceeded time limit? -> Use more jobs!
+  b) Shutdown/Frozen machine? -> Run again! squeue:
+slurm_load_jobs error: Invalid job id specified
+tail: cannot open 'exp/make_mfcc/aidatatang/train/make_mfcc_pitch_train.1.log' for reading: No such file or directory
+/export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: Error: Job 77 seems to no longer exists:
+'squeue -j 77' returned error code 1 and said:
+  slurm_load_jobs error: Invalid job id specified
+
+Syncfile exp/make_mfcc/aidatatang/train/q/done.5273.1 does not exist, meaning that the job did not finish.
+Log is in exp/make_mfcc/aidatatang/train/make_mfcc_pitch_train.1.log. Last line '' does not end in 'status 0'.
+Possible reasons:
+  a) Exceeded time limit? -> Use more jobs!
+  b) Shutdown/Frozen machine? -> Run again! squeue:
+slurm_load_jobs error: Invalid job id specified
+tail: cannot open 'exp/make_mfcc/magicdata/train/make_mfcc_pitch_train.1.log' for reading: No such file or directory
+/export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: Error: Job 80 seems to no longer exists:
+'squeue -j 80' returned error code 1 and said:
+  slurm_load_jobs error: Invalid job id specified
+
+Syncfile exp/make_mfcc/magicdata/train/q/done.5329.1 does not exist, meaning that the job did not finish.
+Log is in exp/make_mfcc/magicdata/train/make_mfcc_pitch_train.1.log. Last line '' does not end in 'status 0'.
+Possible reasons:
+  a) Exceeded time limit? -> Use more jobs!
+  b) Shutdown/Frozen machine? -> Run again! squeue:
+slurm_load_jobs error: Invalid job id specified
