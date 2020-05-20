@@ -47,6 +47,7 @@ statm 进程所占用的内存
 hostname -i    
 netstat -anp | grep 6379   
 netstat -tlnp   
+cat /proc/swaps   
 
 tar zxvf     
 sudo tar zcvf aaa.tar.gz aaa/    
