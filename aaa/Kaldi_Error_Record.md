@@ -29,6 +29,8 @@ kaldi/egs/multi_cn ：
 
 查了下 cat local/prepare_dict.sh，由于服务器环境原因 wget http://sourceforge.net/projects/kaldi/files/sequitur-model4 -O conf/g2p_model 下载不下来，但是conf/g2p_model文件存在了，本地下载了上传上去就可以了     
 
+集群批处理失败：
+
 -----
 
     /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
@@ -76,3 +78,100 @@ kaldi/egs/multi_cn ：
 
 -----
 
+由于默认的sbatch -p 是shared，和我的不一样，改下参数就好了。
+
+
+
+
+------
+
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/thchs/train/q/make_mfcc_pitch_train.log, command was sbatch --export=PATH  --ntasks-per-node=1  --mem-per-cpu 2G -p compute  --open-mode=append -e exp/make_mfcc/thchs/train/q/make_mfcc_pitch_train.log -o exp/make_mfcc/thchs/train/q/make_mfcc_pitch_train.log --array 1-20 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/thchs/train/q/make_mfcc_pitch_train.sh >>exp/make_mfcc/thchs/train/q/make_mfcc_pitch_train.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    utils/validate_data_dir.sh: Successfully validated data-directory data/primewords/train
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.log, command was sbatch --export=PATH  --ntasks-per-node=1  --mem-per-cpu 2G -p compute  --open-mode=append -e exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.log -o exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.log --array 1-20 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.sh >>exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    utils/validate_data_dir.sh: Successfully validated data-directory data/stcmds/train
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    utils/validate_data_dir.sh: Successfully validated data-directory data/aishell/train
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/stcmds/train/q/make_mfcc_pitch_train.log, command was sbatch --export=PATH  --ntasks-per-node=1  --mem-per-cpu 2G -p compute  --open-mode=append -e exp/make_mfcc/stcmds/train/q/make_mfcc_pitch_train.log -o exp/make_mfcc/stcmds/train/q/make_mfcc_pitch_train.log --array 1-20 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/stcmds/train/q/make_mfcc_pitch_train.sh >>exp/make_mfcc/stcmds/train/q/make_mfcc_pitch_train.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/aishell/train/q/make_mfcc_pitch_train.log, command was sbatch --export=PATH  --ntasks-per-node=1  --mem-per-cpu 2G -p compute  --open-mode=append -e exp/make_mfcc/aishell/train/q/make_mfcc_pitch_train.log -o exp/make_mfcc/aishell/train/q/make_mfcc_pitch_train.log --array 1-20 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/aishell/train/q/make_mfcc_pitch_train.sh >>exp/make_mfcc/aishell/train/q/make_mfcc_pitch_train.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    utils/validate_data_dir.sh: Successfully validated data-directory data/aidatatang/train
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/aidatatang/train/q/make_mfcc_pitch_train.log, command was sbatch --export=PATH  --ntasks-per-node=1  --mem-per-cpu 2G -p compute  --open-mode=append -e exp/make_mfcc/aidatatang/train/q/make_mfcc_pitch_train.log -o exp/make_mfcc/aidatatang/train/q/make_mfcc_pitch_train.log --array 1-20 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/aidatatang/train/q/make_mfcc_pitch_train.sh >>exp/make_mfcc/aidatatang/train/q/make_mfcc_pitch_train.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    utils/validate_data_dir.sh: Successfully validated data-directory data/magicdata/train
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/magicdata/train/q/make_mfcc_pitch_train.log, command was sbatch --export=PATH  --ntasks-per-node=1  -p compute --mem-per-cpu 2G  --open-mode=append -e exp/make_mfcc/magicdata/train/q/make_mfcc_pitch_train.log -o exp/make_mfcc/magicdata/train/q/make_mfcc_pitch_train.log --array 1-20 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/magicdata/train/q/make_mfcc_pitch_train.sh >>exp/make_mfcc/magicdata/train/q/make_mfcc_pitch_train.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    steps/make_mfcc_pitch_online.sh --cmd slurm.pl --mem 2G --nj 10 data/aishell/test exp/make_mfcc/aishell/test mfcc/aishell
+    steps/make_mfcc_pitch_online.sh --cmd slurm.pl --mem 2G --nj 10 data/aidatatang/test exp/make_mfcc/aidatatang/test mfcc/aidatatang
+    steps/make_mfcc_pitch_online.sh --cmd slurm.pl --mem 2G --nj 10 data/magicdata/test exp/make_mfcc/magicdata/test mfcc/magicdata
+    steps/make_mfcc_pitch_online.sh --cmd slurm.pl --mem 2G --nj 10 data/thchs/test exp/make_mfcc/thchs/test mfcc/thchs
+    utils/validate_data_dir.sh: Successfully validated data-directory data/thchs/test
+    utils/validate_data_dir.sh: Successfully validated data-directory data/aishell/test
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/thchs/test/q/make_mfcc_pitch_test.log, command was sbatch --export=PATH  --ntasks-per-node=1  --mem-per-cpu 2G -p compute  --open-mode=append -e exp/make_mfcc/thchs/test/q/make_mfcc_pitch_test.log -o exp/make_mfcc/thchs/test/q/make_mfcc_pitch_test.log --array 1-10 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/thchs/test/q/make_mfcc_pitch_test.sh >>exp/make_mfcc/thchs/test/q/make_mfcc_pitch_test.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    utils/validate_data_dir.sh: Successfully validated data-directory data/magicdata/test
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/aishell/test/q/make_mfcc_pitch_test.log, command was sbatch --export=PATH  --ntasks-per-node=1  --mem-per-cpu 2G -p compute  --open-mode=append -e exp/make_mfcc/aishell/test/q/make_mfcc_pitch_test.log -o exp/make_mfcc/aishell/test/q/make_mfcc_pitch_test.log --array 1-10 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/aishell/test/q/make_mfcc_pitch_test.sh >>exp/make_mfcc/aishell/test/q/make_mfcc_pitch_test.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/magicdata/test/q/make_mfcc_pitch_test.log, command was sbatch --export=PATH  --ntasks-per-node=1  -p compute --mem-per-cpu 2G  --open-mode=append -e exp/make_mfcc/magicdata/test/q/make_mfcc_pitch_test.log -o exp/make_mfcc/magicdata/test/q/make_mfcc_pitch_test.log --array 1-10 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/magicdata/test/q/make_mfcc_pitch_test.sh >>exp/make_mfcc/magicdata/test/q/make_mfcc_pitch_test.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    utils/validate_data_dir.sh: Successfully validated data-directory data/aidatatang/test
+    steps/make_mfcc_pitch_online.sh: [info]: no segments file exists: assuming wav.scp indexed by utterance.
+    /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl: error submitting jobs to queue (return status was 256)
+    queue log file is exp/make_mfcc/aidatatang/test/q/make_mfcc_pitch_test.log, command was sbatch --export=PATH  --ntasks-per-node=1  -p compute --mem-per-cpu 2G  --open-mode=append -e exp/make_mfcc/aidatatang/test/q/make_mfcc_pitch_test.log -o exp/make_mfcc/aidatatang/test/q/make_mfcc_pitch_test.log --array 1-10 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/aidatatang/test/q/make_mfcc_pitch_test.sh >>exp/make_mfcc/aidatatang/test/q/make_mfcc_pitch_test.log 2>&1
+    sbatch: error: Memory specification can not be satisfied
+    sbatch: error: Batch job submission failed: Requested node configuration is not available
+    steps/train_mono.sh --boost-silence 1.25 --nj 20 --cmd slurm.pl --mem 2G data/aishell/train data/lang exp/mono
+    steps/train_mono.sh: Initializing monophone system.
+    feat-to-dim 'ark,s,cs:apply-cmvn --utt2spk=ark:data/aishell/train/split20/1/utt2spk scp:data/aishell/train/split20/1/cmvn.scp scp:data/aishell/train/split20/1/feats.scp ark:- | add-deltas ark:- ark:- |' - 
+    apply-cmvn --utt2spk=ark:data/aishell/train/split20/1/utt2spk scp:data/aishell/train/split20/1/cmvn.scp scp:data/aishell/train/split20/1/feats.scp ark:- 
+    WARNING (apply-cmvn[5.5.683~1-6ef3f]:Open():util/kaldi-table-inl.h:106) Failed to open script file data/aishell/train/split20/1/feats.scp
+    ERROR (apply-cmvn[5.5.683~1-6ef3f]:SequentialTableReader():util/kaldi-table-inl.h:860) Error constructing TableReader: rspecifier is scp:data/aishell/train/split20/1/feats.scp
+
+    [ Stack-Trace: ]
+    /export1/kaldi/src/lib/libkaldi-base.so(kaldi::MessageLogger::LogMessage() const+0xb42) [0x7fb16f784682]
+    apply-cmvn(kaldi::MessageLogger::LogAndThrow::operator=(kaldi::MessageLogger const&)+0x21) [0x558930a26f2f]
+    apply-cmvn(kaldi::SequentialTableReader<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::SequentialTableReader(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)+0xc2) [0x558930a2e540]
+    apply-cmvn(main+0x79b) [0x558930a24985]
+    /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7) [0x7fb16ebeeb97]
+    apply-cmvn(_start+0x2a) [0x558930a2410a]
+
+    kaldi::KaldiFatalErroradd-deltas ark:- ark:- 
+    ERROR (feat-to-dim[5.5.683~1-6ef3f]:main():feat-to-dim.cc:58) Could not read any features (empty archive?)
+
+    [ Stack-Trace: ]
+    /export1/kaldi/src/lib/libkaldi-base.so(kaldi::MessageLogger::LogMessage() const+0xb42) [0x7f67d2457682]
+    feat-to-dim(kaldi::MessageLogger::LogAndThrow::operator=(kaldi::MessageLogger const&)+0x21) [0x560a9e1763f1]
+    feat-to-dim(main+0x2e9) [0x560a9e1757e3]
+    /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7) [0x7f67d18c1b97]
+    feat-to-dim(_start+0x2a) [0x560a9e17541a]
+
+    kaldi::KaldiFatalErrorerror getting feature dimension
+
+-----
