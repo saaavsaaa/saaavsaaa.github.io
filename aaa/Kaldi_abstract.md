@@ -130,15 +130,21 @@ VAD信息表单：vad.scp，表单元素由compute-vad提取，由提取VAD的�
 说话人映射表单：utt2spk、spk2utt   
 标准文本表单：text，每一句的标注，应当是文本归一化后的内容。归一化指，文本中的词都在发音字典和语言模型的词表中，未出现的词都被当做未知词，英文要统一大小写，中文要做好分词。   
 切分信息表单：segments。Kaldi的数据处理以句子为单位，如果音频没按句子切分，就需要将每一句起止时间记录在 segments 中。文本类型，以句子为索引，索引与音频表单一致，以秒为单位。p75  
+VTLN相关系数表单     
+VTLN Vocal Tract Length Normalisation 声道长度归一化     
+
+句子时长表单
+
+### 数据文件夹处理脚本
+
+spk2utt
+copy-feats
+spk2gender
+utt2warp spk2warp gmm-global-est-lvtln-tran
 
 
-VTLN Vocal Tract Length Normalisation 声道长度归一化
-
-
-
-
-
-
+egs/wsj/utils/data 文件夹钟存放的是用来对数据文件夹进行整体处理的脚本     
+通用数据文件夹处理脚本：     
 |脚本     |   功能|
 |:--|:--|
 |combine_data.sh                  | 将多个数据文件夹合并为一个，并合并对应的表单 |
@@ -161,3 +167,4 @@ VTLN Vocal Tract Length Normalisation 声道长度归一化
 |subsegment_data_dir.sh           |
 |subset_data_dir.sh               |
 |validate_data_dir.sh             |
+
