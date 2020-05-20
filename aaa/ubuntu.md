@@ -74,7 +74,15 @@ xargs命令的作用，是将标准输入转为命令行参数     echo "one two
 xargs [-options] [command]      
 $ xargs 等同于 $ xargs echo    $ xargs find -name "*.txt"    :   ./foo.txt。。。   
 
-echo '一二三四五六七八九十' | LC_ALL="en_US.utf8" grep -oE '[一-十]'
+echo '一二三四五六七八九十' | LC_ALL="en_US.utf8" grep -oE '[一-十]'     
+grep 
+[[:alnum:]] - 字母数字字符
+[[:alpha:]] - 字母字符
+[[:blank:]] - 空字符: 空格键符 和 制表符
+[[:digit:]] - 数字: '0 1 2 3 4 5 6 7 8 9'
+[[:lower:]] - 小写字母: 'a b c d e f g h i j k l m n o p q r s t u v w x y z'
+[[:space:]] - 空格字符: 制表符、换行符、垂直制表符、换页符、回车符和空格键符
+[[:upper:]] - 大写字母: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'
 
 dpkg --list | grep "^rc" | cut -d " " -f 3   
 dpkg --list | grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge   
