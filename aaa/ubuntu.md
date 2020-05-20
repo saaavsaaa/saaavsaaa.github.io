@@ -48,6 +48,7 @@ hostname -i
 netstat -anp | grep 6379   
 netstat -tlnp   
 cat /proc/swaps   
+sudo slabtop   
 
 tar zxvf     
 sudo tar zcvf aaa.tar.gz aaa/    
