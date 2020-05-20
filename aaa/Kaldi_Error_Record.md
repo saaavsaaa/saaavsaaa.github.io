@@ -188,6 +188,7 @@ $free -g
 |Swap:      |     7   |       0   |       7  |  |||
 
 https://slurm.schedmd.com/sbatch.html   --mem 参数     
+NOTE: Enforcement of memory limits currently relies upon the task/cgroup plugin or enabling of accounting     
  scontrol show config     
 
 
