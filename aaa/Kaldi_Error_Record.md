@@ -188,4 +188,4 @@ $free -g
 |Swap:      |     7   |       0   |       7  |  |||
 
 https://slurm.schedmd.com/sbatch.html   --mem 参数     
-
+ scontrol show config     
