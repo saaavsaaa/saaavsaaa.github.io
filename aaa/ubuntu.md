@@ -13,6 +13,9 @@ ifconfig
 chmod 755     
 audacity     
 grep -a 二进制文件   
+grep ^aaa  以aaa开头的行   
+grep aaa$  以aaa结尾的行   
+grep aaa[^a] 除aaaa外aaa* ： aaab,aaac...   
 
 cat /etc/sysctl.conf可修改   
 cat /proc/sys/fs/file-nr   
