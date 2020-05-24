@@ -182,3 +182,5 @@ librispeech 的 local/prepare_dict.sh 含5步，0~2步用于生成发音词典�
 3) 将生成的发音与 CMU 中已有的发音结合，输出到发音词典中。检查汇总发音词典中词条数目与词汇表数目是否一致。     
 使用这个发音词典训练出来的模型只能识别20W词，其他词对它来说就是集外词 OOV。
 第4步生成4个文件：extra_questions.txt、silence_phones.txt、optional_silence.txt、nonsilence_phones.txt。这些文件定义了音素集，并描述了音素的一些属性。nonsilence_phones包含所有非静音音素，每行一个，重音不同语言处理不同。extra_questions给出了构建音素的声学上下文决策树时会遇到的基本问题，每行对应一个聚类问题。示例中第一个问题对应所有静音音素，最后一个问题对应所有不是静音且不包含重音标记的音素，其余对应使用同一个重音标记的音素。重音对于音素声学表现的影响是独特的，带有不同重音标记的音素不应聚到同类中。在中文中，使用带音调的发音词典，可以将相同音调的音素写成一行，保证在声学聚类中，不同音调的音素不会聚到一起。     
+optional_silence 定义了填充词间静音的音素。silence_phones定义了所有可以用来表示无效语音(noo-speech)内容的音素。Librispeech 用 SIL 表示静音，用 SPN 表示有声音但无法识别，集外词在Librispeech中就被指定为SPN。     
+lexicon.txt 包含了前面统计的发音词典的全部内容，和上述无效语音的发音规则，如!SIL用来表示静音的词，发音是静音音素；<SPOKEN_NOISE>和<UNK>表示噪音和集外词，发音都是SPN。由此，发音词条扩展为 200 003 条。     
