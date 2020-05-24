@@ -177,4 +177,5 @@ egs/wsj/utils/data 文件夹钟存放的是用来对数据文件夹进行整体�
 ### 发音词典与音素集     
 Librispeech 下载中包含了预先整理好的发音词典、语言模型、语言模型的训练数据，在 data/local/lm 中。在这个文件夹中，有3个关于发音词典的问题件：librispeech-lexicon.txt、librispeech-vocab.txt 和 g2p=model=5。vocab中包含了语言模型训练数据中词频最高的 20W 个词，lexicon中包含了这些词的发音，206508个，比20W多是因为有多音词。     
 librispeech 的 local/prepare_dict.sh 含5步，0~2步用于生成发音词典，3、4步将词典整理为Kaldi的发音词典文件夹。由于vocab预先整理好了，所以 --stage 参数3。这三步：     
-1) 下载 CMU 发音词典
+1) 下载 CMU 发音词典，去掉注释文本和多发音标记(在词后加数字区分多音词)。在语音识别中要让多发音的吃在文本中保持一致，且Kaldi中使用FST表示词典是支持一个词条存在多个发音路径的，所以直接去掉数字标记即可。     
+2) 
