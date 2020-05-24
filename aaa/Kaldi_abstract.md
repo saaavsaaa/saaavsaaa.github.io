@@ -185,4 +185,8 @@ librispeech 的 local/prepare_dict.sh 含5步，0~2步用于生成发音词典�
 optional_silence 定义了填充词间静音的音素。silence_phones定义了所有可以用来表示无效语音(noo-speech)内容的音素。Librispeech 用 SIL 表示静音，用 SPN 表示有声音但无法识别，集外词在Librispeech中就被指定为SPN。     
 lexicon.txt 包含了前面统计的发音词典的全部内容，和上述无效语音的发音规则，如!SIL用来表示静音的词，发音是静音音素；<SPOKEN_NOISE>和<UNK>表示噪音和集外词，发音都是SPN。由此，发音词条扩展为 200 003 条。     
 nosp 指 no silence probability，未使用silence probability技术。silence probability是Kaldi中一种对词及词间静音的发音概率建模的技术，可以提升语音识别的准确率。总脚本第13步用了这个技术。另外，多发音情况，Kaldi支持定义发音概率。如果不定义，后续脚本会将概率都定为1.0。如果定义，值要在0~1之间，且概率最高的设为 1.0。     
-  
+带发音概率的词典文件名为 lexiconp.txt。在发音词典文件夹中，lexicon.txt 和 lexiconp.txt 至少存在一个，默认使用 lexiconp.txt。它和前述4个音素属性定义文件，构成Kaldi标准发音词典文件夹。自己搭建训练环境时，需要写脚本创建，validate_dict_dir.pl 用于检查。  
+
+### 语言文件夹
+通过Kaldi通用脚本根据发音词典文件夹生成语言文件夹，通常命名为 data/lang。stage 3 完成后会生成3个类似的文件夹：data/lang_nosp、data/lang_nosp_test_tgmed、data/lang_nosp_test_tgsmall，后两个是由第一个复制而来，然后分别添加了各自的 G.fst 文件，这个文件中保存了对应测试集的语言模型。data/lang_nosp在发音词典文件夹内容基础上，进一步整理并扩充了发音词典和音素的属性描述，通过扩充音素集属性的方式提升声学模型的性能。     
+phones.txt 和 words.txt 分别定义了音素索引和词索引。Kaldi中，HMM、发音词典、语言模型都是用 FST 描述的，为了更紧凑的定义FST
