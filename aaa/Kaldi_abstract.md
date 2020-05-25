@@ -213,3 +213,5 @@ wdisambig_phones、wdisambig_words、wdisambig 分别是消歧符号音素的索
 word_boundary 每个音素的词位置，使用场合与 align_lexicon 类似。     
 
 ### 生成与使用语言文件夹     
+utils/prepare_lang.sh 生成语言文件夹。第一个参数时发音词典文件夹；第二个参数是集外词符号，理论上可以选择发音词典中任意词做集外词，通常单独定义一个或用静音；第三个参数时临时文件夹，用于保存生成过程中比较重要的中间文件；最后一个参数时输出的语言文件夹目录。可选参数可用来指定语言文件夹中文件的特性，如静音音素的状态数、非静音音素的状态数、是否使用音素位置标志等。          
+align_lexicon.txt,lex_ndisambig
