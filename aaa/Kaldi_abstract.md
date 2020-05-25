@@ -204,6 +204,9 @@ topo文件定义了每个音素的 HMM 拓扑结构，示例中静音和噪音�
 align_lexicon 文件的内容是发音词典，它将前面的发音词典第一列的词重复了一次，用来处理词网络文件和一些识别结果文件(如 !SIL !SIL SIL_S)。     
 context_indep 文件的内容是所有上下文无关音素的列表。列表中的音素聚类时不考虑上下文。在 Librispeech 中，所有静音音素都被定义为上下文无关音素。     
 disambig 文件内容是所有消歧符号列表，也就是音素列表中以#开头的部分音素。     
-extra_questions 
-nonsilence
-optional_silence
+extra_questions 用于音素上下文聚类，在发音词典文件夹同名文件基础上增加了音素位置标记，并对静音音素的聚类方法做了修改。     
+nonsilence 所有非静音符号、非消歧符号的音素列表。    
+optional_silence 词间选择性填充的静音音素列表，与发音词典文件夹中同名文件一样。    
+sets 定义了音素组；roots 定义了哪些音素共享上下文决策树的同一根节点。这两个文件用于上下文聚类。     
+silence 所有静音音素的列表。     
+wdisambig_phones、wdisambig_words、wdisambig 分别是消歧符号音素的索引、消歧符号词的索引、消歧符号文本。     
