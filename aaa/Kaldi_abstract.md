@@ -210,3 +210,6 @@ optional_silence 词间选择性填充的静音音素列表，与发音词典文
 sets 定义了音素组；roots 定义了哪些音素共享上下文决策树的同一根节点。这两个文件用于上下文聚类。     
 silence 所有静音音素的列表。     
 wdisambig_phones、wdisambig_words、wdisambig 分别是消歧符号音素的索引、消歧符号词的索引、消歧符号文本。     
+word_boundary 每个音素的词位置，使用场合与 align_lexicon 类似。     
+
+### 生成与使用语言文件夹     
