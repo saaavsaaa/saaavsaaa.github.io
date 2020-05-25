@@ -21,6 +21,8 @@ cat /etc/sysctl.conf可修改
 cat /proc/sys/fs/file-nr   
 cat /proc/sys/fs/file-max   
 
+comm 文件对比，合并等    
+
 grep error -m 10 === grep error  | head -10   
 grep -v 排除   
 grep -r "DataSourceActionInterceptor" *   
