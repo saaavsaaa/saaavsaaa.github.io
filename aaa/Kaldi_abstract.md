@@ -250,3 +250,4 @@ stage 8：单音子模型
 PLP 特征提取自线性预测系数(Linear Prediction Coefficients,LPC)，几种特征的关系 p99 4-3。工具：compute-plp-feats。     
 
 #### 特征在Kaldi中的存储     
+如果用 Kaldi 工具如 compute-mfcc-feats 提取特征，会自动输出为表单形式，可以用 ark、ark,t、scp 等浅醉控制表单格式。也可以用其他工具提供的声学特征进行训练，只要保存成 Kaldi  的表单格式即可。一种最简单示例 p100 句子ID [ 声学特征 每行一帧 ]，转换为二进制形式即可：copy-matrix ark,t:feat_in_text.ark ark:feat_in_binary.ark     
