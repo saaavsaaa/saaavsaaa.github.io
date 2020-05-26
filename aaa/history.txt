@@ -324,6 +324,344 @@
   322  ls
   323  mv online/ kaldi/egs/multi_cn/online/
 
+
+
+  435  sinfo 
+  436  srun -N1 /bin/hostname
+  437  srun -N2 /bin/hostname
+  438  srun -N3 /bin/hostname
+  439  srun -N2 /bin/hostname
+  440  srun -N3 /bin/hostname
+  441  srun -N1 /bin/hostname
+  442  srun -N2 /bin/hostname
+  443  cd kaldi/egs/
+  444  cd multi_cn/online/
+  445  bash run.sh 
+  446  sudo cp online/online-data/require/spk2utt tables/
+  447  sudo cp online/online-data/require/wav.scp tables/
+  448  ll tables/
+  449  ll
+  450  sudo chown -R manager:manager tables/
+  451  ll tables/
+  452  cp online/online-data/a1.wav wav/
+  453  bash run.sh 
+  454  ll wav/
+  455  ll tables/
+  456  ll online/online-data/require/
+  457  sudo chmod tables/spk2utt 664
+  458  sudo chmod 664 tables/spk2utt
+  459  sudo chmod 664 tables/wav.scp 
+  460  ll tables/
+  461  bash run.sh 
+  462  sudo find / -name run_online_decoding.sh
+  463  cp online/online-data/require/*.scp tables/
+  464  cp online/online-data/require/spk2utt tables/
+  465  bash run.sh 
+  466  cp online/online-data/require/spk2utt tables/
+  467  bash run.sh 
+  468  cat multi_cn_chain_sp_online/conf/online_cmvn.conf 
+  469  sudo find / -name "*apply-cmvn-online*"
+  470  bash run.sh 
+  471  cd online/
+  472  bash gmm-demo.sh 
+  473  cp -r utils/ ../
+  474  cd ..
+  475  bash run.sh 
+  476  sudo bash run.sh 
+  477  bash run.sh 
+  478  ls
+  479  cd ..
+  480  ls
+  481  clear
+  482  cd /export1/
+  483  ls
+  484  cd ..
+  485  ls
+  486  history
+  487  srun -N2 /bin/hostname
+  488  reboot
+  489  sudo reboot
+  490  ps -aux | gerp slurm
+  491  ps -aux | grep slurm
+  492  kill 11725
+  493  slurmd -D -vvvvvv
+  494  history
+  495  slurmd -D -vvvvvv
+  496  ps -aux | grep slurm
+  497  sinfo
+  498  slurmd -D -vvvvvv
+  499  df -h
+  500  cd /
+  501  ll
+  502  history
+  503  slurmd -D -vvvvvv
+  504  ls
+  505  sftp aaa@10.10.19.94
+  506  sh Anaconda3-2020.02-Linux-x86_64.sh 
+  507  sh Anaconda3-2020.02-Linux-x86_64.sh -u
+  508  exit
+  509  nohup jupyter notebook --allow-root >/dev/null 2>&1 &
+  510  sudo cat /etc/hosts
+  511  cd /export1/
+  512  git clone https://github.com/kaldi-asr/kaldi.git
+  513  exit
+  514  vim .wget
+  515  vim .wget-hsts 
+  516  vim .wgetrc 
+  517  wget openslr.org
+  518  exit
+  519  wget openslr.org
+  520  ll
+  521  rm index.html 
+  522  ll
+  523  exit
+  524  vim .curlrc
+  525  curl https://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict
+  526  curl http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/
+  527  svn
+  528  svn help
+  529  cd .subversion/
+  530  ll
+  531  vim servers 
+  532  exit
+  533  cd /export1/
+  534  cd /export1/kaldi/tools/
+  535  extras/check_dependencies.sh
+  536  ll /var/lib/apt/lists/ | grep auto
+  537  make -j 4
+  538  wget https://www.openslr.org/resources/2/openfst-1.6.7.tar.gz
+  539  ping www.baidu.com
+  540  sudo cat /etc/apt/sources.list
+  541  sudo apt-get install munge
+  542  munge -V
+  543  sudo systemctl status munge.service
+  544  sudo systemctl stop munge.service
+  545  sudo systemctl start munge.service
+  546  sudo systemctl status munge.service
+  547  cat /etc/munge/munge.key
+  548  sudo cat /etc/munge/munge.key
+  549  sudo apt-get install slurm-llnl
+  550  sudo systemctl start slurmctld
+  551  sudo systemctl status slurmctld
+  552  cd /export1/
+  553  ls
+  554  sftp manager@10.8.16.95
+  555  sudo cp slurm.conf /etc/slurm-llnl/
+  556  sudo cat /etc/slurm-llnl/slurm.conf
+  557  sudo systemctl status slurmctld
+  558  sudo systemctl start slurmctld
+  559  sudo systemctl status slurmctld
+  560  sudo systemctl stop slurmctld
+  561  slurmd -Dcvvv
+  562  cd /export1/
+  563  cd kaldi/tools/
+  564  cat /etc/apt/apt.conf
+  565  make -j 4
+  566  extras/install_irstlm.sh
+  567  extras/env.sh
+  568  cd ../src
+  569  ./configure --shared
+  570  make depend -j 4
+  571  make -j 4
+  572  make ext
+  573  cd ../egs/yesno/s5/
+  574  bash run.sh 
+  575  du -h
+  576  df -h
+  577  history
+  578  cd /export1/
+  579  sftp aaa@10.10.19.95
+  580  cd /export1/kaldi/egs/
+  581  cd aishell
+  582  sftp aaa@10.10.19.95
+  583  sftp manager@10.8.16.95
+  584  ls
+  585  cd /export1/kaldi/tools/
+  586  extras/install_mmseg.sh
+  587  cd mmseg-1.3.0/
+  588  python2.7 setup.py install
+  589  sudo apt-get install python-setuptools
+  590  sudo python2.7 setup.py install
+  591  cd /export1/kaldi/egs/
+  592  tar zxvf 0002_cvte_chain_model_v2.tar.gz 
+  593  cd cvte/
+  594  ls
+  595  cat README.txt 
+  596  CD s5/
+  597  cd s5/
+  598  ls
+  599  cd ..
+  600  cp ../aishell/online/ .
+  601  cp -r ../aishell/online/ .
+  602  echo $PYTHONPATH
+  603  echo $PATH
+  604  history
+  605  sinfo
+  606  pwd
+  607  cd /export1/kaldi/tools/
+  608  extras/install_kaldi_lm.sh
+  609  cd /export1/kaldi/egs/cvte
+  610  squeue
+  611  scontrol show nodes
+  612  free -g
+  613  echo 1 > /proc/sys/vm/drop_caches
+  614  sudo echo 1 > /proc/sys/vm/drop_caches
+  615  free -g
+  616  squeue
+  617  scontrol show nodes
+  618  squeue
+  619  free -g
+  620  srun -N2 --mem=2GB /bin/hostname
+  621  history
+  622  sudo cat /etc/slurm-llnl/slurm.conf
+  623  free -g
+  624  history
+  625  sudo reboot
+  626  cd /export1/
+  627  nohup jupyter notebook --allow-root >/dev/null 2>&1 &
+  628  sudo systemctl start munge
+  629  sudo systemctl status munge
+  630  sinfo
+  631  scontrol update NodeName=sl311a-t-speech3 State=RESUME
+  632  sinfo
+  633  free -g
+  634  srun -N2 --mem=2GB /bin/hostname
+  635  srun -N2 --mem=2 /bin/hostname
+  636  sudo grep "SchedulerParameters" /etc/slurm-llnl/slurm.conf
+  637  scocontrol show config
+  638  scontrol show config
+  639  scocontrol show config | grep "SchedulerParamete"
+  640  scontrol show config | grep "SchedulerParamete"
+  641  squeue
+  642  scontrol show jobs
+  643  squeue
+  644  scontrol show jobs
+  645  scontrol show config | grep "SlurmdUser"
+  646  scontrol show config | grep "get-user-env"
+  647  sinfo
+  648  squeue
+  649  scontrol show jobs
+  650  history
+  651  scontrol show jobs
+  652  sinfo
+  653  squeue
+  654  cp /export1/kaldi/egs/cvte/s5/conf/fbank.conf /export1/kaldi/egs/cvte/online/conf/
+  655  scontrol show jobs
+  656  squeue
+  657  sinfo
+  658  squeue
+  659  cd /export1/kaldi/egs/cvte/online/
+  660  cp -r ../../wsj/s5/steps/ .
+  661  cp -r ../../wsj/s5/utils/ .
+  662  sinfo
+  663  cp -r ../s5/exp/ .
+  664  cp -r ../s5/cmd.sh .
+  665  bash run.sh 
+  666  cp ../../aishell/s5/path.sh .
+  667  bash run.sh 
+  668  rm -rf result/
+  669  rm -rf online-data/models/
+  670  bash run.sh 
+  671  cp online-data/require/wav.scp online-data/require/data/
+  672  bash run.sh 
+  673  cp online-data/require/spk2utt online-data/require/data/
+  674  bash run.sh 
+  675  cp online-data/require/utt2spk online-data/require/data/
+  676  bash run.sh 
+  677  find ../ -name phones.txt
+  678  cp -r ../s5/data/ .
+  679  bash run.sh 
+  680  rm -rf data/fbank/
+  681  mv online-data/require/data/ data/test
+  682  cp data/lang_chain/phones.txt work/data/
+  683  bash run.sh 
+  684  cd ../..
+  685  git add cvte
+  686  rm -rf cvte/online/data/wav/
+  687  rm -rf cvte/online/online-data/
+  688  bash run.sh 
+  689  cd cvte/s5/
+  690  cd ../online/
+  691  bash run.sh 
+  692  cp exp/chain/tdnn/decode_test/log/decode.1.log /export1/
+  693  cp ../../aishell/online/online-data/audio/ data/wav/
+  694  cp -r ../../aishell/online/online-data/audio/ data/wav/
+  695  bash run.sh 
+  696  rm -rf ../s5/
+  697  rm -rf ../README.txt 
+  698  bash run.sh 
+  699  xxd
+  700  xxd -l 16 -p result.txt 
+  701  xxd result.txt 
+  702  bash run.sh 
+  703  history
+  704  rm -rf cp exp/chain/tdnn/decode_test
+  705  bash run.sh 
+  706  cd ../..
+  707  git add cvte/
+  708  git commit
+  709  git config --global user.email "you@example.com"
+  710  git config --global user.email "aaa@aaa.com"
+  711  git config --global user.name "aaa"
+  712  git commit
+  713  git branch
+  714  git remote get-url 
+  715  git remote get-url all
+  716  git remote show
+  717  cat ../.git/refs/remotes/origin/HEAD 
+  718  cat ../.gitattributes 
+  719  cat ../.git/index 
+  720  cat ../.git/info/exclude 
+  721  git remote 
+  722  git remote origin show
+  723  git remote -v
+  724  git remote add aaa https://github.com/co-develop-drv/kaldi.git
+  725  git push aaa master
+  726  git pull aaa master
+  727  rm -rf aishell/online
+  728  git pull aaa master
+  729  git push aaa master
+  730  cd cvte/online/
+  731  bash run.sh 
+  732  cd data/test/
+  733  ll
+  734  cd ..
+  735  ls
+  736  ll
+  737  cd wav/
+  738  ll
+  739  cd a1/
+  740  ll
+  741  cd ../../
+  742  cd ..
+  743  bash run.sh 
+  744  cd data/wav/a1/
+  745  sox a11.wav -b aa1.wav
+  746  sox a11.wav -b 16 aa1.wav
+  747  sox aa1.wav -r 16000 a11.wav
+  748  sox a12.wav -b 16 -r 16000 aa12.wav
+  749  sox a13.wav -b 16 -r 16000 aa13.wav
+  750  sox a14.wav -b 16 -r 16000 aa14.wav
+  751  sox a15.wav -b 16 -r 16000 aa15.wav
+  752  sox a16.wav -b 16 -r 16000 aa16.wav
+  753  sox a17.wav -b 16 -r 16000 aa17.wav
+  754  cd ../..
+  755  cd ..
+  756  bash run.sh 
+  757  grep -v '[a-zA-Z]'  log/*
+  758  grep '[a-zA-Z]'  log/*
+  759  . extract.sh 
+  760  bash run.sh 
+  761  perl --help
+  762  history | grep swig
+  763  history | grep extra
+  764  find / -name 'g2p.py'
+  765  sudo find / -name 'g2p.py'
+  766  cd /export1/
+  767  sinfo 
+  768  history | grep 94
+  769  cd /export1/kaldi/egs/cvte/online/
+
 -----
 
     1  df -h
