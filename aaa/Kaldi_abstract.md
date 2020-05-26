@@ -245,4 +245,4 @@ stage 8：单音子模型
   3) 对功率谱应用梅尔滤波器组，获取每个滤波器内的对数能量作为系数。     
   4）对得到的对数能量向量做离散余弦变换(Discrete Cosine Transform,DCT)。     
 
-通过设定 DCT 的输出个数，可以得到不同维度的 MFCCs 特征。p96的4-2使用了12维输出。除滤波器个数外，Kaldi 的 MFCCs 提取工具 compute-mfcc-feats 还有很多其他参数可调：     
+通过设定 DCT 的输出个数，可以得到不同维度的 MFCCs 特征。p96的4-2使用了12维输出。除滤波器个数外，Kaldi 的 MFCCs 提取工具 compute-mfcc-feats 还有很多其他参数可调。mfcc.conf 和 mfcc_hires.conf 里有比较常用的参数示例，分别提取 13 维 MFCCs 特征和 40 维高分辨率 MFCCs 特征。     
