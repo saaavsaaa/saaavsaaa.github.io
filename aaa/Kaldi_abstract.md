@@ -245,4 +245,8 @@ stage 8：单音子模型
   3) 对功率谱应用梅尔滤波器组，获取每个滤波器内的对数能量作为系数。     
   4）对得到的对数能量向量做离散余弦变换(Discrete Cosine Transform,DCT)。     
 
-通过设定 DCT 的输出个数，可以得到不同维度的 MFCCs 特征。p96的4-2使用了12维输出。除滤波器个数外，Kaldi 的 MFCCs 提取工具 compute-mfcc-feats 还有很多其他参数可调。mfcc.conf 和 mfcc_hires.conf 里有比较常用的参数示例，分别提取 13 维 MFCCs 特征和 40 维高分辨率 MFCCs 特征。     
+通过设定 DCT 的输出个数，可以得到不同维度的 MFCCs 特征。p96的4-2使用了12维输出。除滤波器个数外，Kaldi 的 MFCCs 提取工具 compute-mfcc-feats 还有很多其他参数可调。mfcc.conf 和 mfcc_hires.conf 里有比较常用的参数示例，分别提取 13 维 MFCCs 特征和 40 维高分辨率 MFCCs 特征。这个工具根据音频表单输入的WAV文件列表提取 MFCCs 特征，可以独立于Kaldi使用。     
+除 MFCCs 外，FilterBank、PLP 也是常用的特征。FilterBank 有时也写作 FBank，是不做DCT 的 MFCCs，保留了特征维间的相关性，在用卷积神经网络作为声学模型时，通常选用 FBank 作为特征。工具：compute-fbank-feats。     
+PLP 特征提取自线性预测系数(Linear Prediction Coefficients,LPC)，几种特征的关系 p99 4-3。工具：compute-plp-feats。     
+
+#### 特征在Kaldi中的存储     
