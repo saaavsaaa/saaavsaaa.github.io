@@ -256,4 +256,10 @@ PLP 特征提取自线性预测系数(Linear Prediction Coefficients,LPC)，几�
   使用管道构建特征处理流程；
   分离数据文件夹与特征存档文件。
 
-Librispeech 示例
+Librispeech 示例中 run.sh 的第6阶段执行提取特征。第 5 阶段用于创建一个分散的存储环境。对于比较大的语料，都放在提交任务的机器上会影响读写速度，Kaldi提供了脚本可以在多个指定地址创建存储文件，并使用连接文件的形式方便访问。Librispeech 中将声学特征保存在 mfcc 文件夹中：mfccdir=mfcc。这是一个相对路径，如果不分散存储，所有特征文件都保存在这，创建分散存储脚本：utils/create_split_dir.pl 会在 mfcc 中建立链接文件，指向其他存储地址。提取特征时，会自动检测到这些分散存储的链接文件，并将特征文件分散在这些目录中。而数据文件夹中，保存了一份所有特征表单的汇总列表，即声学特征表单。     
+
+
+
+-----
+
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Kaldi_abstract.md)
