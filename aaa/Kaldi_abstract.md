@@ -276,7 +276,7 @@ sifeats="ark,s,cs:apply-cmvn $cmvn_opts --utt2spk=ark:$sdata/JOB/utt2spk scp:$sd
 如前文所说常用的声学特征包括 MFCC、Fbank、PLP 等。另外，在中文语音识别里还常用基频。Kaldi 对这几种常用的声学特征都支持，在 step 中可以看到这些脚本：     
 |      脚本     |   作用      |     配置文件(conf 文件夹下)    |
 |:--|:--|:--|
-|  make_mfcc.sh |  提取 MFCC 加基频特征 |     mfcc.conf    |
+|  make_mfcc.sh |  提取 MFCC 特征 |     mfcc.conf    |
 |  make_mfcc_pitch.sh |  提取 MFCC 加基频特征 |     mfcc.conf, pitch.conf   |
 |  make_mfcc_pitch_online.sh |  提取 MFCC 加在线基频特征 |     mfcc.conf, pitch_online.conf   |
 |  make_fbank.sh   |   提取 Fbank 特征  |   fbank.conf  |
