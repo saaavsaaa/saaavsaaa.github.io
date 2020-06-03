@@ -264,7 +264,6 @@ Librispeech 示例中 run.sh 第 5 阶段用于创建一个分散的存储环境
 特征提取完成之后，可以通过数据文件夹中的声学特征表单 feats.scp 和倒谱均值方差归一化系数表单 cmvn.scp 获取归一化的特征。     
 在训练声学模型时，通常还要对特征做更多的扩展。例如 Kaldi 的单因子模型训练，在谱归一化 (CMVN) 的基础上做了差分系数 (Delta) 的扩展。在训练脚本 steps/train_mono.sh 中可以看到构建这个管道的方法 ：
 ```
-
 feats=" ark,s,cs:apply-cmvn $cmvn opts --utt2spk=ark:$sdata/ JOB/utt2spk  scp:$sdata/JOB/cmvn.scp scp:$sdata/JOB/feats.scp ark:- | add-deltas $delta-opts ark:- ark:- |"
 ```
 而在说话人自适应训练中，在 CMVN 的基础上做了前后若干帧的拼接，然后使用 LDA 的矩阵降维。可以在脚本 steps/train_sat.sh 中找到其管道的构建方法：      
