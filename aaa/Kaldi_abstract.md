@@ -262,7 +262,11 @@ Librispeech 示例中 run.sh 第 5 阶段用于创建一个分散的存储环境
 
 #### 特征的使用     
 特征提取完成之后，可以通过数据文件夹中的声学特征表单 feats.scp 和倒谱均值方差归一化系数表单 cmvn.scp 获取归一化的特征。     
-在训练声学模型时，通常还要对特征做更多的扩展。例如 Kaldi 的单因子模型训练，在谱归一化 (CMVN) 的基础上做了差分系数 (Delta) 的扩展。在训练脚本 steps/train_mono.sh 中可以看到构建这个管道的方法 ：feats=" ark,s,cs:apply-cmvn $cmvn opts --utt2spk=ark:$sdata/ JOB/utt2spk  scp:$sdata/JOB/cmvn.scp scp:$sdata/JOB/feats.scp ark:- | add-deltas $delta-opts ark:- ark:- |"      
+在训练声学模型时，通常还要对特征做更多的扩展。例如 Kaldi 的单因子模型训练，在谱归一化 (CMVN) 的基础上做了差分系数 (Delta) 的扩展。在训练脚本 steps/train_mono.sh 中可以看到构建这个管道的方法 ：
+```
+
+feats=" ark,s,cs:apply-cmvn $cmvn opts --utt2spk=ark:$sdata/ JOB/utt2spk  scp:$sdata/JOB/cmvn.scp scp:$sdata/JOB/feats.scp ark:- | add-deltas $delta-opts ark:- ark:- |"
+```
 而在说话人自适应训练中，在 CMVN 的基础上做了前后若干帧的拼接，然后使用 LDA 的矩阵降维。可以在脚本 steps/train_sat.sh 中找到其管道的构建方法：      
 这种通过基础特征配合碎片化工具和管道的方法，使得训练过程中的特征选择更灵活。 例如想使用特征中的某些维度进行训练，就可以使用 utils/limit_feature_dim.sh 直接创建一个新的数据文件夹，而无需重新提取特征。在中文示例中，就出现了在某些阶段使用谱特征加基频的训练方法，而在某些阶段只用谱特征的训练方法。另外，为了加速训练，在可以并行的训练阶段，大部分脚本会根据指定的并行任务数将数据文件夹拆分为若干份。在数据文件夹中，可以看到以 split 开头的文件夹，里面的每个文件夹都包含一部分数据，结构与完整数据文件夹相同， 是数据文件夹子集。     
 
