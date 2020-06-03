@@ -277,9 +277,12 @@ sifeats="ark,s,cs:apply-cmvn $cmvn_opts --utt2spk=ark:$sdata/JOB/utt2spk scp:$sd
 |      脚本     |   作用      |     配置文件(conf 文件夹下)    |
 |:--|:--|:--|
 |  make_mfcc.sh |  提取 MFCC 加基频特征 |     mfcc.conf    |
-|  make_mfcc_pitch.sh |  提取 MFCC 加基频特征 |     mfcc.conf   pitch.conf   |
-|  make_mfcc_pitch_online.sh |  提取 MFCC 加在线基频特征 |     mfcc.conf   pitch_online.conf   |
-
+|  make_mfcc_pitch.sh |  提取 MFCC 加基频特征 |     mfcc.conf, pitch.conf   |
+|  make_mfcc_pitch_online.sh |  提取 MFCC 加在线基频特征 |     mfcc.conf, pitch_online.conf   |
+|  make_fbank.sh   |   提取 Fbank 特征  |   fbank.conf  |
+|  make_fbank_pitch.sh   |   提取 Fbank 加基频特征  |   fbank.conf, pitch.conf  |
+|  make_plp.sh   |  提取 PLP 特征   |  plp.conf  |
+|  make_plp_pitch.sh   |  提取 PLP 加基频特征   |  plp.conf, pitch.conf  |
 
 -----
 
