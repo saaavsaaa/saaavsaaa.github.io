@@ -293,8 +293,10 @@ Kaldi的基频提取分为两步：第一步是输出二维基频特征。分别
 需要注意的是，按照默认配置的基频特征处理流程，减均值这一步需要较长的窗，会影响实时语音识别的响应速度，可以调节计算均值的窗长，具体方法可参考 Librispeech 中的在线基频配置文件 conf/online_pitch.conf。     
 除使用 Kaldi 自带的特征提取功能外,还可以使用 HTK 和 Sphinx 格式的声学特征。例如已有 HTK 格式的特征列表：data/feats_htk.scp，可以使用命令 ``` copy-feats --hkt-in scp:data/feats_htk.scp ark,scp:mfcc/mfcc_htk.ark,mfcc/mfcc_htk.scp ``` 转化为 Kaldi 声学特征表单。     
 
-#### 单因子模型的训练
+### 单因子模型的训练
+本章介绍的声学模型特指经典的基于隐马尔科夫模型(Hidden Markov Model,HMM) 语音识别框架中的声学模型。本节将关注一种基本的模型结构：使用高斯混合模型(Gaussian Mixture Model,GMM) 描述单音子(Monophone) 发音状态的概率分布函数(Probability Distribution Function,PDF) 的 HMM 模型。这种结构的声学模型在原理和训练流程上，是训练其他声学模型的基础。
 
+#### 声学模型的基本概念
 
 -----
 
