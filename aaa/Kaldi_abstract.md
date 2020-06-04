@@ -291,7 +291,8 @@ Kaldi的基频提取分为两步：第一步是输出二维基频特征。分别
 　　3.对数基频的一阶差分；     
 　　4.原始对数基频，这个值默认不输出。     
 需要注意的是，按照默认配置的基频特征处理流程，减均值这一步需要较长的窗，会影响实时语音识别的响应速度，可以调节计算均值的窗长，具体方法可参考 Librispeech 中的在线基频配置文件 conf/online_pitch.conf。     
-
+除使用 Kaldi 自带的特征提取功能外,还可以使用 HTK 和 Sphinx 格式的声学特征。例如已有 HTK 格式的特征列表：data/feats_htk.scp
+可以使用命令 ``` copy-feats --hkt-in scp:data/feats htk. scp ark, scp:mfcc/ mfcc_htk.ark,mfcc/mfcc_htk.scp ``` 将其转化为 Kaldi 声学特征表单
 
 
 
