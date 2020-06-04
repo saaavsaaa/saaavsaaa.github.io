@@ -29,10 +29,10 @@ P(w)，用前n-1个词预测第n个词，n一般取3、4，已知w0...w(l-1)，�
 
 ### Kaldi集群    
 小型集群：
-需要子任务进程对同一目录有读写权限，需要搭建网络文件系统(NFS),需要确保同一用户在不同机器上使用相同的UID和GID：id -u xxx和id -g xxx     
+　需要子任务进程对同一目录有读写权限，需要搭建网络文件系统(NFS),需要确保同一用户在不同机器上使用相同的UID和GID：id -u xxx和id -g xxx     
 完成NFS后，在要加入集群的机器上设置互相之间的免密登录，确认NFS的挂载点在所有机器上有相同的访问权限     
 大型集群：
-Kaldi支持：SGE(Sun Grid Engine) 和 SLURM(Simple Linux Utility for Resource Management)，默认用SGE，但书上推荐自己维护的读者使用SLURM。  
+　Kaldi支持：SGE(Sun Grid Engine) 和 SLURM(Simple Linux Utility for Resource Management)，默认用SGE，但书上推荐自己维护的读者使用SLURM。  
 
 多数示例默认用sge集群 queue.pl   
 
@@ -40,9 +40,9 @@ Kaldi支持：SGE(Sun Grid Engine) 和 SLURM(Simple Linux Utility for Resource M
 
 配置了 NFS 和免密登录，可以使用 ssh.pl 进行任务分发，需要在训练环境目录创建 .queue 文件夹没在其中创建 machines 文件，将要使用的机器名写在里面：   
 $ cat  .queue/machines   
-a01   
-a02   
-a03   
+　　a01   
+　　a02   
+　　a03   
 
 SLURM集群 slurm.pl   
 
@@ -176,7 +176,7 @@ egs/wsj/utils/data 文件夹钟存放的是用来对数据文件夹进行整体�
 
 ### 发音词典与音素集     
 Librispeech 下载中包含了预先整理好的发音词典、语言模型、语言模型的训练数据，在 data/local/lm 中。在这个文件夹中，有3个关于发音词典的问题件：librispeech-lexicon.txt、librispeech-vocab.txt 和 g2p-model-5。vocab中包含了语言模型训练数据中词频最高的 20W 个词，lexicon中包含了这些词的发音，206508个，比20W多是因为有多音词。     
-librispeech 的 local/prepare_dict.sh 含5步，0~2步用于生成发音词典，3、4步将词典整理为Kaldi的发音词典文件夹。由于发音词典lexicon预先整理好了，所以脚本里 --stage 参数3。这三步：     
+librispeech 的 local/prepare_dict.sh 含5步，0 ~ 2 步用于生成发音词典，3、4步将词典整理为Kaldi的发音词典文件夹。由于发音词典lexicon预先整理好了，所以脚本里 --stage=3。这三步：     
 　1) 下载 CMU 发音词典，去掉注释文本和多发音标记(在词后加数字区分多音词)。在语音识别中要让多发音的词在文本中保持一致，且Kaldi中使用FST表示词典是支持一个词条存在多个发音路径的，所以直接去掉数字标记即可。     
 　2) 根据vocab定义的词表统计 CMU 中没有的词条(约2/3)，使用 Sequitur 工具生成这些词的发音。这一步要用到 g2p-model-5 文件，这是一个训练好的用于英文发音生成的模型。如果读者有一个发音词典，以及一个词汇表，则可以参考脚本中的命令统计两个文件的交集词汇。     
 　3) 将生成的发音与 CMU 中已有的发音结合，输出到发音词典中。检查汇总发音词典中词条数目与词汇表数目是否一致。     
