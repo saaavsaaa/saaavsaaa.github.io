@@ -1,4 +1,5 @@
- 几年前用它作过监控，最近又有这个打算了，把以前的记录搬过来 https://www.cnblogs.com/saaav/p/5504803.html，监控某些服务，失败自动重启，同时监控特定的日志文件，如果有变化，就发邮件报警
+ 几年前用它作过监控，最近又有这个打算了，把以前的记录搬过来 https://www.cnblogs.com/saaav/p/5504803.html   
+ 监控某些服务，失败自动重启，同时监控特定的日志文件，如果有变化，就发邮件报警
 
   安装不细写了，网上好多
 
@@ -47,6 +48,7 @@ then restart
 
 check file test.log with path /tmp/test.log
 if changed size then alert
+
  ##########################################################
 
 今天又测试了下监控目录变化：
@@ -89,9 +91,9 @@ check process tomcat with pidfile /var/run/catalina.pid     # 这个要另外说
 
                                                             # 则提示
 
-# 若连续5个周期打开url都失败（120秒超时，超时也认为失败）
+ 若连续5个周期打开url都失败（120秒超时，超时也认为失败）
 
-# 则重启服务
+ 则重启服务
 
         if failed url http://127.0.0.1:4000/ timeout 120 seconds for 5 cycles then restart
 
