@@ -99,6 +99,9 @@
 
 -----
 
+### [Kaldi语音识别实战笔记（更新中）](https://saaavsaaa.github.io/aaa/Kaldi_abstract.html)
+
+-----
 testing:
  |
  
