@@ -303,6 +303,11 @@ Kaldi的基频提取分为两步：第一步是输出二维基频特征。分别
 
 HMM 状态的物理意义在语音识别中可以认为是音素的发音状态。习惯上把一个音素的发音状态分为三个部分，分别是：”初始态“、”稳定态“、”结束态“。对应的，一个音素的发音用三个 HMM 状态建模。
 
+需要说明的是，音素建模的状态不一定是三个，只是在传统语音识别方法中用三个状态对音素建模更加常见。目前 Kaldi 主推的 chain model 使用两个状态的建模方法来建模音素的起始帧和其他帧。而在传统的基于 HMM 的语音合成(TTS) 中更常用5个状态对音素建模。     
+
+根据声学模型,可以计算某一帧声学特征在某一状态上的声学分（AM score）。这里所说的声学分，指的是该帧声学特征对于该状态的对数观察概率，或者称为对数似然值（Log-likelihood）: AMScore(t,i) = logP(o<sub>t</sub>|s<sub>i</sub>)               <sub>t</sub>  <sup>t</sup>
+
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Kaldi_abstract.md)
