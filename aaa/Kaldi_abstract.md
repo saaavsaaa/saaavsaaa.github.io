@@ -308,7 +308,7 @@ HMM 状态的物理意义在语音识别中可以认为是音素的发音状态�
 根据声学模型,可以计算某一帧声学特征在某一状态上的声学分（AM score）。这里所说的声学分，指的是该帧声学特征对于该状态的对数观察概率，或者称为对数似然值（Log-likelihood）:  AMScore(t,i) = logP(o<sub>t</sub>|s<sub>i</sub>)               
 ~<sub>t</sub>  <sup>t</sup>~      
 在上式中，AMScore(t,i) 是第 t 帧语音特征 o<sub>t</sub> 在第 i 个状态 s<sub>i</sub> 上的声学分。   
-
+观察概率的经典建模方法是高斯混合模型（Gaussian Mixture Model,GMM）。GMM 的思路是使用多个高斯分量加权叠加，拟合出任意分布的概率密度函数。   
 
 -----
 
