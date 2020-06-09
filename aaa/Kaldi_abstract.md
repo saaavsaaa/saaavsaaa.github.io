@@ -323,6 +323,7 @@ $$
 
 在上式中，μ<sub>i,m</sub> 为状态 s<sub>i</sub> 的第 m 个高斯分量的 D 维均值向量，∑<sub>i,m</sub> 为状态 s<sub>i</sub> 的第 m 个高斯分量的协方差矩阵。在声学模型训练中，为了降低模型参数量，通常令协方差矩阵为对角阵：∑<sub>i,m</sub> = diag(δ<sub>i,m</sub>) ，其中δ<sub>i,m</sub>为D维向量。   
 
+一个 GMM-HMM 声学模型存储的主要参数为各状态和高斯分量的 μ<sub>i,m</sub>、δ<sub>i,m</sub>、c<sub>i,m</sub>。使用 Kaldi 提供的模型复制工具可以方便地查看声学模型的内容。2.4小节提到过的一个 GMM-HMM 声学模型，存储为 final.mdl。 使用命令可以把这个模型转换成文本格式查看：gmm-copy -- binary=false final.mdl final.mdl.txt。内容提供在p110
 
 -----
 
