@@ -311,6 +311,10 @@ HMM 状态的物理意义在语音识别中可以认为是音素的发音状态�
 观察概率的经典建模方法是高斯混合模型（Gaussian Mixture Model,GMM）。GMM 的思路是使用多个高斯分量加权叠加，拟合出任意分布的概率密度函数。p109图   
 GMM 建模观察概率可以用公式表示：
 
+$$
+logP(o_t|s_i) = log\sum_{m=1}^{M}\frac{c_{i,m}exp(-\frac{1}{2})}{N}
+$$
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Kaldi_abstract.md)
