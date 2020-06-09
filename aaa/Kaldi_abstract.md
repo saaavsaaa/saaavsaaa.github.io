@@ -316,7 +316,7 @@ $$
 logP(o_t|s_i) = log\sum_{m=1}^{M}\frac{c_{i,m}exp(-\frac{1}{2}(o_t-μ_{i,m})^T(∑_{i,m}^{-1})(o_t-μ_{i,m}))}{(2π)^{\frac{D}{2}}|∑_{i,m}|^{\frac{1}{2}}}
 $$     
 
-![](http://latex.codecogs.com/gif.latex?\\logP(o_t|s_i) = log\sum_{m=1}^{M}\frac{c_{i,m}exp(-\frac{1}{2}(o_t-μ_{i,m})^T(∑_{i,m}^{-1})(o_t-μ_{i,m}))}{(2π)^{\frac{D}{2}}|∑_{i,m}|^{\frac{1}{2}}})
+![](http://latex.codecogs.com/gif.latex?\\logP(o_t|s_i)=log\sum_{m=1}^{M}\frac{c_{i,m}exp(-\frac{1}{2}(o_t-μ_{i,m})^T(∑_{i,m}^{-1})(o_t-μ_{i,m}))}{(2π)^{\frac{D}{2}}|∑_{i,m}|^{\frac{1}{2}}})
 
 ===================================================================================
 <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%0AlogP%28o_t%7Cs_i%29%20%3D%20log%5Csum_%7Bm%3D1%7D%5E%7BM%7D%5Cfrac%7Bc_%7Bi%2Cm%7Dexp%28-%5Cfrac%7B1%7D%7B2%7D%28o_t-%u03BC_%7Bi%2Cm%7D%29%5ET%28%u2211_%7Bi%2Cm%7D%5E%7B-1%7D%29%28o_t-%u03BC_%7Bi%2Cm%7D%29%29%7D%7B%282%u03C0%29%5E%7B%5Cfrac%7BD%7D%7B2%7D%7D%7C%u2211_%7Bi%2Cm%7D%7C%5E%7B%5Cfrac%7B1%7D%7B2%7D%7D%7D%0A%24%24%0A%20%20" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>
