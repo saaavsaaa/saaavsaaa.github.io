@@ -315,11 +315,21 @@ GMM 建模观察概率可以用公式表示：
 https://saaavsaaa.github.io/jax/escape.html     
 $$
 logP(o_t|s_i) = log\sum_{m=1}^{M}\frac{c_{i,m}exp(-\frac{1}{2}(o_t-μ_{i,m})^T(∑_{i,m}^{-1})(o_t-μ_{i,m}))}{(2π)^{\frac{D}{2}}|∑_{i,m}|^{\frac{1}{2}}}
+$$    
+
+$$
+logP(第t帧语音特征|第i个状态) = log\sum_{m=1}^{M}\frac{c_{i,m}exp(-\frac{1}{2}(第t帧语音特征-状态s_i的第m个高斯分量的D维均值向量)^T(状态s_i的第m个高斯分量的协方差矩阵^{-1})(第t帧语音特征-状态s_i的第m个高斯分量的D维均值向量)}{(2π)^{\frac{D}{2}}|状态s_i的第m个高斯分量的协方差矩阵|^{\frac{1}{2}}}
 $$     
 
 -----
 
 <iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%0AlogP%28o_t%7Cs_i%29%20%3D%20log%5Csum_%7Bm%3D1%7D%5E%7BM%7D%5Cfrac%7Bc_%7Bi%2Cm%7Dexp%28-%5Cfrac%7B1%7D%7B2%7D%28o_t-%u03BC_%7Bi%2Cm%7D%29%5ET%28%u2211_%7Bi%2Cm%7D%5E%7B-1%7D%29%28o_t-%u03BC_%7Bi%2Cm%7D%29%29%7D%7B%282%u03C0%29%5E%7B%5Cfrac%7BD%7D%7B2%7D%7D%7C%u2211_%7Bi%2Cm%7D%7C%5E%7B%5Cfrac%7B1%7D%7B2%7D%7D%7D%0A%24%24%0A%20%20" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>
+
+-----
+
+<iframe src="https://saaavsaaa.github.io/jax/t.html?a=%24%24%0AlogP%28%u7B2Ct%u5E27%u8BED%u97F3%u7279%u5F81%7C%u7B2Ci%u4E2A%u72B6%u6001%29%20%3D%20log%5Csum_%7Bm%3D1%7D%5E%7BM%7D%5Cfrac%7Bc_%7Bi%2Cm%7Dexp%28-%5Cfrac%7B1%7D%7B2%7D%28%u7B2Ct%u5E27%u8BED%u97F3%u7279%u5F81-%u72B6%u6001s_i%u7684%u7B2Cm%u4E2A%u9AD8%u65AF%u5206%u91CF%u7684D%u7EF4%u5747%u503C%u5411%u91CF%29%5ET%28%u72B6%u6001s_i%u7684%u7B2Cm%u4E2A%u9AD8%u65AF%u5206%u91CF%u7684%u534F%u65B9%u5DEE%u77E9%u9635%5E%7B-1%7D%29%28%u7B2Ct%u5E27%u8BED%u97F3%u7279%u5F81-%u72B6%u6001s_i%u7684%u7B2Cm%u4E2A%u9AD8%u65AF%u5206%u91CF%u7684D%u7EF4%u5747%u503C%u5411%u91CF%29%7D%7B%282%u03C0%29%5E%7B%5Cfrac%7BD%7D%7B2%7D%7D%7C%u72B6%u6001s_i%u7684%u7B2Cm%u4E2A%u9AD8%u65AF%u5206%u91CF%u7684%u534F%u65B9%u5DEE%u77E9%u9635%7C%5E%7B%5Cfrac%7B1%7D%7B2%7D%7D%7D%0A%24%24%0A%20%20" height="100px" width="700px" frameborder="0" scrolling="no"> </iframe>
+
+-----
 
 在上式中，μ<sub>i,m</sub> 为状态 s<sub>i</sub> 的第 m 个高斯分量的 D 维均值向量，∑<sub>i,m</sub> 为状态 s<sub>i</sub> 的第 m 个高斯分量的协方差矩阵。在声学模型训练中，为了降低模型参数量，通常令协方差矩阵为对角阵：∑<sub>i,m</sub> = diag(δ<sub>i,m</sub>) ，其中δ<sub>i,m</sub>为D维向量。   
 
