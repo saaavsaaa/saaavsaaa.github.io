@@ -50,4 +50,6 @@ RAM(Random Access Machine)模型：做加法时，需要先将常数放进寄存
 需执行的基本操作次数   
 需占用的存储单元数（通常可不考虑）   
 
-T(n)=0(f(n)) iff 彐 c > 0，当n>>2后,有T(n)<c.f(n)
+T(n)=0(f(n)) iff 彐 c > 0，当n>>2后,有T(n)<c.f(n)      
+常数项可以忽略，低次项可以忽略 O(sqrt_(35n³+7)) -> O(sqrt_36n³) -> O(6n<sup>1.5</sup>) -> O(n<sup>1.5</sup>)    
+
