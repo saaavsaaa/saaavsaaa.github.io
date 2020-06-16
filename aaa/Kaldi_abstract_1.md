@@ -38,7 +38,8 @@ $$
 
 在上式中，μ<sub>i,m</sub> 为状态 s<sub>i</sub> 的第 m 个高斯分量的 D 维均值向量，∑<sub>i,m</sub> 为状态 s<sub>i</sub> 的第 m 个高斯分量的协方差矩阵。在声学模型训练中，为了降低模型参数量，通常令协方差矩阵为对角阵：∑<sub>i,m</sub> = diag(δ<sub>i,m</sub>) ，其中δ<sub>i,m</sub>为D维向量。   
 
-一个 GMM-HMM 声学模型存储的主要参数为各状态和高斯分量的 μ<sub>i,m</sub>、δ<sub>i,m</sub>、c<sub>i,m</sub>。使用 Kaldi 提供的模型复制工具可以方便地查看声学模型的内容。2.4小节提到过的一个 GMM-HMM 声学模型，存储为 final.mdl。 使用命令可以把这个模型转换成文本格式查看：gmm-copy -- binary=false final.mdl final.mdl.txt。内容提供在p110
+一个 GMM-HMM 声学模型存储的主要参数为各状态和高斯分量的 μ<sub>i,m</sub>、δ<sub>i,m</sub>、c<sub>i,m</sub>。使用 Kaldi 提供的模型复制工具可以方便地查看声学模型的内容。2.4小节提到过的一个 GMM-HMM 声学模型，存储为 final.mdl。 使用命令可以把这个模型转换成文本格式查看：gmm-copy -- binary=false final.mdl final.mdl.txt。内容提供在p110     
+
 可以看到模型文件有一个<TransitionModel>和多个<DiagGMM>构成。<TransitionModel>存储Transition模型，它定义了每个因素由多少个状态构成等信息。<DiagGMM>用于描述状态概率分布，每个的DiagGMM即为一个状态的高斯分量的概率分布函数，也经常被称作一个PDF，内容由<MEANS_INVVARS>、<INV_VARS>、<WEIGHTS>、<GCONSTS>四部分构成，其实这四部分存储的信息仍然是上文讲到的的μ<sub>i,m</sub>、δ<sub>i,m</sub>、c<sub>i,m</sub>。为了减少实时计算量，	Kaldi并不是直接存储这些参数的，而是用这些参数做了一个概率密度的预计算，如矩阵求逆等，把计算结果存储模型中。     
 
 #### 4.2.2将声学模型用于语音识别    
