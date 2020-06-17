@@ -59,6 +59,13 @@ T(n)=0(f(n)) iff 彐 c > 0，当n>>2后,有T(n) < c.f(n)
 
 O(1) 常数复杂度     
 O(logn) 对数复杂度，通常不考虑底数，因为通过对数运算，可以给logn增加一个常系数，使底数随意变化，O(logn...)的多项式多次方同样可舍掉低次方项   
-这两种比较高效
+这两种比较高效   
 
-多项式复杂度，一般只需要保留最高次方，例：O(2013n<sup>2</sup> - 20)/(1999n - 1) = O(n<sup>2</sup>/n) = O(n) 
+有效解：   
+多项式复杂度，一般只需要保留最高次方，例：(~~2013~~n<sup>2</sup> - ~~20n~~)/(~~1999~~n - ~~1~~) = O(n<sup>2</sup>/n) = O(n)    
+其中线性复杂度：规模为n复杂度为O(n)的   
+
+
+-----
+
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract.md)
