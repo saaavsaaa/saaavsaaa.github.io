@@ -69,6 +69,8 @@ O(n<sup>c</sup>)一般都认为是有效解，且并未对c做限制
 难解(无效解法，效率不可忍受)：   
 指数复杂度：O(2<sup>n</sup>)   
 
+subset,一个集合，分为两个，两个子集合中元素的和相等（个数可能不同）   
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract.md)
