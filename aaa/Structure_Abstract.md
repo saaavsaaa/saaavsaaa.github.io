@@ -91,7 +91,7 @@ $$
 $$   
 几何级数：
 a<sup>0</sup> + a<sup>1</sup> + ... + a<sup>n</sup> = (a<sup>n+1</sup> - 1)/(a - 1) = O(a<sup>n</sup>)   
-1 + 2 + 4 + ... + 2<sup>n</sup> = O(2<sup>n</sup> - 1) = O(2<sup>n</sup>)   
+1 + 2 + 4 + ... + 2<sup>n</sup> = O(2<sup>n+1</sup> - 1) = O(2<sup>n+1</sup>) = O(2<sup>n/sup>)   
 
 
 -----
