@@ -89,6 +89,9 @@ https://saaavsaaa.github.io/jax/escape.html
 $$
 \sum_{k=0}^{n}{k^d} ≈ ∫_0^nx^{d+1}dx = \frac{1}{d+1}n^{d+1} = O(n^{d+1})
 $$   
+几何级数：
+a<sub>0</sub> + a<sub>1</sub> + ... + a<sub>n</sub> = (a<sub>n+1</sub> - 1)/(a - 1) = O(a<sub>n</sub>)   
+1 + 2 + 4 + ... + 2<sub>n</sub> = 2<sub>n+1</sub> = O(2<sub>n</sub>)   
 
 
 -----
