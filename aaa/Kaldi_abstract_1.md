@@ -63,7 +63,18 @@ $$
 
 在上面的代码中，只有 steps/trainmono.sh 这一行是用于模型训练的，后边的代码都是用于测试的。脚本 steps/trainmono.sh 用于训练一个单音子的 GMM-HMM 模型，使用方法是：steps/trainmono.sh [options] <data-dir> <lang-dir> <exp-dir>   
 
-其中 <data-dir>、<lang-dir> 是输入路径，分别是训练数据目录的路径和第三章生成的语言目录的路径。<exp-dir> 是输出模型目录的路径，习惯上设为 exp/mono，用于存储训练完成后的声学模型相关文件，模型默认命名为 final.mdl。
+其中 <data-dir>、<lang-dir> 是输入路径，分别是训练数据目录的路径和第三章生成的语言目录的路径。<exp-dir> 是输出模型目录的路径，习惯上设为 exp/mono，用于存储训练完成后的声学模型相关文件，模型默认命名为 final.mdl。   
+
+下面分析下训练脚本 steps/train_mono.sh 的内容，脚本的前半部分是比较琐碎的配置参数、处理声学特征等。当 stage -3 时，开始运行该脚本的第一个核心模块，使用 gmm-init-mono 工具创建初始模型。gmm-init-mono <topology-in> <dim><model-out> <tree-out> : gmm-init-mono topo 39 mono.mdl mono.tree   
+
+将3.5.2节中介绍的 topo 文件和声学特征维数作为输入，该工具就会生成一个初始声学模型，本例存储在 exp/mono/0.mdl。可使用 gmm-copy 查看。这是一个完整的声学模型了，当然识别率非常低。gmm-init-mono 并不要求输入任何训练数据,仅仅初始化了一个基础模型,后续需要使用训练数据来更新这个模型参数。另外这个基础模型的每一个状态只有一个高斯分量，在后续的训练过程中，会进行单高斯分量到混合多高斯分量的分裂。   
+
+在脚本steps/train_mono.sh中，实际调用gmm-init-mono工具时的参数稍复杂一些：   
+```
+$cmd JOB=1 $dir/log/init.log \
+    gmm-init-mono $shared_phones_opt "--train-feats=$feats subset-feats --n=10 ark:- ark:-|" $lang/topo $feat_dim \
+    $dir/0.mdl $dir/tree || exit 1;
+```
 
 -----
 
