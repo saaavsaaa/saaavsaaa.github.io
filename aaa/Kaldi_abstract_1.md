@@ -75,6 +75,7 @@ $cmd JOB=1 $dir/log/init.log \
     gmm-init-mono $shared_phones_opt "--train-feats=$feats subset-feats --n=10 ark:- ark:-|" $lang/topo $feat_dim \
     $dir/0.mdl $dir/tree || exit 1;
 ```
+这行脚本在调用 gmm-init-mono 工具时额外设置了两个选项。一个是 $shared_phones_opt，可以让某些音素共享相同的 pdf,默认为空；另一个使用 --train-feats 指定训练数据目录。虽然 gmm-init-mono 工具不要求提供训练数据，但如果提供了训练数据，gmm-init-mono 就会通过统计这些数据的均值方差来使初始模型的参数有一个更好的训练起点，有利于模型的后续训练。   
 
 -----
 
