@@ -87,7 +87,7 @@ subset,一个集合，分为两个，两个子集合中元素的和相等（个�
 4次方级数求和 : [n(n+1)(2n+1)(3n²+3n−1)]/30 = O(n<sup>5</sup>)   
 https://saaavsaaa.github.io/jax/escape.html   
 $$
-\sum_{k=0}^{n}{k^d} ≈ ∫_0^nx^{d+1}dx = \frac{1}{d+1}n^{d+1} = O(n^{d+1})
+\sum_{k=0}^{n}{k^d} ≈ ∫_0^nx^ddx = \frac{1}{d+1}n^{d+1} = O(n^{d+1}) 
 $$   
 几何级数：
 a<sup>0</sup> + a<sup>1</sup> + ... + a<sup>n</sup> = (a<sup>n+1</sup> - 1)/(a - 1) = O(a<sup>n</sup>)   
