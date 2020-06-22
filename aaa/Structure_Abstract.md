@@ -81,6 +81,8 @@ subset,一个集合，分为两个，两个子集合中元素的和相等（个�
 算法分析的主要任务：正确性（不变性 × 单调性）+ 复杂度   
 考察复杂度，不需要将算法描述为 RAM 的基本指令，在渐进意义下，C++等高级语言的基本指令与RAM相当   
 
+迭代：级数：算数级数：T(n) = 1 + 2 + ... + n = n(n+1)/2 = O(n²)     
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract.md)
