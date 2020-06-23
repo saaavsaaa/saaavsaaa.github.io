@@ -105,7 +105,8 @@ log1 + log2 + ... + logn = log(n!) = Θ(nlogn)   对数级数
 扩展阅读：《Concrete Mathematics》有很多相关内容，和其他复杂度情况介绍   
 
 i=0;i<n;i++嵌套j=0;j<i;j++也是O(n²)  : 0 + 1 + ... + n-1 = n(n-1)/2，几何图形表示相当于一个三角形的面积，算数级数   
-外循环的i++换成i <<= 1(代表左移一位，相当于×2)，几何级数，O(n) : 1 + 2 + 4 + ... + 2<sup>log<sub>2</sub>n-1</sup>
+1.如果外循环的i++换成i <<= 1(代表左移一位，相当于×2)，几何级数，O(n) : 1 + 2 + 4 + ... + 2<sup>log<sub>2</sub>(n-1)</sup>   
+2.如果内循环j++换成 j+j,∑<sub>0</sub><sup>i</sup>[log<sub>2</sub>i] = O(nlogn)，∑<sub>k=0...logn</sub>(k×2<sup>k-1</sup>) = O(logn × 2<sup>logn</sup>)   
 
 
 
