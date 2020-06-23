@@ -93,6 +93,9 @@ $$
 a<sup>0</sup> + a<sup>1</sup> + ... + a<sup>n</sup> = (a<sup>n+1</sup> - 1)/(a - 1) = O(a<sup>n</sup>)   
 1 + 2 + 4 + ... + 2<sup>n</sup> = 2<sup>n+1</sup> - 1 = O(2<sup>n+1</sup>) = O(2<sup>n</sup>)   
 
+收敛级数：上界   
+1 - 1/n = O(1)   
+1 + 1/2² + ... + 1/n² = π²/6 = O(1)   
 
 -----
 
