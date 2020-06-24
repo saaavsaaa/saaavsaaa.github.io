@@ -106,7 +106,14 @@ Kaldi 还提供了一个 gmm-align-compiled工 具，可以看作是 gmm-align �
 在后面的模型训练中，将使用 gmm-align-compiled 对训练数据进行反复对齐。    
 
 #### 4.2.5 Transition 模型   
+transition_id 概念并没有出现在经典语音识别理论中。是 Kaldi 使用的概念。
 
+如前文所述，Transition 模型存储于 Kaldi 声学模型的头部，可以看一下 Librispeech 示例中 Transition 模型:     
+这个模型参数较多,为便于理解,我们创造一个只有2个音素的 topo，定义在 p120   
+
+然后用它来初始化一个 5 维单音子模型：   
+gmm-init-mono --binary-false topo 5 mono.mdl mono.tree   
+观察生成的 mono.mdl 文件中的 TransitionModel 部分   
 
 
 -----
