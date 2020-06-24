@@ -99,6 +99,13 @@ gm-align [options] tree-inmodel-in lexicon-fst-in feature-rspecifier transcripti
 e.g.:gm-align tree1.mdl lex.fst scp:train.scp 'ark:sym2int.pl -f2 -words.txt text|' ark:l.ali   
 
 工具根据输入的声学模型以及相应的 Tree 文件和 L.fst 文件。可以把声学特征和文本进行对齐。对齐后生成的 ALI 文件如果作为文本形式输出格式是:sample_1000093 4 1 1 1 16 15 15 .....   
+上面的对齐结果文件由若干个句子的对齐信息构成。每个句子以句子 ID 开头，如示例中的 sample_1000093，ID 后面的整数序列是 transition-id，transition-id 概念将在4.2.5介绍。对齐结果文件按照 Kaldi 的 IntegerVector 类型存档格式保存。可以用 copy-int-vector 工具进行文本和二进制格式的互转。   
+
+Kaldi 还提供了一个 gmm-align-compiled工 具，可以看作是 gmm-align 的简化版。gmm-align-compiled 和 gmm-align 的不同之处在于，gmm-align-compiled 使用预先构建好的对齐状态图，而 gmm-align 是在线构建对齐状态图，两者的原理是完全相同的。
+
+在后面的模型训练中，将使用 gmm-align-compiled 对训练数据进行反复对齐。    
+
+#### 4.2.5 Transition 模型   
 
 
 
