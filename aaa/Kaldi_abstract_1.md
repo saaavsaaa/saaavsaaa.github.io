@@ -77,9 +77,9 @@ $cmd JOB=1 $dir/log/init.log \
 ```
 这行脚本在调用 gmm-init-mono 工具时额外设置了两个选项。一个是 $shared_phones_opt，可以让某些音素共享相同的 pdf,默认为空；另一个使用 --train-feats 指定训练数据目录。虽然 gmm-init-mono 工具不要求提供训练数据，但如果提供了训练数据，gmm-init-mono 就会通过统计这些数据的均值方差来使初始模型的参数有一个更好的训练起点，有利于模型的后续训练。   
 
-接下来就要使用训练数据迭代更新模型的参数了。在经典 HMM 理论中，训练 GMM-HMM 使用 Baum-Welch 算法，该算法并不需要预先得知训练样本每一帧具体对应哪个状态，只需给出训练样本的状态序列，就可基于期望最大化算法(Expectation-MaximizationAlgorithm)，求取各参数在整个序列上的最大似然估计(MaximumLikelihoodEstimation,MLE)。关于 EM 算法的详细推导可参考相关文献。   
+接下来就要使用训练数据迭代更新模型的参数了。在经典 HMM 理论中，训练 GMM-HMM 使用 Baum-Welch 算法，该算法并不需要预先得知训练样本每一帧具体对应哪个状态，只需给出训练样本的状态序列，就可基于**期望最大化算法(Expectation-Maximization Algorithm)** ，求取各参数在整个序列上的最大似然估计(Maximum Likelihood Estimation,MLE)。关于 EM 算法的详细推导可参考相关文献。   
 
-Kaldi 的实现使用了一种更直接的训练方案。虽然也使用 **EM** 算法训练，但只把 **EM** 算法应用到 GMM 参数的更新上，要求显示地输入每一帧对应的状态，使用带标注的训练数据更新 GMM 的参数，这种训练方法比 **Baum-Welch** 算法速度更快，模型性能却没有明显损失，该方法被称为**维特比训练(Viterbitraining)**。   
+Kaldi 的实现使用了一种更直接的训练方案。虽然也使用 EM 算法训练，但只把 EM 算法应用到 GMM 参数的更新上，要求显示地输入每一帧对应的状态，使用带标注的训练数据更新 GMM 的参数，这种训练方法比 **Baum-Welch** 算法速度更快，模型性能却没有明显损失，该方法被称为**维特比训练(Viterbi training)** 。   
 
 #### 4.2.4 对齐   
 
