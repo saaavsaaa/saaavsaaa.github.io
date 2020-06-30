@@ -128,9 +128,11 @@ gmm-init-mono --binary-false topo 5 mono.mdl mono.tree
 transition state 有若干可能的跳转指向其他状态,对这些跳转从 0 开始编号,这样就得到了 transition-index。(transition-state,transition-index) 作为一个二元组并从 1 开始编号，该编号就被称为transition-id。由这几个概念的定义可推知，transition-id 可以映射到唯一的 transition state，而 transition state 又可以映射到唯一的 pdf-id。因此 transition-id 可以映射到唯一的 pdf-id。这几种 id 有的从 0 开始编号，有的从 1 开始编号，并不统一，如此定义主要是为了和 OpenFst 兼容。   
 
 再以上述两音素的模型为例，使用 show-transitions 工具观察上述映射。为了使用这个工具，需要创建一个音素列表，如下所示：   
+```
 <eps> 0   
 a 1   
 b 2   
+```
 
 然后使用如下命令观察输出 p123：src/bin/show-transitions phones.txt mono.mdl   
 
