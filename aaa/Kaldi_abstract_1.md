@@ -115,6 +115,36 @@ transition_id 概念并没有出现在经典语音识别理论中。是 Kaldi �
 gmm-init-mono --binary-false topo 5 mono.mdl mono.tree   
 观察生成的 mono.mdl 文件中的 TransitionModel 部分   
 
+在上面的模型文件中，<TransitionModel>分为 <Topology>、<Triples>、<LogProbs> 三部分。在 Librispeech 的模型中，<Topology> 由两个 <TopologyEntry> 构成。与语言文件夹中的 topo 文件内容是完全相同的，第一个 <TopologyEntry> 被 11-346 号音素共享，每个音素由 state 0-2 三个状态构成，其中每个状态到自身的转移概率为 0.75，到下一个状态的转移概率为 0.25,其 HMM 拓朴结构和转移概率:p121   
+
+第二个 <TopologyEntry> 被 1-10 号音素共享，这几个音素都是静音音素，每个音素的 HMM 由 state 0-4 五个状态构成，HMM 拓扑结构和转移概率如图:p122   
+
+图看起来比较复杂，其实只是为了让这五个状态内部可以有限的互相跳转，以便更好地建模静音的声学特性。
+
+在 Transition 模型中，每个状态绑定了一个 PdfClass。一般来说，PdfClass 值和 HMM 状态号相同。但如果两个状态有相同的 PdfClass 值，则这两个状态将共享相同的概率分布函数。这种机制提供了一种强制共享 HMM 状态分布的方法，提升了模型训练的灵活性。<TransitionModel> 第二部分是 <Triples> 由众多三元组构成，每个三元组的定义为 <音素索引,HMM状态索引，PDF索引>，例如在上述简化模型中包含 6 个三元组，分别对应两个音素的 0、1、2 三个 HMM 状态:p122   
+
+把全部这些三元组放在一起，从 1 开始编号，每个编号对应一个 transition state,这些三元组的个数就是 transition state 的个数。比如在上述 Librispeech 模型中，共有个 1058 个 transition state，其中 transition state = 3 的元组为 (1,2,2)，即对于 transition state 3，可知音素 id 为 1、HMM 状态号为 2(该 HMM 内的第 2 个状态)，pdf-id 为 2。(模型在 p120，生成的两音素示例模型)   
+
+transition state 有若干可能的跳转指向其他状态,对这些跳转从 0 开始编号,这样就得到了 transition-index。(transition-state,transition-index) 作为一个二元组并从 1 开始编号，该编号就被称为transition-id。由这几个概念的定义可推知，transition-id 可以映射到唯一的 transition state，而 transition state 又可以映射到唯一的 pdf-id。因此 transition-id 可以映射到唯一的 pdf-id。这几种 id 有的从 0 开始编号，有的从 1 开始编号，并不统一，如此定义主要是为了和 OpenFst 兼容。   
+
+再以上述两音素的模型为例，使用 show-transitions 工具观察上述映射。为了使用这个工具，需要创建一个音素列表，如下所示：   
+<eps> 0   
+a 1   
+b 2   
+
+然后使用如下命令观察输出 p123：src/bin/show-transitions phones.txt mono.mdl   
+
+由于是初始模型，转移概率还没有训练，所以这里都是初始值，在 mdl 文件中转移概率的定义在 <TransitionModel> 的第三部分：<LogProbs> [0,-0.2......] </LogProbs> p124   
+
+这里保存的是对数转移概率向量(以e为底)，其中的数字分别是 0.25 和 0.75 的对数值。这个向量按 transition-id 索引，由于 transition-id 从 1 开始，所以前面需要补充一个 0。
+
+相比 transition-id，pdf-id **似乎**是表示 HMM 状态更直观的方式，为什么 Kaldi 要定义这样繁琐的编号方式呢？这是考虑到 pdf-id 不能唯一地映射成音素,而 transition-id 可以。如果直接使用 pdf-id 构建状态图，固然可以正常解码并得到 pdf-id 序列作为状态级解码结果，但难以从解码结果中得知各个 pdf-id 对应的哪个因素，也就无法得到音素的识别结果了，因此 Kaldi 使用 transition-id 表示对齐的结果。在第 5 章中可以看到，状态图的输入标签就是用 transition-id 表示的。    
+
+####4.2.6GMM模型的迭代   
+
+
+
+
 
 -----
 
