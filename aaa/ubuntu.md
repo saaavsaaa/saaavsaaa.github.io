@@ -6,6 +6,7 @@ lsof -i:9999
 netstat -antp   
 df -h   
 du -h --max-depth=1   
+cat /proc/cpuinfo
 
 sudo apt --fix-broken install     
 chmod +x      
