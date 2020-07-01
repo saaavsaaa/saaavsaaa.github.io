@@ -23,6 +23,8 @@ cat /proc/sys/fs/file-nr
 cat /proc/sys/fs/file-max   
 
 comm 文件对比，合并等    
+git fetch origin   
+git diff HEAD FETCH_HEAD   
 
 grep error -m 10 === grep error  | head -10   
 grep -v 排除   
