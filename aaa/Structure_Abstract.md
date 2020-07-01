@@ -116,7 +116,7 @@ i=0;i<n;i++嵌套j=0;j<i;j++也是O(n²)  : 0 + 1 + ... + n-1 = n(n-1)/2，几�
 Back-0f-The-Envelope Calculation 封底估算   
 CPU 一秒 gigahertz 10<sup>9</sup>，一天约10<sup>5</sup>(量级，估计 24×3600≈25×4000) sec，1世纪100年≈3×10<sup>9</sup>，“三生三世” ≈300 yr = 10<sup>10</sup> sec = (1 googel)<sup>1/10</sup> sec，宇宙大爆炸至今= 10<sup>21</sup> = 10×(10<sup>10</sup>)<sup>2</sup>     
 全国人口普查排序估计：     
-|      n = 10<sup>9</sup>     |   普通PC 1GHZ 10<sup>9</sup>次浮点运算      |     天河1A 千万亿次 1P  10<sup>15</sup>次浮点运算   |
+|      n = 10<sup>9</sup>     |   普通PC：1GHZ：10<sup>9</sup>次浮点运算      |     天河1A：千万亿次：1P：10<sup>15</sup>次浮点运算   |
 |:--|:--|:--|
 |  气泡排序 n² (10<sup>9</sup>)² |  10<sup>9</sup> sec [(10<sup>9</sup>)²÷10<sup>9</sup>] ： 30年 |     10<sup>3</sup> sec ： 20分钟    |
 |  归并排序 nlogn 10<sup>9</sup>log<sub>2</sub>(10<sup>9</sup>) 30×10<sup>9</sup> |  30 sec |     0.03 毫秒   |
