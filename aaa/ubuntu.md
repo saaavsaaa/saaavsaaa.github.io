@@ -1,4 +1,4 @@
-fg
+fg   
 env   
 sudo -i   
 sudo passwd user   
