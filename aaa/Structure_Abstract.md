@@ -122,6 +122,10 @@ CPU 一秒 gigahertz 10<sup>9</sup>，一天约10<sup>5</sup>(量级，估计 24
 |  归并排序 nlogn 10<sup>9</sup>log<sub>2</sub>(10<sup>9</sup>) 30×10<sup>9</sup> |  30 sec |     0.03 毫秒   |
 
 
+分而治之：
+求n个数之和：循环O(n)，空间复杂度通常不计算输入的空间占用：O(2) O(1) 常数，循环，每次减少一个，子问题减少   
+迭代
+
 -----
 
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract.md)
