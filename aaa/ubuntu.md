@@ -1,3 +1,4 @@
+jobs -l   
 fg   
 env   
 sudo -i   
