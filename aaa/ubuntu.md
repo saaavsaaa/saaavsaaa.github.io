@@ -1,4 +1,4 @@
-gdb ./ccccc       r(:run)      bt(:backtrace)     up/down(:step backtrace)        br filename:line_num (:set breakpoint)            n(:single step pass)   s(:one step in)       finish(:to the return)     list [option: line_number](:list code)         info locals(:local arg)    p var_(:print variable)      info breakpoints(:list all breakpoints)   delete breakpoints         break ... if ... (:condition interrupt)              
+gdb ./ccccc       r(:run)      bt(:backtrace)     up/down(:step backtrace)/p arg(:print arg)        br filename:line_num (:set breakpoint)            n(:single step pass)   s(:one step in)       finish(:to the return)     list [option: line_number](:list code)         info locals(:local arg)    p var_(:print variable)      info breakpoints(:list all breakpoints)   delete breakpoints         break ... if ... (:condition interrupt)              
 jobs -l   
 fg   
 env   
