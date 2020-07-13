@@ -11,3 +11,6 @@ b compute-cmvn-stats.cc:59
 r
 
 p argv[3]
+
+br compute-cmvn-stats.cc:59
+s
