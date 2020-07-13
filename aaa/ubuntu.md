@@ -9,7 +9,12 @@ lsof -i:9999
 netstat -antp   
 df -h   
 du -h --max-depth=1   
-cat /proc/cpuinfo
+cat /proc/cpuinfo   
+g++ -std=c++11 test_lock.cc -o test_lock -lpthread   
+mkdir   
+rm -rf   
+mv   
+tail -f   
 
 sudo apt --fix-broken install     
 chmod +x      
@@ -41,11 +46,7 @@ ulimit -a查看限制
 lsof查看当前哪些进程打开哪些句柄，哪些文件被哪些进程占用   
 
 pmap -d    
-mkdir   
-rm -rf   
-mv   
 
-tail -f    
 tail -fn 500 nohup.out     
 chown -R jenkins:jenkins /var/build/
  
