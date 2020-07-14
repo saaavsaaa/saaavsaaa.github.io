@@ -27,12 +27,12 @@ kaldi-io.cc:bool Input::OpenInternal(const std::string &rxfilename,...  scp  这
 
 compute-cmvn-stats.cc:   
 105	            std::string utt = uttlist[i];   
-106	            if (!feat_reader.HasKey(utt)) {   
+106	            if (!feat_reader.HasKey(utt)) {      
 kaldi::RandomAccessTableReader<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKey (this=0x7fffffffdbe0, key="aaa-a1") at ../util/kaldi-table-inl.h:2551
 2551	bool RandomAccessTableReader<Holder>::HasKey(const std::string &key) {   
 
 kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKeyInternal (this=0x5555557a3dc0, key="aaa-a1", preload=false)
-    at ../util/kaldi-table-inl.h:1703
+    at ../util/kaldi-table-inl.h:1703   
 1703	  virtual bool HasKeyInternal(const std::string &key, bool preload) {
 
 main (argc=<optimized out>, argv=<optimized out>) at compute-cmvn-stats.cc:111
@@ -48,15 +48,22 @@ kaldi::RandomAccessTableReader<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >
 2563	  return impl_->Value(key);
 
 kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::Value (this=0x5555557a3dc0, key="aaa-a1")
-    at ../util/kaldi-table-inl.h:1679
+    at ../util/kaldi-table-inl.h:1679    
 1679	  virtual const T&  Value(const std::string &key) {
 
 /util/kaldi-table-inl.h:1703
 
 kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKeyInternal (this=0x5555557a3dc0, key="aaa-a1", preload=true)
-    at ../util/kaldi-table-inl.h:1703
+    at ../util/kaldi-table-inl.h:1703    
 1703	  virtual bool HasKeyInternal(const std::string &key, bool preload) {
 
-1731	        if (script_[key_pos].second[script_[key_pos].second.size()-1] == ']') {
-script_ = std::vector of length 1, capacity 1 = {{first = "aaa-a1", second = "/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7"}}
+1731	        if (script_[key_pos].second[script_[key_pos].second.size()-1] == ']') {     
+script_ = std::vector of length 1, capacity 1 = {{first = "aaa-a1", second = "/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7"}}     
+data_rxfilename = "/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7"
+
+kaldi::Input::Open (binary=0x0, rxfilename="/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7", this=0x5555557a3dc8) at ../util/kaldi-io-inl.h:27
+27	  return OpenInternal(rxfilename, true, binary);
+
+
+
 
