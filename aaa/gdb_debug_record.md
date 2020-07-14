@@ -68,6 +68,6 @@ data_rxfilename = "/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark
 kaldi::Input::Open (binary=0x0, rxfilename="/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7", this=0x5555557a3dc8) at ../util/kaldi-io-inl.h:27
 27	  return OpenInternal(rxfilename, true, binary);
 
-
+170	    if (\*d == ':') return kOffsetFileInput;  // Filename is like
 
 
