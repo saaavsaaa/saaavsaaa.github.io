@@ -66,4 +66,29 @@ kaldi::Input::Open (binary=0x0, rxfilename="/export1/kaldi/egs/cvte/online/work/
 
 170	    if (\*d == ':') return kOffsetFileInput;  // Filename is like
 
+std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string (this=0x5555557a4358) at kaldi-io.cc:556
+556	class OffsetFileInputImpl: public InputImplBase {   
+kaldi::Input::OpenInternal (this=0x5555557a3dc8, rxfilename="/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7", file_binary=<optimized out>, contents_binary=0x0) at kaldi-io.cc:556    
+556	class OffsetFileInputImpl: public InputImplBase {
+
+kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKeyInternal (this=0x5555557a3dc0, key="aaa-a1", preload=true)
+    at ../util/kaldi-table-inl.h:1768   
+1768	          if (!input_.Open(data_rxfilename)) {   
+kaldi::Input::Stream (this=0x5555557a3dc8) at kaldi-io.cc:826    
+826	std::istream &Input::Stream() {   
+
+kaldi::OffsetFileInputImpl::Stream (this=0x5555557a4350) at kaldi-io.cc:636   
+636	  virtual std::istream &Stream() {   
+
+kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKeyInternal (this=0x5555557a3dc0, key="aaa-a1", preload=true)
+    at ../util/kaldi-table-inl.h:1774   
+
+kaldi::KaldiObjectHolder<kaldi::Matrix<float> >::Value (this=0x5555557a3e38)
+    at ../util/kaldi-holder-inl.h:95   
+95	  T &Value() {   
+
+main (argc=<optimized out>, argv=<optimized out>) at compute-cmvn-stats.cc:112
+112	            if (!is_init) {  
+
+
 
