@@ -1,4 +1,4 @@
-# 调试未完，临时记录过程
+#调试未完，临时记录过程
 
 cd /export1/kaldi/src/featbin   
 gdb ./compute-cmvn-stats   
