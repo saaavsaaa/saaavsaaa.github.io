@@ -31,6 +31,10 @@ compute-cmvn-stats.cc:
 kaldi::RandomAccessTableReader<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKey (this=0x7fffffffdbe0, key="aaa-a1") at ../util/kaldi-table-inl.h:2551
 2551	bool RandomAccessTableReader<Holder>::HasKey(const std::string &key) {   
 
+170	    if (\*d == ':') return kOffsetFileInput;  // Filename is like   
+
+
+
 kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKeyInternal (this=0x5555557a3dc0, key="aaa-a1", preload=false)
     at ../util/kaldi-table-inl.h:1703   
 1703	  virtual bool HasKeyInternal(const std::string &key, bool preload) {
