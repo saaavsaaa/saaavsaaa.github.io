@@ -19,4 +19,6 @@ util/kaldi-table-inl.h:2521
 kaldi-table.cc: 250: RspecifierType rs = ClassifyRspecifier(rspecifier, NULL, &opts);(解析表单格式)   
 rs = kScriptRspecifier:case kScriptRspecifier:impl_ = new SequentialTableReaderScriptImpl<Holder>():util/kaldi-table-inl.h:template<class Holder>  class SequentialTableReaderScriptImpl    
   
-  
+util/kaldi-table.cc   
+bool ReadScriptFile(const std::string &rxfilename, ...  /export1/kaldi/egs/cvte/online/data/test/feats.scp    
+
