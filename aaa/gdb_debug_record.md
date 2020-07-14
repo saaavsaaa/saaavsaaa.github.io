@@ -57,4 +57,6 @@ kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<
     at ../util/kaldi-table-inl.h:1703
 1703	  virtual bool HasKeyInternal(const std::string &key, bool preload) {
 
+1731	        if (script_[key_pos].second[script_[key_pos].second.size()-1] == ']') {
+script_ = std::vector of length 1, capacity 1 = {{first = "aaa-a1", second = "/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7"}}
 
