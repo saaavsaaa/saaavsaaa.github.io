@@ -51,7 +51,19 @@ pmap -d
 tail -fn 500 nohup.out     
 chown -R jenkins:jenkins /var/build/
  
-ps -auxww|grep usr|grep java   
+ps -auxww|grep usr|grep java  : D    不可中断     Uninterruptible sleep (usually IO)
+    R    正在运行，或在队列中的进程
+    S    处于休眠状态
+    T    停止或被追踪
+    Z    已退出但描述符还在
+    W    进入内存交换（从内核2.6开始无效）
+    X    挂掉的进程
+    <    高优先级
+    N    低优先级
+    L    有些页被锁进内存
+    s    包含子进程
+    +    位于后台的进程组；
+    l    多线程，克隆线程  multi-threaded (using CLONE_THREAD, like NPTL pthreads do) 
 cat /proc/meminfo   
 free    
 ll -h /proc/kcore    
