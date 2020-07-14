@@ -1,3 +1,5 @@
+需要检查一下内容和创建过程:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7
+
 #调试未完，临时记录过程
 
 cd /export1/kaldi/src/featbin   
