@@ -44,4 +44,17 @@ kaldi::RandomAccessTableReader<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >
 kaldi::RandomAccessTableReader<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::CheckImpl (this=0x7fffffffdbe0) at ../util/kaldi-table-inl.h:2590
 2590	void RandomAccessTableReader<Holder>::CheckImpl() const {
 
+kaldi::RandomAccessTableReader<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::Value (key="aaa-a1", this=0x7fffffffdbe0) at ../util/kaldi-table-inl.h:2563
+2563	  return impl_->Value(key);
+
+kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::Value (this=0x5555557a3dc0, key="aaa-a1")
+    at ../util/kaldi-table-inl.h:1679
+1679	  virtual const T&  Value(const std::string &key) {
+
+/util/kaldi-table-inl.h:1703
+
+kaldi::RandomAccessTableReaderScriptImpl<kaldi::KaldiObjectHolder<kaldi::Matrix<float> > >::HasKeyInternal (this=0x5555557a3dc0, key="aaa-a1", preload=true)
+    at ../util/kaldi-table-inl.h:1703
+1703	  virtual bool HasKeyInternal(const std::string &key, bool preload) {
+
 
