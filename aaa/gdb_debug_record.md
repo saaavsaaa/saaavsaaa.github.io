@@ -23,6 +23,6 @@ util/kaldi-table.cc
 bool ReadScriptFile(const std::string &rxfilename, ...  /export1/kaldi/egs/cvte/online/data/test/feats.scp    
 util/kaldi-io-inl.h:Input::Open:OpenInternal     
 kaldi-io.cc:InputType ClassifyRxfilename(const std::string &filename)  输入类型，如"-"标准输入kStandardInput、文件等   
-kaldi-io.cc:bool Input::OpenInternal(const std::string &rxfilename,...  scp  这里是文件类型if (type ==  kFileInput) {    impl_ = new FileInputImpl();
+kaldi-io.cc:bool Input::OpenInternal(const std::string &rxfilename,...  scp  这里是文件类型if (type ==  kFileInput) {    impl_ = new FileInputImpl(); return InitKaldiInputStream(impl_->Stream(), contents_binary);   
 
 
