@@ -12,3 +12,9 @@ br compute-cmvn-stats.cc:111
 s
 
 kaldi/src/util/kaldi-table.cc   ClassifyWspecifier 解析表单格式   
+
+b compute-cmvn-stats.cc:97   
+RandomAccessBaseFloatMatrixReader feat_reader(rspecifier);   
+util/kaldi-table-inl.h:2521   
+kaldi-table.cc: 250: RspecifierType rs = ClassifyRspecifier(rspecifier, NULL, &opts);   
+
