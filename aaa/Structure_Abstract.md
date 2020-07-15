@@ -148,8 +148,9 @@ https://github.com/saaavsaaa/warn-report/blob/master/src/test/java/cn/tellwhy/st
 S(n)相当于fib(n+1)向后推了一项   
 T(n) = 2 * S(n) - 1 = 2 * fib(n+1) - 1 = O(fib(n+1)) = O(Φ<sup>n</sup>) = O(2<sup>n</sup>)   Φ严格比1大,它的递归算法复杂度也呈现出斐波那契数列形式      
 封底估算：     
-Φ<sup>36</sup> = 2<sup>25</sup>   *=>*  Φ<sup>43</sup> = 2<sup>30</sup>  ≈  10<sup>9</sup> flo（条基本指令） = 主流PC 1 sec      
+Φ<sup>36</sup> = 2<sup>25</sup>   *=>*  算出第43项 ：Φ<sup>43</sup> = 2<sup>30</sup>  ≈  10<sup>9</sup> flo（条基本指令） = 主流PC 1 sec      
 Φ<sup>5</sup> = 10   *=>*  Φ<sup>67</sup>  ≈  10<sup>14</sup> flo  =  10<sup>5</sup> sec = 1 day     
+Φ<sup>92</sup> ≈ 10<sup>19</sup> flo = 10<sup>10</sup> sec = 10<sup>5</sup> day = 3 century     
 
 
 
