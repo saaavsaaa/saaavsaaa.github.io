@@ -3,6 +3,8 @@
 gdb ./copy-feats     
 r --compress=true --write-num-frames=ark,t:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/utt2num_frames.1 ark:- ark,scp:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark,/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.scp   
 
+make_fbank.sh utt2num_frames   copy-feats ark:xxx.ark ark,t:xxx.txt    
+
 #调试未完，临时记录过程
 
 cd /export1/kaldi/src/featbin   
