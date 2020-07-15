@@ -13,7 +13,7 @@ compute-fbank-feats $vtln_opts $write_utt2dur_opt --verbose=2 \
  --config=$fbank_config scp,p:$logdir/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark \
  || exit 1;     
 /export1/kaldi/src/featbin/compute-fbank-feats     
- --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.1 --verbose=2 --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
+r --write-utt2dur=ark,t:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/utt2dur.1 --verbose=2 --config=/export1/kaldi/egs/cvte/online/conf/fbank.conf scp,p:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
 
 
 #调试未完，临时记录过程
