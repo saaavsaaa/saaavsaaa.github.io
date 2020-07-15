@@ -5,6 +5,17 @@ r --compress=true --write-num-frames=ark,t:/export1/kaldi/egs/cvte/online/exp/ma
 
 make_fbank.sh utt2num_frames   copy-feats ark:xxx.ark ark,t:xxx.txt    
 
+run.pl JOB=1:1 exp/make_fbank/data/make_fbank_test.JOB.log     compute-fbank-feats  --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.JOB --verbose=2      --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.JOB.scp ark:- \|     copy-feats --compress=true --write-num-frames=ark,t:exp/make_fbank/data/utt2num_frames.JOB ark:-      ark,scp:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.JOB.ark,/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.JOB.scp
+
+run.pl JOB=1:1 exp/make_fbank/data/make_fbank_test.JOB.log     compute-fbank-feats  --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.JOB --verbose=2      --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.JOB.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
+
+compute-fbank-feats $vtln_opts $write_utt2dur_opt --verbose=2 \
+ --config=$fbank_config scp,p:$logdir/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark \
+ || exit 1;     
+/export1/kaldi/src/featbin/compute-fbank-feats     
+ --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.1 --verbose=2 --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
+
+
 #调试未完，临时记录过程
 
 cd /export1/kaldi/src/featbin   
