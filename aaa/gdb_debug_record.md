@@ -1,4 +1,6 @@
 需要检查一下内容和创建过程:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7
+/export1/kaldi/src/featbin/copy-feats   
+copy-feats --compress=true --write-num-frames=ark,t:exp/make_fbank/data/utt2num_frames.1 ark:- ark,scp:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark,/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.scp   
 
 #调试未完，临时记录过程
 
