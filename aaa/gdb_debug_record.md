@@ -1,22 +1,17 @@
+
+#调试未完，临时记录过程
+
+
+
+
+-----------------------------------------------------------------------
+
 需要检查一下内容和创建过程:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark:7     
 /export1/kaldi/src/featbin/copy-feats     
 gdb ./copy-feats     
 r --compress=true --write-num-frames=ark,t:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/utt2num_frames.1 ark:- ark,scp:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.ark,/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.1.scp   
 
-make_fbank.sh utt2num_frames   copy-feats ark:xxx.ark ark,t:xxx.txt    
-
-run.pl JOB=1:1 exp/make_fbank/data/make_fbank_test.JOB.log     compute-fbank-feats  --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.JOB --verbose=2      --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.JOB.scp ark:- \|     copy-feats --compress=true --write-num-frames=ark,t:exp/make_fbank/data/utt2num_frames.JOB ark:-      ark,scp:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.JOB.ark,/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.JOB.scp
-
-run.pl JOB=1:1 exp/make_fbank/data/make_fbank_test.JOB.log     compute-fbank-feats  --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.JOB --verbose=2      --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.JOB.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
-
-compute-fbank-feats $vtln_opts $write_utt2dur_opt --verbose=2 \
- --config=$fbank_config scp,p:$logdir/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark \
- || exit 1;     
-/export1/kaldi/src/featbin/compute-fbank-feats     
-r --write-utt2dur=ark,t:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/utt2dur.1 --verbose=2 --config=/export1/kaldi/egs/cvte/online/conf/fbank.conf scp,p:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
-
-
-#调试未完，临时记录过程
+---------------------------------------
 
 cd /export1/kaldi/src/featbin   
 gdb ./compute-cmvn-stats   
@@ -107,6 +102,59 @@ kaldi::KaldiObjectHolder<kaldi::Matrix<float> >::Value (this=0x5555557a3e38)
 
 main (argc=<optimized out>, argv=<optimized out>) at compute-cmvn-stats.cc:112
 112	            if (!is_init) {  
+
+
+---------------------------------------------------------------------------------------------------
+
+make_fbank.sh utt2num_frames   copy-feats ark:xxx.ark ark,t:xxx.txt    
+
+run.pl JOB=1:1 exp/make_fbank/data/make_fbank_test.JOB.log     compute-fbank-feats  --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.JOB --verbose=2      --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.JOB.scp ark:- \|     copy-feats --compress=true --write-num-frames=ark,t:exp/make_fbank/data/utt2num_frames.JOB ark:-      ark,scp:/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.JOB.ark,/export1/kaldi/egs/cvte/online/work/data/raw_fbank_test.JOB.scp
+
+run.pl JOB=1:1 exp/make_fbank/data/make_fbank_test.JOB.log     compute-fbank-feats  --write-utt2dur=ark,t:exp/make_fbank/data/utt2dur.JOB --verbose=2      --config=conf/fbank.conf scp,p:exp/make_fbank/data/wav.JOB.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
+
+compute-fbank-feats $vtln_opts $write_utt2dur_opt --verbose=2 \
+ --config=$fbank_config scp,p:$logdir/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark \
+ || exit 1;     
+/export1/kaldi/src/featbin/compute-fbank-feats     
+r --write-utt2dur=ark,t:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/utt2dur.1 --verbose=2 --config=/export1/kaldi/egs/cvte/online/conf/fbank.conf scp,p:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
+
+kaldi::OfflineFeatureTpl<kaldi::FbankComputer>::OfflineFeatureTpl (opts=..., 
+    this=0x7fffffffd8c0) at ../feat/feature-common.h:119    
+119	      feature_window_function_(computer_.GetFrameOptions()) { }
+kaldi::FbankComputer::FbankComputer (this=0x7fffffffd8c0, opts=...)
+    at feature-fbank.cc:26      
+26	FbankComputer::FbankComputer(const FbankOptions &opts):
+
+31	  int32 padded_window_size = opts.frame_opts.PaddedWindowSize();    
+kaldi::FrameExtractionOptions::PaddedWindowSize (this=0x7fffffffd850)
+    at ../feat/feature-window.h:113     
+113	    return (round_to_power_of_two ? RoundUpToNearestPowerOfTwo(WindowSize()) :
+
+kaldi::FeatureWindowFunction::FeatureWindowFunction (this=0x7fffffffd970, 
+    opts=...) at feature-window.cc:110
+110	  int32 frame_length = opts.WindowSize();
+
+kaldi::Vector<float>::Resize (this=this@entry=0x7fffffffd970, 
+    dim=dim@entry=400, resize_type=resize_type@entry=kaldi::kSetZero)
+    at kaldi-vector.cc:190
+190	void Vector<Real>::Resize(const MatrixIndexT dim, MatrixResizeType resize_type) {
+
+221	  Init(dim);   (注:dim = 400)
+
+kaldi::FeatureWindowFunction::FeatureWindowFunction (this=0x7fffffffd970, 
+    opts=...) at feature-window.cc:113
+113	  double a = M_2PI / (frame_length-1);  (: a = 0.015747331596941319)
+
+116	    if (opts.window_type == "hanning") {
+
+124	    } else if (opts.window_type == "povey") {  // like hamming but goes to zero at edges.
+125	      window(i) = pow(0.5 - 0.5*cos(a * i_fl), 0.85);
+
+until 134
+
+main (argc=6, argv=0x7fffffffe158) at compute-fbank-feats.cc:81
+81	    if (utt2spk_rspecifier != "" && vtln_map_rspecifier != "")
+
 
 
 
