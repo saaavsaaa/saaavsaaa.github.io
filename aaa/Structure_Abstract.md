@@ -147,7 +147,7 @@ https://github.com/saaavsaaa/warn-report/blob/master/src/test/java/cn/tellwhy/st
 故 S(n) = S(n-1) + S(n-2) = fib(n+1) 复杂度O(Φ<sup>n</sup>)  Φ:斐波那契数列通项黄金分割      
 S(n)相当于fib(n+1)向后推了一项   
 T(n) = 2 * S(n) - 1 = 2 * fib(n+1) - 1 = O(fib(n+1)) = O(Φ<sup>n</sup>) = O(2<sup>n</sup>)   Φ严格比1大,它的递归算法复杂度也呈现出斐波那契数列形式      
-Φ<sup>36</sup> = 2<sup>25</sup>      
+Φ<sup>36</sup> = 2<sup>25</sup>   =>  Φ<sup>43</sup> = 2<sup>30</sup>  ≈  10<sup>9</sup> flo = 主流PC 1 sec      
 
 
 
