@@ -144,14 +144,16 @@ https://github.com/saaavsaaa/warn-report/blob/master/src/test/java/cn/tellwhy/st
 递推关系：T(n) = T(n-1) + T(n-2) +　1, n > 1 , T(0) = T(1) = 1　　
 设 S(n) = [T(n) + 1] /2   
 则 S(0) = 1 = fib(1)，S(1) = 1 = fib(2)   
-故 S(n) = S(n-1) + S(n-2) = fib(n+1) 复杂度O(Φ<sup>n</sup>)  Φ:斐波那契数列通项黄金分割      
+故 S(n) = S(n-1) + S(n-2) = fib(n+1) 复杂度O(Φ<sup>n</sup>)  Φ:斐波那契数列通项黄金分割，空间复杂度O(n)      
 S(n)相当于fib(n+1)向后推了一项   
 T(n) = 2 * S(n) - 1 = 2 * fib(n+1) - 1 = O(fib(n+1)) = O(Φ<sup>n</sup>) = O(2<sup>n</sup>)   Φ严格比1大,它的递归算法复杂度也呈现出斐波那契数列形式      
 封底估算：     
 Φ<sup>36</sup> = 2<sup>25</sup>   *=>*  算出第43项 ：Φ<sup>43</sup> = 2<sup>30</sup>  ≈  10<sup>9</sup> flo（条基本指令） = 主流PC 1 sec      
 Φ<sup>5</sup> = 10   *=>*  Φ<sup>67</sup>  ≈  10<sup>14</sup> flo  =  10<sup>5</sup> sec = 1 day     
 Φ<sup>92</sup> ≈ 10<sup>19</sup> flo = 10<sup>10</sup> sec = 10<sup>5</sup> day = 3 century 相当于在有穷时间内得不到结果，严格来说都不能算是算法     
-递归版fib( )低效的根源在于，各递归实例均被大量重复地调用。每算一项，都要分别递归计算出其前两项，而实际上没必要分别算，因为可以用n-1项算出第n项   
+递归版fib()低效的根源在于，各递归实例均被大量重复地调用。每算一项，都要分别递归计算出其前两项，而实际上没必要分别算，因为可以用n-1项算出第n项   
+解决方法A (记忆: memoization)将已计算过实例的结果制表备查     
+解决方法B (动态规划: dynamic programming)颠倒计算方向:由自顶而下递归，为自底而上迭代。T(n) = O(n) ,而且仅需O(1)空间（保存当前的两个值）     
 
 
 
