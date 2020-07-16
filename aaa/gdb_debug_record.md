@@ -272,6 +272,12 @@ kaldi::FrameExtractionOptions::WindowShift (this=0x7fffffffd8c0)
     at ../feat/feature-window.h:107
 107	    return static_cast<int32>(samp_freq * 0.001 * frame_shift_ms);
 
+kaldi::OfflineFeatureTpl<kaldi::FbankComputer>::Compute (this=0x7fffffffd8c0, 
+    wave=..., vtln_warp=1, output=0x7fffffffd6f0)
+    at ../feat/feature-common-inl.h:67
+67	  if (rows_out == 0) {
+
+rows_out = 0 需要从头查下为什么是0
 
 
 
