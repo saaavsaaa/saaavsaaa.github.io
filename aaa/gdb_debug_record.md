@@ -155,6 +155,111 @@ until 134
 main (argc=6, argv=0x7fffffffe158) at compute-fbank-feats.cc:81
 81	    if (utt2spk_rspecifier != "" && vtln_map_rspecifier != "")
 
+b compute-fbank-feats.cc:87
+
+kaldi::SequentialTableReaderScriptImpl<kaldi::WaveHolder>::NextScpLine (
+    this=0x5555557a2e10) at ../util/kaldi-table-inl.h:361
+361	  void NextScpLine() {
+
+392	          data_rxfilename = rest;
+(gdb) p rest
+$21 = "data/wav/aaa/a1.wav"
+
+kaldi::SequentialTableReaderScriptImpl<kaldi::WaveHolder>::Next (
+    this=0x5555557a2e10) at ../util/kaldi-table-inl.h:226
+226	      if (Done()) return;
+
+kaldi::SequentialTableReaderScriptImpl<kaldi::WaveHolder>::Done (
+    this=0x5555557a2e10) at ../util/kaldi-table-inl.h:140
+140	  virtual bool Done() const {
+
+kaldi::SequentialTableReaderScriptImpl<kaldi::WaveHolder>::Next (
+    this=0x5555557a2e10) at ../util/kaldi-table-inl.h:227
+227	      if (opts_.permissive) {
+
+230	        if (EnsureObjectLoaded()) return;  // Success.
+
+kaldi::SequentialTableReaderScriptImpl<kaldi::WaveHolder>::EnsureObjectLoaded (
+    this=0x5555557a2e10) at ../util/kaldi-table-inl.h:296
+296	  bool EnsureObjectLoaded() {
+
+305	        ans = data_input_.Open(data_rxfilename_, NULL);
+
+kaldi::Input::Open (binary=0x0, rxfilename="data/wav/aaa/a1.wav", 
+    this=0x5555557a2e68) at ../util/kaldi-io-inl.h:27
+27	  return OpenInternal(rxfilename, true, binary);
+(gdb) p rxfilename 
+$23 = "data/wav/aaa/a1.wav"
+
+std::basic_ifstream<char, std::char_traits<char> >::open (__mode=12, 
+    __s=0x5555557aa400 "data/wav/aaa/a1.wav", this=0x5555557aa438)
+    at kaldi-io.cc:386
+386	    is_.open(MapOsPath(filename).c_str(),
+
+aaa-a1 /export1/kaldi/egs/cvte/online/data/wav/aaa/a1.wav
+
+kaldi::SequentialTableReader<kaldi::WaveHolder>::Done (this=0x7fffffffd6b0)
+    at ../util/kaldi-table-inl.h:950
+950	  return impl_->Done();
+
+main (argc=<optimized out>, argv=<optimized out>) at compute-fbank-feats.cc:106
+106	    for (; !reader.Done(); reader.Next()) {
+107	      num_utts++;
+108	      std::string utt = reader.Key();
+109	      const WaveData &wave_data = reader.Value();
+
+kaldi::SequentialTableReader<kaldi::WaveHolder>::Value (this=0x7fffffffd6b0)
+    at ../util/kaldi-table-inl.h:935
+935	  CheckImpl();
+
+kaldi::SequentialTableReader<kaldi::WaveHolder>::CheckImpl (
+    this=0x7fffffffd6b0) at ../util/kaldi-table-inl.h:2582
+2582	void SequentialTableReader<Holder>::CheckImpl() const {
+
+kaldi::SequentialTableReader<kaldi::WaveHolder>::Value (this=0x7fffffffd6b0)
+    at ../util/kaldi-table-inl.h:936
+936	  return impl_->Value();  // This may throw (if EnsureObjectLoaded() returned false you
+
+main (argc=<optimized out>, argv=<optimized out>) at compute-fbank-feats.cc:110
+110	      if (wave_data.Duration() < min_duration) {
+
+kaldi::WaveData::Duration (this=<optimized out>) at ../feat/wave-reader.h:129
+129	  BaseFloat Duration() const { return data_.NumCols() / samp_freq_; }
+
+main (argc=<optimized out>, argv=<optimized out>) at compute-fbank-feats.cc:110
+110	      if (wave_data.Duration() < min_duration) {
+
+kaldi::MatrixBase<float>::NumRows (this=<optimized out>)
+    at ../matrix/kaldi-matrix.h:64
+64	  inline MatrixIndexT  NumRows() const { return num_rows_; }
+
+main (argc=<optimized out>, argv=<optimized out>) at compute-fbank-feats.cc:115
+115	      int32 num_chan = wave_data.Data().NumRows(), this_chan = channel;
+
+145	      SubVector<BaseFloat> waveform(wave_data.Data(), this_chan);
+
+148	        fbank.ComputeFeatures(waveform, wave_data.SampFreq(),
+
+kaldi::OfflineFeatureTpl<kaldi::FbankComputer>::ComputeFeatures (
+    this=0x7fffffffd8c0, wave=..., sample_freq=16000, vtln_warp=1, 
+    output=0x7fffffffd6f0) at ../feat/feature-common-inl.h:29
+29	void OfflineFeatureTpl<F>::ComputeFeatures(
+
+kaldi::OfflineFeatureTpl<kaldi::FbankComputer>::ComputeFeatures (
+    this=0x7fffffffd8c0, wave=..., sample_freq=16000, vtln_warp=1, 
+    output=0x7fffffffd6f0) at ../feat/feature-common-inl.h:29
+29	void OfflineFeatureTpl<F>::ComputeFeatures(
+
+kaldi::OfflineFeatureTpl<kaldi::FbankComputer>::Compute (this=0x7fffffffd8c0, 
+    wave=..., vtln_warp=1, output=0x7fffffffd6f0)
+    at ../feat/feature-common-inl.h:60
+60	void OfflineFeatureTpl<F>::Compute(
+
+65	  int32 rows_out = NumFrames(wave.Dim(), computer_.GetFrameOptions()),
+
+
+
+
 
 
 
