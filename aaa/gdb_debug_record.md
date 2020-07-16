@@ -2,6 +2,60 @@
 #调试未完，临时记录过程
 
 
+gdb ./compute-fbank-feats     
+
+r --write-utt2dur=ark,t:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/utt2dur.1 --verbose=2 --config=/export1/kaldi/egs/cvte/online/conf/fbank.conf scp,p:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/wav.1.scp ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark
+
+b compute-fbank-feats.cc:87
+
+
+
+
+main (argc=6, argv=0x7fffffffe158) at compute-fbank-feats.cc:88
+88	    BaseFloatMatrixWriter kaldi_writer;  // typedef to TableWriter<something>.
+(gdb) s
+kaldi::TableWriter<kaldi::KaldiObjectHolder<kaldi::MatrixBase<float> > >::TableWriter (this=0x7fffffffd6b8) at ../util/kaldi-table.h:372
+372	  TableWriter(): impl_(NULL) { }
+(gdb) s
+main (argc=6, argv=0x7fffffffe158) at compute-fbank-feats.cc:91
+91	    if (output_format == "kaldi") {
+(gdb) n
+92	      if (!kaldi_writer.Open(output_wspecifier))
+(gdb) s
+kaldi::TableWriter<kaldi::KaldiObjectHolder<kaldi::MatrixBase<float> > >::Open
+    (this=0x7fffffffd6b8, 
+    wspecifier="ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark") at ../util/kaldi-table-inl.h:1480
+1480	bool TableWriter<Holder>::Open(const std::string &wspecifier) {
+(gdb) s
+1481	  if (IsOpen()) {
+(gdb) s
+1486	  WspecifierType wtype = ClassifyWspecifier(wspecifier, NULL, NULL, NULL);
+(gdb) s
+kaldi::ClassifyWspecifier (
+    wspecifier="ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark", archive_wxfilename=0x0, script_wxfilename=0x0, opts=0x0) at kaldi-table.cc:138
+138	                                  WspecifierOptions *opts) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -----------------------------------------------------------------------
