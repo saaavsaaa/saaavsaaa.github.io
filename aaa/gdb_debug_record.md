@@ -257,6 +257,21 @@ kaldi::OfflineFeatureTpl<kaldi::FbankComputer>::Compute (this=0x7fffffffd8c0,
 
 65	  int32 rows_out = NumFrames(wave.Dim(), computer_.GetFrameOptions()),
 
+kaldi::FbankComputer::GetFrameOptions (this=0x7fffffffd8c0)
+    at ../feat/feature-fbank.h:100
+100	    return opts_.frame_opts;
+
+kaldi::NumFrames (num_samples=320, opts=..., flush=true)
+    at feature-window.cc:44
+44	                bool flush) {
+
+45	  int64 frame_shift = opts.WindowShift();     
+(:frame_shift = 160,frame_length = 400)
+
+kaldi::FrameExtractionOptions::WindowShift (this=0x7fffffffd8c0)
+    at ../feat/feature-window.h:107
+107	    return static_cast<int32>(samp_freq * 0.001 * frame_shift_ms);
+
 
 
 
