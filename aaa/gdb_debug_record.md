@@ -41,6 +41,52 @@ waveform.Dim() = 320
 (gdb) p line
 $3 = "aaa-a1 /export1/kaldi/egs/cvte/online/data/wav/aaa/a1.wav"
 
+kaldi::SplitStringOnFirstSpace (
+    str="aaa-a1 /export1/kaldi/egs/cvte/online/data/wav/aaa/a1.wav", 
+    first=0x5555557a2eb0, rest=0x7fffffffcee0) at text-utils.cc:122
+122	                             std::string *rest) {
+(gdb) s
+126	  I first_nonwhite = str.find_first_not_of(white_chars);
+(gdb) p white_chars 
+$4 = 0x7ffff7b9268c " \t\n\r\f\v"
+
+kaldi::SequentialTableReaderScriptImpl<kaldi::WaveHolder>::NextScpLine (
+    this=0x5555557a2e10) at ../util/kaldi-table-inl.h:381
+381	      if (!key_.empty() && !rest.empty()) {
+(gdb) p rest
+$9 = "/export1/kaldi/egs/cvte/online/data/wav/aaa/a1.wav"
+
+kaldi::SequentialTableReaderScriptImpl<kaldi::WaveHolder>::Next (
+    this=0x5555557a2e10) at ../util/kaldi-table-inl.h:227
+227	      if (opts_.permissive) {
+
+kaldi::SequentialTableReader<kaldi::WaveHolder>::SequentialTableReader (
+    this=0x7fffffffd6b0, 
+    rspecifier="scp,p:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/wav.1.scp") at ../util/kaldi-table-inl.h:861
+861	}
+
+main (argc=6, argv=0x7fffffffe158) at compute-fbank-feats.cc:88
+88	    BaseFloatMatrixWriter kaldi_writer;  // typedef to TableWriter<something>.
+
+92	      if (!kaldi_writer.Open(output_wspecifier))
+(gdb) p output_wspecifier
+$13 = "ark:/export1/kaldi/egs/cvte/online/work/data/to-input-copy.ark"
+
+106	    for (; !reader.Done(); reader.Next()) {
+(gdb) s
+kaldi::SequentialTableReader<kaldi::WaveHolder>::Done (this=0x7fffffffd6b0)
+    at ../util/kaldi-table-inl.h:949
+949	  CheckImpl();
+(gdb) s
+kaldi::SequentialTableReader<kaldi::WaveHolder>::CheckImpl (
+    this=0x7fffffffd6b0) at ../util/kaldi-table-inl.h:2582
+2582	void SequentialTableReader<Holder>::CheckImpl() const {
+看一下done都干什么了
+
+
+
+
+
 
 
 
