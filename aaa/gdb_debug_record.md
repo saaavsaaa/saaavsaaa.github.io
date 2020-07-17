@@ -1,5 +1,32 @@
+compute-cmvn-stats --spk2utt=ark:data/test/spk2utt scp:data/test/feats.scp ark,scp:/export1/kaldi/egs/cvte/online/work/data/cmvn_test.ark,/export1/kaldi/egs/cvte/online/work/data/cmvn_test.scp 
+ASSERTION_FAILED (compute-cmvn-stats[5.5.683~2-f4d5f]:InitCmvnStats():cmvn.cc:27) Assertion failed: (dim > 0)
 
-#调试未完，临时记录过程
+[ Stack-Trace: ]
+/export1/kaldi/src/lib/libkaldi-base.so(kaldi::MessageLogger::LogMessage() const+0xb42) [0x7f93d8fef612]
+/export1/kaldi/src/lib/libkaldi-base.so(kaldi::KaldiAssertFailure_(char const*, char const*, int, char const*)+0x6e) [0x7f93d8ff030e]
+/export1/kaldi/src/lib/libkaldi-transform.so(kaldi::AccCmvnStats(kaldi::VectorBase<float> const&, float, kaldi::MatrixBase<double>*)+0) [0x7f93d96ee83e]
+compute-cmvn-stats(main+0x510) [0x55d6dc918a1f]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xeb) [0x7f93d8a7de0b]
+compute-cmvn-stats(_start+0x2a) [0x55d6dc91822a]
+
+
+feature-common-inl.h:67  rows_out=0
+
+int32 rows_out = NumFrames(wave.Dim(), computer_.GetFrameOptions()),cols_out = computer_.Dim();
+
+feat/feature-window.cc:42 int32 NumFrames(int64 num_samples = 320 , const FrameExtractionOptions &opts, bool flush)
+
+feat/feature-window.h:106 
+  int32 WindowSize() const {return static_cast<int32>(samp_freq (=16000 16Hz) * 0.001 * frame_length_ms(=10));}
+  
+ opts.snip_edges  & num_samples (wave.Dim()) < frame_length
+ 
+feat/feature-common-inl.h:65  int32 rows_out = NumFrames(wave.Dim(), computer_.GetFrameOptions()),
+
+
+
+
+#调试过程
 
 
 gdb ./compute-fbank-feats     
