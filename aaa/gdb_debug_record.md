@@ -29,6 +29,11 @@ main (argc=<optimized out>, argv=<optimized out>) at compute-fbank-feats.cc:148
 waveform.Dim() = 320
 
 87:SequentialTableReader<WaveHolder> reader(wav_rspecifier);
+  
+ kaldi::SequentialTableReader<kaldi::WaveHolder>::SequentialTableReader (
+    this=0x7fffffffd6b0, 
+    rspecifier="scp,p:/export1/kaldi/egs/cvte/online/exp/make_fbank/data/wav.1.scp") at ../util/kaldi-table-inl.h:857
+857	SequentialTableReader<Holder>::SequentialTableReader(const std::string
 
 
 
