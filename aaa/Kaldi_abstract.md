@@ -5,6 +5,27 @@ Y是输入音频，w是真正的词序列，求最大的P(w|Y)。由贝叶斯可
 P(Y|w)在给定单词序列w时，可以得到特定音频信号Y的的概率，通常称为声学模型。    
 P(w)给定单词序列w的概率。通常称为语言模型。     
 Y通常每隔10毫秒在25毫秒的时间窗口中提取一个特征向量，输入概率模型的Y实际中通常是一系列特征向量的序列    
+
+wav长度1s，采样率16kHz ：（1 * 1000） / 10 = 100帧，每帧有 (25 / 1000) * 16kHz = 400个样本  
+采样频率，也称为采样速度或者采样率，定义了每秒从连续信号中提取并组成离散信号的采样个数，它用赫兹（Hz）来表示。采样频率的倒数是采样周期或者叫作采样时间，它是采样之间的时间间隔。通俗的讲采样频率是指计算机每秒钟采集多少个信号样本。     
+Hz 每秒钟的周期性变动重复次数     
+feat/feature-window.h:106 
+  int32 WindowSize() const {return static_cast<int32>(samp_freq (=16000 16Hz) * 0.001 * frame_length_ms(=10));}     
+  feat/feature-window.h:53  FrameExtractionOptions():
+      samp_freq(16000),
+      frame_shift_ms(10.0),
+      frame_length_ms(25.0),
+      dither(1.0),
+      preemph_coeff(0.97),
+      remove_dc_offset(true),
+      window_type("povey"),
+      round_to_power_of_two(true),
+      blackman_coeff(0.42),
+      snip_edges(true),
+      allow_downsample(false),
+      allow_upsample(false),
+      max_feature_vectors(-1)     
+
 单词序列w通常会拆成一个音素序列     
 Q是单词序列w对应的发音单元序列，这里简化为音素序列，那么声学模型p(Y|w)=∑p(Y|Q)P(Q|W)，这个求和是单词序列w对应的所有可能得音素序列Q的集合计算边缘分布概率。于是声学模型就拆分成P(Y|Q)和P(Q|w)。特征向量|音素、音素|词序列     
 （第九页）P(Q|w)：w中每个词发音为q的概率乘积。单词可能有多个发音，但通常多音词的发音不会很多，因此P(Q|w)比较容易从发音词典中计算出来。注：多音词不是带有多音字的词，多音词不同发音意义不同     
