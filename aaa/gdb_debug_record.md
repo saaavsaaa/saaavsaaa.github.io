@@ -37,6 +37,10 @@ waveform.Dim() = 320
   
 91	  SequentialTableReaderScriptImpl(): state_(kUninitialized) { }
 
+380	      SplitStringOnFirstSpace(line, &key_, &rest);
+(gdb) p line
+$3 = "aaa-a1 /export1/kaldi/egs/cvte/online/data/wav/aaa/a1.wav"
+
 
 
 
