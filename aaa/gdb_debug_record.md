@@ -23,6 +23,12 @@ feat/feature-window.h:106
  
 feat/feature-common-inl.h:65  int32 rows_out = NumFrames(wave.Dim(), computer_.GetFrameOptions()),
 
+main (argc=<optimized out>, argv=<optimized out>) at compute-fbank-feats.cc:148
+148	        fbank.ComputeFeatures(waveform, wave_data.SampFreq(),
+
+waveform.Dim() = 320
+
+87:SequentialTableReader<WaveHolder> reader(wav_rspecifier);
 
 
 
