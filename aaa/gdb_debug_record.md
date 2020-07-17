@@ -93,7 +93,7 @@ utt = "aaa-a1"
 109	      const WaveData &wave_data = reader.Value();
 看看读取的代码
   
-export1/kaldi/src/feat/wave-reader.cc
+
 
 
 
