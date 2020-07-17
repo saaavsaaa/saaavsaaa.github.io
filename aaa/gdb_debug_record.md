@@ -81,7 +81,21 @@ kaldi::SequentialTableReader<kaldi::WaveHolder>::Done (this=0x7fffffffd6b0)
 kaldi::SequentialTableReader<kaldi::WaveHolder>::CheckImpl (
     this=0x7fffffffd6b0) at ../util/kaldi-table-inl.h:2582
 2582	void SequentialTableReader<Holder>::CheckImpl() const {
-看一下done都干什么了
+
+main (argc=<optimized out>, argv=<optimized out>) at compute-fbank-feats.cc:106
+106	    for (; !reader.Done(); reader.Next()) {
+(gdb) s
+107	      num_utts++;
+(gdb) s
+108	      std::string utt = reader.Key();
+utt = "aaa-a1"
+(gdb) n
+109	      const WaveData &wave_data = reader.Value();
+看看读取的代码
+  
+export1/kaldi/src/feat/wave-reader.cc
+
+
 
 
 
