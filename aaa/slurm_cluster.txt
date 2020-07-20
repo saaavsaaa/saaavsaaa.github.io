@@ -23,4 +23,4 @@ munge，我直接用的ubuntu的apt-get安装的，装上就行
 https://slurm.schedmd.com/quickstart_admin.html#Config
 https://slurm.schedmd.com/configurator.htm
 
-slurmd -vvvvvv v的个数代表debug级别
+slurmd -Dvvvvvv v的个数代表debug级别
