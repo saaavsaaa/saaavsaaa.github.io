@@ -1,3 +1,7 @@
+调试时 将kaldi/src/kaldi.mk中-O1改成”-O0 -DKALDI_PARANOID”，不改也行，就是有些地方的参数拿不到     
+
+
+
 compute-cmvn-stats --spk2utt=ark:data/test/spk2utt scp:data/test/feats.scp ark,scp:/export1/kaldi/egs/cvte/online/work/data/cmvn_test.ark,/export1/kaldi/egs/cvte/online/work/data/cmvn_test.scp 
 ASSERTION_FAILED (compute-cmvn-stats[5.5.683~2-f4d5f]:InitCmvnStats():cmvn.cc:27) Assertion failed: (dim > 0)
 
