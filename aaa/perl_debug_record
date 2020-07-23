@@ -1,5 +1,6 @@
 perl -d /export1/kaldi/egs/multi_cn/s5/utils/slurm.pl JOB=1:3 exp/make_mfcc/primewords/train/make_mfcc_pitch_train.JOB.log paste-feats --length-tolerance=2 "ark:compute-mfcc-feats  --write-utt2dur=ark,t:exp/make_mfcc/primewords/train/utt2dur.JOB --verbose=2     --config=conf/mfcc.conf scp,p:exp/make_mfcc/primewords/train/wav_train.JOB.scp ark:- |" "ark,s,cs:compute-and-process-kaldi-pitch-feats --verbose=2     --config=conf/online_pitch.conf scp,p:exp/make_mfcc/primewords/train/wav_train.JOB.scp ark:- |" ark:- \| copy-feats --compress=true --write-num-frames=ark,t:exp/make_mfcc/primewords/train/utt2num_frames.JOB ark:- ark,scp:/export1/kaldi/egs/multi_cn/s5/mfcc/primewords/raw_mfcc_online_pitch_train.JOB.ark,/export1/kaldi/egs/multi_cn/s5/mfcc/primewords/raw_mfcc_online_pitch_train.JOB.scp
 
+sbatch --export=PATH --ntasks-per-node=1 --partition=compute  -N2  --open-mode=append -e exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.log -o exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.log --array 1-3 /export1/kaldi/egs/multi_cn/s5/exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.sh >>exp/make_mfcc/primewords/train/q/make_mfcc_pitch_train.log 2>&1
 
 T：程序的调用栈回退一级。     
 s ：step into。     
