@@ -102,6 +102,14 @@
 ### [Kaldi语音识别实战笔记（更新中）](https://saaavsaaa.github.io/aaa/Kaldi_abstract.html)
 
 -----
+
+### [终于正式开始Kaldi了](https://mp.weixin.qq.com/s/w1RLRaFz1H3ulXqyrWuLmA)
+
+-----
+
+### [音频过短引起的识别错误](https://mp.weixin.qq.com/s/IK07lnDfWnvVTyU0m3cwxQ)
+
+-----
 testing:
  |
  
