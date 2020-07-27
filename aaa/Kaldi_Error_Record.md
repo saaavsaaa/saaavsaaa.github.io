@@ -86,7 +86,7 @@ char **env_array_user_default(const char *username, int timeout, int mode,bool n
 }
 ```    
 
-command sbatch ... --partition=aaa  -N2    
+command sbatch ... --partition=aaa  -N指定使用的计算节点个数    
 
 
 
