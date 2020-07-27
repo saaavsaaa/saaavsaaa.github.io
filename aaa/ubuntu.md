@@ -26,6 +26,7 @@ grep -a 二进制文件
 grep ^aaa  以aaa开头的行   
 grep aaa$  以aaa结尾的行   
 grep aaa[^a] 除aaaa外aaa* ： aaab,aaac...   
+sox in.wav out.wav speed 2.0 两倍速     
 
 cat /etc/sysctl.conf可修改   
 cat /proc/sys/fs/file-nr   
