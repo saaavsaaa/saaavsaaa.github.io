@@ -1,0 +1,114 @@
+delete .gradle dir
+
+gradlew wrapper --gradle-version 4.10
+
+plugins {
+    id 'java'
+}
+
+group 'date.iterator...'
+version '1.0.1'
+
+sourceCompatibility = 1.8
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //为Pom文件做数字签名
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            if (isReleaseBuild()){
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+                }
+            } else {
+                repository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+                }
+            }
+
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description 'state'
+                url 'https://github.com/saaavsaaa/...'
+
+                scm {
+                    url 'scm:git@github.com/saaavsaaa/....git'
+                    connection 'scm:git@github.com/saaavsaaa/....git'
+                    developerConnection 'git@github.com/saaavsaaa/....git'
+                }
+
+                licenses {
+                    license {
+                        name 'GNU General Public License v3.0'
+                        url 'https://www.gnu.org/licenses/gpl-3.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'saaav'
+                        name '...'
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+//signArchives'. > Duplicate key Signature :jar.asc:asc  gradle版本和我配置兼容的问题，用4.x的就可以
+//gradle/wrapper/gradle-wrapper.properties - distributionUrl=https\://services.gradle.org/distributions/gradle-4.10-bin.zip
+//./gradlew wrapper --gradle-version 4.10
