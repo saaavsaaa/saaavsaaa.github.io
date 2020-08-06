@@ -2,6 +2,15 @@ delete .gradle dir
 
 gradlew wrapper --gradle-version 4.10
 
+gradle.properties:
+NEXUS_USERNAME= 
+NEXUS_PASSWORD= 
+
+signing.keyId=
+signing.password=
+signing.secretKeyRingFile=...gpg
+
+
 plugins {
     id 'java'
 }
