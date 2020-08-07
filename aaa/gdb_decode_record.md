@@ -10,7 +10,11 @@ gdb ./nnet3-latgen-faster
 
 b nnet3-latgen-faster.cc:91
 
+c
+
 b nnet3-latgen-faster.cc:174
+
+剪枝逻辑 b ../decoder/lattice-faster-decoder.cc:507
 
 info breakpoints
 
@@ -92,7 +96,11 @@ kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl
 kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float> >, fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, kaldi::decoder::StdToken>::PruneActiveTokens (this=this@entry=0x7fffffffd710, delta=0.800000012) at lattice-faster-decoder.cc:506
 506     void LatticeFasterDecoderTpl<FST, Token>::PruneActiveTokens(BaseFloat delta) {
 
+511       for (int32 f = cur_frame_plus_one - 1; f >= 0; f--) {
 
+kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float> >, fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, kaldi::decoder::StdToken>::AdvanceDecoding (this=this@entry=0x7fffffffd710, decodable=decodable@entry=0x7fffffffdce0,
+    max_num_frames=max_num_frames@entry=-1) at lattice-faster-decoder.cc:616
+616         BaseFloat cost_cutoff = ProcessEmitting(decodable);
 
 
 
