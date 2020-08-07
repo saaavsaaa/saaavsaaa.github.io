@@ -16,6 +16,8 @@ r --frame-subsampling-factor=3 --frames-per-chunk=50 --extra-left-context=0 --ex
 $1 = "/export1/kaldi/egs/cvte/online/exp/chain/tdnn/final.mdl"     
 (gdb) p fst_in_str     
 $2 = "/export1/kaldi/egs/cvte/online/exp/chain/tdnn/graph/HCLG.fst"     
+139           Fst<StdArc> *decode_fst = fst::ReadFstKaldiGeneric(fst_in_str);
+
 (gdb) p feature_rspecifier     
 $3 = "ark,s,cs:/export1/kaldi/src/featbin/apply-cmvn --norm-means=true --norm-vars=false --utt2spk=ark:/export1/kaldi/egs/cvte/online/data/test/split1/1/utt2spk scp:/export1/kaldi/egs/cvte/online/data/test/"...      
 (gdb) p lattice_wspecifier     
