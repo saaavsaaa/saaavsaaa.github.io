@@ -37,7 +37,7 @@ kaldi::DecodeUtteranceLatticeFaster<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<
 287     bool DecodeUtteranceLatticeFaster(
 303       if (!decoder.Decode(&decodable)) {
 (gdb) s
-kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float> > >, kaldi::decoder::StdToken>::Decode (this=this@entry=0x7fffffffd710, decodable=0x7fffffffdce0) at lattice-faster-decoder.cc:79
+kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float> > >, kaldi::decoder::StdToken>::Decode (this=this@entry=0x7fffffffd710, decodable=0x7fffffffdce0) at lattice-faster-decoder.cc:79  // src/decoder/...
 79      bool LatticeFasterDecoderTpl<FST, Token>::Decode(DecodableInterface *decodable) {
 80        InitDecoding();
 (gdb) s
@@ -55,4 +55,39 @@ last_eQuit
 
 kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float> > >, kaldi::decoder::StdToken>::InitDecoding (this=this@entry=0x7fffffffd710) at lattice-faster-decoder.cc:59
 59        cost_offsets_.clear();
+
+kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float> > >, kaldi::decoder::StdToken>::AdvanceDecoding (this=this@entry=0x7fffffffd710, decodable=decodable@entry=0x7fffffffdce0,
+    max_num_frames=max_num_frames@entry=-1) at lattice-faster-decoder.cc:580
+580     void LatticeFasterDecoderTpl<FST, Token>::AdvanceDecoding(DecodableInterface *decodable,
+
+fst::ImplToFst<fst::internal::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, fst::MutableFst<fst::ArcTpl<fst::TropicalWeightTpl<float> > > >::Type[abi:cxx11]() const (this=0x555919f14160) at /export1/kaldi/tools/openfst-1.6.7/include/fst/fst.h:881
+881       const string &Type() const override { return impl_->Type(); }
+    fst::ImplToFst<fst::internal::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, fst::MutableFst<fst::ArcTpl<fst::TropicalWeightTpl<float> > > >::Type[abi:cxx11]() const (this=0x555919f14160) at /export1/kaldi/tools/openfst-1.6.7/include/fst/fst.h:881
+881       const string &Type() const override { return impl_->Type(); }
+
+kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float> > >, kaldi::decoder::StdToken>::AdvanceDecoding (this=this@entry=0x7fffffffd710, decodable=decodable@entry=0x7fffffffdce0,
+    max_num_frames=max_num_frames@entry=-1) at lattice-faster-decoder.cc:586
+586         if (fst_->Type() == "const") {
+(gdb) n
+591         } else if (fst_->Type() == "vector") {
+(gdb) n
+594           this_cast->AdvanceDecoding(decodable, max_num_frames);
+(gdb) s
+kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float> >, fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, kaldi::decoder::StdToken>::AdvanceDecoding (this=this@entry=0x7fffffffd710, decodable=decodable@entry=0x7fffffffdce0,
+    max_num_frames=max_num_frames@entry=-1) at lattice-faster-decoder.cc:580
+580     void LatticeFasterDecoderTpl<FST, Token>::AdvanceDecoding(DecodableInterface *decodable,
+
+602       int32 num_frames_ready = decodable->NumFramesReady();
+(gdb) s
+kaldi::nnet3::DecodableAmNnetSimple::NumFramesReady (this=0x7fffffffdce0) at ../nnet3/nnet-am-decodable-simple.h:331
+331         return decodable_nnet_.NumFrames();
+
+kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float> >, fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, kaldi::decoder::StdToken>::NumFramesDecoded (this=0x7fffffffd710) at ../decoder/lattice-faster-decoder.h:340
+340       inline int32 NumFramesDecoded() const { return active_toks_.size() - 1; }
+
+614           PruneActiveTokens(config_.lattice_beam * config_.prune_scale);
+(gdb) s
+kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float> >, fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, kaldi::decoder::StdToken>::PruneActiveTokens (this=this@entry=0x7fffffffd710, delta=0.800000012) at lattice-faster-decoder.cc:506
+506     void LatticeFasterDecoderTpl<FST, Token>::PruneActiveTokens(BaseFloat delta) {
+
 
