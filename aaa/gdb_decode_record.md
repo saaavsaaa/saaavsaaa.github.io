@@ -28,3 +28,10 @@ $4 = "ark:| /export1/kaldi/src/latbin/lattice-scale --acoustic-scale=10.0 ark:- 
 $5 = ""     
 (gdb) p alignment_wspecifier     
 $6 = ""     
+
+kaldi::DecodeUtteranceLatticeFaster<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > (decoder=...,
+    decodable=..., trans_model=..., word_syms=0x555555c36e30, utt="aaa-a100-4399000-15000", acoustic_scale=1,
+    determinize=true, allow_partial=true, alignment_writer=0x7fffffffd4f0, words_writer=0x7fffffffd4e8,
+    compact_lattice_writer=0x7fffffffd4d0, lattice_writer=0x7fffffffd4d8, like_ptr=0x7fffffffd508)
+    at decoder-wrappers.cc:287
+287     bool DecodeUtteranceLatticeFaster(
