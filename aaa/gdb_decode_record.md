@@ -102,6 +102,27 @@ kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl
     max_num_frames=max_num_frames@entry=-1) at lattice-faster-decoder.cc:616
 616         BaseFloat cost_cutoff = ProcessEmitting(decodable);
 
+kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float> >, fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, kaldi::decoder::StdToken>::ProcessEmitting (this=this@entry=0x7fffffffd710, decodable=decodable@entry=0x7fffffffdce0)
+    at lattice-faster-decoder.cc:716
+716       KALDI_ASSERT(active_toks_.size() > 0);
+(gdb) n
+717       int32 frame = active_toks_.size() - 1; // frame is the frame-index
+(gdb) n
+720       active_toks_.resize(active_toks_.size() + 1);
+(gdb) n
+722       Elem *final_toks = toks_.Clear(); // analogous to swapping prev_toks_ / cur_toks_
+(gdb) n
+725       Elem *best_elem = NULL;
+(gdb) n
+728       BaseFloat cur_cutoff = GetCutoff(final_toks, &tok_cnt, &adaptive_beam, &best_elem);
+(gdb) s
+kaldi::LatticeFasterDecoderTpl<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float> >, fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float> >, std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float> > > > >, kaldi::decoder::StdToken>::GetCutoff (this=this@entry=0x7fffffffd710, list_head=list_head@entry=0x555919f22050,
+    tok_count=tok_count@entry=0x7fffffffcf28, adaptive_beam=adaptive_beam@entry=0x7fffffffcf18,
+    best_elem=best_elem@entry=0x7fffffffcf20) at lattice-faster-decoder.cc:644
+644     BaseFloat LatticeFasterDecoderTpl<FST, Token>::GetCutoff(Elem *list_head, size_t *tok_count,
+
+
+
 
 
 -----------
