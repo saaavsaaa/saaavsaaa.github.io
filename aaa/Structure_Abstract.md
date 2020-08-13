@@ -346,6 +346,8 @@ lo=11,hi=18
 k * 1og(1/2) + loglogn < 0     
 -k + 1oglogn < 0 或 k > loglogn     
 所以复杂度：O(log<sup>logn</sup>)       
+也可以用推算，对n开方，对logn复杂度就是1/2 * logn，对logn每次都折半，平均到每次就相当于logn的log     
+补充：这里课上说的字长是指二进制位     
 
 
 
