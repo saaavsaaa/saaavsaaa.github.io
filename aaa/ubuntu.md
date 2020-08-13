@@ -83,6 +83,8 @@ source /etc/profile
 | more   
 ls -alt   
 
+sudo -u hdfs  hadoop jar .../hadoop-mapreduce-client-jobclient-...-tests.jar TestDFSIO -write -nrFiles 2 -fileSize 128MB
+
 sort -u test1 同 sort test1 | uniq 排序后去重     
 basename [pathname] 不加后缀可去除路径 basename /tmp/test/file.txt   :   file.txt       
 basename [string] [suffix] 加后缀同时去除路径和后缀 basename /tmp/test/file.txt .txt    :   file   
