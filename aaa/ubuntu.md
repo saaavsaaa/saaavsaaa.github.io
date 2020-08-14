@@ -247,13 +247,13 @@ ps -ef | grep tomcat
 | head -10  
 git reset HEAD +文件名 取消add      
 
-git commit
 put E:/Gitlab/loganalyzer/src/classes/logstreamlineparsersyslog.class.php
 
-git init
-git remote add origin
-git branch --set-upstream-to=origin/master
-git pull origin master --allow-unrelated-histories  
+git init     
+git remote add origin    
+git branch --set-upstream-to=origin/master     
+git pull origin master --allow-unrelated-histories       
+git commit
 
 sh mqshutdown namesrv
 sh mqshutdown broker
