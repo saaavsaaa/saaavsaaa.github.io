@@ -19,3 +19,16 @@ jaccard相似系数 狭义的又称雅可比相似系数 主要通过集合并�
 
 向量空间模型
 词袋模型只算词频，不管顺序
+
+执行spark job时遇到内存与超时问题的解决：
+首先数据去重
+
+根据日志提示对应各自问题分别修改这几个的值:
+      .config("spark.yarn.executor.memoryOverhead", "4g")
+      .config("spark.executor.memory", "10g")
+      .config("spark.executor.heartbeatInterval", "50s")
+      .config("spark.rpc.askTimeout", "300s")
+      .config("spark.driver.memory", "4g")
+调整分区
+    val all = data.repartition(10)
+    all.show()
