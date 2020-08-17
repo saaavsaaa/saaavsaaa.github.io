@@ -359,7 +359,16 @@ k * 1og(1/2) + loglogn < 0
 小规模:顺序查找     
 可以根据情况组合使用
 
-#### 气泡排序
+#### 起泡排序
+void Vector<T>:t sort(Rank 1o, Rank hi) { //区间[1o, hi)     
+
+case 1 : bubbleSort(lo, hi); break; //起泡排序     
+case 2 : selectionSort(lo, hi); break; //选择排序 (习题)     
+case 3 : mergeSort(lo, hi); break; //归并排序     
+case 4 : heapSort(lo, hi); break; //堆排序(第10章)     
+default: quickSort(lo, hi); break; //快速排序 (第12章)     
+
+O(n²) 改进，序列可能局部有序，改进一：判断起泡排序的一次循环中是否有逆序对存在，如果未发生元素顺序交换，则停止循环直接完成，不一定要完全按n的个数循环完     
 
 
 
