@@ -22,7 +22,6 @@ jaccard相似系数 狭义的又称雅可比相似系数 主要通过集合并�
 
 执行spark job时遇到内存与超时问题的解决：
 首先数据去重
-
 根据日志提示对应各自问题分别修改这几个的值:
       .config("spark.yarn.executor.memoryOverhead", "4g")
       .config("spark.executor.memory", "10g")
