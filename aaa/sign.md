@@ -1,4 +1,4 @@
-xº、x¹、x²、x³ 
+      xº、x¹、x²、x³ 
 
 0⁰ 0¹ 0² 0³ 0⁴ 0⁵ 0⁶ 0⁷ 0⁸ 0⁹
 A₀ A₁ A₂ A₃ A₄ A₅ A₆ A₇ A₈ A₉ A₊ A₋ A₌ A₍ ₎ Aₐ Aₑ Aₒ Aₓ Aₔ Aₕ Aₖ Aₗ Aₘ Aₙ Aₚ Aₛ Aₜ
