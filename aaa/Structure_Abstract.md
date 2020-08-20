@@ -440,6 +440,42 @@ data() | 当前节点所存数据对象
 insertAsPred(e) | 插入前驱节点，存入被引用对象e，返回新节点位置
 insertAsSucc(e) | 插入后继节点，存入被引用对象e，返回新节点位置
 
+操作接口
+适用对象
+功能
+size()
+报告列表当前的规模（节点总数）
+列表
+first()， last()
+返回首、末节点的位置
+列表
+列表
+insertAsFirst(e), insertAsLast(e)
+将e当作首、未节点插入
+列表
+insertBefore(p， e)，insertAfter(p，e)将e当作节点p的直接前驱、后继插入
+删除位置p处的节点，返回其引用
+列表
+remove(p)
+判断所有节点是否已按非降序排列
+disordered()
+列表
+调整各节点的位置，使之按非降序排列
+sort()
+列表
+查找目标元素e，失败时返回NULL
+列表
+find(e)
+查找e，返回不大于e且秩最大的节点
+有序列表
+search(e)
+deduplicate(), uniquify()
+剔除重复节点
+列表/有序列表
+travcse()
+遍历列表
+列表
+
 
 
 -----
