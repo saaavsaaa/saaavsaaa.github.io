@@ -443,17 +443,17 @@ v[i]的物理地址 = v + i x s，s为单个单元占用的空间量
 
 |操作接口|适用对象|功能|
 |:-:|:-:|:-:|
-|size()|报告列表当前的规模（节点总数）|列表|
-|first()， last()|返回首、末节点的位置|列表 列表|
-|insertAsFirst(e), insertAsLast(e)|将e当作首、未节点插入|列表|
-|insertBefore(p， e)，insertAfter(p，e)|将e当作节点p的直接前驱、后继插入|列表|
-|remove(p)|删除位置p处的节点，返回其引用||
-|disordered()|判断所有节点是否已按非降序排列|列表|
-|sort()|调整各节点的位置，使之按非降序排列|列表|
-|find(e)|查找目标元素e，失败时返回NULL|查找e，返回不大于e且秩最大的节点|
-|search(e)|有序列表|列表|
-|deduplicate(), uniquify()|剔除重复节点|列表/有序列表|
-|travcse()|遍历列表|列表|
+|size()|列表|报告列表当前的规模（节点总数）|
+|first()， last()|列表 列表|返回首、末节点的位置|
+|insertAsFirst(e), insertAsLast(e)|列表 列表|将e当作首、未节点插入|
+|insertBefore(p， e)，insertAfter(p，e)|列表 列表|将e当作节点p的直接前驱、后继插入|
+|remove(p)|列表|删除位置p处的节点，返回其引用|
+|disordered()|列表|判断所有节点是否已按非降序排列|
+|sort()|列表|调整各节点的位置，使之按非降序排列|
+|find(e)|列表|查找目标元素e，失败时返回NULL|
+|search(e)|有序列表|查找e，返回不大于e且秩最大的节点|
+|deduplicate(), uniquify()|列表|剔除重复节点|
+|travcse()|列表|遍历列表|
 
 头、首、未、尾节点的秩可分别理解为-1、0、n-1、n。header和tailer是哨兵，对外不可见
 
