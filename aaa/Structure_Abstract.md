@@ -453,7 +453,7 @@ v[i]的物理地址 = v + i x s，s为单个单元占用的空间量
 |find(e)|查找目标元素e，失败时返回NULL|列表|
 |search(e)|查找e，返回不大于e且秩最大的节点|有序列表|
 |deduplicate(), uniquify()|剔除重复节点|列表/有序列表|
-|travcse()|遍历列表|列表|
+|traverse()|遍历列表|列表|
 
 头、首、未、尾节点的秩可分别理解为-1、0、n-1、n。header和tailer是哨兵，对外不可见
 
