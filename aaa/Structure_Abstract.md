@@ -53,7 +53,7 @@ RAM(Random Access Machine)模型：做加法时，需要先将常数放进寄存
 需占用的存储单元数（通常可不考虑）   
 多项式复杂度，舍掉低阶项
 
-T(n)=0(f(n)) iff 彐 c > 0，当n>>2后,有T(n) < c.f(n)      
+T(n)=O(f(n)) iff 彐 c > 0，当n>>2后,有T(n) < c.f(n)      
 反映T(n)的增长趋势，T(n)时间复杂度常系数意义上的的上界(经过常系数放大能构成上界)，局部值不一定小于T(n)     
 常数项可以忽略，低次项可以忽略 O(sqrt_(35n³+7)) -> O(sqrt_36n³) -> O(6n<sup>1.5</sup>) -> O(n<sup>1.5</sup>)    
 Ω与O相反，T(n) > c.f(n)，构成下界     
@@ -441,22 +441,28 @@ v[i]的物理地址 = v + i x s，s为单个单元占用的空间量
 |insertAsPred(e) | 插入前驱节点，存入被引用对象e，返回新节点位置|
 |insertAsSucc(e) | 插入后继节点，存入被引用对象e，返回新节点位置|
 
-|操作接口|适用对象|功能|
+|操作接口|功能|适用对象|
 |:-:|:-:|:-:|
-|size()|列表|报告列表当前的规模（节点总数）|
-|first()， last()|列表 列表|返回首、末节点的位置|
-|insertAsFirst(e), insertAsLast(e)|列表 列表|将e当作首、未节点插入|
-|insertBefore(p， e)，insertAfter(p，e)|列表 列表|将e当作节点p的直接前驱、后继插入|
-|remove(p)|列表|删除位置p处的节点，返回其引用|
-|disordered()|列表|判断所有节点是否已按非降序排列|
-|sort()|列表|调整各节点的位置，使之按非降序排列|
-|find(e)|列表|查找目标元素e，失败时返回NULL|
-|search(e)|有序列表|查找e，返回不大于e且秩最大的节点|
-|deduplicate(), uniquify()|列表|剔除重复节点|
-|travcse()|列表|遍历列表|????????????
+|size()|报告列表当前的规模（节点总数）|列表|
+|first()， last()|返回首、末节点的位置|列表|
+|insertAsFirst(e), insertAsLast(e)|将e当作首、未节点插入|列表|
+|insertBefore(p， e)，insertAfter(p，e)|将e当作节点p的直接前驱、后继插入|列表|
+|remove(p)|删除位置p处的节点，返回其(p)引用|列表|
+|disordered()|判断所有节点是否已按非降序排列|列表|
+|sort()|调整各节点的位置，使之按非降序排列|列表|
+|find(e)|查找目标元素e，失败时返回NULL|列表|
+|search(e)|查找e，返回不大于e且秩最大的节点|有序列表|
+|deduplicate(), uniquify()|剔除重复节点|列表/有序列表|
+|travcse()|遍历列表|列表|
 
 头、首、未、尾节点的秩可分别理解为-1、0、n-1、n。header和tailer是哨兵，对外不可见
 
+共迭代n次，在第k次迭代中    
+selectMax()为Θ(n - k)    
+remove()和insertBefore()均为O(1)   
+故总体复杂度应为Θ(n²)   
+尽管如此，元素移动操作远远少于起泡排序   
+也就是说，Θ(n²)主要来自于元素比较操作（选择排序第十章可优化到logn而不是n）   
 
 
 
