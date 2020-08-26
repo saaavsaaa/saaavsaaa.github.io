@@ -31,7 +31,7 @@ sox in.wav out.wav speed 2.0 两倍速
 cat /etc/sysctl.conf可修改   
 cat /proc/sys/fs/file-nr   
 cat /proc/sys/fs/file-max   
-sqoop import -D mapreduce.map.memory.mb=40960
+sqoop import -D mapreduce.map.memory.mb=40960  -Dmapreduce.map.cpu.vcores=10
 
 comm 文件对比，合并等    
 git fetch origin   
