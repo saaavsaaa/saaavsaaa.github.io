@@ -37,6 +37,32 @@ comm 文件对比，合并等
 git fetch origin   
 git diff HEAD FETCH_HEAD   
 
+git rm --cached *.iml     
+git rm -r --cached */.idea/*     
+git rm -r --cached target/   
+git rm -f --cached .idea/*   
+
+
+git remote add upstream http://xxxxxxxxxxxxxxxxxx
+git fetch upstream
+git merge upstream/master
+
+git commit
+git push origin master
+
+git log -n 1 --stat -p
+
+git fetch
+git merge
+
+git fetch --all
+git reset --hard origin/master
+
+git stash
+git stash list
+git pull
+git stash pop stash@{0}
+
 grep error -m 10 === grep error  | head -10   
 grep -v 排除   
 grep -r "DataSourceActionInterceptor" *   
