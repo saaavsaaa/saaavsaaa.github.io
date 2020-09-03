@@ -6,7 +6,7 @@
 |  C | 0  | 1 | 1| 0×1×1 = 0|
 |  D | 1  | 1 | 1| 1×1×1 = 1|
 
-
+      空格
 
 ## Welcome to GitHub Pages
 
