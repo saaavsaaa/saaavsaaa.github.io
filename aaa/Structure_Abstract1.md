@@ -18,6 +18,20 @@ public: //size()、 empty( )以及其它开放接口均可直接沿用
 延迟缓冲   evaluation         线性扫描算法模式中，在预读足够长之后，方能确定可处理的前缀     
 栈式计算   RPN     基于栈结构的特定计     
 
+算法实现
+
+void convert( Stack<char> &S, _int64 n, int base){
+static char digit[])= //新进制下的数位符号，可视base取值范围适当扩充 一>{ '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F' };
+while (n > 0) { //由低到高，逐一计算出新进制下的各数位    
+      S.push( digit[n % base] ); //余数(对应的数位)入栈    
+      n /= base; //n更新为其对base的除商   
+}   
+
+main() {   
+      Stack<char> S; 
+      convert(S, n, base); //用栈记录转换得到的各数位   
+      while ( !S.empty() ) printf( "%c"， S.pop() ); //逆序输出   
+}   
 
 
 
