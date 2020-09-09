@@ -55,12 +55,15 @@ kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float
 (gdb) s
 58        DeleteElems(toks_.Clear());
 (gdb) p toks_
+
 $11 = {list_head_ = 0x0, bucket_list_tail_ = 18446744073709551615, hash_size_ = 1000,
-          buckets_ = std::vector of length 1000, capacity 1000 = \{\{prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0,
+          buckets_ = std::vector of length 1000, capacity 1000 = {{prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0,
               last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0,
               last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0,
 ---Type <return> to continue, or q <return> to quit---q
 last_eQuit
+
+# github 用{{ --- }} 变量，所以上面的{{ 没有 }} 就报错了，没找到转义办法，就只能加上 }}
 
 kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float> > >, kaldi::decoder::StdToken>::InitDecoding (this=this@entry=0x7fffffffd710) at lattice-faster-decoder.cc:59
 59        cost_offsets_.clear();
