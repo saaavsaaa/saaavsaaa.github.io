@@ -57,7 +57,7 @@ kaldi::LatticeFasterDecoderTpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float
 (gdb) p toks_
 
 $11 = {list_head_ = 0x0, bucket_list_tail_ = 18446744073709551615, hash_size_ = 1000,
-          buckets_ = std::vector of length 1000, capacity 1000 = {{prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0,   只能加上两个大括号避免报错，反斜杠不好看:}} 
+          buckets_ = std::vector of length 1000, capacity 1000 = \{\{prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0, 
               last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0,
               last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0, last_elem = 0x0}, {prev_bucket = 0,
 ---Type <return> to continue, or q <return> to quit---q
