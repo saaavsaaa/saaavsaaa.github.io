@@ -56,7 +56,7 @@ main() {
 比如: \<body\>|\</body\>, \<h1\>|\</h1\>， \<font\>|\</font\>, \<p\>|\</p\>， \<ol\>|\</ol\>    
 
 #### 栈混洗
-卡特兰数 (2n)!/[(n+1)!×n!]     
+卡特兰数 (2n)!/[(n+1)!×n!]     h(n)=C(2n,n)/(n+1):C(2n,n)=2n!/[n!(2n-n)!]     
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
