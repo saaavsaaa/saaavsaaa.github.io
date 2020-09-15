@@ -58,5 +58,12 @@ main() {
 #### 栈混洗
 卡特兰数 (2n)!/[(n+1)!×n!]     h(n)=C(2n,n)/(n+1):C(2n,n)=2n!/[n!(2n-n)!]     
 
+栈 A =< a1, a2, ...an]、B=S=0   //左端为栈顶     
+只允许:将A的顶元素弹出并压入s //s.push(A.pop()),或将S的顶元素弹出并压入B //B.push(S.pop())   
+若经过一系列以上操作后, A中元素全部转入B中 B = \[ ak1, .... akn >         //右端为栈顶   
+则称之为A的一个栈混洗( stack permutation )   
+
+
+
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
