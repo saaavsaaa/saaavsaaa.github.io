@@ -84,6 +84,18 @@ O(n)算法:直接借助栈A、B和S，模拟混洗过程
 延迟缓冲 evaluation 线性扫描算法模式中，在预读足够长之后，方能确定可处理的前缀   
 栈式计算 RPN 基于栈结构的特定计算模式   
 
+float evaluate( char* S, char* & RPN ) { //中缀表达式求值
+Stack<float> opnd; Stack<char> optr; //运算数栈、运算符栈
+optr . push('\0'); //尾哨兵'\e' 也作为头哨兵首先入栈
+while ( !optr . empty() ) { //逐个处理各字符，直至运算符栈空
+if ( isdigit( *S ) ) //若当前字符为操作数，则
+readNumber( S, opnd ); //读入 (可能多位的)操作数
+else //若当前字符为运算符，则视其与栈顶运算符之间优先级的高低
+switch( orderBetween( optr. top(), *S ) ) { /*分别处理*/| }
+} //while
+return opnd. pop(); //弹出并返回最后的计算结果
+
+const char pri[N_ _OPTR][N_ OPTR] =
 
 
 
