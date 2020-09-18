@@ -98,19 +98,19 @@ return opnd. pop(); //弹出并返回最后的计算结果
 const char pri[N_ _OPTR][N_ OPTR] =
 
 switch( orderBetween( optr . top(), *S ) ) {
-   case '<':                               //栈顶运算符优先级更低   
-      optr.push( *S ); S++; break;          //计算推迟,当前运算符进栈   
-   case '=':                                //优先级相等(当前运算符为右括号，或尾部哨兵'\0' )    
-      optr .pop(); S++; break;           //脱括号并接收下一 个字符
-   case '>': {                                 //栈顶运算符优先级更高,实施相应的计算，结果入栈
-      char op = optr .pop();            //栈顶运算符出栈，执行对应的运算
-      if ( '!' == op ) opnd.push( calcu( op, opnd.pop() ) );            //一元运算符
-      else { float pOpnd2 = opnd.pop()，pOpnd1 = opnd.pop();            //二元运算符
-         opnd.push( calcu( pOpnd1， op， pOpnd2 ) );            //实施计算，结果入栈
-      }                                                        //为何不直接 :opnd .push( calcu( opnd.pop(), op, opnd.pop() ) )?  应该是因为反了
-      break;
-   } //case '>'
-}//switch
+   case '<':      //栈顶运算符优先级更低     
+      optr.push( *S ); S++; break;    //计算推迟,当前运算符进栈     
+   case '=':    //优先级相等(当前运算符为右括号，或尾部哨兵'\0' )       
+      optr .pop(); S++; break;     //脱括号并接收下一 个字符   
+   case '>': {     //栈顶运算符优先级更高,实施相应的计算，结果入栈   
+      char op = optr .pop();    //栈顶运算符出栈，执行对应的运算   
+      if ( '!' == op ) opnd.push( calcu( op, opnd.pop() ) );     //一元运算符   
+      else { float pOpnd2 = opnd.pop()，pOpnd1 = opnd.pop();     //二元运算符   
+         opnd.push( calcu( pOpnd1， op， pOpnd2 ) );      //实施计算，结果入栈   
+      }      //为何不直接 :opnd .push( calcu( opnd.pop(), op, opnd.pop() ) )?  因为反了   
+      break;   
+   } //case '>'   
+}//switch   
 
 (1+2^3!-4)*(5!-(6-(7-(89-0!))))$ = 2013
 
