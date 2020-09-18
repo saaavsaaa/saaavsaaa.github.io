@@ -141,7 +141,7 @@ float evaluate( char* S, char* & RPN ) { //RPN转换
    /* ......................................... */   
    while ( !optr . empty() ) { //逐个处理各字符，直至运算符栈空   
       if ( isdigit(*S) ) //若当前字符为操作数,则直接将其   
-         { readNumber( S, opnd ); append(|RPN, opnd.top() ); } //接入RPN   
+         { readNumber( S, opnd ); append(RPN, opnd.top() ); } //接入RPN   
       else //若当前字符为运算符   
          switch( orderBetween( optr . top(), *S ) ) {   
             /* ......................................... */   
