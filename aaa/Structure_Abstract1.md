@@ -122,6 +122,12 @@ switch( orderBetween( optr . top(), *S ) ) {
 
 (1+2^3!-4)*(5!-(6-(7-(89-0!))))$ = 2013
 
+#### RPN 逆波兰表达式( Reverse Polish Notation )     
+J. Lukasiewicz ( 12/21/1878 - 02/13/1956 )   
+在由运算符( operator )和操作数( operand )组成的表达式中   
+不使用括号( parenthesis-free )，即可表示带优先级的运算关系   
+
+
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
