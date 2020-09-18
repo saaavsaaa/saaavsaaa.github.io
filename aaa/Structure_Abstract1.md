@@ -152,6 +152,17 @@ float evaluate( char* S, char* & RPN ) { //RPN转换
          /* .................................. */   
 
 ```
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/index.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/rpn.h.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/append2rpn.cpp.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/calculation.cpp.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/displayprogress.cpp.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/main.cpp.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/priority.cpp.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/priority.h.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/readnumber.cpp.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/rpn.cpp.htm   
+https://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/rpn/rpn.h.htm   
 
 
 
