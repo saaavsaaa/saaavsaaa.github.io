@@ -85,12 +85,12 @@ O(n)算法:直接借助栈A、B和S，模拟混洗过程
 栈式计算 RPN 基于栈结构的特定计算模式   
 
 float evaluate( char* S, char* & RPN ) {         //中缀表达式求值       ,RPN是可以顺便生成的逆波兰表达式    
-   Stack<float> opnd; Stack<char> optr;         //运算数栈、运算符栈   
+   Stack<float> opnd; Stack<char> optr;                  //运算数栈、运算符栈   
    optr . push('\0');                             //尾哨兵'\e' 也作为头哨兵首先入栈   
    while ( !optr . empty() ) {                 //逐个处理各字符，直至运算符栈空   
       if ( isdigit( *S ) )                     //若当前字符为操作数，则   
          readNumber( S, opnd );                 //读入 (可能多位的)操作数   
-      else                                                         //若当前字符为运算符，则视其与栈顶运算符之间优先级的高低   
+      else                                      //若当前字符为运算符，则视其与栈顶运算符之间优先级的高低   
          switch( orderBetween( optr. top(), *S ) ) { /*分别处理*/| }   
    } //while   
    return opnd. pop();                         //弹出并返回最后的计算结果   
@@ -99,11 +99,11 @@ float evaluate( char* S, char* & RPN ) {         //中缀表达�
 const char pri[N_ _OPTR][N_ OPTR] =
 
 switch( orderBetween( optr . top(), *S ) ) {   
-   case '<':                                                //栈顶运算符优先级更低     
+   case '<':                                       //栈顶运算符优先级更低     
       optr.push( *S ); S++; break;                         //计算推迟,当前运算符进栈     
-   case '=':                                                //优先级相等(当前运算符为右括号，或尾部哨兵'\0' )       
+   case '=':                                        //优先级相等(当前运算符为右括号，或尾部哨兵'\0' )       
       optr .pop(); S++; break;                              //脱括号并接收下一 个字符   
-   case '>': {                                            //栈顶运算符优先级更高,实施相应的计算，结果入栈   
+   case '>': {                                     //栈顶运算符优先级更高,实施相应的计算，结果入栈   
       char op = optr .pop();                               //栈顶运算符出栈，执行对应的运算   
       if ( '!' == op ) opnd.push( calcu( op, opnd.pop() ) );                 //一元运算符   
       else { float pOpnd2 = opnd.pop()，pOpnd1 = opnd.pop();                 //二元运算符   
