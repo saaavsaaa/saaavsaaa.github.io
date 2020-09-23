@@ -183,6 +183,60 @@ public: //size()与empty()直接沿用
 用List颠倒过来无所谓
 用向量头为队列头入队O(n)，出队O(1);尾为队列头入队O(1)，出队O(n)。（不考虑扩容的情况）   
 
+C++ 课后题(由于审题错误，口算失败，直接写代码):
+```
+test.h:
+#include <queue>
+
+template<typename T> class XXX {
+   public:
+        void put(T const&);
+        T remove();
+   private:
+        std::queue<T> Q1, Q2;
+};
+
+xxx.cpp:
+#include "test.h"
+#include <iostream>
+using namespace std;
+
+template<typename T> void XXX<T>::put(T const& e){ Q1.push(e);}
+
+template<typename T> T XXX<T>::remove(){ //删除元素
+                while( Q1.size() > 1 ){
+                        Q2.push( Q1.front() );
+                        Q1.pop();
+                }
+                T tmp = Q1.front();
+                Q1.pop();
+                while(!Q2.empty()){
+                        Q1.push(Q2.front());
+                        Q2.pop();
+                }
+                cout <<Q1.front();
+                cout <<Q1.back();
+                cout << tmp << endl;
+                return tmp;
+          }
+
+int main()
+{
+                XXX<int> aaa;
+                aaa.put(2);
+                aaa.put(3);
+                aaa.remove();
+                aaa.put(5);
+                aaa.put(7);
+                aaa.remove();
+                aaa.put(11);
+                aaa.remove();
+                aaa.remove();
+}
+
+
+```
+g++ xxx.cpp -o aaa
 
 
 ----------------------------------------------------------------------------------------------------
