@@ -42,6 +42,7 @@ git rm -r --cached */.idea/*
 git rm -r --cached target/   
 git rm -f --cached .idea/*   
 
+set fileformat=unix   
 
 git remote add upstream http://xxxxxxxxxxxxxxxxxx
 git fetch upstream
