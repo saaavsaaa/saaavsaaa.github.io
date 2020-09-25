@@ -280,6 +280,16 @@ v的深度: depth(v) = | path(v) |，路径长度指标
 特别地,空树的高度取作 -1。   
 depth(v) + height(v) ≤ height(T)，在深度最深的叶子节点的路径上的点取等号   
 
+|节点|功能|
+|--:|:--|
+|root()|根节点|
+|parent()|父节点|
+|firstChild()|长子|
+|nextsibling()|兄弟|
+|insert(i, e)|将e作为第i个孩子插入|
+|remove(i)|删除第i个孩子(及其后代)|
+|traverse()|遍历|
+
 
 
 
