@@ -306,6 +306,8 @@ rChild() ~ rSubtree( )
 隐含有序   
 深度为k的节点，至多2<sup>k</sup>个   
 含n个节点、高度为h的二叉树中: h < n < 2<sup>h+1</sup>   
+1)n = h+1时退化为一条单链   
+2)n = 2<sup>h+1</sup> - 1时，即所谓满二叉树( full binary tree )
 
 
 
