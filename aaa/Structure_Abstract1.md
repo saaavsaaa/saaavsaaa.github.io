@@ -304,7 +304,7 @@ depth(v) + height(v) ≤ height(T)，在深度最深的叶子节点的路径上�
 lChild() ~ 1Subtree()   
 rChild() ~ rSubtree( )   
 隐含有序   
-深度为k的节点，至多2k个   
+深度为k的节点，至多2<sup>k<sup>个   
 含n个节点、高度为h的二叉树中: h < n < 2<sup>h+1<sup>   
 
 
