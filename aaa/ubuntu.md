@@ -33,6 +33,11 @@ cat /proc/sys/fs/file-nr
 cat /proc/sys/fs/file-max   
 sqoop import -D mapreduce.map.memory.mb=40960  -Dmapreduce.map.cpu.vcores=10
 
+conda install --file requirements.txt
+conda search
+conda install package=version 
+conda install -c conda package=version -y
+
 comm 文件对比，合并等    
 git fetch origin   
 git diff HEAD FETCH_HEAD   
