@@ -314,5 +314,19 @@ rChild() ~ rSubtree( )
 多叉树均可转化并表示为二叉树---回忆长子- 兄弟表示法   
 之前说的用二叉树可以表示所有树的方法就是左子节点及左子节点的同级节点作为左子树，右子树是其同级节点链   
 
+```
+#define BinNodePosi(T) BinNode<T>y //节点位置
+template <typename T> struct BinNode {
+  BinNodePosi(T) parent, 1Child, rChild; //父亲、孩子
+  T data; int height; int size(); //高度、子树规模
+  BinNodePosi(T) insertAsLC( T const & ); //作为左孩子插入新节点
+  BinNodePosi(T) insertAsRC( T const & ); //作为右孩子插入新节点
+  BinNodePosi(T) succ(); // (中序遍历意义下)当前节点的直接后继1Ch
+  template <typename VST> void trayLlevel( VST & ); //子树层次遍历
+  template <typename VST> void travPre( VST & ); //子树先序遍历
+  template <typename VST> void travIn( VST & ); //子树中序遍历
+  template <typename VST> void travPost( VST & ); //子树后序遍历
+```
+
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
