@@ -343,19 +343,30 @@ int BinNode<T>::size() { //后代总数,亦即以其为根的子树的规模
 ```
 template <typename T> class BinTree {
 protected:
-  int_ size; //规模
-  BinNodePosi(T)_ root; //根节点
+  int _size; //规模
+  BinNodePosi(T) _root; //根节点
   virtual int updateHeight( BinNodePosi(T) x ); //更新节点x的高度
-  void updateHei ghtAbove( BinNodePosi(T) x ); //更新x及祖先的高度
+  void updateHeightAbove( BinNodePosi(T) x ); //更新x及祖先的高度
 public:
-  int size() const { return size; } //规模
-  bool empty() const { return !_ root; } //判空
-  BinNodePosi(T) root() const { return root; } //树根
+  int size() const { return _size; } //规模
+  bool empty() const { return !_root; } //判空
+  BinNodePosi(T) root() const { return _root; } //树根
   /* ...子树接入、删除和分离接口... */
   /* ...遍历接口... */
 }
 ```
-
+```
+#define stature(p) ( (p) ? (p)->height :( -1) //节点高度一约定空树高度为
+template <typename T> //更新节点x高度。具体规则因树不同而异
+int BinTree<T>: :updateHeight( BinNodePosi(T) x) {
+  return x -> height = 1 + max((stature x->1Child )，(stature( x->rChild ) );
+} //此处采用常规二叉树规则，O(1)
+template <typename T> //更新v及其历代祖先的高度
+void BinTree<T>: :updateHeightAbove( BinNodePosi(T)() {
+  while (x) //可优化:一旦高度未变,即可终止
+    { updateHeight(x); x = x->parent; }
+  } //0( n = depth(x) )
+```
 
 
 ----------------------------------------------------------------------------------------------------
