@@ -9,6 +9,10 @@ package org.apache.spark.deploy
 
 ......
 
+private[spark] class SparkSubmit extends Logging {
+
+......
+
 object SparkSubmit extends CommandLineUtils with Logging {
   override def main(args: Array[String]): Unit = {
     val submit = new SparkSubmit() {
