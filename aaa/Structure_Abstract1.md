@@ -367,6 +367,14 @@ void BinTree<T>: :updateHeightAbove( BinNodePosi(T)() {
     { updateHeight(x); x = x->parent; }
   } //0( n = depth(x) )
 ```
+```
+template <typename T> BinNodePosi(T)
+BinTree<T>: :insertAsRC( BinNodePosi(T) x，T const &e) { //insertAsLC()对称
+  _size++; x->insertAsRC(e); //x祖先的高度可能增加， 其余节点必然不变
+  updateHeightAbove(x) ;
+  return x->rChild;
+}
+```
 
 
 ----------------------------------------------------------------------------------------------------
