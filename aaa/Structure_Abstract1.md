@@ -327,6 +327,23 @@ template <typename T> struct BinNode {
   template <typename VST> void travIn( VST & ); //子树中序遍历
   template <typename VST> void travPost( VST & ); //子树后序遍历
 ```
+```
+template <typename T> BinNodePosi(T) BinNode<T>::insertAsLC(T const &e)
+  { return lChild = newBinNode( e, this ); } // this.Lc == NULL
+template <typename T> BinNodePosi(T) BinNode<T>::insertAsRC(T const & e)
+  { return(rchild = new BinNode( e, this );}
+template <typename T>
+int BinNode<T>::size() { //后代总数,亦即以其为根的子树的规模
+  int s = 1; //计入本身
+  if (1Child) s += 1Child->size(); //递归计入左子树规模
+  if (rChild) s += rChild->size(); //递归计入右子树规模
+  return s;
+} //0(n = |size|)
+```
+
+
+
+
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
