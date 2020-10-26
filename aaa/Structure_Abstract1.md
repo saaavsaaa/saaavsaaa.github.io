@@ -340,8 +340,21 @@ int BinNode<T>::size() { //后代总数,亦即以其为根的子树的规模
   return s;
 } //0(n = |size|)
 ```
-
-
+```
+template <typename T> class BinTree {
+protected:
+  int_ size; //规模
+  BinNodePosi(T)_ root; //根节点
+  virtual int updateHeight( BinNodePosi(T) x ); //更新节点x的高度
+  void updateHei ghtAbove( BinNodePosi(T) x ); //更新x及祖先的高度
+public:
+  int size() const { return size; } //规模
+  bool empty() const { return !_ root; } //判空
+  BinNodePosi(T) root() const { return root; } //树根
+  /* ...子树接入、删除和分离接口... */
+  /* ...遍历接口... */
+}
+```
 
 
 
