@@ -376,6 +376,19 @@ BinTree<T>: :insertAsRC( BinNodePosi(T) x，T const &e) { //insertAsLC()对称
 }
 ```
 
+#### 先序遍历
+半线性结构   
+通过遍历将非线性转为线性   
+按照某种次序访问树中各节点每个节点被访问恰好一次
+T=V ∪ L ∪ R
+遍历结果~遍历过程~遍历次序~遍历策略 
+先序 V L R   
+中序 L V R   
+后序 L R V   
+就是从左到右，何时访问根，先根就是先序   
+层次(广度) : 自上而下，先左后右 (后面会讲)   
+
+
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
