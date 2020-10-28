@@ -388,6 +388,17 @@ T=V ∪ L ∪ R
 就是从左到右，何时访问根，先根就是先序   
 层次(广度) : 自上而下，先左后右 (后面会讲)   
 
+递归实现
+```
+template <typename T， typename VST>
+void traverse( BinNodePosi(T) x，VST & visit ) {
+  if ( !x ) return;
+  visit( x->data ) ;
+  traverse( x->1Child, visit );
+  traverse( x->rChild, visit );
+} //T(n) = O(1) + T(a) + T(n-a-1) = O(n)
+```
+
 
 
 ----------------------------------------------------------------------------------------------------
