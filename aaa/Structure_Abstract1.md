@@ -398,7 +398,8 @@ void traverse( BinNodePosi(T) x，VST & visit ) {
   traverse( x->rChild, visit );
 } //T(n) = O(1) + T(a) + T(n-a-1) = O(n)
 ```
-
+虽然渐进意义上与迭代差不多，但通用形式的栈帧常系数相差很大    
+尾递归比较容易改成迭代      
 迭代实现
 ```
 template <typename T, typename VST>
