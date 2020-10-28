@@ -412,7 +412,7 @@ void travPre_I1( BinNodePosi(T) x, VST & visit ) {
 } //体会以上两句的次序 由于要先访问左，后进先出，所以左后进
 ```
 这种方法不容易直接推广到中序和后序遍历     
-只要先检查右节点，有右入栈，然后访问左，一直访问左子节点链，遇到有右子节点就入栈，直到左链到头，然后弹栈重复   
+只要访问左，检查右节点，有右入栈，然后一直访问左子节点链，遇到有右子节点就入栈，直到左链到头，然后弹栈重复   
 ```
 template <typename T, typename VST> //分摊O(1)
 static void visitAlongLeftBranch(
@@ -425,6 +425,15 @@ static void visitAlongLeftBranch(
     x = x->lChild; //沿左侧链下行
   } //只有右孩子、NULL可能入栈新的技个铁在登法除后者,是否值得?
 }
+
+template <typename T, typename VST>
+void travPre_I2( BinNodePosi(T) x, VST & visit ) {
+  Stack <BinNodePosi(T)> S; //辅助栈
+  while(true) { //以(右)子树为单位,逐批访问节点
+    visitAlongLeftBranch( x, visit, S ); //访问子树x的左侧链,右子树入栈缓冲
+    if ( S.empty() ) break; //栈空即退出
+    x = S.pop(); //弹出下一子树的根
+} //#pop = #push = #visit = O(n) =分摊O(1)
 ```
 
 
