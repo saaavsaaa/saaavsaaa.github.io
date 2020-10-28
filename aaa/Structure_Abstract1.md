@@ -399,6 +399,19 @@ void traverse( BinNodePosi(T) x，VST & visit ) {
 } //T(n) = O(1) + T(a) + T(n-a-1) = O(n)
 ```
 
+迭代实现
+```
+template <typename T, typename VST>
+void travPre_I1( BinNodePosi(T) x, VST & visit ) {
+  Stack <BinNodePosi(T)> s; //辅助栈
+  if (x) S.push(x); //根节点入栈
+  while ( !S.empty() ) { //在栈变空之前反复循环
+    x = S.pop(); visit( x->data ); //弹出并访问当前节点
+    if ( HasRChild( *x ) ) S.push(. x->[rChild ); //右孩子先入后出
+    if ( HasLChild( *x ) ) S.push( x->[1Child ); //左孩子后入先出
+} //体会以上两句的次序 由于要先访问左，后进先出，所以左后进
+```
+这种方法不容易直接推广到中序和后序遍历     
 
 
 ----------------------------------------------------------------------------------------------------
