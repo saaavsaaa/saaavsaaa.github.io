@@ -412,6 +412,21 @@ void travPre_I1( BinNodePosi(T) x, VST & visit ) {
 } //体会以上两句的次序 由于要先访问左，后进先出，所以左后进
 ```
 这种方法不容易直接推广到中序和后序遍历     
+只要先检查右节点，有右入栈，然后访问左，一直访问左子节点链，遇到有右子节点就入栈，直到左链到头，然后弹栈重复   
+```
+template <typename T, typename VST> //分摊O(1)
+static void visitAlongLeftBranch(
+  BinNodePosi(T) x,
+  VST & visit,
+  Stack <BinNodePosi(T)> & S )
+  while (x) { //反复地
+    visit( x->data ); //访问当前节点
+    S.push( x->rChild ); //右孩子(右子树)入栈(将来逆序出栈)
+    x = x->lChild; //沿左侧链下行
+  } //只有右孩子、NULL可能入栈新的技个铁在登法除后者,是否值得?
+}
+```
+
 
 
 ----------------------------------------------------------------------------------------------------
