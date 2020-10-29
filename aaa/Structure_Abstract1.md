@@ -448,6 +448,22 @@ void traverse( BinNodePosi(T) x，VST & visit ) {
 ```
 访问左子树不是尾递归，难以直接改迭代   
 可以通过顺着左子节点链深入，不断入栈左子节点，直到到达最左端子节点，读取该节点，并入栈右子节点及其子树（访问子树方法同前），如无右子节点则弹栈并访问该节点，然后访问弹出节点右子树，以此类推   
+```
+template <typename T>
+static void(goAlongLeftBranch( BinNodePosi(T) x, Stack <BinNodePosi(T)> & S )
+{ while (x) {S.push(x);x = x->1Child; } } //反复地入栈,沿左分支深入
+
+template <typename T, typename V> void travIn_I1( BinNodePosi(T) x，V& visit ) {
+  Stack <BinNodePosi(T)> S; //辅助栈
+  while (true) { //反复地
+    goAlongLeftBranch( x, S ); //从当前节点出发,逐批入栈
+    if ( S.empty() ) break; //直至所有节点处理完毕
+    x = S.pop(); //x的左子树或为空，或已遍历(等效于空) ,故可以
+    visit( x->data ); //立即访问之
+  x = x->rChild; //再转向其右子树(可能为空，留意处理手法)
+  }  
+}
+```
 
 
 
