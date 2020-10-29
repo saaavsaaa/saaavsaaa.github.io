@@ -84,6 +84,22 @@ pmap -d
 
 tail -fn 500 nohup.out     
 chown -R jenkins:jenkins /var/build/
+
+sar -d 10 3 –p
+怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看   
+怀疑内存存在瓶颈，可用 sar -B、sar -r 和 sar -W 等来查看   
+怀疑I/O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看   
+-A：所有报告的总和  
+-u：输出CPU使用情况的统计信息   
+-v：输出inode、文件和其他内核表的统计信息   
+-d：输出每一个块设备的活动信息   
+-r：输出内存和交换空间的统计信息   
+-b：显示I/O和传送速率的统计信息   
+-a：文件读写情况   
+-c：输出进程统计信息，每秒创建的进程数   
+-R：输出内存页面的统计信息   
+-y：终端设备活动情况   
+-w：输出系统交换活动信息   
  
 ps -auxww|grep usr|grep java  : D    不可中断     Uninterruptible sleep (usually IO)
     R    正在运行，或在队列中的进程
