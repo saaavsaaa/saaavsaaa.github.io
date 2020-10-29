@@ -436,7 +436,17 @@ void travPre_I2( BinNodePosi(T) x, VST & visit ) {
     x = S.pop(); //弹出下一子树的根
 } //#pop = #push = #visit = O(n) =分摊O(1)
 ```
-
+###### 中序遍历
+```
+template <typename T，typename VST>
+void traverse( BinNodePosi(T) x，VST & visit ) {
+  if(!x)return;
+  traverse( x->lChild, visit );
+  visit( x->data );
+  traverse( x->rChild, visit );
+} //T(n) = T(a) + O(1) + T(n-a-1) = O(n) 
+```
+访问左子树不是尾递归，难以直接改迭代   
 
 
 ----------------------------------------------------------------------------------------------------
