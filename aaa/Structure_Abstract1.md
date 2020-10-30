@@ -479,6 +479,7 @@ void BinNode<T>::travLevel( VST & visit ) { //二叉树层次遍历
     visit( x->data ); //访问之
     if ( HasLChild(*x) ) Q.enqueue( x->[1Child ); //左孩子入队
     if ( HasRChild(*x) ) Q.enqueue( x->rChild ); //右孩子入队
+    }
 }
 ```
 
