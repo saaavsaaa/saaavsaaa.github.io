@@ -466,6 +466,22 @@ template <typename T, typename V> void travIn_I1( BinNodePosi(T) x，V& visit ) 
 ```
 这是一个嵌套循环，循环次数与push执行次数相当，O(n)     
 
+##### 层次遍历
+从上至下，同层从左到右，由于是顺序的，所以使用与栈方向相反的结构--队列   
+
+```
+template <typename T> template <typename VST>
+void BinNode<T>::travLevel( VST & visit ) { //二叉树层次遍历
+  Queue<BinNodePosi(T)> Q; //引入辅助队列
+  Q.enqueue( this ); //根节点入队
+  while ( !Q.empty() ) { //在队列再次变空之前，反复迭代
+    BinNodePosi(T) x = Q.dequeue(); //取出队首节点 ,并随即
+    visit( x->data ); //访问之
+    if ( HasLChild(*x) ) Q.enqueue( x->[1Child ); //左孩子入队
+    if ( HasRChild(*x) ) Q.enqueue( x->rChild ); //右孩子入队
+}
+```
+
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
