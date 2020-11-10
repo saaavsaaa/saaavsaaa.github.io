@@ -527,9 +527,54 @@ Hamiltonian tour 哈密尔顿环路：有向图，从一点出发经过所有顶
 |vj | | | | 1 | | |
 |... | | | | | | |
 |vn | | | | | | |   
+
 通过行列可以直接看出出度和入度，vi列代表入度都有谁指向vi，行代表出度vi指向谁，上面矩阵代表vj指向vi   
 关联矩阵：用顶点和边表示，n个顶点e条边n×e，每一列都是一条边，每行代表一个顶点，可知，一列中恰好只有两个是 1，其余都是0   
 
+```
+顶点：
+typedef enum { UNDISCOVERED, DISCOVERED, VISITED } VStatus; 
+
+template <typename Tv> struct Vertex { //顶点对象(并未严格封装)
+  TV data; int inDegree, outDegree; //数据、 出入度数
+  VStatus status; // (如上三种)状态
+  int dTime, fTime; //时间标签
+  int parent; 1/在遍历树中的父节点
+  int priority; //在遍历树中的优先级 (最短通路、极短跨边等)
+  Vertex( TV const & d ) : //构造新顶点
+    data(d), inDegree(0), outDegree(0),       status (UNDISCOVERED) ,
+    dTime(-1)，fTime(-1)，                    parent(-1);
+    priority(INT_MAX) {}
+};
+
+边：
+typedef
+  enum { UNDETERMINED, TREE, CROSS, FORWARD, BACKWARD }
+  EStatus;
+
+template <typename Te> struct Edge { //边对象(并未严格封装)
+  Te data; //数据
+  int weight; //权重
+  EStatus status; //类型
+  Edge( Te const & d, int W ) : //构造新边
+    data(d), weight(W), status (UNDETERMINED) {}
+};
+
+邻接矩阵：
+template <typename TV, typename Te> class GraphMatrix : public Graph<Tv, TE> {
+private:
+  Vector< Vertex<Tv> > V; //顶点集
+  Vector< Vector< Edge<Te>* > > E; //边集
+public:
+  /*操作接口:顶点相关边相关、... */
+  GraphMatrix() { n = e = 0; } //构造
+  ~GraphMatrix() { //析构
+    for(intj=e;j<n;j++)
+    for(intk=0;k<n;k++)
+      delete E[j][k]; //清除所有动态申请的边记录
+   }
+}
+```
 
 
 
