@@ -626,7 +626,24 @@ Te remove(int i, int j) { //删除顶点和j之间的联边( exists(i, j))
   return eBak; //返回被删除边的信息
 }
 
+int insert(Tv const & vertex) { //插入顶点，返回编号
+  for (int j = 0; j < n; j++) E[j].insert(NULL); n++; //①
+  E.insert( Vector< Edge<Te>* >(n, n，NULL) ); //②③
+  return V. insert( Vertex<Tv>(vertex) ); //④
+}
 
+Tv remove(int i) { //删除顶点及其关联边,返回该顶点信息
+  for(intj=0;j<n;j++)
+    if (exists(i, j)) //删除所有出边
+      { delete E[i][j]; V[j] . inDegree--; }
+  E.remove(i); n--; //删除第i行
+  for(intj=e;j<n;j++)
+    if (exists(j, i)) //删除所有入边及第1列
+      { delete E[j].remove(i); V[j].outDegree-; }
+  TV vBak = vertex(i); //备份顶点i的信息
+  v.remove(i); //删除顶点i
+  return vBak; //返回被删除顶点的信息
+}
 ```
 
 
