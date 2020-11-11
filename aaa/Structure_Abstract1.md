@@ -597,6 +597,26 @@ int firstNbr(int i) {
   return nextNbr(i,(n); //这里n是哨兵
 } //首个邻居
 
+bool exists(int i, int j) { //判断边(i, j)是否存在
+  return (0<=i)&&(i<n)&&(0<=j)&&(j<n)&& E[i][j] != NULL; //短路求值
+} //以下假定exists(i,j)...
+
+Te & edge(int i, int j) {//边(i, j)的数据
+  return E[i][j]->data; 
+} //O(1)
+Estatus & status(int i, int j) //边(i, j)的状态
+{ return E[i][j]->status; } //O(1)
+int & weight(int i, int j) //边(i， j)的权重
+{ return E[i][j]->weight; } //O(1)
+
+void insert(Te const& edge, int W, int i, int j) { //插入(i, j, w)
+  if ( exists(i, j) ) return; //忽略已有的边
+  E[i][j] = new Edge<Te>(edge, w); //创建新边
+  e++; //更新边计数
+  V[i].outDegree++; //更新关联顶点i的出度
+  V[j]. inDegree++; //更新关联顶点j的入度
+}
+
 ```
 
 
