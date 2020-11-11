@@ -586,6 +586,13 @@ int & dTime(int i) { return V[i].dTime; } //时间标签dTime
 int & fTime(int i) { return V[i].fTime; } //时间标签fTime
 int & parent(int i) { return V[i] .parent; } //在遍历树中的父亲
 int & priority(int i) { return V[i].priority; } //优先级数
+
+// 对于任意顶点i如何枚举其所有的邻接顶点neighbor ?
+int nextNbr(int( i) int j) { //若已枚举至邻居j，则转向下一邻居
+  while ( (-1 < j) && !exists(i, --j) ); //逆向顺序查找, O(n)
+  return j;
+} //改用邻接表可提高至 O(1 + outDegree(i))
+
 ```
 
 
