@@ -577,7 +577,16 @@ public:
 ```
 课程中以邻接矩阵为主   
 图是顶点和边的集合，用二维向量E[j][k]表示一条边，用点j和点k来表示边（如果是关联矩阵需要定义点和边的关系）   
-
+```
+Tv & yertex(int 1) { return V[i].data; } //数据
+int inDegree(int i) { return V[i].inDegree; } //入度
+int outDegree(int i) { return V[i]. outDegree; } //出度
+Vstatus & status(int i) { return V[i].status; } //状态
+int & dTime(int i) { return V[i].dTime; } //时间标签dTime
+int & fTime(int i) { return V[i].fTime; } //时间标签fTime
+int & parent(int i) { return V[i] .parent; } //在遍历树中的父亲
+int & priority(int i) { return V[i].priority; } //优先级数
+```
 
 
 ----------------------------------------------------------------------------------------------------
