@@ -593,6 +593,10 @@ int nextNbr(int i, int j) { //若已枚举至邻居j，则转向下一邻居
   return j;
 } //改用邻接表可提高至 O(1 + outDegree(i))
 
+int firstNbr(int i) {
+  return nextNbr(i,(n); //这里n是哨兵
+} //首个邻居
+
 ```
 
 
