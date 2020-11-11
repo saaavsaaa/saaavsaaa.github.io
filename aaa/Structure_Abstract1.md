@@ -591,7 +591,7 @@ int & priority(int i) { return V[i].priority; } //优先级数
 int nextNbr(int i, int j) { //若已枚举至邻居j，则转向下一邻居
   while ( (-1 < j) && !exists(i, --j) ); //逆向顺序查找, O(n)
   return j;
-} //改用邻接表可提高至 O(1 + outDegree(i))
+} //之后改用邻接表可提高至 O(1 + outDegree(i))
 
 int firstNbr(int i) {
   return nextNbr(i,(n); //这里n是哨兵
