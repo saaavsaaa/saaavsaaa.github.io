@@ -617,6 +617,16 @@ void insert(Te const& edge, int W, int i, int j) { //插入(i, j, w)
   V[j]. inDegree++; //更新关联顶点j的入度
 }
 
+Te remove(int i, int j) { //删除顶点和j之间的联边( exists(i, j))
+  Te eBak = edge(i, j); //备份边(i, j)的信息
+  delete E[i][j]; E[i][j] = NULL; //删除边(i, j)
+  e--; //更新边计数
+  V[i].outDegree--; //更新关联顶点i的出度
+  V[j]. inDegree--; //更新关联顶点j的入度
+  return eBak; //返回被删除边的信息
+}
+
+
 ```
 
 
