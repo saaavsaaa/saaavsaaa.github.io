@@ -682,11 +682,22 @@ void Graph<Tv, TE>::BFS( int v, int & clock ) {
   while ( !Q. empty() ) { //反复地
     int v = Q. dequeue();
     dTime(v) = ++clock; //取出队首顶点v, 并
-    for ( int u = firstNbr(v); -1 < u; u = nextNbr(v, u) ) //考察v的每一-邻居
+    for ( int u = firstNbr(v); -1 < u; u = nextNbr(v, u) ) //考察v的每一个邻居
       /* ...视u的状态，分别处理... */
     status(v) = VISITED; //至此 ,当前顶点访问完毕
 }
 
+// 算法主体部分：
+while ( !Q.empty() ) { //反复地
+  int v = Q.dequeue(); dTime(v) = ++clock; //取出队首顶点v, 并
+  for ( int u = firstNbr(v); -1 < u;u = nextNbr(v, u) ) //考察v的每一邻居u
+    if ( UNDISCOVERED == status(u) ) { //若u尚未被发现,则
+      status(u) = DISCOVERED; Q. enqueue(u); //发现该顶点
+      status(V, u) = TREE; parent(u) = v; //引入树边
+    } else //若u已被发现(正在队列中) , 或者甚至已访问完毕(已出队列)，则     //这里没有区分这两种，之后的深度优先中对不同情况做了细致区分，可以借鉴到广度优先中
+      status(v, u) = CROSS; //将(v, u)归类于跨边
+  status(v) = VISITED; //至此，当前顶点访问完毕
+}
 ```
 这里遍历得到的树称为spanning tree   
 树的层次遍历是这种遍历的一种特例，这种遍历也可以看做是树层次遍历的一种推广   
