@@ -69,6 +69,7 @@ SparkSubmitAction.SUBMIT : submit
   /**
    * Submit the application using the provided parameters, ensuring to first wrap
    * in a doAs when --proxy-user is specified.
+   使用提供的参数提交应用程序，确保在指定--proxy user时首先在proxyUser.doAs中包装。
    */
   @tailrec
   private def submit(args: SparkSubmitArguments, uninitLog: Boolean): Unit = {
@@ -137,6 +138,12 @@ runMain :
    *
    * Note that this main class will not be the one provided by the user if we're
    * running cluster deploy mode or python applications.
+   使用submit参数运行子类的main方法。
+
+  这分为两个步骤。首先，我们通过设置适当的类路径、系统属性和应用程序参数来准备启动环境，以便基于集群管理器和部署模式运行子主类。
+  其次，我们使用这个启动环境来调用子main类的main方法。
+
+  请注意，如果我们运行的是集群部署模式或python应用程序，那么这个主类将不是用户提供的类。
    */
   private def runMain(args: SparkSubmitArguments, uninitLog: Boolean): Unit = {
     val (childArgs, childClasspath, sparkConf, childMainClass) = prepareSubmitEnvironment(args)
@@ -203,4 +210,5 @@ runMain :
 
 -----
 
-https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Spark-Submit.md
+ [Edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Spark-Submit.md)  
+
