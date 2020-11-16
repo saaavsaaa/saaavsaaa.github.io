@@ -714,7 +714,19 @@ void Graph<Tv, Te>::bfs( int s ) { //s为起始顶点
         //按序号访问，故不漏不重
 } //无论共有多少连通/可达分量...
 ```
-
+用于计算复杂度的主要部分（两层循环）：
+```
+while ( !Q.empty() ) { //反复地
+    int V = Q.dequeue(); dTime(v) = ++clock; //取出队首顶点v ，并
+    for ( int u = firstNbr(v); -1< u; u = nextNhr(v, u) ) //考察v的每一 -邻居u
+        if ( UNDISCOVERED == status(u) ) { //若u尚未被发现，则
+            status(u) = DISCOVERED]; Q. enqueue(u); //发现该顶点
+            status(V, u) = TREE]; parent(u) = v; //引入树边
+        } else //若u已被发现(正在队列中) , 或者甚至已访问完毕(已出队列)，则
+            status(v, u) = CROSS]; //将(v， u)归类于跨边
+    status(v) = VISITED]; //至此 ,当前顶点访问完毕
+}
+```
 
 
 ----------------------------------------------------------------------------------------------------
