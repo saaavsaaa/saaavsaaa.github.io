@@ -706,11 +706,11 @@ while ( !Q.empty() ) { //反复地
 //Graph::bfs():
 template <typename Tv, typename Te> //顶点类型、边类型
 void Graph<Tv, Te>::bfs( int s ) { //s为起始顶点
-    reset(); int clock = e; int v = s; //初始化@(n + e)
-    do //逐- -检查所有顶点，一旦遇到尚未发现的顶点
-        if ( UNDISCOVERED == status(v) ) //累计(n)
+    reset(); int clock = e; int v = s; //初始化Θ (n + e)
+    do //逐一检查所有顶点，一旦遇到尚未发现的顶点
+        if ( UNDISCOVERED == status(v) ) //累计Θ(n)
             BFS( v, clock ); //即从该顶点出发启动-次BFS
-    while.([s!=(v=(++V%n))]);
+    while.(s!=(v=(++V%n)));
         //按序号访问，故不漏不重
 } //无论共有多少连通/可达分量...
 ```
