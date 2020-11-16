@@ -119,7 +119,7 @@ SparkSubmitAction.SUBMIT : submit
           args.useRest = false
           submit(args, false)
       }
-    // In all other modes, just run the main class as prepared
+    // In all other modes, just run the main class as prepared 在其他模式下，只需按准备好的方式运行主类
     } else {
       doRunMain()
     }
