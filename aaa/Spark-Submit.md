@@ -98,6 +98,31 @@ SparkSubmitAction.SUBMIT : submit
         runMain(args, uninitLog)
       }
     }
+    
+     // In standalone cluster mode, there are two submission gateways:
+    //   (1) The traditional RPC gateway using o.a.s.deploy.Client as a wrapper
+    //   (2) The new REST-based gateway introduced in Spark 1.3
+    // The latter is the default behavior as of Spark 1.3, but Spark submit will fail over
+    // to use the legacy gateway if the master endpoint turns out to be not a REST server.
+    //（1）传统RPC网关使用o.a.s.deploy.Client包装
+    //（2）Spark 1.3中引入了新的基于REST的网关
+    //后者是Spark 1.3的默认行为，但如果主端点不是REST服务器，则Spark Submit将故障转移到使用旧网关。
+    if (args.isStandaloneCluster && args.useRest) {
+      try {
+        logInfo("Running Spark using the REST application submission protocol.")
+        doRunMain()
+      } catch {
+        // Fail over to use the legacy submission gateway
+        case e: SubmitRestConnectionException =>
+          logWarning(s"Master endpoint ${args.master} was not a REST server. " +
+            "Falling back to legacy submission gateway instead.")
+          args.useRest = false
+          submit(args, false)
+      }
+    // In all other modes, just run the main class as prepared
+    } else {
+      doRunMain()
+    }
 ```
 runMain : 
 ```
