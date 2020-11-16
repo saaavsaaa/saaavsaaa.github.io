@@ -147,7 +147,7 @@ runMain :
    */
   private def runMain(args: SparkSubmitArguments, uninitLog: Boolean): Unit = {
     // 准备提交所需环境变量：childArgs：子进程参数、childClasspath：子classpath列表、sparkConf：系统参数的map集合、childMainClass：子的主类；
-    // 设置集群管理器，目前支持：YARN,STANDLONE,MESOS,KUBERNETES,LOCAL，--master yarn；设置部署模式--deploy-mode，默认client,--deploy mode cluster/client。
+    // 设置集群管理器，目前支持：YARN,STANDLONE,MESOS,KUBERNETES,LOCAL，--master yarn；设置部署模式--deploy-mode，默认client,--deploy mode cluster/client；支持和不支持的模式、各种资源、配置的全局路径的、下载远程文件、各种jar、R或Python等执行所需、忽略无效的host、执行所在环境如shell相关等。
     val (childArgs, childClasspath, sparkConf, childMainClass) = prepareSubmitEnvironment(args)
     // Let the main class re-initialize the logging system once it starts.
     if (uninitLog) {
