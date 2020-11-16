@@ -146,6 +146,7 @@ runMain :
   请注意，如果我们运行的是集群部署模式或python应用程序，那么这个主类将不是用户提供的类。
    */
   private def runMain(args: SparkSubmitArguments, uninitLog: Boolean): Unit = {
+    准备提交所需环境变量：childArgs：子进程参数、childClasspath：子classpath列表、sparkConf：系统参数的map集合、childMainClass：子的主类
     val (childArgs, childClasspath, sparkConf, childMainClass) = prepareSubmitEnvironment(args)
     // Let the main class re-initialize the logging system once it starts.
     if (uninitLog) {
