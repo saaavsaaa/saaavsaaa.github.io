@@ -749,6 +749,18 @@ void Graph<Tv， Te>: :DFS( int v, int & clock ) {
   status(v) =VISITED; fTime(v) = ++clock;//至此，当前顶点v方告访问完毕
 }
 ```
+上述不同u的情况，分别的处理方式：
+```
+for ( int u = firstNbr(v); -1 < u; u = nextNbr(v，u))1/枚举v所有邻居u
+  switch ( status(u) ) { //并视其状态分别处理
+    case UNDISCOVERED://u尚未发现，意味着支撑树可在此拓展
+      status(v, u) =TREE; parent(u) = v;DFS(u，clock); break;//递归
+    case DISCOVERED: //u已被发现但尚未访问完毕，应属被后代指向的祖先
+      status(v,u) = BACKWARD; break;
+    default://u已访问完毕(VISITED，有向图中子节点无回边，单高层节点有指向低层节点的单向边），则视承袭关系分为前向边或跨边
+      status(v, u) =dTime(v) < dTime(u) ? FORWARD:CROSS; break;
+} //switch
+```
 
 
 ----------------------------------------------------------------------------------------------------
