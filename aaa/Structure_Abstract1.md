@@ -738,7 +738,7 @@ while ( !Q.empty() ) { //反复地
 DFS(/始自顶点s的深度优先搜索( Depth-First Search )   
 访问顶点s   
 若s尚有未被访问的邻居，则任取其一u，递归执行DFS(u)   否则，返回   
-先发现邻居，以被发现节点为子树的根节点，当无未发现邻居时变为访问状态，比之前多一点内容是要标记非树中路径的边，或是回边BACKWARD或是前向边FORWARD或是CROSS
+先发现邻居，以被发现节点为子树的根节点，当无未发现邻居时变为访问状态，标记非树中路径的边，或是回边BACKWARD或是前向边FORWARD或是无血缘关系点之间的边CROSS（如左子树中点与右子树中点）
 ```
 template <typename Tv, typename Te>1/顶点类型、边类型
 void Graph<Tv， Te>: :DFS( int v, int & clock ) {
@@ -761,7 +761,7 @@ for ( int u = firstNbr(v); -1 < u; u = nextNbr(v，u))1/枚举v所有邻居u
       status(v, u) =dTime(v) < dTime(u) ? FORWARD:CROSS; break;
 } //switch
 ```
-
+习题解析6—1
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
