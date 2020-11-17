@@ -738,7 +738,7 @@ while ( !Q.empty() ) { //反复地
 DFS(/始自顶点s的深度优先搜索( Depth-First Search )   
 访问顶点s   
 若s尚有未被访问的邻居，则任取其一u，递归执行DFS(u)   否则，返回   
-先发现邻居，当无未发现邻居时变为访问状态，发现时以被发现节点为子树的根节点，比树多一点的是要标记非树中路径的边，或是回边BACKWARD或是前向边FORWARD或是CROSS
+先发现邻居，以被发现节点为子树的根节点，当无未发现邻居时变为访问状态，比之前多一点内容是要标记非树中路径的边，或是回边BACKWARD或是前向边FORWARD或是CROSS
 ```
 template <typename Tv, typename Te>1/顶点类型、边类型
 void Graph<Tv， Te>: :DFS( int v, int & clock ) {
