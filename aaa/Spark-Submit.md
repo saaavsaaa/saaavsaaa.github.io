@@ -146,8 +146,6 @@ runMain :
   请注意，如果我们运行的是集群部署模式或python应用程序，那么这个主类将不是用户提供的类。
    */
   private def runMain(args: SparkSubmitArguments, uninitLog: Boolean): Unit = {
-    // 准备提交所需环境变量：childArgs：子进程参数、childClasspath：子classpath列表、sparkConf：系统参数的map集合、childMainClass：子的主类；
-    // 设置集群管理器，目前支持：YARN,STANDLONE,MESOS,KUBERNETES,LOCAL，--master yarn；设置部署模式--deploy-mode，默认client,--deploy mode cluster/client；支持和不支持的模式、各种资源、配置的全局路径的、下载远程文件、各种jar、R或Python等执行所需、忽略无效的host、执行所在环境如shell相关等；isYarnCluster childMainClass = YARN_CLUSTER_SUBMIT_CLASS;CLUSTE时sparkConf.remove("spark.driver.host") https://mvnrepository.com/artifact/org.apache.spark/spark-yarn YarnClusterApplication new Client(new ClientArguments(args), conf).run()；CLIENT childMainClass = args.mainClass 【localPrimaryResource localJars】JavaMainApplication
     val (childArgs, childClasspath, sparkConf, childMainClass) = prepareSubmitEnvironment(args)
     // Let the main class re-initialize the logging system once it starts.
     if (uninitLog) {
@@ -208,8 +206,66 @@ runMain :
       new JavaMainApplication(mainClass)
     }
 ```
+val (childArgs, childClasspath, sparkConf, childMainClass) = prepareSubmitEnvironment(args)
+准备提交所需环境变量：childArgs：子进程参数、childClasspath：子classpath列表、sparkConf：系统参数的map集合、childMainClass：子的主类；   
+设置集群管理器，目前支持：YARN,STANDLONE,MESOS,KUBERNETES,LOCAL，--master yarn；设置部署模式--deploy-mode，默认client,--deploy mode cluster/client；支持和不支持的模式、各种资源、配置的全局路径的、下载远程文件、各种jar、R或Python等执行所需、忽略无效的host、执行所在环境如shell相关等；   
+CLIENT childMainClass = args.mainClass 【localPrimaryResource localJars】JavaMainApplication   
+isYarnCluster childMainClass = YARN_CLUSTER_SUBMIT_CLASS;
+CLUSTE时sparkConf.remove("spark.driver.host") https://mvnrepository.com/artifact/org.apache.spark/spark-yarn  
+```
+YarnClusterApplication new Client(new ClientArguments(args), conf).run()  
 
+def run(): Unit = {
+    this.appId = submitApplication()
 
+  /**
+   * Submit an application running our ApplicationMaster to the ResourceManager.向ResourceManager提交运行我们ApplicationMaster的应用程序
+   *
+   * The stable Yarn API provides a convenience method (YarnClient#createApplication) for
+   * creating applications and setting up the application submission context. This was not
+   * available in the alpha API.
+   stable版的Yarn API为创建应用程序和设置应用程序提交上下文提供了一种方便的方法（YarnClient#createApplication）。这在alpha API中不可用。
+   */
+  def submitApplication(): ApplicationId = {
+    var appId: ApplicationId = null
+    try {
+      launcherBackend.connect()
+      yarnClient.init(hadoopConf)
+      yarnClient.start()
+
+      logInfo("Requesting a new application from cluster with %d NodeManagers"
+        .format(yarnClient.getYarnClusterMetrics.getNumNodeManagers))
+
+      // Get a new application from our RM
+      val newApp = yarnClient.createApplication()
+      val newAppResponse = newApp.getNewApplicationResponse()
+      appId = newAppResponse.getApplicationId()
+
+      new CallerContext("CLIENT", sparkConf.get(APP_CALLER_CONTEXT),
+        Option(appId.toString)).setCurrentContext()
+
+      // Verify whether the cluster has enough resources for our AM
+      verifyClusterResources(newAppResponse)
+
+      // Set up the appropriate contexts to launch our AM
+      val containerContext = createContainerLaunchContext(newAppResponse)
+      val appContext = createApplicationSubmissionContext(newApp, containerContext)
+
+      // Finally, submit and monitor the application
+      logInfo(s"Submitting application $appId to ResourceManager")
+      yarnClient.submitApplication(appContext)
+      launcherBackend.setAppId(appId.toString)
+      reportLauncherState(SparkAppHandle.State.SUBMITTED)
+
+      appId
+    } catch {
+      case e: Throwable =>
+        if (appId != null) {
+          cleanupStagingDir(appId)
+        }
+        throw e
+    }
+  }
 -----
 
  [Edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Spark-Submit.md)  
