@@ -236,8 +236,10 @@ def run(): Unit = {
       logInfo("Requesting a new application from cluster with %d NodeManagers"
         .format(yarnClient.getYarnClusterMetrics.getNumNodeManagers))
 
-      // Get a new application from our RM
+      // Get a new application from our RM 
+      // 从ResourceManager获取一个newApp用于运行AM。通过getNewApplicationResponse()返回newApp需要资源情况(newAppResponse)。
       val newApp = yarnClient.createApplication()
+      The response sent by the <code>ResourceManager</code> to the client for a request to get a new {@link ApplicationId} for submitting applications.
       val newAppResponse = newApp.getNewApplicationResponse()
       appId = newAppResponse.getApplicationId()
 
@@ -266,6 +268,7 @@ def run(): Unit = {
         throw e
     }
   }
+```
 -----
 
  [Edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Spark-Submit.md)  
