@@ -735,6 +735,21 @@ while ( !Q.empty() ) { //反复地
 图中两点距离，取两点间所有通路中最短路径的距离，严格证明在习题[6-7]   
 
 #### 深度优先搜索
+DFS(/始自顶点s的深度优先搜索( Depth-First Search )   
+访问顶点s   
+若s尚有未被访问的邻居，则任取其一u，递归执行DFS(u)   否则，返回   
+
+```
+template <typename Tv, typename Te>1/顶点类型、边类型
+void Graph<Tv， Te>: :DFS( int v, int & clock ) {
+  dTime(v) = ++clock; status(v) =DISOVERED;1/发现当前顶点v
+  for ( int u = firstNbr(v); -1 < u; u = nextNbr(v，u))//枚举v的每一邻居u
+    /....视u的状态，分别处理...*/
+    /..与BFS不同，含有递归...*/
+  status(v) =VISITED; fTime(v) = ++clock;//至此，当前顶点v方告访问完毕
+}
+```
+
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
