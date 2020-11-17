@@ -15,7 +15,8 @@ mkdir
 rm -rf   
 mv   
 tail -f   
-ps -ef     
+ps -ef    
+sftp    
 
 sudo apt --fix-broken install     
 chmod +x      
