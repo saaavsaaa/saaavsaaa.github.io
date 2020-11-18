@@ -738,7 +738,7 @@ while ( !Q.empty() ) { //反复地
 DFS(/始自顶点s的深度优先搜索( Depth-First Search )   
 访问顶点s   
 若s尚有未被访问的邻居，则任取其一u，递归执行DFS(u)   否则，返回   
-先发现邻居，以被发现节点为子树的根节点，当无未发现邻居时变为访问状态，标记非树中路径的边，或是回边BACKWARD或是前向边FORWARD或是无血缘关系点之间的边CROSS（如左子树中点与右子树中点）
+先发现邻居，以被发现节点为子树的根节点，当无未发现邻居时变为访问状态，标记非树中路径的边，或是回边BACKWARD或是前向边FORWARD或是无直接血缘关系点之间的边CROSS（如左子树中点与右子树中点）
 ```
 template <typename Tv, typename Te>1/顶点类型、边类型
 void Graph<Tv， Te>: :DFS( int v, int & clock ) {
@@ -754,11 +754,11 @@ void Graph<Tv， Te>: :DFS( int v, int & clock ) {
 for ( int u = firstNbr(v); -1 < u; u = nextNbr(v，u))1/枚举v所有邻居u
   switch ( status(u) ) { //并视其状态分别处理
     case UNDISCOVERED://u尚未发现，意味着支撑树可在此拓展
-      status(v, u) =TREE; parent(u) = v;DFS(u，clock); break;//递归
+      status(v, u) = TREE; parent(u) = v;DFS(u，clock); break;//递归
     case DISCOVERED: //u已被发现但尚未访问完毕，应属被后代指向的祖先
       status(v,u) = BACKWARD; break;
-    default://u已访问完毕(VISITED，有向图中子节点无回边，单高层节点有指向低层节点的单向边），则视承袭关系分为前向边或跨边
-      status(v, u) =dTime(v) < dTime(u) ? FORWARD:CROSS; break;
+    default://u已访问完毕(VISITED，有向图中子节点无回边，但当前节点有指向已访问节点的单向边），则视承袭关系分为前向边或跨边
+      status(v, u) = dTime(v) < dTime(u) ? FORWARD:CROSS; break;
 } //switch
 ```
 习题解析6—1
