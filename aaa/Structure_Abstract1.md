@@ -762,6 +762,8 @@ for ( int u = firstNbr(v); -1 < u; u = nextNbr(v，u))1/枚举v所有邻居u
 } //switch
 ```
 习题解析6—1
+有向图从任意节点出发，多连通域，未必能便利全部节点，可以借鉴BFS中便利所有顶点的方法，就可以遍历所有连通域
+
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
