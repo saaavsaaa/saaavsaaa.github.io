@@ -239,21 +239,22 @@ def run(): Unit = {
       // Get a new application from our RM 
       // 从ResourceManager获取一个newApp用于运行AM。通过getNewApplicationResponse()返回newApp需要资源情况(newAppResponse)。
       val newApp = yarnClient.createApplication()
-      The response sent by the <code>ResourceManager</code> to the client for a request to get a new {@link ApplicationId} for submitting applications.
+      // The response sent by the <code>ResourceManager</code> to the client for a request to get a new {@link ApplicationId} for submitting applications.
       val newAppResponse = newApp.getNewApplicationResponse()
       appId = newAppResponse.getApplicationId()
 
+      // 用于为HDFS和Yarn设置Spark调用程序上下文。当Spark应用程序在Yarn和HDFS上运行时，它的调用程序上下文将被写入Yarn RM审计日志和hdfs-audit.log. 这可以帮助用户更好地诊断和理解特定的应用程序如何影响Hadoop系统的各个部分，以及他们可能产生的潜在问题（例如，NN过载）。正如HDFS-9184中提到的HDFS，对于给定的HDFS操作，跟踪哪个上层作业发出它非常有用。
       new CallerContext("CLIENT", sparkConf.get(APP_CALLER_CONTEXT),
         Option(appId.toString)).setCurrentContext()
 
-      // Verify whether the cluster has enough resources for our AM
+      // Verify whether the cluster has enough resources for our AM 验证集群是否有足够的资源来运行AM
       verifyClusterResources(newAppResponse)
 
-      // Set up the appropriate contexts to launch our AM
+      // Set up the appropriate contexts to launch our AM 设置合适的上下文来启动AM
       val containerContext = createContainerLaunchContext(newAppResponse)
       val appContext = createApplicationSubmissionContext(newApp, containerContext)
 
-      // Finally, submit and monitor the application
+      // Finally, submit and monitor the application  向yarn提交任务启动的请求，并监控application
       logInfo(s"Submitting application $appId to ResourceManager")
       yarnClient.submitApplication(appContext)
       launcherBackend.setAppId(appId.toString)
