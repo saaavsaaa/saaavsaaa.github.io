@@ -340,8 +340,10 @@ def getOrCreate(): SparkSession = synchronized {
       return session
     }
 ```
-yarn-cluster模式下：client向RM(Yarn Resource Manager)申请一个Container来启动AM（ApplicationMaster）进程，SparkContext运行在AM进程中   
-yarn-client模式下：在提交节点上执行SparkContext初始化，由JavaMainApplication调用   
+SparkContext中创建调度createTaskScheduler，以及用于调度的后端接口SchedulerBackend   
+yarn-cluster：client向RM(Yarn Resource Manager)申请一个Container来启动AM（ApplicationMaster）进程，SparkContext运行在AM进程中   
+yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplication调用   
+
 
 -----
 
