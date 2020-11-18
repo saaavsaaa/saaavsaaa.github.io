@@ -270,7 +270,7 @@ def run(): Unit = {
     }
   }
 ```
-应用中SparkSession.builder()... .getOrCreate()创建SparkContext：
+应用中如SparkSession.builder()... .getOrCreate()创建SparkContext：
 ```
 def getOrCreate(): SparkSession = synchronized {
       assertOnDriver()
@@ -340,10 +340,97 @@ def getOrCreate(): SparkSession = synchronized {
       return session
     }
 ```
-SparkContext中创建调度createTaskScheduler，以及用于调度的后端接口SchedulerBackend   
+SparkContext中创建调度 createTaskScheduler，以及用于调度的后端接口 SchedulerBackend   
 yarn-cluster：client向RM(Yarn Resource Manager)申请一个Container来启动AM（ApplicationMaster）进程，SparkContext运行在AM进程中   
 yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplication调用   
+```
+  /**
+   * Create a task scheduler based on a given master URL.
+   * Return a 2-tuple of the scheduler backend and the task scheduler.
+   */
+  private def createTaskScheduler(
+      sc: SparkContext,
+      master: String,
+      deployMode: String): (SchedulerBackend, TaskScheduler) = {
+    import SparkMasterRegex._
 
+    // When running locally, don't try to re-execute tasks on failure.
+    val MAX_LOCAL_TASK_FAILURES = 1
+
+    master match {
+      case "local" =>
+        val scheduler = new TaskSchedulerImpl(sc, MAX_LOCAL_TASK_FAILURES, isLocal = true)
+        val backend = new LocalSchedulerBackend(sc.getConf, scheduler, 1)
+        scheduler.initialize(backend)
+        (backend, scheduler)
+
+      case LOCAL_N_REGEX(threads) =>
+        def localCpuCount: Int = Runtime.getRuntime.availableProcessors()
+        // local[*] estimates the number of cores on the machine; local[N] uses exactly N threads.
+        val threadCount = if (threads == "*") localCpuCount else threads.toInt
+        if (threadCount <= 0) {
+          throw new SparkException(s"Asked to run locally with $threadCount threads")
+        }
+        val scheduler = new TaskSchedulerImpl(sc, MAX_LOCAL_TASK_FAILURES, isLocal = true)
+        val backend = new LocalSchedulerBackend(sc.getConf, scheduler, threadCount)
+        scheduler.initialize(backend)
+        (backend, scheduler)
+
+      case LOCAL_N_FAILURES_REGEX(threads, maxFailures) =>
+        def localCpuCount: Int = Runtime.getRuntime.availableProcessors()
+        // local[*, M] means the number of cores on the computer with M failures
+        // local[N, M] means exactly N threads with M failures
+        val threadCount = if (threads == "*") localCpuCount else threads.toInt
+        val scheduler = new TaskSchedulerImpl(sc, maxFailures.toInt, isLocal = true)
+        val backend = new LocalSchedulerBackend(sc.getConf, scheduler, threadCount)
+        scheduler.initialize(backend)
+        (backend, scheduler)
+
+      case SPARK_REGEX(sparkUrl) =>
+        val scheduler = new TaskSchedulerImpl(sc)
+        val masterUrls = sparkUrl.split(",").map("spark://" + _)
+        val backend = new StandaloneSchedulerBackend(scheduler, sc, masterUrls)
+        scheduler.initialize(backend)
+        (backend, scheduler)
+
+      case LOCAL_CLUSTER_REGEX(numSlaves, coresPerSlave, memoryPerSlave) =>
+        // Check to make sure memory requested <= memoryPerSlave. Otherwise Spark will just hang.
+        val memoryPerSlaveInt = memoryPerSlave.toInt
+        if (sc.executorMemory > memoryPerSlaveInt) {
+          throw new SparkException(
+            "Asked to launch cluster with %d MB RAM / worker but requested %d MB/worker".format(
+              memoryPerSlaveInt, sc.executorMemory))
+        }
+
+        val scheduler = new TaskSchedulerImpl(sc)
+        val localCluster = new LocalSparkCluster(
+          numSlaves.toInt, coresPerSlave.toInt, memoryPerSlaveInt, sc.conf)
+        val masterUrls = localCluster.start()
+        val backend = new StandaloneSchedulerBackend(scheduler, sc, masterUrls)
+        scheduler.initialize(backend)
+        backend.shutdownCallback = (backend: StandaloneSchedulerBackend) => {
+          localCluster.stop()
+        }
+        (backend, scheduler)
+
+      case masterUrl =>
+        val cm = getClusterManager(masterUrl) match {
+          case Some(clusterMgr) => clusterMgr
+          case None => throw new SparkException("Could not parse Master URL: '" + master + "'")
+        }
+        try {
+          val scheduler = cm.createTaskScheduler(sc, masterUrl)
+          val backend = cm.createSchedulerBackend(sc, masterUrl, scheduler)
+          cm.initialize(scheduler, backend)
+          (backend, scheduler)
+        } catch {
+          case se: SparkException => throw se
+          case NonFatal(e) =>
+            throw new SparkException("External scheduler cannot be instantiated", e)
+        }
+    }
+  }
+  ```
 
 -----
 
