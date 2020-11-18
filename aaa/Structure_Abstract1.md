@@ -769,7 +769,7 @@ Parenthesis Lemma:给定有向图G = (v，E)及其任一DFS森林，则
   u是v的后代 iff active[u] ⊆ active[v]
   u是v的祖先 iff active[u] ⊇ active[v]
   u与v“无关” iff active[u] ∩ active[v] = Φ
-
+如果有直系血缘关系的节点，活动期一定存在包含或被包含关系（发现时间、访问时间）   
 
 ----------------------------------------------------------------------------------------------------
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract1.md)
