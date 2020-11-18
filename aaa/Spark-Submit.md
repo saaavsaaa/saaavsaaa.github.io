@@ -372,6 +372,7 @@ yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplica
           throw new SparkException(s"Asked to run locally with $threadCount threads")
         }
         val scheduler = new TaskSchedulerImpl(sc, MAX_LOCAL_TASK_FAILURES, isLocal = true)
+        // LocalSchedulerBackend master都运行在本地同一个JVM中，只用一个executor
         val backend = new LocalSchedulerBackend(sc.getConf, scheduler, threadCount)
         scheduler.initialize(backend)
         (backend, scheduler)
@@ -430,7 +431,10 @@ yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplica
         }
     }
   }
-  ```
+```
+根据不同的master创建scheduler和backend     
+TaskSchedulerImpl 通过SchedulerBackend来为多种类型的集群调度任务。它还可以通过使用“LocalSchedulerBackend”并将isLocal设置为true来使用本地设置。它处理常见的逻辑，如确定跨作业的调度顺序、唤醒启动推测性任务等。CAUTION:SPARK-31485   
+
 
 -----
 
