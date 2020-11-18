@@ -390,6 +390,7 @@ yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplica
       case SPARK_REGEX(sparkUrl) =>
         val scheduler = new TaskSchedulerImpl(sc)
         val masterUrls = sparkUrl.split(",").map("spark://" + _)
+        // A [[SchedulerBackend]] implementation for Spark's standalone cluster manager.
         val backend = new StandaloneSchedulerBackend(scheduler, sc, masterUrls)
         scheduler.initialize(backend)
         (backend, scheduler)
@@ -407,6 +408,7 @@ yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplica
         val localCluster = new LocalSparkCluster(
           numSlaves.toInt, coresPerSlave.toInt, memoryPerSlaveInt, sc.conf)
         val masterUrls = localCluster.start()
+        // Create a scheduler backend for the given SparkContext and scheduler.
         val backend = new StandaloneSchedulerBackend(scheduler, sc, masterUrls)
         scheduler.initialize(backend)
         backend.shutdownCallback = (backend: StandaloneSchedulerBackend) => {
@@ -421,6 +423,7 @@ yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplica
         }
         try {
           val scheduler = cm.createTaskScheduler(sc, masterUrl)
+          // ClusterManager
           val backend = cm.createSchedulerBackend(sc, masterUrl, scheduler)
           cm.initialize(scheduler, backend)
           (backend, scheduler)
@@ -434,7 +437,7 @@ yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplica
 ```
 根据不同的master创建scheduler和backend     
 TaskSchedulerImpl 通过SchedulerBackend来为多种类型的集群调度任务。它还可以通过使用“LocalSchedulerBackend”并将isLocal设置为true来使用本地设置。它处理常见的逻辑，如确定跨作业的调度顺序、唤醒启动推测性任务等。CAUTION:SPARK-31485   
-
+SchedulerBackend负责获取资源
 
 -----
 
