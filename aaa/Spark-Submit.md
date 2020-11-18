@@ -439,6 +439,14 @@ yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplica
 TaskSchedulerImpl 通过SchedulerBackend来为多种类型的集群调度任务,调度不同的job，接收被分配的资源来给每一个Task分配资源。它还可以通过使用“LocalSchedulerBackend”并将isLocal设置为true来使用本地设置。它处理常见的逻辑，如确定跨作业的调度顺序、唤醒启动推测性任务等。CAUTION:SPARK-31485   
 SchedulerBackend负责获取资源，本地与ClusterManager等   
 case masterUrl 除了local和standelone的外部资源管理方式，ExternalClusterManager各种实现：YarnClusterManager、MesosClusterManager、KubernetesClusterManager 等   
+```
+ExternalClusterManager：
+canCreate(masterURL: String):Boolean  Create a task scheduler instance for the given SparkContext
+createTaskScheduler(sc: SparkContext, masterURL: String):TaskScheduler  Create a task scheduler instance for the given SparkContext
+createSchedulerBackend(sc: SparkContext,masterURL: String,scheduler: TaskScheduler): SchedulerBackend Create a scheduler backend for the given SparkContext and scheduler.
+initialize(scheduler: TaskScheduler, backend: SchedulerBackend): Unit Initialize task scheduler and backend scheduler. 
+```
+
 
 -----
 
