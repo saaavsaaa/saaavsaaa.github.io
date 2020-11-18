@@ -177,7 +177,7 @@ sh Anaconda3-2019.10-Linux-x86_64.sh
 conda install jupyter notebook         
 conda install tensorflow     
 sudo apt install git     
-sudo apt-get install openjdk-8-jdk
+sudo apt-get install openjdk-8-jdk   
 curl -s "https://get.sdkman.io" | bash     
 sdk install scala     
 pip install findspark     
@@ -185,6 +185,7 @@ core-site.xml
 hdfs-site.xml     
 
 pip install opencv-python  
+https://pypi.org/project/opencv-python/#files   
 pip install imageio     
 pip install imageio-ffmpeg     
 pip install moviepy     
