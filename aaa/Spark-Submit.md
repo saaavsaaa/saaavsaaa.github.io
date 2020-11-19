@@ -1,3 +1,5 @@
+源码部分的注释有些翻译了，有些就直接贴的英文，我想，能看下去的人应该不会受多大影响，毕竟...也挺随意的
+
 通过命令找脚本：
 which spark2-submit
 
@@ -577,7 +579,37 @@ YarnClusterManager：
     }
   }
 ```
+SparkContext 中 _taskScheduler.start()，TaskSchedulerImpl start() 中 backend.start()
 
+StandaloneSchedulerBackend.start() The scheduler backend should only try to connect to the launcher when in client mode. In cluster mode, the code that submits the application to the Master needs to connect。使用--driver-url、sc.conf.getOption("spark.executor.extraClassPath")等参数启动 executor，StandaloneAppClient.start() Just launch an rpcEndpoint; it will call back into the listener.提交应用的过程到此完成
+
+YarnClusterManager:
+
+YarnClientSchedulerBackend.start() 创建 Yarn client 提交应用给 ResourceManager
+```
+ /**
+   * Create a Yarn client to submit an application to the ResourceManager.
+   * This waits until the application is running.
+   */
+  override def start() {
+    val driverHost = conf.get("spark.driver.host")
+    val driverPort = conf.get("spark.driver.port")
+    val hostport = driverHost + ":" + driverPort
+    sc.ui.foreach { ui => conf.set("spark.driver.appUIAddress", ui.webUrl) }
+    ......
+    totalExpectedExecutors = SchedulerBackendUtils.getInitialTargetExecutorNumber(conf)
+    client = new Client(args, conf)
+    bindToYarn(client.submitApplication(), None)
+
+    // SPARK-8687: Ensure all necessary properties have already been set before we initialize our driver scheduler backend, which serves these properties to the executors
+    super.start()
+    waitForApplication()
+
+    monitorThread = asyncMonitorApplication()
+    monitorThread.start()
+  }
+```
+YarnClusterSchedulerBackend.start()
 
 -----
 
