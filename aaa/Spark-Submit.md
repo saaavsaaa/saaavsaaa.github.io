@@ -211,10 +211,12 @@ runMain :
 val (childArgs, childClasspath, sparkConf, childMainClass) = prepareSubmitEnvironment(args)
 准备提交所需环境变量：childArgs：子进程参数、childClasspath：子classpath列表、sparkConf：系统参数的map集合、childMainClass：子的主类；   
 设置集群管理器，目前支持：YARN,STANDLONE,MESOS,KUBERNETES,LOCAL，--master yarn；设置部署模式--deploy-mode，默认client,--deploy mode cluster/client；支持和不支持的模式、各种资源、配置的全局路径的、下载远程文件、各种jar、R或Python等执行所需、忽略无效的host、执行所在环境如shell相关等；   
-CLIENT childMainClass = args.mainClass 【localPrimaryResource localJars】JavaMainApplication   
+CLIENT childMainClass = args.mainClass 【localPrimaryResource localJars】JavaMainApplication  
+
 isYarnCluster childMainClass = YARN_CLUSTER_SUBMIT_CLASS;
-CLUSTE时sparkConf.remove("spark.driver.host") https://mvnrepository.com/artifact/org.apache.spark/spark-yarn  
+CLUSTE 时sparkConf.remove("spark.driver.host") https://mvnrepository.com/artifact/org.apache.spark/spark-yarn  
 ```
+yarn-cluster 模式下
 YarnClusterApplication.start
 // SparkSubmit would use yarn cache to distribute files & jars in yarn mode,
 // so remove them from sparkConf here for yarn mode.
@@ -604,7 +606,7 @@ YarnClientSchedulerBackend.start() 创建 Yarn client 提交应用给 ResourceMa
     ......
     totalExpectedExecutors = SchedulerBackendUtils.getInitialTargetExecutorNumber(conf)
     client = new Client(args, conf)
-    // submitApplication上面贴过内容了
+    // submitApplication上面贴过内容了,那个是cluster模式的
     bindToYarn(client.submitApplication(), None)
 
     // SPARK-8687: Ensure all necessary properties have already been set before we initialize our driver scheduler backend, which serves these properties to the executors
@@ -624,7 +626,7 @@ YarnClusterSchedulerBackend.start()
     totalExpectedExecutors = SchedulerBackendUtils.getInitialTargetExecutorNumber(sc.conf)
   }
 ```
-
+yarnClient.submitApplication 结束后就提交到yarn集群了，客户端的提交就结束了。
 
 -----
 
