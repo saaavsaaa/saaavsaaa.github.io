@@ -39,7 +39,7 @@ public: //以virtual1修饰 ,以便派生类重写
    virtual BinNodePosi(T) insert( const T & ); //插入
    virtual bool remove( const T & ); //删除
 protected:
-   BinNodePosi(T)  _hot; 1/命中节点的父亲
+   BinNodePosi(T)  _hot; //命中上一级节点
    BinNodePosi(T) connect34( //3 + 4重构
       BinNodePosi(T), BinNodePosi(T), BinNodePosi(T),
       BinNodePosi(T), BinNodePosi(T), BinNodePosi(T), BinNodePosi(T));
