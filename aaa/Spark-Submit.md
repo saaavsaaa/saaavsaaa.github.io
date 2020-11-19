@@ -215,8 +215,12 @@ CLIENT childMainClass = args.mainClass 【localPrimaryResource localJars】JavaM
 isYarnCluster childMainClass = YARN_CLUSTER_SUBMIT_CLASS;
 CLUSTE时sparkConf.remove("spark.driver.host") https://mvnrepository.com/artifact/org.apache.spark/spark-yarn  
 ```
-YarnClusterApplication new Client(new ClientArguments(args), conf).run()  
+YarnClusterApplication.start
+// SparkSubmit would use yarn cache to distribute files & jars in yarn mode,
+// so remove them from sparkConf here for yarn mode.
+new Client(new ClientArguments(args), conf).run()  
 
+// If set spark.yarn.submit.waitAppCompletion to true, it will stay alive reporting the application's status until the application has exited for any reason. Otherwise, the client process will exit after submission.
 def run(): Unit = {
     this.appId = submitApplication()
 
@@ -586,7 +590,7 @@ StandaloneSchedulerBackend.start() The scheduler backend should only try to conn
 
 YarnClusterManager:
 
-YarnClientSchedulerBackend.start() 创建 Yarn client 提交应用给 ResourceManager
+YarnClientSchedulerBackend.start() 创建 Yarn client 提交应用给 ResourceManager;SchedulerExtensionServiceBinding:The attempt ID will be set if the service is started within a YARN application master;there is then a different attempt ID for every time that AM is restarted.
 ```
  /**
    * Create a Yarn client to submit an application to the ResourceManager.
@@ -612,6 +616,15 @@ YarnClientSchedulerBackend.start() 创建 Yarn client 提交应用给 ResourceMa
   }
 ```
 YarnClusterSchedulerBackend.start()
+```
+  override def start() {
+    val attemptId = ApplicationMaster.getAttemptId
+    bindToYarn(attemptId.getApplicationId(), Some(attemptId))
+    super.start()
+    totalExpectedExecutors = SchedulerBackendUtils.getInitialTargetExecutorNumber(sc.conf)
+  }
+```
+
 
 -----
 
