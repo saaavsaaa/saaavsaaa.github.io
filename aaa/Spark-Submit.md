@@ -340,6 +340,115 @@ def getOrCreate(): SparkSession = synchronized {
       return session
     }
 ```
+根据 SparkConf 启动调度，提交应用
+```
+class SparkContext(config: SparkConf) :
+  // 根据SparkConf中的各种属性（如spark.***），
+  try {
+    _conf = config.clone()
+    _conf.validateSettings()
+    
+    ...... //各种验证相关等 
+
+    // Set Spark driver host and port system properties. This explicitly sets the configuration
+    // instead of relying on the default value of the config constant.
+    _conf.set(DRIVER_HOST_ADDRESS, _conf.get(DRIVER_HOST_ADDRESS))
+    _conf.setIfMissing("spark.driver.port", "0")
+
+    _conf.set("spark.executor.id", SparkContext.DRIVER_IDENTIFIER)
+
+    _jars = Utils.getUserJars(_conf)
+    _files = _conf.getOption("spark.files").map(_.split(",")).map(_.filter(_.nonEmpty))
+      .toSeq.flatten
+
+    _eventLogDir = ...// conf.get("spark.eventLog.dir", EventLoggingListener.DEFAULT_LOG_DIR)
+
+    _eventLogCodec = ...// _conf.getBoolean("spark.eventLog.compress", false)
+
+    _listenerBus = new LiveListenerBus(_conf)
+
+    // Initialize the app status store and listener before SparkEnv is created so that it gets all events.
+    _statusStore = AppStatusStore.createLiveStore(conf)
+    listenerBus.addToStatusQueue(_statusStore.listener.get)
+
+    // 创建spark执行环境 Create the Spark execution environment (cache, map output tracker, etc)
+    _env = createSparkEnv(_conf, isLocal, listenerBus)
+    SparkEnv.set(_env)
+
+    // If running the REPL, register the repl's output dir with the file server.
+    _conf.getOption("spark.repl.class.outputDir").foreach { path =>
+      val replUri = _env.rpcEnv.fileServer.addDirectory("/classes", new File(path))
+      _conf.set("spark.repl.class.uri", replUri)
+    }
+
+    _statusTracker = new SparkStatusTracker(this, _statusStore)
+
+    _progressBar // shows the progress of stages 显示stage进度
+
+    _ui = SparkUI.create(Some(this), _statusStore, _conf, _env.securityManager, appName, "",
+          startTime))
+    // Bind the UI before starting the task scheduler to communicate
+    // the bound port to the cluster manager properly
+    _ui.foreach(_.bind())
+
+    _hadoopConfiguration = SparkHadoopUtil.get.newConfiguration(_conf)
+
+    // Add each JAR given through the constructor jars.foreach(addJar) files.foreach(addFile)
+
+    _executorMemory = _conf.getOption("spark.executor.memory")
+      .orElse(Option(System.getenv("SPARK_EXECUTOR_MEMORY")))
+      .orElse(Option(System.getenv("SPARK_MEM"))
+      .map(warnSparkMem))
+      .map(Utils.memoryStringToMb)
+      .getOrElse(1024)
+
+    // Convert java options to env vars as a work around since we can't set env vars directly in sbt.
+    // ......
+    // The Mesos scheduler backend relies on this environment variable to set executor memory.
+    // ......
+
+    // We need to register "HeartbeatReceiver" before "createTaskScheduler" because Executor will retrieve "HeartbeatReceiver" in the constructor. (SPARK-6640)
+    _heartbeatReceiver = env.rpcEnv.setupEndpoint(HeartbeatReceiver.ENDPOINT_NAME, new HeartbeatReceiver(this))
+
+    // Create and start the scheduler 创建并启动调度
+    val (sched, ts) = SparkContext.createTaskScheduler(this, master, deployMode)
+    _schedulerBackend = sched
+    _taskScheduler = ts
+    _dagScheduler = new DAGScheduler(this)
+    _heartbeatReceiver.ask[Boolean](TaskSchedulerIsSet)
+
+    // start TaskScheduler after taskScheduler sets DAGScheduler reference in DAGScheduler's  constructor
+    _taskScheduler.start()
+
+    _applicationId = _taskScheduler.applicationId()
+    _applicationAttemptId = taskScheduler.applicationAttemptId()
+    _conf.set("spark.app.id", _applicationId)
+    if (_conf.getBoolean("spark.ui.reverseProxy", false)) {
+      System.setProperty("spark.ui.proxyBase", "/proxy/" + _applicationId)
+    }
+    _ui.foreach(_.setAppId(_applicationId))
+    // 运行在每个节点（驱动程序和执行器）上的管理器，它提供接口，用于本地和远程将块放入各种存储（内存、磁盘和堆外）
+    _env.blockManager.initialize(_applicationId)
+
+     ......
+    _env.metricsSystem.start()
+    // Attach the driver metrics servlet handler to the web ui after the metrics system is started.
+    _env.metricsSystem.getServletHandlers.foreach(handler => ui.foreach(_.attachHandler(handler)))
+
+    _eventLogger = // isEventLogEnabled EventLoggingListener listenerBus.addToEventLogQueue(logger)
+
+    // ExecutorAllocationManager : An agent that dynamically allocates and removes executors based on the workload.
+    // ExecutorAllocationClient : A client that communicates with the cluster manager to request or kill executors. This is currently supported only in YARN mode.
+
+     ......
+    // 注册监听、发布环境和应用事件
+
+    // 初始化成功后调用（通常在spark上下文中）。Yarn用它来引导基于首选位置的资源分配，等待slave注册等
+    ......
+  } catch {
+	......
+  }
+```
 SparkContext中创建调度 createTaskScheduler，以及用于调度的后端接口 SchedulerBackend   
 yarn-cluster：client向RM(Yarn Resource Manager)申请一个Container来启动AM（ApplicationMaster）进程，SparkContext运行在AM进程中   
 yarn-client：在提交节点上执行SparkContext初始化，由JavaMainApplication调用   
