@@ -279,23 +279,15 @@ def run(): Unit = {
     }
   }
 ```
-createContainerLaunchContext : Set up a ContainerLaunchContext to launch our ApplicationMaster container.This sets up the launch environment, java options, and the command for launching the AM.
+createContainerLaunchContext : Set up a ContainerLaunchContext to launch our ApplicationMaster container.This sets up the launch environment, java options, and the command for launching the AM.amContainer，javaOpts大部分都是在拼参数，根据cluster/client，最后设置访问控制列表ACL控制谁可以通过YARN interfaces访问
 ```
   private def createContainerLaunchContext(newAppResponse: GetNewApplicationResponse)
     : ContainerLaunchContext = {
     logInfo("Setting up container launch context for our AM")
     val appId = newAppResponse.getApplicationId
     val appStagingDirPath = new Path(appStagingBaseDir, getAppStagingDir(appId))
-    val pySparkArchives =
-      if (sparkConf.get(IS_PYTHON_APP)) {
-        findPySparkArchives()
-      } else {
-        Nil
-      }
-
-    val launchEnv = setupLaunchEnv(appStagingDirPath, pySparkArchives)
-    val localResources = prepareLocalResources(appStagingDirPath, pySparkArchives)
-
+    val pySparkArchives = // findPySparkArchives()
+    ......
     val amContainer = Records.newRecord(classOf[ContainerLaunchContext])
     amContainer.setLocalResources(localResources.asJava)
     amContainer.setEnvironment(launchEnv.asJava)
@@ -311,8 +303,7 @@ createContainerLaunchContext : Set up a ContainerLaunchContext to launch our App
 
     val tmpDir = new Path(Environment.PWD.$$(), YarnConfiguration.DEFAULT_CONTAINER_TEMP_DIR)
     javaOpts += "-Djava.io.tmpdir=" + tmpDir
-
-    // TODO: Remove once cpuset version is pushed out.
+    
     // The context is, default gc for server class machines ends up using all cores to do gc -
     // hence if there are multiple containers in same node, Spark GC affects all other containers'
     // performance (which can be that of other Spark containers)
@@ -372,30 +363,9 @@ createContainerLaunchContext : Set up a ContainerLaunchContext to launch our App
     // For log4j configuration to reference
     javaOpts += ("-Dspark.yarn.app.container.log.dir=" + ApplicationConstants.LOG_DIR_EXPANSION_VAR)
 
-    val userClass =
-      if (isClusterMode) {
-        Seq("--class", YarnSparkHadoopUtil.escapeForShell(args.userClass))
-      } else {
-        Nil
-      }
-    val userJar =
-      if (args.userJar != null) {
-        Seq("--jar", args.userJar)
-      } else {
-        Nil
-      }
-    val primaryPyFile =
-      if (isClusterMode && args.primaryPyFile != null) {
-        Seq("--primary-py-file", new Path(args.primaryPyFile).getName())
-      } else {
-        Nil
-      }
-    val primaryRFile =
-      if (args.primaryRFile != null) {
-        Seq("--primary-r-file", args.primaryRFile)
-      } else {
-        Nil
-      }
+    // --class --jar --primary-py-file --primary-r-file
+    ......
+    
     val amClass =
       if (isClusterMode) {
         Utils.classForName("org.apache.spark.deploy.yarn.ApplicationMaster").getName
@@ -423,21 +393,8 @@ createContainerLaunchContext : Set up a ContainerLaunchContext to launch our App
     // TODO: it would be nicer to just make sure there are no null commands here
     val printableCommands = commands.map(s => if (s == null) "null" else s).toList
     amContainer.setCommands(printableCommands.asJava)
-
-    logDebug("===============================================================================")
-    logDebug("YARN AM launch context:")
-    logDebug(s"    user class: ${Option(args.userClass).getOrElse("N/A")}")
-    logDebug("    env:")
-    if (log.isDebugEnabled) {
-      Utils.redact(sparkConf, launchEnv.toSeq).foreach { case (k, v) =>
-        logDebug(s"        $k -> $v")
-      }
-    }
-    logDebug("    resources:")
-    localResources.foreach { case (k, v) => logDebug(s"        $k -> $v")}
-    logDebug("    command:")
-    logDebug(s"        ${printableCommands.mkString(" ")}")
-    logDebug("===============================================================================")
+    
+    ......
 
     // send the acl settings into YARN to control who has access via YARN interfaces
     val securityManager = new SecurityManager(sparkConf)
