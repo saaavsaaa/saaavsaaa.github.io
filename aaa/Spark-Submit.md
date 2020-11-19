@@ -627,6 +627,8 @@ YarnClusterSchedulerBackend.start()
   }
 ```
 yarnClient.submitApplication 结束后就提交到yarn集群了，客户端的提交就结束了。
+yarn-cluster模式下，driver运行在AM(Application Master)中，它负责向YARN申请资源，并监督作业的运行状况。当用户提交了作业之后，就可以关掉Client，作业会继续在YARN上运行。
+yarn-cluster模式Application Master仅向YARN请求executor，client会和请求的container通信来调度他们工作，Client不能关
 
 -----
 
