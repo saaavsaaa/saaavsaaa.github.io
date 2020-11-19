@@ -593,6 +593,7 @@ StandaloneSchedulerBackend.start() The scheduler backend should only try to conn
 YarnClusterManager:
 
 YarnClientSchedulerBackend.start() 创建 Yarn client 提交应用给 ResourceManager;SchedulerExtensionServiceBinding:The attempt ID will be set if the service is started within a YARN application master;there is then a different attempt ID for every time that AM is restarted.
+SchedulerExtensionServices:Container for [[SchedulerExtensionService]] instances.sparkContext = binding.sparkContext...instance.start(binding)...
 ```
  /**
    * Create a Yarn client to submit an application to the ResourceManager.
