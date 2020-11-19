@@ -18,6 +18,16 @@ template <typename K, typename V> struct Entry { //词条模板类
    bool operator!=( Entry<K, V> const & e ) { return key != e.key; } //不等
 }
 ```
+顺序性:任一节点均不小于左后代，不大于其右后代   
+单调性: BST的中序遍历序列，必然单调非降   
+|  |  |  | 4 |  |  |  |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| |2 | | | | 6| |
+|1 | | 3| |5 | |7 |
+| | | | |  | | |
+|1|2 |3 |4 |5 |6 |7 |
+| | | | | | | |   
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
