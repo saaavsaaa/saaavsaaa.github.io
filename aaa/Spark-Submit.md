@@ -217,7 +217,7 @@ isYarnCluster childMainClass = YARN_CLUSTER_SUBMIT_CLASS;
 CLUSTE 时sparkConf.remove("spark.driver.host") https://mvnrepository.com/artifact/org.apache.spark/spark-yarn  
 ```
 yarn-cluster 模式下
-YarnClusterApplication.start
+submit -> runMain -> YarnClusterApplication.start
 // SparkSubmit would use yarn cache to distribute files & jars in yarn mode,
 // so remove them from sparkConf here for yarn mode.
 new Client(new ClientArguments(args), conf).run()  
