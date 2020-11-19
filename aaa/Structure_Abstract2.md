@@ -28,7 +28,23 @@ template <typename K, typename V> struct Entry { //词条模板类
 |1| |3| |5| |7|
 |↓|↓|↓|↓|↓|↓|↓|
 |1|2|3|4|5|6|7|
- 
+
+这一性质，也是BST的充要条件//对树高 做数学归纳...   
+符合这一性质的二叉树必然是BST   
+模板类：
+```
+template <typename T> class BST : public BinTree<T> { //由BinTree派生
+public: //以virtual1修饰 ,以便派生类重写
+   virtual BinNodePosi(T) & search( const T & ); //查找
+   virtual BinNodePosi(T) insert( const T & ); //插入
+   virtual bool remove( const T & ); //删除
+protected:
+   BinNodePosi(T)  _hot; 1/命中节点的父亲
+   BinNodePosi(T) connect34( //3 + 4重构
+      BinNodePosi(T), BinNodePosi(T), BinNodePosi(T),
+      BinNodePosi(T), BinNodePosi(T), BinNodePosi(T), BinNodePosi(T));
+   BinNodePosi(T) rotateAt( BinNodePosi(T) ): //旋转调整
+```
 
 
 -----
