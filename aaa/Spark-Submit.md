@@ -279,7 +279,185 @@ def run(): Unit = {
     }
   }
 ```
-应用中如SparkSession.builder()... .getOrCreate()创建SparkContext：
+createContainerLaunchContext : Set up a ContainerLaunchContext to launch our ApplicationMaster container.This sets up the launch environment, java options, and the command for launching the AM.
+```
+  private def createContainerLaunchContext(newAppResponse: GetNewApplicationResponse)
+    : ContainerLaunchContext = {
+    logInfo("Setting up container launch context for our AM")
+    val appId = newAppResponse.getApplicationId
+    val appStagingDirPath = new Path(appStagingBaseDir, getAppStagingDir(appId))
+    val pySparkArchives =
+      if (sparkConf.get(IS_PYTHON_APP)) {
+        findPySparkArchives()
+      } else {
+        Nil
+      }
+
+    val launchEnv = setupLaunchEnv(appStagingDirPath, pySparkArchives)
+    val localResources = prepareLocalResources(appStagingDirPath, pySparkArchives)
+
+    val amContainer = Records.newRecord(classOf[ContainerLaunchContext])
+    amContainer.setLocalResources(localResources.asJava)
+    amContainer.setEnvironment(launchEnv.asJava)
+
+    val javaOpts = ListBuffer[String]()
+
+    // Set the environment variable through a command prefix
+    // to append to the existing value of the variable
+    var prefixEnv: Option[String] = None
+
+    // Add Xmx for AM memory
+    javaOpts += "-Xmx" + amMemory + "m"
+
+    val tmpDir = new Path(Environment.PWD.$$(), YarnConfiguration.DEFAULT_CONTAINER_TEMP_DIR)
+    javaOpts += "-Djava.io.tmpdir=" + tmpDir
+
+    // TODO: Remove once cpuset version is pushed out.
+    // The context is, default gc for server class machines ends up using all cores to do gc -
+    // hence if there are multiple containers in same node, Spark GC affects all other containers'
+    // performance (which can be that of other Spark containers)
+    // Instead of using this, rely on cpusets by YARN to enforce "proper" Spark behavior in
+    // multi-tenant environments. Not sure how default Java GC behaves if it is limited to subset
+    // of cores on a node.
+    val useConcurrentAndIncrementalGC = launchEnv.get("SPARK_USE_CONC_INCR_GC").exists(_.toBoolean)
+    if (useConcurrentAndIncrementalGC) {
+      // In our expts, using (default) throughput collector has severe perf ramifications in
+      // multi-tenant machines
+      javaOpts += "-XX:+UseConcMarkSweepGC"
+      javaOpts += "-XX:MaxTenuringThreshold=31"
+      javaOpts += "-XX:SurvivorRatio=8"
+      javaOpts += "-XX:+CMSIncrementalMode"
+      javaOpts += "-XX:+CMSIncrementalPacing"
+      javaOpts += "-XX:CMSIncrementalDutyCycleMin=0"
+      javaOpts += "-XX:CMSIncrementalDutyCycle=10"
+    }
+
+    // Include driver-specific java options if we are launching a driver
+    if (isClusterMode) {
+      sparkConf.get(DRIVER_JAVA_OPTIONS).foreach { opts =>
+        javaOpts ++= Utils.splitCommandString(opts)
+          .map(Utils.substituteAppId(_, appId.toString))
+          .map(YarnSparkHadoopUtil.escapeForShell)
+      }
+      val libraryPaths = Seq(sparkConf.get(DRIVER_LIBRARY_PATH),
+        sys.props.get("spark.driver.libraryPath")).flatten
+      if (libraryPaths.nonEmpty) {
+        prefixEnv = Some(createLibraryPathPrefix(libraryPaths.mkString(File.pathSeparator),
+          sparkConf))
+      }
+      if (sparkConf.get(AM_JAVA_OPTIONS).isDefined) {
+        logWarning(s"${AM_JAVA_OPTIONS.key} will not take effect in cluster mode")
+      }
+    } else {
+      // Validate and include yarn am specific java options in yarn-client mode.
+      sparkConf.get(AM_JAVA_OPTIONS).foreach { opts =>
+        if (opts.contains("-Dspark")) {
+          val msg = s"${AM_JAVA_OPTIONS.key} is not allowed to set Spark options (was '$opts')."
+          throw new SparkException(msg)
+        }
+        if (opts.contains("-Xmx")) {
+          val msg = s"${AM_JAVA_OPTIONS.key} is not allowed to specify max heap memory settings " +
+            s"(was '$opts'). Use spark.yarn.am.memory instead."
+          throw new SparkException(msg)
+        }
+        javaOpts ++= Utils.splitCommandString(opts)
+          .map(Utils.substituteAppId(_, appId.toString))
+          .map(YarnSparkHadoopUtil.escapeForShell)
+      }
+      sparkConf.get(AM_LIBRARY_PATH).foreach { paths =>
+        prefixEnv = Some(createLibraryPathPrefix(paths, sparkConf))
+      }
+    }
+
+    // For log4j configuration to reference
+    javaOpts += ("-Dspark.yarn.app.container.log.dir=" + ApplicationConstants.LOG_DIR_EXPANSION_VAR)
+
+    val userClass =
+      if (isClusterMode) {
+        Seq("--class", YarnSparkHadoopUtil.escapeForShell(args.userClass))
+      } else {
+        Nil
+      }
+    val userJar =
+      if (args.userJar != null) {
+        Seq("--jar", args.userJar)
+      } else {
+        Nil
+      }
+    val primaryPyFile =
+      if (isClusterMode && args.primaryPyFile != null) {
+        Seq("--primary-py-file", new Path(args.primaryPyFile).getName())
+      } else {
+        Nil
+      }
+    val primaryRFile =
+      if (args.primaryRFile != null) {
+        Seq("--primary-r-file", args.primaryRFile)
+      } else {
+        Nil
+      }
+    val amClass =
+      if (isClusterMode) {
+        Utils.classForName("org.apache.spark.deploy.yarn.ApplicationMaster").getName
+      } else {
+        Utils.classForName("org.apache.spark.deploy.yarn.ExecutorLauncher").getName
+      }
+    if (args.primaryRFile != null && args.primaryRFile.endsWith(".R")) {
+      args.userArgs = ArrayBuffer(args.primaryRFile) ++ args.userArgs
+    }
+    val userArgs = args.userArgs.flatMap { arg =>
+      Seq("--arg", YarnSparkHadoopUtil.escapeForShell(arg))
+    }
+    val amArgs =
+      Seq(amClass) ++ userClass ++ userJar ++ primaryPyFile ++ primaryRFile ++ userArgs ++
+      Seq("--properties-file", buildPath(Environment.PWD.$$(), LOCALIZED_CONF_DIR, SPARK_CONF_FILE))
+
+    // Command for the ApplicationMaster
+    val commands = prefixEnv ++
+      Seq(Environment.JAVA_HOME.$$() + "/bin/java", "-server") ++
+      javaOpts ++ amArgs ++
+      Seq(
+        "1>", ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stdout",
+        "2>", ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stderr")
+
+    // TODO: it would be nicer to just make sure there are no null commands here
+    val printableCommands = commands.map(s => if (s == null) "null" else s).toList
+    amContainer.setCommands(printableCommands.asJava)
+
+    logDebug("===============================================================================")
+    logDebug("YARN AM launch context:")
+    logDebug(s"    user class: ${Option(args.userClass).getOrElse("N/A")}")
+    logDebug("    env:")
+    if (log.isDebugEnabled) {
+      Utils.redact(sparkConf, launchEnv.toSeq).foreach { case (k, v) =>
+        logDebug(s"        $k -> $v")
+      }
+    }
+    logDebug("    resources:")
+    localResources.foreach { case (k, v) => logDebug(s"        $k -> $v")}
+    logDebug("    command:")
+    logDebug(s"        ${printableCommands.mkString(" ")}")
+    logDebug("===============================================================================")
+
+    // send the acl settings into YARN to control who has access via YARN interfaces
+    val securityManager = new SecurityManager(sparkConf)
+    amContainer.setApplicationACLs(
+      YarnSparkHadoopUtil.getApplicationAclsForYarn(securityManager).asJava)
+    setupSecurityToken(amContainer)
+    amContainer
+  }
+```
+其中 org.apache.spark.deploy.yarn.ExecutorLauncher ： This object does not provide any special functionality. It exists so that it's easy to tell apart the client-mode AM from the cluster-mode AM when using tools such as ps or jps.
+```
+  def main(args: Array[String]): Unit = {
+    SignalUtils.registerLogger(log)
+    val amArgs = new ApplicationMasterArguments(args)
+    master = new ApplicationMaster(amArgs)
+    System.exit(master.run())
+  }
+```
+
+应用代码中如SparkSession.builder()... .getOrCreate()创建SparkContext：
 ```
 def getOrCreate(): SparkSession = synchronized {
       assertOnDriver()
