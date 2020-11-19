@@ -221,7 +221,7 @@ def run(): Unit = {
     this.appId = submitApplication()
 
   /**
-   * Submit an application running our ApplicationMaster to the ResourceManager.向ResourceManager提交运行我们ApplicationMaster的应用程序
+   * Submit an application running our ApplicationMaster to the ResourceManager.向 ResourceManager 提交运行我们ApplicationMaster的应用程序
    *
    * The stable Yarn API provides a convenience method (YarnClient#createApplication) for
    * creating applications and setting up the application submission context. This was not
@@ -258,6 +258,7 @@ def run(): Unit = {
 
       // Finally, submit and monitor the application  向yarn提交任务启动的请求，并监控application
       logInfo(s"Submitting application $appId to ResourceManager")
+      // 提交应用给YARN。阻塞调用，提交成功并被 ResourceManager 认可才会返回
       yarnClient.submitApplication(appContext)
       launcherBackend.setAppId(appId.toString)
       reportLauncherState(SparkAppHandle.State.SUBMITTED)
@@ -599,6 +600,7 @@ YarnClientSchedulerBackend.start() 创建 Yarn client 提交应用给 ResourceMa
     ......
     totalExpectedExecutors = SchedulerBackendUtils.getInitialTargetExecutorNumber(conf)
     client = new Client(args, conf)
+    // submitApplication上面贴过内容了
     bindToYarn(client.submitApplication(), None)
 
     // SPARK-8687: Ensure all necessary properties have already been set before we initialize our driver scheduler backend, which serves these properties to the executors
