@@ -48,7 +48,20 @@ protected:
 查找：   
 由于已经有序，而查找是从根节点开始，未命中的情况下每次能淘汰掉一边的子树（由于左子树一定小于根、右子树一定大于根），查找次数累计不过树的高度，查找过程参考中序遍历的结果可以发现，实际上类似于二分查找，以上面树为例，要查5，首先比根4大，所以左子树不用找了，然后比较右子树的根6，直接进入右子树的左子树；如果找不到，可以命中哨兵，哨兵数据为NULL   
 减而治之:从根节点出发，逐步地缩小查找范围,直到发现目标(成功) , 或查找范围缩小至空树(失败),对照中序遍历序列可见,整个过程可视作是在仿效有序向量的二分查找   
-   
+```
+template <typename T> BinNodePosi(T) & BST<T>::search(const T & e) //演示
+{ return searchIn(_root, e,_hot = NULL ); } //从根节点启动查找,_hot直系上级节点
+
+static BinNodePosi(T) & searchIn( //典型的尾递归，可改为迭代版
+   BinNodePosi(T) & v, //当前(子)树根
+   const T & e, //目标关键码
+   BinNodePosi(T) & hot) //记忆热点
+{
+   if ( !v I (e == v->data) ) return v; //足以确定失败、成功,或者
+   hot = v; //先记下当前(非空)节点,然后再...
+   return searchIn( ( ( e < v->data ) ? v->lChild : v->rChild ), e, hot);
+} //运行时间正比于返回节点v的深度，不超过树高O(h)
+```
 
 
 -----
