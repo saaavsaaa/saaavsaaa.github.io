@@ -62,6 +62,9 @@ static BinNodePosi(T) & searchIn( //典型的尾递归，可改为迭代版
    return searchIn( ( ( e < v->data ) ? v->lChild : v->rChild ), e, hot);
 } //运行时间正比于返回节点v的深度，不超过树高O(h)
 ```
+返回的引用值:   
+成功时,指向一个关键码为e且真实存在的节点   
+失败时,指向最后一次试图转向的空节点NULL   
 
 
 -----
