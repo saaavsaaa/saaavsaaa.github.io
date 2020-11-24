@@ -69,6 +69,20 @@ static BinNodePosi(T) & searchIn( //典型的尾递归，可改为迭代版
 如此，依然满足BST的充要条件;而且更重要地...这种方法可以将成功和失败的语义统一起来，hot指向上一级，命中正常或哨兵节点   
 查询最坏情况，在BST退化成有序链表，且最小值作为根的情况下O(n)     
 
+插入:   
+先借助search(e)确定插入位置及方向,再将新节点作为叶子插入   
+若e尚不存在，则: \_hot为新节 点的父亲 , v = search(e)为 \_hot对新孩子的引用(哨兵)   
+```
+template <typename T> BinNodePosi(T) BST<T>::insert( const T &e ) {
+   BinNodePosi(T) & x = search( e ); //查找目标(留意_hot的设置)
+   if ( !x){//既禁止雷同元素，故仅在查找失败时才实施插入操作
+      x = new BinNode<T>( e, _hot ); //在x处创建新节点,以_hot为父亲
+      _size++; updateHeightAbove( x ); //更新全树规模,更新x及其历代祖先的高度
+   }
+   return x; //无论e是否存在于原树中，至此总有x->data = e
+} //验证:对于首个节点插入之类的边界情况，均可正确处置
+
+```
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
