@@ -103,8 +103,7 @@ public class Planner {
     }
     rootFragment.setOutputExprs(resultExprs);
 
-    // The check for disabling codegen uses estimates of rows per node so must be done
-    // on the distributed plan.
+    // 禁用codegen的检查使用每个节点的行的估计值，因此必须在分布式计划中完成。The check for disabling codegen uses estimates of rows per node so must be done on the distributed plan.
     checkForDisableCodegen(rootFragment.getPlanRoot());
 
     if (LOG.isTraceEnabled()) {
