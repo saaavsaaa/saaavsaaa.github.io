@@ -1,3 +1,4 @@
+```
 package org.apache.impala.planner;
 
 ...
@@ -627,3 +628,4 @@ public class Planner {
     inputFragment.setPlanRoot(node);
   }
 }
+```
