@@ -48,18 +48,18 @@ public class Planner {
 
     checkForSmallQueryOptimization(singleNodePlan);
 
-    // Join rewrites.
+    // 改写 join 。Join rewrites.
     invertJoins(singleNodePlan, ctx_.isSingleNodeExec());
     singleNodePlan = useNljForSingularRowBuilds(singleNodePlan, ctx_.getRootAnalyzer());
 
     singleNodePlanner.validatePlan(singleNodePlan);
 
     if (ctx_.isSingleNodeExec()) {
-      // create one fragment containing the entire single-node plan tree
+      // 创建一个包含整个single-node plan tree的fragment create one fragment containing the entire single-node plan tree
       fragments = Lists.newArrayList(new PlanFragment(
           ctx_.getNextFragmentId(), singleNodePlan, DataPartition.UNPARTITIONED));
     } else {
-      // create distributed plan
+      // 创建分布式计划
       fragments = distributedPlanner.createPlanFragments(singleNodePlan);
     }
 
@@ -77,13 +77,13 @@ public class Planner {
       InsertStmt insertStmt = ctx_.getAnalysisResult().getInsertStmt();
       insertStmt.substituteResultExprs(rootNodeSmap, ctx_.getRootAnalyzer());
       if (!ctx_.isSingleNodeExec()) {
-        // repartition on partition keys
+        // 基于分区健重新分区 repartition on partition keys
         rootFragment = distributedPlanner.createInsertFragment(
             rootFragment, insertStmt, ctx_.getRootAnalyzer(), fragments);
       }
-      // Add optional sort node to the plan, based on clustered/noclustered plan hint.
+      // 基于clustered/noclustered plan添加一个可选排序节点到计划中 Add optional sort node to the plan, based on clustered/noclustered plan hint.
       createPreInsertSort(insertStmt, rootFragment, ctx_.getRootAnalyzer());
-      // set up table sink for root fragment
+      // 为根fragment 设置 会被写入表的数据池 set up table sink for root fragment
       rootFragment.setSink(insertStmt.createDataSink());
       resultExprs = insertStmt.getResultExprs();
     } else {
