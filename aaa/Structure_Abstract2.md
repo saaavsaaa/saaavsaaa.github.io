@@ -94,7 +94,21 @@ template <typename T> bool BST<T>::remove( const T & e ) {
    return true;
 }/删除成功与否，由返回值指示
 ```
-
+当待删除目标只有一个子树为空时，删除后，用子树节点顶替它就好了   
+```
+template <typename T> static BinNodePosi(T)
+removeAt( BinNodePosi(T) & x， BinNodePosi(T) & hot ) {
+   BinNodePosi(T) W = x; //实际被摘除的节点,初值同x
+   BinNodePosi(T) succ = NULL; //实际被删除节点的接替者
+   if ( ! HasLchild( *x ) ) succ = x = x- > rChild; //左子树为空
+   else if ( ! HasR)Child( Px ) ) succ = x = x->lChild; //右子树为空
+   else { /* ...左右子树并存的情况，略微复杂些... */ }
+   hot = w->parent; //记录实际被删除节点的父亲
+   if ( succ ) succ->parent = hot; //将被删除节点的接替者与hot相联
+   release( w->data ); release( W ); //释放被摘除节点
+   return succ; //返回接替者
+} //此类情况仅需O(1)时间
+```
 
 
 -----
