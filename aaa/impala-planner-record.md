@@ -83,17 +83,18 @@ public class Planner {
       }
       // 基于clustered/noclustered plan添加一个可选排序节点到计划中 Add optional sort node to the plan, based on clustered/noclustered plan hint.
       createPreInsertSort(insertStmt, rootFragment, ctx_.getRootAnalyzer());
-      // 为根fragment 设置 会被写入表的数据池(汇聚接收器) set up table sink for root fragment
+      // 为根fragment 设置 会被写入表的数据池(汇聚接收器)，insert 语句 set up table sink for root fragment
       rootFragment.setSink(insertStmt.createDataSink());
       resultExprs = insertStmt.getResultExprs();
     } else {
       if (ctx_.isUpdate()) {
-        // 更新的接收器 Set up update sink for root fragment
+        // 更新的接收器 update 语句 Set up update sink for root fragment 
         rootFragment.setSink(ctx_.getAnalysisResult().getUpdateStmt().createDataSink());
       } else if (ctx_.isDelete()) {
-        // 删除的接收器 Set up delete sink for root fragment
+        // 删除的接收器 delete 语句 Set up delete sink for root fragment
         rootFragment.setSink(ctx_.getAnalysisResult().getDeleteStmt().createDataSink());
       } else if (ctx_.isQuery()) {
+        // 查询 Sink
         rootFragment.setSink(ctx_.getAnalysisResult().getQueryStmt().createDataSink());
       }
       QueryStmt queryStmt = ctx_.getQueryStmt();
