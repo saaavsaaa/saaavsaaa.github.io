@@ -122,6 +122,7 @@ removeAt( BinNodePosi(T) & x，BinNodePosi(T) & hot ) {
    /* ..... */
 }
 ```
+删除方法中不包含循环，只有查找最左端节点时不超过树高h次，复杂度O(h)   
 
 
 
