@@ -1,53 +1,14 @@
 package org.apache.impala.planner;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.impala.analysis.AnalysisContext;
-import org.apache.impala.analysis.AnalysisContext.AnalysisResult;
-import org.apache.impala.analysis.Analyzer;
-import org.apache.impala.analysis.ColumnLineageGraph;
-import org.apache.impala.analysis.Expr;
-import org.apache.impala.analysis.ExprSubstitutionMap;
-import org.apache.impala.analysis.InsertStmt;
-import org.apache.impala.analysis.JoinOperator;
-import org.apache.impala.analysis.QueryStmt;
-import org.apache.impala.analysis.SortInfo;
-import org.apache.impala.analysis.TupleId;
-import org.apache.impala.catalog.FeHBaseTable;
-import org.apache.impala.catalog.FeKuduTable;
-import org.apache.impala.catalog.FeTable;
-import org.apache.impala.common.ImpalaException;
-import org.apache.impala.common.PrintUtils;
-import org.apache.impala.common.RuntimeEnv;
-import org.apache.impala.service.BackendConfig;
-import org.apache.impala.thrift.TExplainLevel;
-import org.apache.impala.thrift.TQueryCtx;
-import org.apache.impala.thrift.TQueryExecRequest;
-import org.apache.impala.thrift.TQueryOptions;
-import org.apache.impala.thrift.TRuntimeFilterMode;
-import org.apache.impala.thrift.TTableName;
-import org.apache.impala.util.EventSequence;
-import org.apache.impala.util.KuduUtil;
-import org.apache.impala.util.MaxRowsProcessedVisitor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-
-import static org.apache.impala.analysis.ToSqlOptions.SHOW_IMPLICIT_CASTS;
+...
 
 /**
- * Creates an executable plan from an analyzed parse tree and query options.
+ * 创建执行计划 from an analyzed parse tree and query options.
  */
 public class Planner {
   private final static Logger LOG = LoggerFactory.getLogger(Planner.class);
 
-  // Minimum per-host resource requirements to ensure that no plan node set can have
-  // estimates of zero, even if the contained PlanNodes have estimates of zero.
+  // 最小化每主机资源需求，保证即使PlanNodes的估计值为零，也不会有plan node集的估计为零。
   public static final long MIN_PER_HOST_MEM_ESTIMATE_BYTES = 10 * 1024 * 1024;
 
   public static final ResourceProfile MIN_PER_HOST_RESOURCES =
