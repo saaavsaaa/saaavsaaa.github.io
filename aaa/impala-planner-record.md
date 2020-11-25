@@ -29,10 +29,7 @@ public class Planner {
   }
 
   /**
-   * Returns a list of plan fragments for executing an analyzed parse tree.
-   * May return a single-node or distributed executable plan. If enabled (through a
-   * query option), computes runtime filters for dynamic partition pruning.
-   *
+   * 返回用于执行analyzed parse tree的plan fragments 。可能返回single-node或分布式可执行计划。如果启用（通过查询参数），则为动态分区剪枝计算runtime filters。
    * Plan generation may fail and throw for the following reasons:
    * 1. Expr evaluation failed, e.g., during partition pruning.
    * 2. A certain feature is not yet implemented, e.g., physical join implementation for
