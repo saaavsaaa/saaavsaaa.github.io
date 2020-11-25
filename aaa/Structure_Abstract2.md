@@ -109,6 +109,7 @@ removeAt( BinNodePosi(T) & x， BinNodePosi(T) & hot ) {
    return succ; //返回接替者
 } //此类情况仅需O(1)时间
 ```
+左右子树都存在的情况下，找到右子树中最小的，也就是右子树最左端的节点，与待删节点交换，然后再删除   
 
 
 -----
