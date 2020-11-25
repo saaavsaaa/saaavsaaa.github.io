@@ -110,6 +110,20 @@ removeAt( BinNodePosi(T) & x， BinNodePosi(T) & hot ) {
 } //此类情况仅需O(1)时间
 ```
 左右子树都存在的情况下，找到右子树中最小的，也就是右子树最左端的节点，与待删节点交换，然后再删除   
+```
+template <typename T> static BinNodePosi(T)
+removeAt( BinNodePosi(T) & x，BinNodePosi(T) & hot ) {
+   /* ..... */
+   else { //若x的左、右子树并存，则
+      W = W->succ(); swap( x->data, w->data ); //令*x与其后继*w互换数据
+      BinNodePosi(T) u = w->parent; //原问题即转化为，摘除非二度的节点w
+      (_u == x ? u->rChild : u->1Chi1d ) = succ = W -> rChild;
+   }
+   /* ..... */
+}
+```
+
+
 
 
 -----
