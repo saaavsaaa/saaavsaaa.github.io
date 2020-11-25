@@ -83,6 +83,19 @@ template <typename T> BinNodePosi(T) BST<T>::insert( const T &e ) {
 } //验证:对于首个节点插入之类的边界情况，均可正确处置
 
 ```
+删除：
+```
+template <typename T> bool BST<T>::remove( const T & e ) {
+   BinNodePosi(T) & x = search( e ); //定位目标节点
+   if ( !x ) return false; //确认目标存在(此时_hot为x的父亲)
+   removeAt( x，_ hot); //分两大类情况实施删除,更新全树规模
+   _size--; //更新全树规模
+   updateHeightAbove(_ hot ); //更新_ hot及其历代祖先的高度
+   return true;
+}/删除成功与否，由返回值指示
+```
+
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
