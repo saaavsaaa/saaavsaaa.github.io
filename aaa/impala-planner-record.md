@@ -118,11 +118,12 @@ public class Planner {
     Collections.reverse(fragments);
     ctx_.getTimeline().markEvent("Distributed plan created");
 
+    // ColumnLineageGraph 有向图，用于用于跟踪参与查询的表/列实体之间的依赖关系,有两种依赖关系（Projection dependency，Predicate dependency）
     ColumnLineageGraph graph = ctx_.getRootAnalyzer().getColumnLineageGraph();
     if (BackendConfig.INSTANCE.getComputeLineage() || RuntimeEnv.INSTANCE.isTestEnv()) {
       // 对更新和删除语句禁用血缘关系相关功能 Lineage is disabled for UPDATE AND DELETE statements
       if (ctx_.isUpdateOrDelete()) return fragments;
-      // Compute the column lineage graph
+      // 计算列的血缘依赖关系图 Compute the column lineage graph
       if (ctx_.isInsertOrCtas()) {
         InsertStmt insertStmt = ctx_.getAnalysisResult().getInsertStmt();
         List<Expr> exprs = new ArrayList<>();
