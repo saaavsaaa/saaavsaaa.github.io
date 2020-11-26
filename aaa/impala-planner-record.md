@@ -131,8 +131,7 @@ public class Planner {
         Preconditions.checkNotNull(targetTable);
         if (targetTable instanceof FeKuduTable) {
           if (ctx_.isInsert()) {
-            // For insert statements on Kudu tables, we only need to consider
-            // the labels of columns mentioned in the column list.
+            // 对于Kudu表上的insert语句，我们只需要考虑mentioned in the column list 的 labels of column。
             List<String> mentionedColumns = insertStmt.getMentionedColumns();
             Preconditions.checkState(!mentionedColumns.isEmpty());
             List<String> targetColLabels = new ArrayList<>();
@@ -167,7 +166,7 @@ public class Planner {
   }
 
   /**
-   * Return a list of plans, each represented by the root of their fragment trees.
+   * 返回一个计划列表，每个计划由它们fragment trees的根表示 Return a list of plans, each represented by the root of their fragment trees.
    * TODO: roll into createPlan()
    */
   public List<PlanFragment> createParallelPlans() throws ImpalaException {
