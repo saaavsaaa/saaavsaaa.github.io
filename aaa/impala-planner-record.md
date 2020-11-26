@@ -306,6 +306,7 @@ public class Planner {
   }
 
   /**
+  计算给定计划的每主机资源配置文件，即属于每个主机查询的所有片段实例消耗的峰值资源。在“request”设置per-host resource values
    * Computes the per-host resource profile for the given plans, i.e. the peak resources
    * consumed by all fragment instances belonging to the query per host. Sets the
    * per-host resource values in 'request'.
