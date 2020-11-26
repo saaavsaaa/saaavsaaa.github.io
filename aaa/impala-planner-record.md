@@ -209,7 +209,7 @@ public class Planner {
     StringBuilder str = new StringBuilder();
     boolean hasHeader = false;
 
-    // Only some requests (queries, DML, etc) have a resource profile.
+    // 只有queries, DML,等有profile Only some requests (queries, DML, etc) have a resource profile.
     if (request.isSetMax_per_host_min_mem_reservation()) {
       Preconditions.checkState(request.isSetMax_per_host_thread_reservation());
       Preconditions.checkState(request.isSetPer_host_mem_estimate());
@@ -279,23 +279,23 @@ public class Planner {
     }
 
     if (explainLevel.ordinal() >= TExplainLevel.EXTENDED.ordinal()) {
-      // In extended explain include the analyzed query text showing implicit casts
+      //  在extended explain中包含显示隐式转换的分析查询文本 In extended explain include the analyzed query text showing implicit casts
       String queryText = ctx_.getQueryStmt().toSql(SHOW_IMPLICIT_CASTS);
       String wrappedText = PrintUtils.wrapString("Analyzed query: " + queryText, 80);
       str.append(wrappedText).append("\n");
       hasHeader = true;
     }
-    // Note that the analyzed query text must be the last thing in the header.
+    // 分析的查询文本必须是header中的最后一个内容。Note that the analyzed query text must be the last thing in the header.
     // This is to help tests that parse the header.
 
     // Add the blank line that indicates the end of the header
     if (hasHeader) str.append("\n");
 
     if (explainLevel.ordinal() < TExplainLevel.VERBOSE.ordinal()) {
-      // Print the non-fragmented parallel plan.
+      // Print the non-fragmented parallel plan.打印 non-fragmented 并行计划
       str.append(fragments.get(0).getExplainString(ctx_.getQueryOptions(), explainLevel));
     } else {
-      // Print the fragmented parallel plan.
+      // Print the fragmented parallel plan.打印 fragmented 并行计划
       for (int i = 0; i < fragments.size(); ++i) {
         PlanFragment fragment = fragments.get(i);
         str.append(fragment.getExplainString(ctx_.getQueryOptions(), explainLevel));
