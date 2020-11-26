@@ -120,7 +120,7 @@ public class Planner {
 
     ColumnLineageGraph graph = ctx_.getRootAnalyzer().getColumnLineageGraph();
     if (BackendConfig.INSTANCE.getComputeLineage() || RuntimeEnv.INSTANCE.isTestEnv()) {
-      // Lineage is disabled for UPDATE AND DELETE statements
+      // 对更新和删除语句禁用血缘关系相关功能 Lineage is disabled for UPDATE AND DELETE statements
       if (ctx_.isUpdateOrDelete()) return fragments;
       // Compute the column lineage graph
       if (ctx_.isInsertOrCtas()) {
