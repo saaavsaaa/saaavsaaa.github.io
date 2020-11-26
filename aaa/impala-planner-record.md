@@ -167,7 +167,6 @@ public class Planner {
 
   /**
    * 返回一个计划列表，每个计划由它们fragment trees的根表示 Return a list of plans, each represented by the root of their fragment trees.
-   * TODO: roll into createPlan()
    */
   public List<PlanFragment> createParallelPlans() throws ImpalaException {
     Preconditions.checkState(ctx_.getQueryOptions().mt_dop > 0);
@@ -183,6 +182,7 @@ public class Planner {
   }
 
   /**
+  EXPLAIN stmts
    * Return combined explain string for all plan fragments.
    * Includes the estimated resource requirements from the request if set.
    * Uses a default level of EXTENDED, unless overriden by the
@@ -192,7 +192,7 @@ public class Planner {
       TQueryExecRequest request) {
     // use EXTENDED by default for all non-explain statements
     TExplainLevel explainLevel = TExplainLevel.EXTENDED;
-    // use the query option for explain stmts and tests (e.g., planner tests)
+    // 为 EXPLAIN 语句和测试使用 查询选项 use the query option for explain stmts and tests (e.g., planner tests)
     if (ctx_.getAnalysisResult().isExplainStmt() || RuntimeEnv.INSTANCE.isTestEnv()) {
       explainLevel = ctx_.getQueryOptions().getExplain_level();
     }
