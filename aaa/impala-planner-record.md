@@ -448,18 +448,17 @@ public class Planner {
     double lhsBytes = lhsCard * joinNode.getChild(0).getAvgRowSize();
     double rhsBytes = rhsCard * joinNode.getChild(1).getAvgRowSize();
     if (joinNode instanceof NestedLoopJoinNode) {
-      // For NLJ, simply try to minimize the size of the build side, since it needs to
-      // be broadcast to all participating nodes.
+      // 对于NestedLoopJoinNode，只需尝试最小化build side的大小，因为它需要广播到所有参与节点。
       return lhsBytes < rhsBytes;
     }
     Preconditions.checkState(joinNode instanceof HashJoinNode);
     int lhsNumNodes = isLocalPlan ? 1 : joinNode.getChild(0).getNumNodes();
     int rhsNumNodes = isLocalPlan ? 1 : joinNode.getChild(1).getNumNodes();
-    // Need parallelism to determine whether inverting a hash join is profitable.
+    // 需要并行性来确定反转hash join是否有益。
     if (lhsNumNodes <= 0 || rhsNumNodes <= 0) return false;
 
     final long CONSTANT_COST_PER_BYTE = 5;
-    // Add 1 to the log argument to avoid taking log of 0.
+    // 向log参数添加1以避免带入0的log。 Add 1 to the log argument to avoid taking log of 0.
     double totalCost =
         (Math.log10(rhsBytes + 1) + CONSTANT_COST_PER_BYTE) * (lhsBytes + 2 * rhsBytes);
     double invertedTotalCost =
