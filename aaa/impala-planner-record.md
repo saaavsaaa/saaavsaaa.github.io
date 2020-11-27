@@ -416,11 +416,9 @@ public class Planner {
   }
 
   /**
-   * Return true if we estimate that 'joinNode' will be cheaper to execute after
-   * inversion. Returns false if any join input is missing relevant stats.
+   * 翻转后joinNode更好返回 true，任何join输入缺少统计信息返回 false 
    *
-   * For nested loop joins, we simply assume that the cost is determined by the size of
-   * the build side.
+   * 对于嵌套循环join，简单假设开销由build side的大小决定
    *
    * For hash joins, the cost model is more nuanced and depends on:
    * - est. number of rows in the build and probe: lhsCard and rhsCard
