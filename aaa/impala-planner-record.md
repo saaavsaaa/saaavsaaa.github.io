@@ -368,7 +368,7 @@ public class Planner {
     }
   }
 
-
+ // SingularRowSrcNode : 返回正在被它包含的SubplanNode处理的当前行。一个SingularRowSrcNode只能出现在SubplanNode的计划树中。SingularRowSrcNode返回它上级的substitutions map以便在SubplanNode的第二个子节点中适当的请求应用替换。
   /**
    * Traverses the plan tree rooted at 'root' and inverts joins in the following
    * situations:
