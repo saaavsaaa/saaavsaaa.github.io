@@ -318,11 +318,13 @@ public class Planner {
     TQueryOptions queryOptions = ctx_.getRootAnalyzer().getQueryOptions();
     int mtDop = queryOptions.getMt_dop();
 
+    // 每台机器所有 plan fragments 达到峰值的资源，假定所有plan fragments调度到所有节点上。真实的每台机器的资源需求是在调度之后计算的。
     // Peak per-host peak resources for all plan fragments, assuming that all fragments
     // are scheduled on all nodes. The actual per-host resource requirements are computed
     // after scheduling.
     ResourceProfile maxPerHostPeakResources = ResourceProfile.invalid();
 
+    // 遍历所有 fragments 计算资源概述。由于 fragment 的概述可能依赖后继，所以自下而上计算。
     // Do a pass over all the fragments to compute resource profiles. Compute the
     // profiles bottom-up since a fragment's profile may depend on its descendants.
     List<PlanFragment> allFragments = planRoots.get(0).getNodesPostOrder();
