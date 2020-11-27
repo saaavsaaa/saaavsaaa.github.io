@@ -378,7 +378,7 @@ public class Planner {
    * 前两条规则不依赖统计信息
    * Left Null Aware Anti Joins 左侧反关联存在NULL值由于缺少后端支持，不要翻转
    * 来自直接关联标识的查询块不翻转 Joins that originate from query blocks with a straight join hint are not inverted.
-   * isLocalPlan参数标识以'root'为根的plan tree在本地单机执行，即，不发生数据交换
+   * isLocalPlan参数标识以'root'为根的plan tree在本地单机执行，即，不发生任何数据交换
    */
   private void invertJoins(PlanNode root, boolean isLocalPlan) {
     if (root instanceof SubplanNode) {
@@ -393,8 +393,7 @@ public class Planner {
       JoinOperator joinOp = joinNode.getJoinOp();
 
       if (!joinNode.isInvertible(isLocalPlan)) {
-        // Re-compute tuple ids since their order must correspond to the order
-        // of children.
+        // 重新计算元组id，因为它们的顺序必须与子元素的顺序相对应。
         root.computeTupleIds();
         return;
       }
@@ -405,16 +404,14 @@ public class Planner {
         joinNode.invertJoin();
       } else if (!isLocalPlan && joinNode instanceof NestedLoopJoinNode &&
           (joinOp.isRightSemiJoin() || joinOp.isRightOuterJoin())) {
-        // The current join is a distributed non-equi right outer or semi join
-        // which has no backend support. Invert the join to make it executable.
+        // 当前联接是分布式non-equi right outer or semi join没有后端支持。反转联接以使其可执行。
         joinNode.invertJoin();
       } else if (isInvertedJoinCheaper(joinNode, isLocalPlan)) {
         joinNode.invertJoin();
       }
     }
 
-    // Re-compute tuple ids because the backend assumes that their order corresponds to
-    // the order of children.
+    // 重新计算元组id，因为后端假定它们的顺序与子元素的顺序相对应。
     root.computeTupleIds();
   }
 
