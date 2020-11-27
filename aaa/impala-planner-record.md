@@ -427,12 +427,8 @@ public class Planner {
    * 假定:
    * join 策略是分区和行的分布是均匀的. 不到后续的执行中不会知道将选择什么样的连接策略，使用这样的假定可以简化分析。一般来说，如果一个输入足够小，broadcast  join是可行的，那么这个公式无论如何都会倾向于将该输入放在右边。
    * 处理a build row的成本是处理相同大小的a probe row 的两倍。
-   * - the cost of processing each byte of a row has a fixed component (C) (e.g.
-   *   hashing and comparing the row) and a variable component (e.g. looking up the
-   *   hash table).
-   * - The variable component grows proportionally to the log of the build side, to
-   *   approximate the effect of accesses to the the hash table hitting slower levels
-   *   of the memory hierarchy.
+   * 处理行中每个字节的开销有一个固定的组件(C)(例如哈希并比较行)和一个变量组件(例如查找哈希表)。
+   * 变量组件与build side的日志成比例增长，以近似于访问哈希表时命中内存中较慢级别的效果。
    *
    * The estimated per-host cost of a hash join before and after inversion, measured in
    * an arbitrary unit of time, is then:
