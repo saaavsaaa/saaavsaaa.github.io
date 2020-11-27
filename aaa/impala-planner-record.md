@@ -478,9 +478,8 @@ public class Planner {
   }
 
   /**
-   * Converts hash joins to nested-loop joins if the right-side is a SingularRowSrcNode.
-   * Does not convert Null Aware Anti Joins because we only support that join op with
-   * a hash join.
+   * 如果右侧是singularRowscrNode，则将hash joins换为嵌套循环联接。不转换Null Aware Anti Joins，因为我们只支持有hash join的join操作。
+   * ImpalaException 如果JoinNode.init（）在新的嵌套循环联接节点上失败。
    * Throws if JoinNode.init() fails on the new nested-loop join node.
    */
   private PlanNode useNljForSingularRowBuilds(PlanNode root, Analyzer analyzer)
