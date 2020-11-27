@@ -370,19 +370,15 @@ public class Planner {
 
  // SingularRowSrcNode : 返回正在被它包含的SubplanNode处理的当前行。一个SingularRowSrcNode只能出现在SubplanNode的计划树中。SingularRowSrcNode返回它上级的substitutions map以便在SubplanNode的第二个子节点中适当的请求应用替换。
   /**
-   * Traverses the plan tree rooted at 'root' and inverts joins in the following
-   * situations:
-   * 1. If the left-hand side is a SingularRowSrcNode then we invert the join because
-   *    then the build side is guaranteed to have only a single row.
-   * 2. There is no backend support for distributed non-equi right outer/semi joins,
-   *    so we invert them (any distributed left semi/outer join is ok).
-   * 3. If we estimate that the inverted join is cheaper (see isInvertedJoinCheaper()).
-   *    Do not invert if relevant stats are missing.
-   * The first two inversion rules are independent of the presence/absence of stats.
-   * Left Null Aware Anti Joins are never inverted due to lack of backend support.
-   * Joins that originate from query blocks with a straight join hint are not inverted.
-   * The 'isLocalPlan' parameter indicates whether the plan tree rooted at 'root'
-   * will be executed locally within one machine, i.e., without any data exchanges.
+   * 遍历以 'root' 为根的 plan tree 并在以下情况时倒置joins。 Traverses the plan tree rooted at 'root' and inverts joins in the following situations:
+   * 1. 如果join左侧是SingularRowSrcNode，那么翻转join 因为这样可以确保build side 只有一行
+   * 2. 翻转分布式 non-equi right outer/semi joins， 因为它们没有后端支持, (any distributed left semi/outer join is ok).
+   * 3. 经过评估，发现翻转后更好(see isInvertedJoinCheaper()).
+   *    缺少相关统计信息时不要翻转
+   * 前两条规则不依赖统计信息
+   * Left Null Aware Anti Joins 左侧反关联存在NULL值由于缺少后端支持，不要翻转
+   * 来自直接关联标识的查询块不翻转 Joins that originate from query blocks with a straight join hint are not inverted.
+   * isLocalPlan参数标识以'root'为根的plan tree在本地单机执行，即，不发生数据交换
    */
   private void invertJoins(PlanNode root, boolean isLocalPlan) {
     if (root instanceof SubplanNode) {
