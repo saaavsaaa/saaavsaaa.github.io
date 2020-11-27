@@ -420,11 +420,10 @@ public class Planner {
    *
    * 对于嵌套循环join，简单假设开销由build side的大小决定
    *
-   * For hash joins, the cost model is more nuanced and depends on:
-   * - est. number of rows in the build and probe: lhsCard and rhsCard
-   * - est. size of the rows in the build and probe: lhsAvgRowSize and rhsAvgRowSize
-   * - est. parallelism with which the lhs and rhs trees execute: lhsNumNodes
-   *   and rhsNumNodes. The parallelism of the join is determined by the lhs.
+   * 对于 hash joins, 开销模型有更多细节依赖于:
+   * build and probe 中行数的评估: lhsCard and rhsCard
+   * build and probe 中行size的评估: lhsAvgRowSize and rhsAvgRowSize
+   * - est. lhs and rhs trees 执行的并行度: lhsNumNodes and rhsNumNodes. join并行度由lhs决定
    *
    * The assumptions are:
    * - the join strategy is PARTITIONED and rows are distributed evenly. We don't know
