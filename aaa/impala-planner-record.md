@@ -332,6 +332,7 @@ public class Planner {
       // Compute the per-node, per-sink and aggregate profiles for the fragment.
       fragment.computeResourceProfile(ctx_.getRootAnalyzer());
 
+      // 不同的fragments不同步它们的Open() and Close(),所以后端不提供对于 一个fragment实例是否在其他实例获取资源之前释放资源的强保证。基于最大平行度(max degree of parallelism)所有fragment实例运行在所有后端节点上并且可以同时消耗它们峰值资源的保守估计，即，查询端峰值资源是每个fragment实例峰值资源的总和。
       // Different fragments do not synchronize their Open() and Close(), so the backend
       // does not provide strong guarantees about whether one fragment instance releases
       // resources before another acquires them. Conservatively assume that all fragment
