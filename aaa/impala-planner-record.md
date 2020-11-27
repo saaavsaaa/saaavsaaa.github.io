@@ -430,23 +430,15 @@ public class Planner {
    * 处理行中每个字节的开销有一个固定的组件(C)(例如哈希并比较行)和一个变量组件(例如查找哈希表)。
    * 变量组件与build side的日志成比例增长，以近似于访问哈希表时命中内存中较慢级别的效果。
    *
-   * The estimated per-host cost of a hash join before and after inversion, measured in
-   * an arbitrary unit of time, is then:
-   *
+   * 以任意时间单位度量的反转前后hash join的每个主机开销估计值为：
    *    (log_b(rhsBytes) + C) * (lhsBytes + 2 * rhsBytes) / lhsNumNodes
    *    vs.
    *    (log_b(lhsBytes) + C) * (rhsBytes + 2 * lhsBytes) / rhsNumNodes
-   *
    * where lhsBytes = lhsCard * lhsAvgRowSize and rhsBytes = rhsCard * rhsAvgRowSize
    *
-   * We choose b = 10 and C = 5 empirically because it seems to give reasonable
-   * results for a range of inputs. The model is not particularly sensitive to the
-   * parameters.
+   * 根据经验选择b=10和C=5，因为它似乎给出了一系列输入的合理结果。模型对参数不是特别敏感。
    *
-   * If the parallelism of both sides is the same then this reduces to comparing
-   * the size of input on both sides. Otherwise, if inverting a hash join reduces
-   * parallelism significantly, then a significant difference between lhs and rhs
-   * bytes is needed to justify inversion.
+   * 如果两边的平行度相同，那么这可以简化为比较两边的输入大小。否则，如果反转hash join会显著降低并行性，则需要在lhs和rhs字节之间存在显著差异来证明反转的合理性。
    */
   private boolean isInvertedJoinCheaper(JoinNode joinNode, boolean isLocalPlan) {
     long lhsCard = joinNode.getChild(0).getCardinality();
