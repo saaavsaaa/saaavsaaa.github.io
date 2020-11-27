@@ -419,20 +419,14 @@ public class Planner {
    * 翻转后joinNode更好返回 true，任何join输入缺少统计信息返回 false 
    *
    * 对于嵌套循环join，简单假设开销由build side的大小决定
-   *
    * 对于 hash joins, 开销模型有更多细节依赖于:
    * build and probe 中行数的评估: lhsCard and rhsCard
    * build and probe 中行size的评估: lhsAvgRowSize and rhsAvgRowSize
    * - est. lhs and rhs trees 执行的并行度: lhsNumNodes and rhsNumNodes. join并行度由lhs决定
    *
-   * The assumptions are:
-   * - the join strategy is PARTITIONED and rows are distributed evenly. We don't know
-   *   what join strategy will be chosen until later in planning so this assumption
-   *   simplifies the analysis. Generally if one input is small enough that broadcast
-   *   join is viable then this formula will prefer to put that input on the right side
-   *   anyway.
-   * - processing a build row is twice as expensive as processing a probe row of the
-   *   same size.
+   * 假定:
+   * join 策略是分区和行的分布是均匀的. 不到后续的执行中不会知道将选择什么样的连接策略，使用这样的假定可以简化分析。一般来说，如果一个输入足够小，broadcast  join是可行的，那么这个公式无论如何都会倾向于将该输入放在右边。
+   * 处理a build row的成本是处理相同大小的a probe row 的两倍。
    * - the cost of processing each byte of a row has a fixed component (C) (e.g.
    *   hashing and comparing the row) and a variable component (e.g. looking up the
    *   hash table).
