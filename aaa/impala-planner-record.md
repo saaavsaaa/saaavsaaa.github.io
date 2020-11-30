@@ -540,15 +540,7 @@ public class Planner {
   }
 
   /**
-   * Insert a sort node on top of the plan, depending on the clustered/noclustered
-   * plan hint and on the 'sort.columns' table property. If clustering is enabled in
-   * insertStmt or additional columns are specified in the 'sort.columns' table property,
-   * then the ordering columns will start with the clustering columns (key columns for
-   * Kudu tables), so that partitions can be written sequentially in the table sink. Any
-   * additional non-clustering columns specified by the 'sort.columns' property will be
-   * added to the ordering columns and after any clustering columns. If no clustering is
-   * requested and the table does not contain columns in the 'sort.columns' property, then
-   * no sort node will be added to the plan.
+   * 根据集群/非集群计划和'sort.columns'表属性。 如果insertStmt启用了clustering或'sort.columns'表属性指定了增加列，则排序列将从clustering列（Kudu表的主键）开始，于是可以在表接收器中顺序写入分区。'sort.columns'属性指定添加的任意非集群列会被添加到排序列中所有clustering列之后。如果没有请求集群，并且表中不包含在'sort.columns'，则不会添加排序节点到计划中。
    */
   public void createPreInsertSort(InsertStmt insertStmt, PlanFragment inputFragment,
        Analyzer analyzer) throws ImpalaException {
