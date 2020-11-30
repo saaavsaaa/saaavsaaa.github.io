@@ -563,7 +563,7 @@ public class Planner {
       orderingExprs.addAll(insertStmt.getPartitionKeyExprs());
     }
     orderingExprs.addAll(insertStmt.getSortExprs());
-    // Ignore constants for the sake of clustering.
+    // 忽略常数表达式 Ignore constants for the sake of clustering.
     Expr.removeConstants(orderingExprs);
 
     if (orderingExprs.isEmpty()) return;
