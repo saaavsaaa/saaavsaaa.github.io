@@ -532,9 +532,7 @@ public class Planner {
     MaxRowsProcessedVisitor visitor = new MaxRowsProcessedVisitor();
     distributedPlan.accept(visitor);
     if (!visitor.valid()) return;
-    // This heuristic threshold tries to determine if the per-node codegen time will
-    // reduce per-node execution time enough to justify the cost of codegen. Per-node
-    // execution time is correlated with the number of rows flowing through the plan.
+    // 这个启发式试图确定每个节点的codegen带来的每个节点的执行时间的减少是否足以证明值得花费codegen的成本。每个节点执行的时间与通过计划的行数有关。
     if (visitor.getMaxRowsProcessedPerNode()
         < ctx_.getQueryOptions().getDisable_codegen_rows_threshold()) {
       ctx_.getQueryCtx().disable_codegen_hint = true;
