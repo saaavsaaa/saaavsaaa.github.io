@@ -548,6 +548,7 @@ public class Planner {
 
     boolean partialSort = false;
     if (insertStmt.getTargetTable() instanceof FeKuduTable) {
+      // 'clustered' 则排序； 'noclustered'、单节点或目标表未分区 则不排序
       // Always sort if the 'clustered' hint is present. Otherwise, don't sort if either
       // the 'noclustered' hint is present, or this is a single node exec, or if the
       // target table is unpartitioned.
@@ -567,7 +568,7 @@ public class Planner {
 
     if (orderingExprs.isEmpty()) return;
 
-    // Build sortinfo to sort by the ordering exprs.
+    // 构造排序信息用来按排序表达式排序 Build sortinfo to sort by the ordering exprs.
     List<Boolean> isAscOrder = Collections.nCopies(orderingExprs.size(), true);
     List<Boolean> nullsFirstParams = Collections.nCopies(orderingExprs.size(), false);
     SortInfo sortInfo = new SortInfo(orderingExprs, isAscOrder, nullsFirstParams);
