@@ -509,19 +509,18 @@ public class Planner {
   private void checkForSmallQueryOptimization(PlanNode singleNodePlan) {
     MaxRowsProcessedVisitor visitor = new MaxRowsProcessedVisitor();
     singleNodePlan.accept(visitor);
-    // TODO: IMPALA-3335: support the optimization for plans with joins.
+    // TODO: IMPALA-3335: 支持带 join 的计划优化
     if (!visitor.valid() || visitor.foundJoinNode()) return;
-    // This optimization executes the plan on a single node so the threshold must
-    // be based on the total number of rows processed.
+    // 此优化在单个节点上执行计划，因此阈值必须基于处理的总行数。
     long maxRowsProcessed = visitor.getMaxRowsProcessed();
     int threshold = ctx_.getQueryOptions().exec_single_node_rows_threshold;
     if (maxRowsProcessed < threshold) {
-      // Execute on a single node and disable codegen for small results
+      // 将小结果集在单节点执行并禁止codegen
       ctx_.getQueryOptions().setNum_nodes(1);
       ctx_.getQueryCtx().disable_codegen_hint = true;
       if (maxRowsProcessed < ctx_.getQueryOptions().batch_size ||
           maxRowsProcessed < 1024 && ctx_.getQueryOptions().batch_size == 0) {
-        // Only one scanner thread for small queries
+        // 小查询只用单scanner线程
         ctx_.getQueryOptions().setNum_scanner_threads(1);
       }
       // disable runtime filters
