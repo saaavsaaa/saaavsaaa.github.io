@@ -149,7 +149,9 @@ AVL的删除操作刚达到及格线O(logn)，但插入可达O(1)；而红黑树
 #### AVL
 理想平衡出现概率极低、维护理想平衡的成本过高,故须适当地放松标，树高至多O(logn)     
 不平衡之后恢复到适度平衡的过程叫重平衡rebalance   
-BBST核心技巧两条：一如何选择标准；二重平衡的算法   
+BBST核心技巧两条：一、如何选择适度标准；二、重平衡的算法   
+BST的平衡因子：balFac(v) = height( 1c(v) ) - height ( rc(v) ）     
+AVL树的适度标准：（发明者：G. Adelson-Velsky& E. Landis 1962) :[ ∀ v, | balFac(v) | ≤ 1 ]   
 
 
 -----
