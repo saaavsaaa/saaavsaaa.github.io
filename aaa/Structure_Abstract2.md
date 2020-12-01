@@ -163,7 +163,21 @@ T(h) = S(h)+1
 n=2, h=1, T(h)=S(h)+1=3, 斐波那契第四项    
 归纳可见，是斐波那契后移3项fib(h + 3)   
 斐波那契大致是[n = Ω (Φⁿ)](https://github.com/saaavsaaa/saaavsaaa.github.io/blob/master/aaa/Structure_Abstract.md)呈Φ的指数形式增长,写成对数形式h = O(logn)构成高度的上界，这刚好符合BBST适度平衡的要求，于是证明AVL符合BBST的要求，达到了适度平衡的标准   
-    
+接口：
+```
+#define Balanced(x) \ //理想平衡
+( stature( (x).1Child ) == stature( (x).rChild ) )
+#define BalFac(x) \ //平衡因子
+( stature( (x).1Child ) - stature( (x).rChild ) )
+#define AvlBalanced(x) \ //AVL平衡条件
+((-2<BalFac(x))8&(BalFac(x)<2))
+
+template <typename T> class AVL : public BST<T> { //由BST派生
+public: // BST::search( )等接口，可直接沿用
+   BinNodePosi(T) insert( const T & ); //插入重写
+   bool remove( const T & ); //删除重写
+};
+```
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
