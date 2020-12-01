@@ -16,6 +16,7 @@ public class Planner {
       new ResourceProfileBuilder().setMemEstimateBytes(MIN_PER_HOST_MEM_ESTIMATE_BYTES)
       .setMinMemReservationBytes(0).build();
 
+  // 包含查询的分析结果、计划特定的参数和状态，如计划节点和plan fragment id生成器。
   private final PlannerContext ctx_;
 
   public Planner(AnalysisResult analysisResult, TQueryCtx queryCtx,
