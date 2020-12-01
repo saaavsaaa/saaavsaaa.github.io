@@ -162,7 +162,8 @@ T(h) = S(h)+1
 考察与斐波那契的项对应，从边界情况开始，只有一个节点：n=1, h=0, T(h)=S(h)+1=2实际树高＋1, 斐波那契第三项   
 n=2, h=1, T(h)=S(h)+1=3, 斐波那契第四项    
 归纳可见，是斐波那契后移3项fib(h + 3)   
-
+斐波那契大致是[n = Ω (Φⁿ)](https://github.com/saaavsaaa/saaavsaaa.github.io/blob/master/aaa/Structure_Abstract.md)呈Φ的指数形式增长,写成对数形式h = O(logn)构成高度的上界   
+    
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
