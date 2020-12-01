@@ -48,6 +48,9 @@ public class Planner {
     // createSingleNodePlan 在planner上下文中为analyzed parse tree生成并返回单节点计划的根。计划流程递归地遍历parse tree并执行以下操作:
     // 自上而下的query语句阶段：
     // Materialize 对应语句的评估表达式所需的slots
+    // 将连接从parent块迁移到内联视图和union操作对象
+    // 在自下而上阶段，为每个查询语句生成plan tree:
+    // 为select语句的FROM子句生成计划:强引用和无关表引用通过JoinNodes连接。相对引用和相关表引用通过一个或多个SubplanNodes关联起来。   
     // 
     PlanNode singleNodePlan = singleNodePlanner.createSingleNodePlan();
     // getTimeline : EventSequence, 包装TEventSequence，方便用单个方法调用标记事件。事件发生时标记(按时序，不能逆时序)
