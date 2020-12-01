@@ -178,6 +178,11 @@ public: // BST::search( )等接口，可直接沿用
    bool remove( const T & ); //删除重写
 };
 ```
+删除节点造成失衡会引起直接前驱的失衡，但删除引起的失衡只会是因为删除了某个节点后继中比较短的一条边的节点，而树高和子树高是由较长的边决定的，但重平衡不容易   
+插入造成失衡会造成所有前驱的失衡，因为它失衡是由于加长了最长的边，重平衡容易   
+
+#### 插入
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
