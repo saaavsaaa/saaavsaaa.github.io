@@ -44,6 +44,8 @@ public class Planner {
     SingleNodePlanner singleNodePlanner = new SingleNodePlanner(ctx_);
     DistributedPlanner distributedPlanner = new DistributedPlanner(ctx_);
     PlanNode singleNodePlan = singleNodePlanner.createSingleNodePlan();
+    // getTimeline : EventSequence, 包装TEventSequence，方便用单个方法调用标记事件。事件发生时标记(按时序，不能逆时序)
+    // markEvent : 以 ns 为单位的时间戳在当前时间以指定标签保存事件
     ctx_.getTimeline().markEvent("Single node plan created");
     List<PlanFragment> fragments = null;
 
