@@ -153,7 +153,9 @@ BBST核心技巧两条：一、如何选择适度标准；二、重平衡的算�
 BST的平衡因子：balFac(v) = height( 1c(v) ) - height ( rc(v) ）     
 AVL树的适度标准：（发明者：G. Adelson-Velsky& E. Landis 1962) :[ ∀ v, | balFac(v) | ≤ 1 ]   
 证明 height(AVL) = O(1ogn) 与 证明 n = Ω ( 2 ^ height(AVL) ) 等价   
-高度为h的AVL树，至少包含S(h) = fib(h + 3) - 1个节点   
+高度为h的AVL树，至少包含S(h) = fib(h + 3) - 1个节点，斐波那契   
+递推关系式：S(h)=1+S(h-1)+S(h-2)   
+S(h)规模下限,1树根节点，-1、-2左右子树   
 
 
 -----
