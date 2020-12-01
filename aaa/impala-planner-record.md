@@ -41,7 +41,9 @@ public class Planner {
    *    that typically means there is a bug in analysis, or a broken/missing smap.
    */
   public List<PlanFragment> createPlan() throws ImpalaException {
+    // SingleNodePlanner 从 一棵analyzed parse tree构造不可执行的单节点计划。不包含数据交换和减少数据的优化，如对分布式执行很重要的本地聚合。单节点计划需要包装在plan fragment中才能执行
     SingleNodePlanner singleNodePlanner = new SingleNodePlanner(ctx_);
+    
     DistributedPlanner distributedPlanner = new DistributedPlanner(ctx_);
     PlanNode singleNodePlan = singleNodePlanner.createSingleNodePlan();
     // getTimeline : EventSequence, 包装TEventSequence，方便用单个方法调用标记事件。事件发生时标记(按时序，不能逆时序)
