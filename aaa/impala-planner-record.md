@@ -45,6 +45,10 @@ public class Planner {
     SingleNodePlanner singleNodePlanner = new SingleNodePlanner(ctx_);
     // DistributedPlanner 用可发送到后端的单节点计划创建可执行的分布式计划
     DistributedPlanner distributedPlanner = new DistributedPlanner(ctx_);
+    // createSingleNodePlan 在planner上下文中为analyzed parse tree生成并返回单节点计划的根。计划流程递归地遍历parse tree并执行以下操作:
+    // 自上而下的query语句阶段：
+    // Materialize 对应语句的评估表达式所需的slots
+    // 
     PlanNode singleNodePlan = singleNodePlanner.createSingleNodePlan();
     // getTimeline : EventSequence, 包装TEventSequence，方便用单个方法调用标记事件。事件发生时标记(按时序，不能逆时序)
     // markEvent : 以 ns 为单位的时间戳在当前时间以指定标签保存事件
