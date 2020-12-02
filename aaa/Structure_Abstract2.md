@@ -188,15 +188,15 @@ public: // BST::search( )等接口，可直接沿用
 ```
 template <typename T> BinNodePosi(T) AVL<T>::insert( const T & e ) {
    BinNodePosi(T) & x = search( e ); if ( x ) return x; //若目标尚不存在
-   X = new BinNode<T>( e,. _hot );_ size++; BinNodePosi(T) Xx = x; //则创建x
+   X = new BinNode<T>( e, _hot );_ size++; BinNodePosi(T) xx = x; //则创建x
 //以下,从x的父亲出发逐层向上,依次检查各代祖先g
    for ( BinNodePosi(T) g = x->parent; g; g = g->parent )
    if ( !Av1Balanced( *g ) ) { //一旦发现g失衡,则通过调整恢复平衡
-      FromParentTa( *g ) = rotateAt( tallerChild( tallerChild( g ) ) );
+      FromParentTo( *g ) = rotateAt( tallerChild( tallerChild( g ) ) );
       break; //g复衡后 ，局部子树高度必然复原;其祖先亦必如此,故调整结束
    } else //否则(在依然平衡的祖先处) ,只需简单地
-      updateHeight( g ]; //更新其高度(平衡性虽不变,高度却可能改变)
-   return xx; //返回新节点:至多只需口次调整
+      updateHeight( g ); //更新其高度(平衡性虽不变,高度却可能改变)
+   return xx; //返回新节点:至多只需一次调整
 }
 ```
 
