@@ -54,7 +54,8 @@ public class Planner {
     // 当元组被plan节点materialized启动一个或多个相关或关联表引用评估时一个新的SubplanNode被放在现有的这个plan节点的顶部，即，SubplanNodes被放在计划中可能的最低点，通常在一个ScanNode实现(单个)parent元组之后。
     // 每个SubplanNode的右侧是一个由这些合适的相关及关联引用与SingularRowSrcTableRef联合生成的计划树。
     // SingularRowSrcTableRef 指被SubplanNode处理的从其输入(子节点)的当前行。
-    // 
+    // 通过JoinNodes的Connecting table ref plans是以基于成本的方式完成的（join顺序优化）.所有物化（materialized）的槽，包括在一个SubplanNode内物化的元组的槽，对于基于成本的join排序所需的行size的精确估计都是必须知道的。
+    //
     PlanNode singleNodePlan = singleNodePlanner.createSingleNodePlan();
     // getTimeline : EventSequence, 包装TEventSequence，方便用单个方法调用标记事件。事件发生时标记(按时序，不能逆时序)
     // markEvent : 以 ns 为单位的时间戳在当前时间以指定标签保存事件
