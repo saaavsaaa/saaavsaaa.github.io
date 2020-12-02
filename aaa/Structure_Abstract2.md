@@ -186,6 +186,18 @@ public: // BST::search( )等接口，可直接沿用
 当v是g的“左子节点的左子节点”或“右子节点的右子节点”，就是p和v同侧时，只需要单旋，g经单旋调整后复衡，子树高度复原;更高祖先也必平衡,全树复衡   
 当v是g“左的右”或“右的左”时，zig-zag或zag-zig，需要双旋，同样g重平衡后，g的所有前驱都适度平衡了   
 ```
+template <typename T> BinNodePosi(T) AVL<T>::insert( const T & e ) {
+   BinNodePosi(T) & x = search( e ); if ( x ) return x; //若目标尚不存在
+   X = new BinNode<T>( e,. _hot );_ size++; BinNodePosi(T) Xx = x; //则创建x
+//以下,从x的父亲出发逐层向上,依次检查各代祖先g
+   for ( BinNodePosi(T) g = x->parent; g; g = g->parent )
+   if ( !Av1Balanced( *g ) ) { //一旦发现g失衡,则通过调整恢复平衡
+      FromParentTa( *g ) = rotateAt( tallerChild( tallerChild( g ) ) );
+      break; //g复衡后 ，局部子树高度必然复原;其祖先亦必如此,故调整结束
+   } else //否则(在依然平衡的祖先处) ,只需简单地
+      updateHeight( g ]; //更新其高度(平衡性虽不变,高度却可能改变)
+   return xx; //返回新节点:至多只需口次调整
+}
 ```
 
 
