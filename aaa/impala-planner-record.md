@@ -55,7 +55,9 @@ public class Planner {
     // 每个SubplanNode的右侧是一个由这些合适的相关及关联引用与SingularRowSrcTableRef联合生成的计划树。
     // SingularRowSrcTableRef 指被SubplanNode处理的从其输入(子节点)的当前行。
     // 通过JoinNodes的Connecting table ref plans是以基于成本的方式完成的（join顺序优化）.所有物化（materialized）的槽，包括在一个SubplanNode内物化的元组的槽，对于基于成本的join排序所需的行size的精确估计都是必须知道的。
-    //
+    // select语句的其他部分：aggregate/analysis/orderby 加到FROM子句计划的顶部。
+    // 每当一个新节点添加到计划树中时，可以评估在该节点上分配的连接，并计算该节点的统计信息（基数等）。
+    // 应用child plan nodes的组合表达式替换映射；如果计划节点重新映射其输入，则设置一个被parents应用的替换映射
     PlanNode singleNodePlan = singleNodePlanner.createSingleNodePlan();
     // getTimeline : EventSequence, 包装TEventSequence，方便用单个方法调用标记事件。事件发生时标记(按时序，不能逆时序)
     // markEvent : 以 ns 为单位的时间戳在当前时间以指定标签保存事件
