@@ -164,6 +164,14 @@ grep
 [[:space:]] - 空格字符: 制表符、换行符、垂直制表符、换页符、回车符和空格键符
 [[:upper:]] - 大写字母: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'
 
+pgrep进程grep   
+pstree   
+bc精度比较高的数学运算   
+split文件分割   
+nl == cat+行号   
+mkfifo创建命名管道，|匿名管道   
+ldd查看可执行文件所使用的动态链接库   
+
 dpkg --list | grep "^rc" | cut -d " " -f 3   
 dpkg --list | grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge   
 
