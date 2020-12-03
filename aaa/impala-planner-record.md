@@ -86,6 +86,7 @@ public class Planner {
     // Create runtime filters.
     PlanFragment rootFragment = fragments.get(fragments.size() - 1);
     if (ctx_.getQueryOptions().getRuntime_filter_mode() != TRuntimeFilterMode.OFF) {
+      // 用于生成和分配runtime filters给一个使用runtime filter传播的查询计划的类。Runtime filter传播是一种优化技术，用于根据运行时收集的信息过滤被扫描的元组或范围。a runtime filter是在a join node的构建阶段构建的，并且可能在该join node的探测端（probe side）应用于多个probe side的scan nodes。运行时筛选器是从equi-join谓词生成的，但它们不会替换原始谓词。
       RuntimeFilterGenerator.generateRuntimeFilters(ctx_, rootFragment.getPlanRoot());
       ctx_.getTimeline().markEvent("Runtime filters computed");
     }
