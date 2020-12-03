@@ -74,6 +74,7 @@ public class Planner {
 
     if (ctx_.isSingleNodeExec()) {
       // 创建一个包含整个single-node plan tree的fragment create one fragment containing the entire single-node plan tree
+      // PlanFragment通过ExchangeNodes形成树状结构。一棵以这种方式连接起来的fragments树生成一个计划。计划的输出由root fragment生成，它要么是查询的结果，要么是被一个不同计划（如哈希表）需要的中间结果。
       fragments = Lists.newArrayList(new PlanFragment(
           ctx_.getNextFragmentId(), singleNodePlan, DataPartition.UNPARTITIONED));
     } else {
