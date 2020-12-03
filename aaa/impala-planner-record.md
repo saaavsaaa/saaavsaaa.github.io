@@ -399,6 +399,7 @@ public class Planner {
    * isLocalPlan参数标识以'root'为根的plan tree在本地单机执行，即，不发生任何数据交换
    */
   private void invertJoins(PlanNode root, boolean isLocalPlan) {
+    // SubplanNode 对其左子树每一行评估右子计划树，并返回右子树生成的行s。右子树称为'subplan tree' 、左子树叫'input'。subplan tree和join相似，但有如下不同:1.SubplanNode本身不做任何实际工作。它只返回右子计划树生成的行，右子计划树通常依赖于当前输入行（请参见SingularRowSrcNode和UnnestNode）;2.不需要join谓词，SubplanNode不评估连接。
     if (root instanceof SubplanNode) {
       invertJoins(root.getChild(0), isLocalPlan);
       invertJoins(root.getChild(1), true);
