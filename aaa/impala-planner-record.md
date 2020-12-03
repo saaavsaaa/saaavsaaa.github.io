@@ -79,6 +79,7 @@ public class Planner {
           ctx_.getNextFragmentId(), singleNodePlan, DataPartition.UNPARTITIONED));
     } else {
       // 创建分布式计划
+      // 为single-node plan创建plan fragments，兼顾支持一些执行选项。fragments在列表中返回，这个列表中的元素需要满足：元素i只能消费它之后的fragments的输出(fragments j > i)。
       fragments = distributedPlanner.createPlanFragments(singleNodePlan);
     }
 
