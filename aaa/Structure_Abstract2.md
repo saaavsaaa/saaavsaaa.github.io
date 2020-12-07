@@ -201,7 +201,20 @@ template <typename T> BinNodePosi(T) AVL<T>::insert( const T & e ) {
 ```
 #### 删除
 单旋：删除一般是由于删除了较短分支上的节点，最近的失衡节点可能是被删节点的直接前驱，由于删除后的重平衡可能导致删除节点所在子树的高度-1，所以重平衡可能导致该子树更高层次上的节点失衡（高层节点中删除节点的这一侧子树整体高度-1，而这一侧本身就是比较短的一侧），失衡不断向上传播，极端情况下可能达到logn次（习题解析【7-17】）   
-双旋：zig-zag(与zag-zig对称)
+双旋：zig-zag(与zag-zig对称)，与前面类似   
+```
+template <typename T> bool AVL<T>::remove( const T & e) {
+   BinNodePosi(T) & x = search( e ); if ( !x ) return false; //若目标的确存在
+   removeAt( x，_hot );_size--; //则在按BST规则删除之后，_hot及祖先均有可能失衡
+//以下，从_hot出发逐层向上，依次检查各代祖先g
+   for ( BinNodePosi(T) g = _ hot; g; g = g->parent ) {
+      if ( ! Av1Balanced( *g ) ) //一旦发现g失衡,则通过调整恢复平衡
+         g = FromParentTo( *g ) = rotateAt( tallerChild( tallerChild( g ) );
+      updateHeight( g ); //并更新其高度
+   } //可能需做过Ω(1ogn)次调整;无论是否做过调整,全树高度均可能下降
+   return true; //删除成功
+}
+```
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
