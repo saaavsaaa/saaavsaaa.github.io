@@ -199,7 +199,8 @@ template <typename T> BinNodePosi(T) AVL<T>::insert( const T & e ) {
    return xx; //返回新节点:至多只需一次调整
 }
 ```
-
+#### 删除
+删除一般是由于删除了较短分支上的节点，最近的失衡节点可能是被删节点的直接前驱，由于删除后的重平衡可能导致删除节点所在子树的高度-1，所以重平衡可能导致更高层次上的节点失衡   
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
