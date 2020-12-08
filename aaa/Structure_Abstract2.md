@@ -217,6 +217,22 @@ template <typename T> bool AVL<T>::remove( const T & e) {
 ```
 #### 3+4重构
 单旋和双旋，逻辑上理解很容易，但实际中真的按逻辑去实现比较啰嗦，而无论怎么旋转，最后想要达到的效果都是中序遍历不变的最平衡形式，所以完全可以把插入、删除这两个逻辑过程中涉及的三个节点和这三个节点的子树共4棵，直接重组成结果的样式   
+设g(x)为最低的失衡节点,考察祖孙三代:g~p~v，按中序遍历次序,将其重命名为:a<b<c，它们总共拥有互不相交的四棵(可能为空的)子树，按中序遍历次序,将其重命名为:T₀<T₁<T₂<T₃   
+```
+template <typename T> BinNodePosi(T) BST<T> : :connect34(
+   BinNodePosi(T) a，BinNodePosi(T) b，BinNodePosi(T) c,
+   BinNodePosi(T)T0，BinNodePosi(T)T1，BinNodePosi(T)T2，BinNodePosi(T)T3)
+{
+   a->1child = T0; if (T0)T0->parent = a;
+   a->rChild = T1; if (T1)T1->parent = a; updateHeight(a);
+   c->1Child = T2; if (T2)T2->parent = c;
+   c->rChild = T3; if (T3)T3->parent = c; updateHeight(c);
+   b->1Child = a; a->parent = b;
+   b->rChild = c; c->parent = b; updateHeight(b);
+   return b;//该子树新的根节点
+}
+```
+
 
 
 -----
