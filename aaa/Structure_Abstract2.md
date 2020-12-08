@@ -232,7 +232,21 @@ template <typename T> BinNodePosi(T) BST<T> : :connect34(
    return b;//该子树新的根节点
 }
 ```
-
+统一调整:实现
+```
+template<typename T> BinNodePosi(T) BST<T>:: rotateAt( BinNodePosi(T) V ) {
+   BinNodePosi(T) p = v->parent, g = p->parent; 
+   if ( IsLChild( *p ) ) //zig
+      if ( IsLChild( *v ) ) { //zig-zig
+         p->parent = g->parent; //向上联接
+         return connect34( v, p, g, v->1Child, V->rChild, p->rChild, g->rChild );
+      } else { //zig-zag
+         v->parent = g->parent; //向上联接
+         return connect34( p, v, g, p->1Chi1d, v->1Child, v->rChild, g->rChild );
+      }
+   else ( /*.. zag-zig & zag-zag ..*/ }
+}
+```
 
 
 -----
