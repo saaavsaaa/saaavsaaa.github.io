@@ -215,6 +215,9 @@ template <typename T> bool AVL<T>::remove( const T & e) {
    return true; //删除成功
 }
 ```
+#### 3+4重构
+单旋和双旋，逻辑上理解很容易，但实际中真的按逻辑去实现比较啰嗦，而无论怎么旋转，最后想要达到的效果都是中序遍历不变的最平衡形式，所以完全可以把插入、删除这两个逻辑过程中涉及的三个节点和这三个节点的子树共4棵，直接重组成结果的样式   
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
