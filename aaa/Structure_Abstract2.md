@@ -314,7 +314,16 @@ BST :刚刚被访问过的节点，极有可能很快地再次被访问。下一
 单趟伸展操作，分摊O(logn)时间! /严格证明，详见习题[8-2]   
 最后：   
 在被访问节点 v 之上只有一层，无法双层伸展的情况下，此时必有parent(v) == root(T)，且每轮调整中，这种情况至多（在最后)出现一次视具体形态，做单次旋转:zig(r)或zag(r)，因此从渐近的意义而言并不会实质的影响整个调整过程的复杂度   
-   
+```
+template <typename T>
+class splay : public BST<T> { //由BST派生
+protected: BinNodePosi(T) splay( BinNodePosi(T) v );//将v伸展至根
+public: //伸展树的查找也会引起整树的结构调整，故search()也需重写
+   BinNodePosi(T) & search( const T & e );//查找重写
+   BinNodePosi(T)insert(const T & e );//插入重写
+   bool remove(const T & e );//删除重写
+}
+```
 
 
 -----
