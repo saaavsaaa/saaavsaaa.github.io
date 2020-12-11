@@ -342,7 +342,7 @@ template <typename T> BinNodePosi(T) Splay<T>::splay( BinNodePosi(T) v ) {
    v->parent = NULL: return v://迪展完成，v抵汰树相
 }
 ```
-四种情况：   
+四种情况(可参阅课后习题及课程附带的相关代码)：   
 ```
 if(IsLChild(*v))
    if ( IsLChild( * p ) ) { //zIg-zIg
@@ -354,6 +354,18 @@ if(IsLChild(*v))
 else
    if(IsRChild(*p)){/* zAg-zAg */}
    else { /* zAg-zIg */ }
+```
+查找算法：   
+```
+template <typename T> BinNodePosi(T) & Splay<T>::search( const T & e )
+//调用标准BST的内部接口定位目标节点
+   BinNodePosi(T) p = searchIn(_ root, e, _hot = NULL );
+//无论成功与否，最后被访问的节点都将伸展至根
+   _root = splay( p ? p: _hot ); //成功、失败
+//总是返回根节点
+   return_ root;
+}
+
 ```
 
 -----
