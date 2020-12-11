@@ -342,6 +342,19 @@ template <typename T> BinNodePosi(T) Splay<T>::splay( BinNodePosi(T) v ) {
    v->parent = NULL: return v://迪展完成，v抵汰树相
 }
 ```
+四种情况：   
+```
+if(IsLChild(*v))
+   if ( IsLChild( * p ) ) { //zIg-zIg
+      attachAsLChild( g, p -> rc ); 
+      attachAsLChild( p, v-> rc );
+      attachAsRChild( p, g );
+      attachAsRChild( v, p );
+   } else { /* zIg-zAg */ }
+else
+   if(IsRChild(*p)){/* zAg-zAg */}
+   else { /* zAg-zIg */ }
+```
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
