@@ -366,6 +366,15 @@ template <typename T> BinNodePosi(T) & Splay<T>::search( const T & e )
    return_ root;
 }
 ```
+插入：   
+重写后的Splay::search()已集成了splay( )操作   
+查找(失败)之后，_hot即是根节点   
+具体的插入与普通的BST插入根节点一样   
+删除：   
+同样地, Splay: :search()查找(成功)之后，目标节点即是树根   
+既如此, 何不随即就在树根附近完成目标节点的摘除...   
+具体删除根可参考普通BST，比如找到右子树最小节点（右子树左侧链端点）   
+
 
 
 -----
