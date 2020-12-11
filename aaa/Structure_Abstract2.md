@@ -313,7 +313,8 @@ BST :刚刚被访问过的节点，极有可能很快地再次被访问。下一
 最坏情况不致持续发生!   
 单趟伸展操作，分摊O(logn)时间! /严格证明，详见习题[8-2]   
 最后：   
-在被访问节点 v 之上只有一层，无法双层伸展的情况下，此时必有parent(v) == root(T)，且每轮调整中，这种情况至多（在最后)出现一次视具体形态，做单次旋转:zig(r)或zag(r)，因此从渐近的意义而言并不会实质的影响整个调整过程的复杂度   
+在被访问节点 v 之上只有一层，无法双层伸展的情况下，此时必有parent(v) == root(T)，且每轮调整中，这种情况至多（在最后)出现一次视具体形态，做单次旋转:zig(r)或zag(r)，因此从渐近的意义而言并不会实质的影响整个调整过程的复杂度  
+接口：   
 ```
 template <typename T>
 class splay : public BST<T> { //由BST派生
@@ -324,7 +325,23 @@ public: //伸展树的查找也会引起整树的结构调整，故search()也�
    bool remove(const T & e );//删除重写
 }
 ```
-
+伸展算法：   
+```
+template <typename T> BinNodePosi(T) Splay<T>::splay( BinNodePosi(T) v ) {
+   if ( ! v ) return NULL; BinNodePosi(T) p; BinNodePosi(T) g;//父亲、祖父
+   while ( (p = v->parent) && (g = p->parent) ) { //自下而上，反复双层伸展
+      BinNodePosi(T) gg = g->parent;//每轮之后，v都将以原曾祖父为父
+      if ( IsLchild(* v ))
+         if ( IsLChild(* p )){ /* zig-zig */ } else { /* zig-zag */ }
+      else if ( IsRChild(* p) ){ /* zag-zag */ } else { /* zag-zig */ }
+      if ( ! gg ) v->parent = NULL;//若无曾祖父gg，则v现即为树根;否则，gg此后应以v为左或右
+      else ( g == gg->lc ) ? attachAsLChild(gg， v) : attachAsRChild(gg，v);//孩子
+      updateHeight( g ); updateHeight( p ); updateHeight( v );
+   }//双层伸展结束时，必有g == NULL，但p可能非空
+   if ( p = v->parent ){/*若p果真是根，只需在额外单旋（至多一次)*/}
+   v->parent = NULL: return v://迪展完成，v抵汰树相
+}
+```
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
