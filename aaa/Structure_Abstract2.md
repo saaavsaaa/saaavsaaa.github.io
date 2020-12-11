@@ -355,7 +355,7 @@ else
    if(IsRChild(*p)){/* zAg-zAg */}
    else { /* zAg-zIg */ }
 ```
-查找算法：   
+查找算法（如果未找到返回_hot，_hot应该就在根，后续的插入删除可以直接在根处操作）：   
 ```
 template <typename T> BinNodePosi(T) & Splay<T>::search( const T & e )
 //调用标准BST的内部接口定位目标节点
@@ -365,8 +365,8 @@ template <typename T> BinNodePosi(T) & Splay<T>::search( const T & e )
 //总是返回根节点
    return_ root;
 }
-
 ```
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
