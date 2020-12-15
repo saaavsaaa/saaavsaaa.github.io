@@ -419,12 +419,11 @@ C 语言缓冲区接口，可以自定义缓冲区一次读取大小
 int setvbuf( //定制缓冲区
    FILE* fp, //流
    char* buf, //缓冲区
-   int _Mode, // _IoFBF | _IOLBF | _IONBF 工作模式
+   int _Mode, // _IOFBF | _IOLBF | _IONBF 工作模式
    size_ t size); //缓冲区容量
 int fflush(FILE* fp); //强制清空缓冲区
-
 ```
-
+或者不读取，要读取就一次读取若干KB；坐火车要不就不买，买就买很多   
 
 
 -----
