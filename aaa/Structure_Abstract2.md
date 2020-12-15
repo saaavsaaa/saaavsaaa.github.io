@@ -396,7 +396,14 @@ Turing:存储器?不就是无限长的纸带吗?
 典型的 数据库规模/内存容量:   
    1980   :   10MB / 1MB = 10   
    2000   :   1TB / 1GB = 1000   
-
+今天典型的数据集须以TB为单位度量:    
+   345 TB ^ Global climate   
+   300 TB ^ Nuclear   
+   250 TB ^ Turbulent combustion   
+   50 TB  ^ Parkinson's disease   
+   10 TB  ^ Protein folding   
+亦即，相对而言，内存容量是在不断减小!    
+而内存不能做大点的原因是，容量越大，访问速度越慢，不得不在存储器的容量与它的访问速度之间做一取舍折中   
 
 
 
