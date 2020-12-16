@@ -454,8 +454,23 @@ B树充分利用外存对批量访问的高效支持，将此特点转化为优�
 
 既然如此我们也用超级节点所拥有分支数的下限、上限来命名 B 树：(m/2, m)树   
    如5阶:(3,5)树；6阶:(3,6)树；7阶:(4,7)树...    
+   其中(2,4)树与红黑树关系密切   
 
-
+BTNode:   
+一个超级节点可以用两个向量实现，一个存放n个关键码，另一个存放n+1个分支引用   
+```
+template <typename T> struct BTNode { //B-树节点
+  BTNodePosi(T) parent; //父
+  Vector<T> key; //数值向量
+  Vector< BTNodePosi(T) > child; //孩子向量(其长度总比key多一 )
+  BTNode() { parent = NULL; child. insert( 0, NULL ); }
+  BTNode( T e, BTNodePosi(T) 1c = NULL, BTNodePosi(T) rc = NULL )
+    parent = NULL; //作为根节点，而且初始时
+    key.insert( 0, e ); //仅一个关键码，以及
+    child.insert( 0, lc ); child.insert( 1, rc ); //两个孩子
+    if ( 1c ) lc->parent = this; if ( rc ) rc->parent = this ;
+}
+```
 
 
 
