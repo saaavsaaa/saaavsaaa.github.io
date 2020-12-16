@@ -425,6 +425,8 @@ int fflush(FILE* fp); //强制清空缓冲区
 ```
 或者不读取，要读取就一次读取若干KB；坐火车要不就不买，买就买很多   
 
+B树特点：1.每个节点不一定又几个分支；2.所有叶子节点高度一样（从这个角度看不失为一个理想平衡的搜索树）；3.相较于同样节点树的二叉树更宽、更矮；   
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
