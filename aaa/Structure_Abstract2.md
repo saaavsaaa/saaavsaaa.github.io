@@ -471,7 +471,21 @@ template <typename T> struct BTNode { //B-树节点
     if ( 1c ) lc->parent = this; if ( rc ) rc->parent = this ;
 }
 ```
-
+BTree:   
+```
+#define BTNodePosi(T) BTNode<T>* //B-树节点位置
+template <typename T> class BTree { //B-树
+protected :
+  int _size; int _order; BTNodePosi(T) _root; //关键码总数、 阶次、根
+  BTNodePosi(T) _hot; //search( )最后访问的非空节点位置
+  void solveOverflow( BTNodePosi(T) ); //因插入而上溢后的分裂处理
+  void solveUnderflow( BTNodePosi(T) ); //因删除而下溢后的合井处理
+public:
+  BTNodePosi(T) search(const T & e); //查找:
+  bool insert(const T & e); //插入
+  bool remove(const T & e) //删除
+}
+```
 
 
 
