@@ -504,6 +504,10 @@ template <typename T> BTNodePosi(T) BTree<T>::search( const T & e) {
 向量的查找用的是顺序查找，在此场景下，由于内外存访问的巨大差异，二分查找的未必更好，甚至可能更差，一个超级节点规模是几百，试验表明，这个规模下顺序可能比二分更好   
 B树可能的最大高度：   
 树根为第0层，外部节点第h层   
+含 m 个关键码的阶B树，为了让树高度最大，内部节点应尽可能“瘦”,各层节点数依次为   
+  n₀=1，n₁=2, n₂=2x(m/2), ... ,nₖ = 2 x (m/2)<sup>k-1</sup>   
+
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
