@@ -489,6 +489,18 @@ public:
 查找：   
 外部节点可能不存在，也可能是更低一层的外部存储器   
 查找过程就是IO操作和向量查找交替的过程   
+如果查找失败，必然失败于外部节点   
+```
+template <typename T> BTNodePosi(T) BTree<T>::search( const T & e) {
+  BTNodePosi(T) v = _ root; _hot = NULL; //从根节点出发
+  while(v) { //逐层查找
+    Rank r = v->key.search(e); //在当前节点对应的向量中顺序查找
+    if ( 0 <= r && e == v->key[r]) return v; //若成功，则返回;否则...
+    _hot = v; v = v->child[r + 1]; //沿引用转至对应的下层子树，并载入其根I/O
+  } //若因!v而退出，则意味着抵达外部节点
+  return NULL; //失败
+}
+```
 
 
 
