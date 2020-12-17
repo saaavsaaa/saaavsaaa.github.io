@@ -510,10 +510,10 @@ N个内部节点，N+1个外部节点
 N种成功可能，N+1种失败可能   
 考查外部节点所在层   
   N+1 = nₕ ≥ 2 x (m/2)<sup>h-1</sup>  (nₕ的确界和下界) 
-  h ≤ 1 + 1og<sub>m/2</sub>(N + 1)/2 = O(1ogₘN)
+  h ≤ 1 + 1og<sub>m/2</sub>(N + 1)/2 = O(logₘN)
 1ogₘN中的底数可以视为常数，与BST的性能渐近同阶，B树的意义并不在于降低搜索的渐近时间复杂度，而是更加关注于常系数意义下的优化   
 相对于BBST :   
-  1og<sub>m/2</sub>(N/2) / 1og₂N = 1/(1og₂m - 1)   
+  log<sub>m/2</sub>(N/2) / 1og₂N = 1/(1og₂m - 1)   
 若取 m = 256 树高 (I/O次数) 约降低至1/7    
 ##### B树高度的下界：   
 类似的   
@@ -522,8 +522,9 @@ N种成功可能，N+1种失败可能
   n₀=1, n₁=m, n₂=m², n₃ = m³, ... , n<sub>h-1</sub>=m<sup>h-1</sup> , nₕ = m<sup>h</sup>   
 考查外部节点]所在层:   
   N+1 = nₕ ≤ m<sup>h</sup>   
-  h ≥ logₘ(N + 1) = Ω(1ogₘN)   
-
+  h ≥ logₘ(N + 1) = Ω(logₘN)   
+相对于BBST: (logₘN - 1) / log₂N = logₘ2 - log<sub>N</sub>2 ≈ 1/log₂m     
+若取 m = 256 树高 (I/O次数) 约降低至1/8     
 
 
 
