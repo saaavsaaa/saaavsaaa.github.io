@@ -486,7 +486,7 @@ public:
   bool remove(const T & e) //删除
 }
 ```
-查找：   
+查找(逐层深入，减而治之)：   
 外部节点可能不存在，也可能是更低一层的外部存储器   
 查找过程就是IO操作和向量查找交替的过程   
 如果查找失败，必然失败于外部节点   
@@ -501,8 +501,9 @@ template <typename T> BTNodePosi(T) BTree<T>::search( const T & e) {
   return NULL; //失败
 }
 ```
-
-
+向量的查找用的是顺序查找，在此场景下，由于内外存访问的巨大差异，二分查找的未必更好，甚至可能更差，一个超级节点规模是几百，试验表明，这个规模下顺序可能比二分更好   
+B树可能的最大高度：   
+树根为第0层，外部节点第h层   
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
