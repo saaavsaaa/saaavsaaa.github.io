@@ -527,7 +527,21 @@ N种成功可能，N+1种失败可能
 若取 m = 256 树高 (I/O次数) 约降低至1/8     
 
 综上，关键码数量固定时，B树高度的上下浮动范围是非常有限的，几乎可以忽略树高的变化   
-
+##### 插入   
+```
+template <typename T>
+  bool BTree<T>::insert( const T & e ) {
+  BTNodePosi(T) v = search(e); 
+  if(V) return false; //确认e不存在
+  Rank r = _hot->key.search( e ); //在节点_hot中确定插入位置
+  _hot->key.insert( r + 1, e]); //将新关键码插至对应的位置
+  _hot->child.insert( r + 2, NULL ); //创建一个空子树指针
+  _size++; solveOverflow( hot ); //如发生上溢，需做分裂
+  return true; //插入成功
+}
+```
+可以约定在_hot右侧引用插入   
+另外，r+2处插入空节点的操作也可以用直接在向量尾部加，因为e不存在，那么一定命中了外部节点   
 
 
 
