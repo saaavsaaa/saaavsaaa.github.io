@@ -566,6 +566,11 @@ bool BTree<T> ::remove( const T & e ) {
   solveUnderflow( v ); return true;//如有必要，需做旋转或合并
 }
 ```
+节点v下溢时，必恰好包含: [m/2]-2 个关键码 和 [m/2]-1 个分支    
+下溢时，首先左顾右盼，看看同一个前驱里紧邻的节点中有没有可以借出一个关键码的，如果有则旋转。这里并不直接借关键码过来，因为要保证B树中序遍历的顺序性，将前驱关键码借过来，并将同级的待借关键码填到前驱的位置上   
+
+
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
