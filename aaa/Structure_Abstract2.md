@@ -550,6 +550,22 @@ template <typename T>
  kₛ 上升可能会导致上一级的超级节点上溢，于是继续向上，直至根节点，根节点上溢是唯一一种导致B树增高的情况，而根节点上溢结束，新的根就只有一个关键码和两个分支，所以在定义B树时对根有一个例外的规定，根节点不用必须遵守阶次要求，分裂本身是常数操作，而分裂次数最坏情况等于树高，所以插入复杂度线性正比于树高      
 上溢概率十分低，严格证明参考习题解析   
 
+##### 删除
+```
+template <typename T>
+bool BTree<T> ::remove( const T & e ) {
+  BTNodePosi(T) v = search( e );
+  if ( ! v ) return false; //确认e存在
+  Rank r = v->key.search(e); //确定e在v中的秩
+  if ( v->child[0] ) { //若v非叶子，则
+    BTNodePosi(T) u = v->child[r + 1]; //在右子树中一直向左，即可
+    while ( u->child[0] ) u = u->child[0]; //找到e的后继(必属于某叶节点)
+    v->key[r] = u->key[0]; v = u; r = 0; //并与之交换位置
+  }//至此，v必然位于最底层，且其中第r个关键码就是待删除者
+  v->key.remove(r);v->child.remove(r+1);_size--;//同样这里可以不是r+1，可以是任意一个
+  solveUnderflow( v ); return true;//如有必要，需做旋转或合并
+}
+```
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
