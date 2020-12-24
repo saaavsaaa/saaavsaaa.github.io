@@ -596,6 +596,23 @@ T.search((ver,key); T.insert(ver,key); T.remove(ver,key)
 
 之前提过红黑树和(2,4)B树有关，通过树形结构的一种等价拓扑变换--提升变换，可以发现红黑树的定义使它提升变换之后刚好是一颗4阶B树   
 此处提升变换是黑节点不动，所有红节点都提升到其直接前驱的黑节点同级，并与该黑节点组成一个超级节点，可以发现，没有红后继的超级节点是一个关键码，有红后继的最多可能会有两个，也就是 3 个关键码，刚好是一个 4 阶B树，高度就是黑高度，因为所有分支的黑节点个数相同   
+提升各红节点，使之与其(黑）父亲等高——于是每棵红黑树，都对应于一棵(2，4)-树将黑方点与其红孩子视作（关键码并合并为)超级节点，无非四种组合，分别对应于4阶B-树的一类内部节点 //反过来呢?   
+由等价牲，既然B-树是平衡的，红黑树自然也应是 //更严谨地...   
+定理:包含n介内部节点的红黑树 T,高度h = o(logn)。log(n+1) ≤ h ≤ 2 * log(n+1)，第一个不等号BST都天然满足，主要是看 h ≤ 2 * log(n+1)  
+红黑树的高度是用黑高度度量的，红节点不能相连，那任何分支上红节点的数量都不超过分支长度的一半，黑节点数量至少是长度的一半，实际高度不超过黑高度的两倍   
+若:T高度为h，黑高度为H，则:h = R+ H ≤ 2H，若T所对应的B树为T<sub>B</sub>，则 H 即是T<sub>B</sub>的高度   
+T<sub>B</sub>的每个节点，包含且仅包含T的一个黑节点   
+由于等价，我们只需去度量红黑树对应的那棵B树的高度即可，于是，H ≤ log<sub>[4/2]</sub>   
+```
+template <typename T> class RedBlack : public BST<T>{//红黑树
+public: //BST::search()等其余接口可直接沿用
+  BinNodePosi(T) insert(const T & e );//插入(重写)
+  bool remove(const T & e );//删除（重写)
+protected:void solveDoubleRed(BinNodePosi(T) x);//双红修正
+  void solveDoubleBlack(BinNodePosi(T) x);//双黑修正
+  int updateHeight(BinNodePosi(T) x);//更新节点x的高度
+};
+```
 
 
 
