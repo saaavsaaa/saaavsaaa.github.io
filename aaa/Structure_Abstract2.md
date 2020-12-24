@@ -612,6 +612,11 @@ protected:void solveDoubleRed(BinNodePosi(T) x);//双红修正
   void solveDoubleBlack(BinNodePosi(T) x);//双黑修正
   int updateHeight(BinNodePosi(T) x);//更新节点x的高度
 };
+
+template <typename T> int RedBlack<T>: :updateHeight( BinNodePosi(T) x )
+  x->height = max( stature( x->1c ), stature( x->rc ) );
+  if (IsBlack( x ) ) x->height++; return x->height;//只计黑节点
+}
 ```
 
 
