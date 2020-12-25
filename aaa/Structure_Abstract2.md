@@ -627,9 +627,20 @@ template <typename T> int RedBlack<T>: :updateHeight( BinNodePosi(T) x )
 将x染红(除非它是根) //×->color = isRoot(x)? B : R   
 定义中 1＋2＋4依然满足﹔但3不见得，因为插入节点的直接前驱可能是红色，这就造成两个红色紧邻，称为双红缺陷   
 双红double-red //p->color == x->color == R   
-考查:x的祖父 g = p->parent //g != null && g->color == B 因为根必然为黑，所以如果有双红缺陷则g必然存在   
+考查:x的祖父 g = p->parent //g != null && g->color == B 因为根必然为黑，所以如果插入导致双红缺陷则g必然存在且是黑色   
 p的兄弟 u = p == g->lc? g->rc : g->lc   //即x的叔父   
-
+```
+template <typename T> BinNodePosi(T) RedBlack<T>::insert( const T & e ) {
+//确认目标节点不存在（留意对_hot的设置)
+  BinNodePosi(T) & x = search( e ); if ( × ) return x;
+//创建红节点x，以_hot为父，黑高度-1
+ x = new BinNode<T>( e,_hot，NULL，NULL, -1 ); _size++;
+//如有必要，需做双红修正
+  solveDoub1eRed( x );
+//返回插入的节点
+  return x ? × : _hot->parent;
+} //无论原树中是否存有e，返回时总有x->data == e
+```
 
 
 
