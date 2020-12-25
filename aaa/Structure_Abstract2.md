@@ -624,7 +624,7 @@ template <typename T> int RedBlack<T>: :updateHeight( BinNodePosi(T) x )
 现拟插入关键码e //不妨设T中本不含e   
 按BST的常规算法，插入之 //= insert(e)必为末端节点   
 不妨设x的父亲p = x->parent存在 //否则，即平凡的首次插入   
-将x染红(除非它是根) //×->color = isRoot(x)? B : R   
+将x染红(除非它是根)(如果不染红，各分支长度就不好控制了) //×->color = isRoot(x)? B : R   
 定义中 1＋2＋4依然满足﹔但3不见得，因为插入节点的直接前驱可能是红色，这就造成两个红色紧邻，称为双红缺陷   
 双红double-red //p->color == x->color == R   
 考查:x的祖父 g = p->parent //g != null && g->color == B 因为根必然为黑，所以如果插入导致双红缺陷则g必然存在且是黑色   
@@ -641,6 +641,12 @@ template <typename T> BinNodePosi(T) RedBlack<T>::insert( const T & e ) {
   return x ? × : _hot->parent;
 } //无论原树中是否存有e，返回时总有x->data == e
 ```
+对于产生了双红缺陷的情况，三级节点一共有四种组合，当叔父节点是黑的，只需要考虑x、p、g的 4 种组合形式，这里只考虑zig-zig、zig-zag，另两种对称   
+此时:x、p、g的四个孩子(可能是外部节点)全为黑，且(黑)高度相同   
+对应的B树并没有结构上的问题，只是颜色不对，只需要对x、p、g重新染色，使p为黑，另外两个红，参照AVL做3+4重构，直接构建正确的结构和染色即可   
+从B树的角度，如何理解这一情况:   
+1．调整前之所以非法，是因为在某个三叉节点中插入红关键码，使得原关键码不再居中//RRB或BRR，出现相邻的红关键码   
+2．调整之后的效果相当于 //B树的拓扑结构不变，但在新的四叉节点中，三个关键码的颜色改为RBR   
 
 
 
