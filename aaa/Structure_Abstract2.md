@@ -662,7 +662,7 @@ template <typename T> BinNodePosi(T) RedBlack<T>::insert( const T & e ) {
 |u为黑|1~2|2|调整随即完成|
 |u为红|0|3|可能再次双红，但必上升两层|
 
-
+如此关注拓扑结构的变化，是的这类操作对于持久化结构而言是至关重要的   
 
 
 
