@@ -618,6 +618,18 @@ template <typename T> int RedBlack<T>: :updateHeight( BinNodePosi(T) x )
   if (IsBlack( x ) ) x->height++; return x->height;//只计黑节点
 }
 ```
+##### 插入
+对红黑树的动态操作需要参照对应的B树，并不是说按照B树的方法实际进行，只是逻辑理解方面   
+
+现拟插入关键码e //不妨设T中本不含e   
+按BST的常规算法，插入之 //= insert(e)必为末端节点   
+不妨设x的父亲p = x->parent存在 //否则，即平凡的首次插入   
+将x染红(除非它是根) //×->color = isRoot(x)? B : R   
+定义中 1＋2＋4依然满足﹔但3不见得，因为插入节点的直接前驱可能是红色，这就造成两个红色紧邻，称为双红缺陷   
+双红double-red //p->color == x->color == R   
+考查:x的祖父 g = p->parent //g != null && g->color == B 因为根必然为黑，所以如果有双红缺陷则g必然存在   
+p的兄弟 u = p == g->lc? g->rc : g->lc   //即x的叔父   
+
 
 
 
