@@ -677,6 +677,8 @@ r = removeAt(×,_hot )
 若x与r均黑double-black，摘除x并代之以r后全树黑深度不再统一，原B-树中x所属节点下溢   
 在新树中，考查r的父亲p = r->parent 、/亦即原树中x的父亲   
 r的兄弟s(sibling) = r == p->lc ? p->rc : p->lc   
+分 4 种情况:    
+BB-1:s为黑，且至少有一个红孩子t   
 
 
 
