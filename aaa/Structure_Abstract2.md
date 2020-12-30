@@ -707,6 +707,12 @@ BB-2B:s为黑，且两个孩子均为黑;p为黑。由于p为黑，下溢会继�
 向量 vector：寻秩访问 rank；列表 list：寻位置访问 position；二叉搜索树 BST：寻关键码访问 key   
 散列 hashing：寻值访问 value   
 对值进行映射，以方便访问，比如很长的电话号记不住，可以借助数字键对应的英文，例如：111 -> ABC(只是个例子，不要纠结111)   
+类似电话这种，实际使用了的号码远小于可使用的号码（n位0-9 : 10ⁿ），所以如果使用向量，寻号码的位置访问，意味着向量长度需要达到10ⁿ，空间复杂度过高，没用上的空间过多   
+桶 bucket:直接存放或间接指向一个词条   
+桶数组 bucket array 或称 散列表 hash tab1e，容量为 M : N < M << R   
+空间 = O(N + M) = O(N)   
+
+
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
