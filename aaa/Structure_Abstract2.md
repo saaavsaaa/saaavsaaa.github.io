@@ -703,6 +703,9 @@ BB-2B:s为黑，且两个孩子均为黑;p为黑。由于p为黑，下溢会继�
 2.一次“3+4”重构   
 3.一次单旋   
 
+## 词典
+向量 vector：寻秩访问 rank；列表 list：寻位置访问 position；二叉搜索树 BST：寻关键码访问 key
+散列 hashing：寻值访问 value
 
 -----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract2.md)
