@@ -674,7 +674,7 @@ r = removeAt(×,_hot )
 如果返回的是r（r有可能是并不存在的外部节点），则x原来的位置由孩子r接替 //另一孩子记作w(即黑的NULL)   
 条件1和依然满足但3和4不见得 //在原树中，考查x与r    
 http://dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/bst/bst_removeat.h.htm   
-若x或r二者之一为红，则3和4很容易满足，如果：x红r黑 **交换???** 删除即可([示例代码:](http//dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/redblack/redblack_remove.h.htm)只检查红，染黑，如果出现双黑则solveDoubleBlack)；x黑r红，r替换了x后，这个位置变红了，这个分支就短了一个黑节点，这时只需将r染黑删除遂告完成!   
+若x或r二者之一为红，则3和4很容易满足，如果：x红r黑 交换后 删除x即可([示例代码:](http//dsa.cs.tsinghua.edu.cn/~deng/ds/src_link/redblack/redblack_remove.h.htm)只检查红，染黑，如果出现双黑则solveDoubleBlack)；x黑r红，r替换了x后，这个位置变红了，这个分支就短了一个黑节点，这时只需将r染黑删除遂告完成!   
 
 若x与r均黑double-black，摘除x并代之以r后全树黑深度不再统一，原B-树中x所属节点下溢   
 在新树中，考查r的父亲p = r->parent 、/亦即原树中x的父亲   
