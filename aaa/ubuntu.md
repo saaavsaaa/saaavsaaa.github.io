@@ -1,8 +1,8 @@
 gdb ./ccccc       r(:run)p[option: args]      bt(:backtrace)     up/down(:step backtrace)/p arg(:print arg)        br filename:line_num (:set breakpoint)            n(:single step pass)   s(:one step in)       finish(:to the return)     list [option: line_number](:list code)         info locals(:local arg)    p var_(:print variable)      info breakpoints(:list all breakpoints)   delete breakpoints         break ... if ... (:condition interrupt)   until line(:go to line)   https://gcc.gnu.org/onlinedocs/gcc-5.1.0/gcc/Function-Specific-Option-Pragmas.html#Function-Specific-Option-Pragmas                  
 
-awk -F "+" '{for(i=1;i<=NF;i++) a[i,NR]=$i}END{for(i=1;i<=NF;i++) {for(j=1;j<=NR;j++) printf a[i,j] " ";print ""}}' file.txt
-cat col.txt |tr "\n" ","|sed -e 's/,$/\n/'
-cat col.txt |awk '{print $1}'|xargs |sed 's/ /,/g'              
+cat cols.txt |tr "\n" ","   
+|sed -e 's/,$/\n/'
+cat cols.txt |awk '{print $1}'|xargs |sed 's/ /,/g'                
 jobs -l   
 fg   
 env   
