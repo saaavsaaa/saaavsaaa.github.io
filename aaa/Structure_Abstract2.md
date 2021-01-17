@@ -859,7 +859,7 @@ c有三个，其中最后一个c在第4位(包括它共有4个字符)，而前�
 基于扫描线策略的诸多算法中,我们也需要将所有的事件点组织成某种高效的数据结构，从而使得我们可以反复取出最邻近的事件,完成处理,并将可能生成的新事件加入到这个数据结构当中。
 |  |  |  |  |  |
 |:-:|:-:|:-:|:-:|:-:|
-|server algorithm| ← call-by-priority ← |clients data|
+|server algorithm| |← call-by-priority ←| |clients data|
 |↑||||↓|
 |scheduler| ← |priority queue| ← |importance priority|
 
