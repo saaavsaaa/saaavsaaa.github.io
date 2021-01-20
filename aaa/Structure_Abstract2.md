@@ -902,7 +902,21 @@ BBST:AVL、Splay、 Red-black :实现这三个接口均只需O(1ogn)时间，get
 #define LChild(i) ( 1+((i)<<1) ) //奇数   
 #define RChild(i) ( (1+(i))<<1 ) //偶数   
 由于借助了完全二叉树的思路，所以叫完全二叉堆Complete Binary Heap   
-
+PQ ComplHeap = PQ + Vector
+```
+template <typename T> class PQ_ComplHeap : public PQ<T>, public Vector<T> {
+protected:
+  Rank percolateDown( Rank n, Rank i ); //下滤
+  Rank percolateUp( Rank i ); //上滤;
+  void heapify( Rank n); //Floyd建堆算法
+public:
+  PQ ComplHeap( T* A, Rank n ) //批量构造
+    { copyFrom( A, 0, n ); heapify( n ); }
+  void insert( T ]; //按照比较器确定的优先级次序,插入词条
+  T getMax() { return _elem[0]; } //读取优先级最高的词条
+  T delMax(); //删除优先级最高的词条
+}
+```
 
 
 
