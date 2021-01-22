@@ -944,6 +944,14 @@ template <typename T> T PQ_ComplHeap<T>::delMax() { //删除
   percolateDown( _size, 0 ); //对新堆顶实施下滤
   return maxElem; //返回此前备份的最大词条
 }
+
+template <typename T> //对前n个词条中的第i个实施下滤，1 < n
+Rank PQ_ComplHeap<T>::percolateDown( Rank n, Rank i ) {
+  Rank j; //i及其(至多两个)孩子中，堪为父者
+  while ( i != ( j = ProperParent( _elem, n, i ) ) ) //只要非j，则
+    { swap( _elem[i]， _elem[j] ); i = j; } //换位，并继续考察i
+  return i; //返回下滤抵达的位置(亦i亦j )
+}
 ```
 
 
