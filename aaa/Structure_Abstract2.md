@@ -956,6 +956,28 @@ Rank PQ_ComplHeap<T>::percolateDown( Rank n, Rank i ) {
 下滤过程主要有两类操作：比较，交换   
 总体渐进不会超过树高log(n)，常数意义的优化同上滤，但其中的比较操作与上滤不同，上滤只需要比较直接前驱一个，下滤的比较需要与两个子节点都进行，与其中大的交换，当然这对二叉堆影响不大，但对之后要学的多叉堆d-heap就有问题了   
 
+批量建堆:   
+自上而下的上滤   
+构造函数：PQ_ComplHeap( T* A, Rank n ) { copyFrom( A, 0, n ); heapify( n ); }   
+```
+template <typename T> void PQ_ComplHeap<T>::heapify ( Rank n ) { //蛮力
+  for ( int i = 1; i< n; i++ ) //按照层次遍历次序逐一，第一个节点原地不动，所以从1开始
+    percolateUp ( i ); //经上滤插入各节点
+}
+```
+最环情况下,每个节点都需上滤至根,所需成本线性正比于其深度
+即便只考虑底层,n/2 个叶节点,深度均为O(1ogn),累计耗时O(nlogn),而这个时间完全可以做到全序，事实上只需要偏序    
+
+自下而上的下滤:
+任意给定堆 H₀ 和 H₁ ,以及节点 p , 为得到堆 H₀ U {p} U H₁ ,只需将 r₀ 和 r₁，当作 P 的孩子，对 p 下滤，类似删除最大元的操作（当前无序）   
+```
+template <typename T>
+void PQ_ComplHeap<T>::heapify( Rank n ) { //Robert Floyd，1964
+  for ( int i = LastInternal(n); i >= 0; i-- ) //自下而上，依次
+    percolateDown( n, i ); //下滤各内部节点
+} //可理解为子堆的逐层合并，--- 由以上性质，堆序性最终必然在全局恢复2
+```
+对叶子节点没有意义，所以只需处理内部节点，如果全堆的规模为n，那么最末尾的内部节点在向量中的秩就应当是floor(n/2)-1 （下整）。   
 
 
 
