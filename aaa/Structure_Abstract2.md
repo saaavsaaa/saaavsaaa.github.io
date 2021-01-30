@@ -991,7 +991,7 @@ template <typename T> //对向量区间[lo,hi)做就地堆排序
 void Vector<T>::heapSort( Rank lo，Rank hi ) {
   PQ_ComplHeap<T> H(_elem + lo , hi - lo ); //待排序区间建堆，O(n)
   while ( ! H.empty() ）//反复地摘除最大元并归入已排序的后缀，直至堆空
-    _elem[ --hi ] = H.delMax(); //等效于堆顶与未元素对换后下滤
+    _elem[ --hi ] = H.delMax(); //等效于堆顶与末元素对换后下滤
 }
 ```
 
