@@ -986,7 +986,14 @@ void PQ_ComplHeap<T>::heapify( Rank n ) { //Robert Floyd，1964
 可以将二叉堆应用到排序，: 初始化 heapify(),O(n)线性时间建堆，迭代 delMax(),O(logn)，取出堆顶并调整复原，整个算法复杂度nlog(n)，在空间复杂度上还可以更好   
 
 空间复杂度可以做到只有常数辅助空间，“就地”，已排序部分也是放于向量末端，交换最大元（0 号元素）与堆尾（相对于已排序元素，秩为 -1）元素，实际上堆排序的过程就是不断的交换、下虑的过程：既然此前有 m = H[ 0 ]，x = s[ -1 ]，不妨随即就: swap( m , x ) = H.insert( x ) + S.insert( m )   
-
+```
+template <typename T> //对向量区间[lo,hi)做就地堆排序
+void Vector<T>::heapSort( Rank lo，Rank hi ) {
+  PQ_ComplHeap<T> H(_elem + lo , hi - lo ); //待排序区间建堆，O(n)
+  while ( ! H.empty() ）//反复地摘除最大元并归入已排序的后缀，直至堆空
+    _elem[ --hi ] = H.delMax(); //等效于堆顶与未元素对换后下滤
+}
+```
 
 
 
