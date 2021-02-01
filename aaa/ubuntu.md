@@ -20,7 +20,7 @@ mv
 tail -f   
 ps -ef    
 sftp    
-sed 替换全文(g)时，第一个匹配替换完，是从下一个字符开始的，例如sed -e 's/⊙datetime⊙/⊙timestamp⊙/ig'只能替换⊙datetime⊙datetime⊙的第一个，要想两个都替换，需要⊙datetime⊙⊙datetime⊙   
+sed 替换全文(g)时，第一个匹配替换完，是从下一个字符开始的，例如sed -e 's/⊙datetime⊙/⊙timestamp⊙/ig'只能替换⊙datetime⊙datetime⊙的第一个，要想两个都替换，需要⊙datetime⊙⊙datetime⊙ （i忽略大小写）   
 
 sudo apt --fix-broken install     
 chmod +x      
