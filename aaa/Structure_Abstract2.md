@@ -1084,6 +1084,7 @@ template <typename T> T PQ_LeftHeap<T>::delMax() { //O(logn)
   return e; //返回原根节点的数据项
 }
 ```
+对于我们已经熟悉的AVL树，Crane也给出了一个高效的合并算法，可以参考习题解析。
 
 
 
