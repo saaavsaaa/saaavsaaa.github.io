@@ -1062,16 +1062,28 @@ static BinNodePosi(T) merge( BinNodePosi(T) a，BinNodePosi(T) b){
 ```
 
 从本质上讲,左式堆只需要”合并“这一个操作便足以满足插入和删除操作。   
+插入：   
 ```
 template <typename T>
 void PQ_LeftHeap<T>::insert( T e ) {  // O(logn)
-  BinNodePosi(T) v = new BinNode<T>( e ); //为e创建一个二叉树节点
+  BinNodePosi(T) v = new BinNode<T>( e ); //为e创建一个二叉树节点           插入单个节点就相当于插入一个只有根的左式堆
   _root = merge( _root，v ); // 通过合并完成新节点的插入
   _root->parent = NULL; // 既然此时堆非空，还需相应设置父子链接
   size++; //更新规模
 }
 ```
-
+删除：将根摘除（优先级队列出队），并将原来的左右子堆合并
+```
+template <typename T> T PQ_LeftHeap<T>::delMax() { //O(logn)
+  BinNodePosi(T) lHeap = _root->lc; //左子堆
+  BinNodePosi(T) rHeap = _root->rc; //右子堆
+  T e = _root->data; //备份堆顶处的最大元素
+  delete _root; _size--; //删除根节点
+  _root = merge( lHeap，rHeap ); //原左、右子堆合并
+  if ( _root ) _root->parent = NULL; //更新父子链接
+  return e; //返回原根节点的数据项
+}
+```
 
 
 
