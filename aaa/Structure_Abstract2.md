@@ -1043,8 +1043,23 @@ public:
   T delMax(); //删除优先级最高的元素
 }; // 主要接口，均基于统一的合并操作实现...
 ```
+PQ为“神”，BinTree为"形"   
 
-
+A、B两个堆合并，假设它们的左右子堆都不为空，将A的右子堆与B合并，合并后作为A的右子堆，再比较左右子堆，如果右大，则交换左右子堆的位置   
+```
+template <typename T>
+static BinNodePosi(T) merge( BinNodePosi(T) a，BinNodePosi(T) b){
+  if ( ! a ) return b; //递归基
+  if ( ! b ) return a; //递归基
+  if ( lt( a->data，b->data ) ) swap( b,a ); //一般情况∶首先确保b不大
+  a->rc = merge( la->rc,b ); //将a的右子堆，与b合并
+  a->rc->parent = a; //并更新父子关系
+  if ( ! a- >lc || a->lc->npl < a->rc->npl ) //若有必要
+    swap( a->lc, a->rc ); // 交换a的左、右子堆，以确保右子堆的npl不大
+  a->npl = a->rc ? a->rc->npl + 1 : 1; //更新a的npl
+  return a; // 返回合并后的堆顶
+}
+```
 
 
 
