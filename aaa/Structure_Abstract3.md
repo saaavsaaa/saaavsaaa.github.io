@@ -23,13 +23,15 @@
 任何串都是自身的子串、前缀、后缀   
 长度严格小于原串的子串、前缀与后缀也称作真子串、真前缀与真后缀   
 ```
+i k ：秩，T P ：其他串
 length()
-charAt(i)
+charAt(i)  
 substr(i，k)
 prefix(k)
 suffix(k)
-concat(T)
+concat(T)   拼接字符串
 equal(T)
+indexOf(P)  索引接口，之后大量讨论它的高效实现
 ```
 
 
