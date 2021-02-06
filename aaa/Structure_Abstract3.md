@@ -22,6 +22,16 @@
 空串: S[0, n-0 ] 也是任何串的子串、前缀、后缀   
 任何串都是自身的子串、前缀、后缀   
 长度严格小于原串的子串、前缀与后缀也称作真子串、真前缀与真后缀   
+```
+length()
+charAt(i)
+substr(i，k)
+prefix(k)
+suffix(k)
+concat(T)
+equal(T)
+```
 
 
-
+-----
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/Structure_Abstract3.md)
