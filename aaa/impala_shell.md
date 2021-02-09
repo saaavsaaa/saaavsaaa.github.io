@@ -211,7 +211,21 @@ ImpalaShell
 ```
 基本的用法 connect <host:port> 连接 impalad. Tab自动显示可用命令.实现shell命令的方法返回a boolean tuple (stop, status)，其中stop是用于提示命令循环是否继续的标识；status 同志调用者成功完成执行。
 class ImpalaShell(object, cmd.Cmd): 
-...
+  # 如果没连接上 impalad
+  UNKNOWN_SERVER_VERSION = "Not Connected"
+  DISCONNECTED_PROMPT = "[Not connected] > "
+  UNKNOWN_WEBSERVER = "0.0.0.0"
+  
+  # Number of times to attempt cancellation before giving up.
+  CANCELLATION_TRIES = 3
+  # Commands are terminated with the following delimiter.
+  CMD_DELIM = ';'
+  # 有效的变量名格式
+  VALID_VAR_NAME_PATTERN = r'[A-Za-z][A-Za-z0-9_]*'
+  # SET命令前面会被移除掉的注释的匹配模式
+  COMMENTS_BEFORE_SET_PATTERN = r'^(\s*/\*(.|\n)*?\*/|\s*--.*\n)*\s*((un)?set)'
+  COMMENTS_BEFORE_SET_REPLACEMENT = r'\3'
+  
 
 shell = ImpalaShell(options, query_options)
 ```
