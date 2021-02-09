@@ -250,6 +250,23 @@ class ImpalaShell(object, cmd.Cmd):
     ...
     self._populate_command_list()  # 填充命令列表，每个命令 command 对应的方法名 do_<command>，可以在类目录中找到   self.commands = [cmd[3:] for cmd in dir(self.__class__) if cmd.startswith('do_')]
     ...
+    # 由于 readline 在 centos/rhel7 中有bug, 会导致控制字符的print。这会破坏非交互模式下的任何shell脚本的编写。因为非交互模式下不需要 readline - do not import it。
+    if options.query or options.query_file:
+      self.interactive = False
+      self._disable_readline()
+    else:
+      self.interactive = True
+      try:
+        self.readline = __import__('readline')
+        try:
+          self.readline.set_history_length(int(options.history_max))
+        except ValueError:
+          print_to_stderr("WARNING: history_max option malformed %s\n"
+            % options.history_max)
+          self.readline.set_history_length(1000)
+      except ImportError:
+        self._disable_readline()
+
     
 
 shell = ImpalaShell(options, query_options)
