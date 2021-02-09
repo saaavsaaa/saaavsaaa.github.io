@@ -229,6 +229,13 @@ class ImpalaShell(object, cmd.Cmd):
   DML_REGEX = re.compile("^(insert|upsert|update|delete)$", re.I)
   # 用于查询历史文件的分隔府.
   HISTORY_FILE_QUERY_DELIM = '_IMP_DELIM_'
+  # true 的四种写法 "true", "TRUE", "True", "1"
+  VALID_SHELL_OPTIONS = {
+    'LIVE_PROGRESS' : (lambda x: x in ("true", "TRUE", "True", "1"), "print_progress"),
+    'LIVE_SUMMARY' : (lambda x: x in ("true", "TRUE", "True", "1"), "print_summary")
+  }
+  # 两次执行 summary 之间的最小时间间隔，单位秒.
+  PROGRESS_UPDATE_INTERVAL = 1.0
 
 shell = ImpalaShell(options, query_options)
 ```
