@@ -253,7 +253,7 @@ class ImpalaShell(object, cmd.Cmd):
     # 由于 readline 在 centos/rhel7 中有bug, 会导致控制字符的print。这会破坏非交互模式下的任何shell脚本的编写。因为非交互模式下不需要 readline - do not import it。
     if options.query or options.query_file:
       self.interactive = False
-      self._disable_readline()
+      self._disable_readline()      #  self.readline = None 设置 readline 模块不可用.readline 模块用于跟踪命令的历史记录
     else:
       self.interactive = True
       try:
