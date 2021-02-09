@@ -35,7 +35,7 @@ TIPS=[
   "When you set a query option it lasts for the duration of the Impala shell session." 以上设置作用于当前会话
   ]
 ```
-解析查询语句，提取为utf-8；"""Parse query file text to extract queries and encode into utf-8"""
+解析查询语句，提取为utf-8；"""Parse query file text to extract queries and encode into utf-8"""：
 ```
 def parse_query_text(query_text, utf8_encode_policy='strict'):
   
@@ -45,7 +45,7 @@ def parse_query_text(query_text, utf8_encode_policy='strict'):
     query_list.pop()
   return query_list
 ```
-解析命令行中做为参数传递的变量
+解析命令行中做为参数传递的变量：
 ```
 def parse_variables(keyvals):
 ```
@@ -53,3 +53,13 @@ def parse_variables(keyvals):
 ```
 def execute_queries_non_interactive_mode(options, query_options):
 ```
+开始执行：
+```
+if __name__ == "__main__":
+  """
+  shell 和查询两类参数设置都可以在命令行设置，命令行设置的值优先级高于配置文件的(.impalarc). shell 默认在 impala_shell_config_defaults.py. 查询的默认在服务器端，它可以被 impala-shell 的  'set' 命令改写.
+  """
+  ```
+
+----
+[edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/impala_shell.md)
