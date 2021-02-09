@@ -1,8 +1,5 @@
-基本可以肯定是 # 导致的，因为 impala-shell 处理部分在 impala_shell.py 中，# 在 python 中是注释   
-
 which impala-shell   
-是个没有.sh 的 shell 文件
-
+是个没有.sh 的 shell 文件   
 ```
 echo ${SHELL_HOME}
 echo "${EGG_PATH}${SHELL_HOME}/gen-py:${SHELL_HOME}/lib:${PYTHONPATH}"
@@ -225,6 +222,13 @@ class ImpalaShell(object, cmd.Cmd):
   COMMENTS_BEFORE_SET_PATTERN = r'^(\s*/\*(.|\n)*?\*/|\s*--.*\n)*\s*((un)?set)'
   COMMENTS_BEFORE_SET_REPLACEMENT = r'\3'
   
+  # 变量名前缀
+  VAR_PREFIXES = [ 'VAR', 'HIVEVAR' ]
+  DEFAULT_DB = 'default'
+  # 匹配 DML .
+  DML_REGEX = re.compile("^(insert|upsert|update|delete)$", re.I)
+  # 用于查询历史文件的分隔府.
+  HISTORY_FILE_QUERY_DELIM = '_IMP_DELIM_'
 
 shell = ImpalaShell(options, query_options)
 ```
