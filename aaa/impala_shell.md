@@ -350,5 +350,55 @@ class ImpalaShell(object, cmd.Cmd):
 shell = ImpalaShell(options, query_options)
 ```
 
+
+
+
+
+
+
+
+
+```
+# Tarball / packaging build makes impala_build_version available
+try:
+  from impala_build_version import get_git_hash, get_build_date, get_version
+  VERSION_STRING = VERSION_FORMAT % {'version': get_version(),
+                                     'git_hash': get_git_hash()[:7],
+                                     'build_date': get_build_date()}
+except Exception:
+  pass
+
+class CmdStatus:
+  """Values indicate the execution status of a command to the cmd shell driver module
+  SUCCESS and ERROR continue running the shell and ABORT exits the shell
+  Since SUCCESS == None, successful commands do not need to explicitly return
+  anything on completion
+  """
+  SUCCESS = None
+  ABORT = True
+  ERROR = False
+
+class ImpalaPrettyTable(prettytable.PrettyTable):
+  """Patched version of PrettyTable that TODO"""
+  def _unicode(self, value):
+    if not isinstance(value, basestring):
+      value = str(value)
+    if not isinstance(value, unicode):
+      # If a value cannot be encoded, replace it with a placeholder.
+      value = unicode(value, self.encoding, "replace")
+    return value
+
+class QueryOptionLevels:
+  """These are the levels used when displaying query options.
+  The values correspond to the ones in TQueryOptionLevel"""
+  REGULAR = 0
+  ADVANCED = 1
+  DEVELOPMENT = 2
+  DEPRECATED = 3
+
+class QueryOptionDisplayModes:
+  REGULAR_OPTIONS_ONLY = 1
+  ALL_OPTIONS = 2
+```
 ----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/impala_shell.md)
