@@ -1,6 +1,7 @@
-which impala-shell
+基本可以肯定是 # 导致的，因为 impala-shell 处理部分在 impala_shell.py 中，# 在 python 中是注释   
 
-/data/xxx/cloudera/parcels/CDH/bin/impala-shell
+which impala-shell   
+是个没有.sh 的 shell 文件
 
 ```
 echo ${SHELL_HOME}
@@ -10,9 +11,7 @@ echo "${EGG_PATH}${SHELL_HOME}/gen-py:${SHELL_HOME}/lib:${PYTHONPATH}"
 /data/xxx/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/bin/../lib/impala-shell/ext-py/sqlparse-0.1.14-py2.7.egg:/data/xxx/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/bin/../lib/impala-shell/ext-py/sasl-0.1.1-py2.7-linux-x86_64.egg:/data/xxx/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/bin/../lib/impala-shell/ext-py/prettytable-0.7.1-py2.7.egg:/data/xxx/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/bin/../lib/impala-shell/gen-py:/data/xxx/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/bin/../lib/impala-shell/lib::/home/xxx/sp/pycommon:/home/xxx/sr/libs:/home/xxx/sp/pycommon:/home/xxx/sr/libs
 ```
 
-
-/data/sa_cluster/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/lib/impala-shell
-
+/data/xxx/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/lib/impala-shell/
 impala_shell.py
 
 ```
