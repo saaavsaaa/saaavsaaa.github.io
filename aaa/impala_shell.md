@@ -202,6 +202,43 @@ from option_parser import get_option_parser, get_config_from_file
 
   if options.refresh_after_connect:
     intro += REFRESH_AFTER_CONNECT_DEPRECATION_WARNING
+
+  shell = ImpalaShell(options, query_options)
+  while shell.is_alive:
+    try:    # 套了两层 try，外层只是清空介绍信息
+      try:
+        shell.cmdloop(intro)
+      except KeyboardInterrupt:
+        intro = '\n'
+      # A last measure against any exceptions thrown by an rpc
+      # not caught in the shell
+      except socket.error, (code, e):
+        # if the socket was interrupted, reconnect the connection with the client
+        if code == errno.EINTR:
+          print shell.CANCELLATION_MESSAGE
+          shell._reconnect_cancellation()
+        else:
+          print_to_stderr("Socket error %s: %s" % (code, e))
+          shell.imp_client.connected = False
+          shell.prompt = shell.DISCONNECTED_PROMPT
+      except DisconnectedException, e:
+        # the client has lost the connection
+        print_to_stderr(e)
+        shell.imp_client.connected = False
+        shell.prompt = shell.DISCONNECTED_PROMPT
+      except QueryStateException, e:
+        # an exception occurred while executing the query
+        shell.imp_client.close_query(shell.last_query_handle,
+                                     shell.query_handle_closed)
+        print_to_stderr(e)
+      except RPCException, e:
+        # could not complete the rpc successfully
+        print_to_stderr(e)
+      except IOError, e:
+        # Interrupted system calls (e.g. because of cancellation) should be ignored.
+        if e.errno != errno.EINTR: raise
+    finally:
+      intro = ''
 ```
 ImpalaShell:
 ```
@@ -344,10 +381,6 @@ class ImpalaShell(object, cmd.Cmd):
   def emptyline(self):
   def completenames(self, text, *ignored):
   def execute_query_list(self, queries):
-  
-  
-
-shell = ImpalaShell(options, query_options)
 ```
 
 
