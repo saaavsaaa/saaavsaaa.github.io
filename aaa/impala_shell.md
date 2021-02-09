@@ -246,7 +246,9 @@ class ImpalaShell(object, cmd.Cmd):
     # 用户输入不完整时，保存旧的状态
     self.cached_prompt = str()
     ...
-    self.progress_stream = OverwritingStdErrOutputStream()
+    self.progress_stream = OverwritingStdErrOutputStream()      # from shell_output import OverwritingStdErrOutputStream
+    ...
+    self._populate_command_list()  # 填充命令列表，每个命令 command 对应的方法名 do_<command>，可以在类目录中找到   self.commands = [cmd[3:] for cmd in dir(self.__class__) if cmd.startswith('do_')]
     ...
     
 
