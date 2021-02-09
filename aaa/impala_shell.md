@@ -1,17 +1,25 @@
 impala_shell.py
 
+```
+TIPS=[
   "Press TAB twice to see a list of available commands.",
+  
   "After running a query, type SUMMARY to see a summary of where time was spent.",
-  "The SET command shows the current value of all shell and query options.",
-  "To see live updates on a query's progress, run 'set LIVE_SUMMARY=1;'.",
-  "To see a summary of a query's progress that updates in real-time, run 'set \
-LIVE_PROGRESS=1;'.",
+  
+  "The SET command shows the current value of all shell and query options.",SET 查看所有 shell 和 查询可选设置的当前值
+  
+  "To see live updates on a query's progress, run 'set LIVE_SUMMARY=1;'.", 查看一个查询的进度
+  
+  "To see a summary of a query's progress that updates in real-time, run 'set LIVE_PROGRESS=1;'.", 一个查询的实时进度概要
+  
   "The HISTORY command lists all shell commands in chronological order.",
-  "The '-B' command line flag turns off pretty-printing for query results. Use this flag \
-to remove formatting from results you want to save for later, or to benchmark Impala.",
+  
+  "The '-B' command line flag turns off pretty-printing for query results. Use this flag to remove formatting from results you want to save for later, or to benchmark Impala.", 去除结果中的格式化
+
   "You can run a single query from the command line using the '-q' option.",
-  "When pretty-printing is disabled, you can use the '--output_delimiter' flag to set \
-the delimiter for fields in the same row. The default is ','.",
+  
+  "When pretty-printing is disabled, you can use the '--output_delimiter' flag to set the delimiter for fields in the same row. The default is ','.", 移除格式后的结果中字段的分隔府，默认逗号
+  
   "Run the PROFILE command after a query has finished to see a comprehensive summary of \
 all the performance and diagnostic information that Impala gathered for that query. Be \
 warned, it can be very long!",
@@ -25,3 +33,5 @@ command."
 EXPLAIN command. You can change the level of detail in the EXPLAIN output by setting the \
 EXPLAIN_LEVEL query option.",
   "When you set a query option it lasts for the duration of the Impala shell session."
+  ]
+```
