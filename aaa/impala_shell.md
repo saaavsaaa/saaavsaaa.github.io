@@ -236,6 +236,19 @@ class ImpalaShell(object, cmd.Cmd):
   }
   # 两次执行 summary 之间的最小时间间隔，单位秒.
   PROGRESS_UPDATE_INTERVAL = 1.0
+  
+  def __init__(self, options, query_options):
+    ... 各种初始化值
+    self.current_db = options.default_db
+    self.history_file = os.path.expanduser("~/.impalahistory")
+    # 遇到分隔符前保存用户输入状态
+    self.partial_cmd = str()
+    # 用户输入不完整时，保存旧的状态
+    self.cached_prompt = str()
+    ...
+    self.progress_stream = OverwritingStdErrOutputStream()
+    ...
+    
 
 shell = ImpalaShell(options, query_options)
 ```
