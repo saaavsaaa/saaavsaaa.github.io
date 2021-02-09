@@ -270,8 +270,9 @@ class ImpalaShell(object, cmd.Cmd):
     # impala_shell 自己处理 Ctrl-C, 在 handler 和 main shell 之间使用一个事件对象发送取消请求的信号
     signal.signal(signal.SIGINT, self._signal_handler)
   
-  # 各种 do_<command>：
   def do_shell(self, args):
+  def __do_dml(self, args): # Executes a DML query
+  # 各种 do_<command>：
   def do_summary(self, args):
   def do_set(self, args):
   def do_unset(self, args):
@@ -283,6 +284,20 @@ class ImpalaShell(object, cmd.Cmd):
   def do_drop(self, args):
   def do_load(self, args):
   def do_profile(self, args):
+  def do_select(self, args):
+  def do_compute(self, args):
+  def do_values(self, args):  # Executes a VALUES(...) query, fetching all rows
+  def do_with(self, args):
+  def do_use(self, args):
+  def do_show(self, args):
+  def do_describe(self, args):
+  def do_desc(self, args):
+  def do_explain(self, args):
+  def do_history(self, args):
+  def do_rerun(self, args):  # Rerun a command with an command index in history Example: @1;
+  def do_tip(self, args):
+  def do_src(self, args):
+  def do_source(self, args):
   
   
   # 各种检查清理 input 的方法
@@ -315,6 +330,13 @@ class ImpalaShell(object, cmd.Cmd):
   def _print_if_verbose(self, message):
   def print_runtime_profile(self, profile, status=False):
   def _parse_table_name_arg(self, arg):
+  def _format_outputstream(self):
+  def _periodic_wait_callback(self):
+  def _default_summary_table(self):     # self.construct_table_with_header(["Operator", "#Hosts", "Avg Time", "Max Time","#Rows", "Est. #Rows", "Peak Mem","Est. Peak Mem", "Detail"]
+  def _execute_stmt(self, query, is_dml=False, print_web_link=False):
+  def construct_table_with_header(self, column_names):
+  def preloop(self):
+  def postloop(self):
   
   
 
