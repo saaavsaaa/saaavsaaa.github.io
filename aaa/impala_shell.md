@@ -298,6 +298,7 @@ class ImpalaShell(object, cmd.Cmd):
   def do_tip(self, args):
   def do_src(self, args):
   def do_source(self, args):
+  def do_version(self, args):
   
   
   # 各种检查清理 input 的方法
@@ -337,6 +338,12 @@ class ImpalaShell(object, cmd.Cmd):
   def construct_table_with_header(self, column_names):
   def preloop(self):
   def postloop(self):
+  def parseline(self, line):
+  def _replace_history_delimiters(self, src_delim, tgt_delim):
+  def default(self, args):
+  def emptyline(self):
+  def completenames(self, text, *ignored):
+  def execute_query_list(self, queries):
   
   
 
