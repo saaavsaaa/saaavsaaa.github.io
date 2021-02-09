@@ -20,18 +20,18 @@ TIPS=[
   
   "When pretty-printing is disabled, you can use the '--output_delimiter' flag to set the delimiter for fields in the same row. The default is ','.", 移除格式后的结果中字段的分隔府，默认逗号
   
-  "Run the PROFILE command after a query has finished to see a comprehensive summary of \
-all the performance and diagnostic information that Impala gathered for that query. Be \
-warned, it can be very long!",
+  "Run the PROFILE command after a query has finished to see a comprehensive summary of all the performance and diagnostic information that Impala gathered for that query. Be warned, it can be very long!",
+  
   "To see more tips, run the TIP command.",
+  
   "Every command must be terminated by a ';'.",
-  "Want to know what version of Impala you're connected to? Run the VERSION command to \
-find out!",
-  "You can change the Impala daemon that you're connected to by using the CONNECT \
-command."
-  "To see how Impala will plan to run your query without actually executing it, use the \
-EXPLAIN command. You can change the level of detail in the EXPLAIN output by setting the \
-EXPLAIN_LEVEL query option.",
-  "When you set a query option it lasts for the duration of the Impala shell session."
+  
+  "Want to know what version of Impala you're connected to? Run the VERSION command to find out!",
+  
+  "You can change the Impala daemon that you're connected to by using the CONNECT command."
+  
+  "To see how Impala will plan to run your query without actually executing it, use the EXPLAIN command. You can change the level of detail in the EXPLAIN output by setting the EXPLAIN_LEVEL query option.", 可以修改 EXPLAIN_LEVEL 设置级别
+  
+  "When you set a query option it lasts for the duration of the Impala shell session." 以上设置作用于当前会话
   ]
 ```
