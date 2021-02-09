@@ -74,7 +74,7 @@ if __name__ == "__main__":
   """
   shell 和查询两类参数设置都可以在命令行设置，命令行设置的值优先级高于配置文件的(.impalarc). shell 默认在 impala_shell_config_defaults.py. 查询的默认在服务器端，它可以被 impala-shell 的  'set' 命令改写.
   """
-  ```
+```
 读配置参数：
 ```
 from impala_shell_config_defaults import impala_shell_defaults
@@ -109,7 +109,8 @@ from option_parser import get_option_parser, get_config_from_file
 
   parser = get_option_parser(impala_shell_defaults)
   options, args = parser.parse_args()
-``
+```
+
 一堆参数验证：
 ```
   if len(args) > 0:
@@ -185,7 +186,27 @@ from option_parser import get_option_parser, get_config_from_file
 
   options.variables = parse_variables(options.keyval)
 ```
+用命令行的设置盖掉 config file 的 query_options ，以及拼加欢迎信息：
+```
+  query_options.update(
+     [(k.upper(), v) for k, v in parse_variables(options.query_options).items()])
 
+  if options.query or options.query_file:
+    if options.print_progress or options.print_summary:
+      print_to_stderr("Error: Live reporting is available for interactive mode only.")
+      sys.exit(1)
+
+    execute_queries_non_interactive_mode(options, query_options)
+    sys.exit(0)
+
+  intro = WELCOME_STRING
+  if not options.ssl and options.creds_ok_in_clear and options.use_ldap:
+    intro += ("\n\nLDAP authentication is enabled, but the connection to Impala is "
+              "not secured by TLS.\nALL PASSWORDS WILL BE SENT IN THE CLEAR TO IMPALA.\n")
+
+  if options.refresh_after_connect:
+    intro += REFRESH_AFTER_CONNECT_DEPRECATION_WARNING
+```
 
 
 ----
