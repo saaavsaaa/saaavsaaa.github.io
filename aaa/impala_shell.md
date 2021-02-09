@@ -76,5 +76,19 @@ if __name__ == "__main__":
   """
   ```
 
+```
+from impala_shell_config_defaults import impala_shell_defaults
+from option_parser import get_option_parser, get_config_from_file
+# 默认配置
+parser = get_option_parser(impala_shell_defaults)
+options, args = parser.parse_args()
+# 用户指定配置文件 in config_file option
+user_config = os.path.expanduser(options.config_file);
+# by default, use the .impalarc in the home directory
+config_to_load = impala_shell_defaults.get("config_file")
+``
+
+
+
 ----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/impala_shell.md)
