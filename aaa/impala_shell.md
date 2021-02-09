@@ -269,7 +269,28 @@ class ImpalaShell(object, cmd.Cmd):
     ...
     # impala_shell 自己处理 Ctrl-C, 在 handler 和 main shell 之间使用一个事件对象发送取消请求的信号
     signal.signal(signal.SIGINT, self._signal_handler)
-    
+  
+  # 各种 do_<command>：
+  def do_shell(self, args):
+  
+  
+  # 各种检查清理 input 的方法
+  def _remove_comments_before_set(self, line):
+  def sanitise_input(self, args):
+  def _shlex_split(self, line):
+  def _cmd_ends_with_delim(self, line):
+  def _check_for_command_completion(self, cmd):
+  
+  
+  
+  def _print_options(self, print_mode):
+  def _get_query_option_grouping(self):
+  def _print_option_group(self, query_options):
+  def _print_variables(self):
+  def _print_shell_options(self):
+  def _create_beeswax_query(self, args):
+  def _new_impala_client(self):
+  def _signal_handler(self, signal, frame):
 
 shell = ImpalaShell(options, query_options)
 ```
