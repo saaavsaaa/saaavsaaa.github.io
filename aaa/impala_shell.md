@@ -35,3 +35,14 @@ TIPS=[
   "When you set a query option it lasts for the duration of the Impala shell session." 以上设置作用于当前会话
   ]
 ```
+
+```
+def parse_query_text(query_text, utf8_encode_policy='strict'):
+  """Parse query file text to extract queries and encode into utf-8"""
+  解析查询语句，提取为utf-8
+  query_list = [q.encode('utf-8', utf8_encode_policy) for q in sqlparse.split(query_text)]
+  # 清除注释，因为 sqlparse 只支持 识别 sql 语句前面的注释，后面的会当作 sql 一起执行
+  if query_list and not sqlparse.format(query_list[-1], strip_comments=True).strip("\n"):
+    query_list.pop()
+  return query_list
+```
