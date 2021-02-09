@@ -75,18 +75,116 @@ if __name__ == "__main__":
   shell 和查询两类参数设置都可以在命令行设置，命令行设置的值优先级高于配置文件的(.impalarc). shell 默认在 impala_shell_config_defaults.py. 查询的默认在服务器端，它可以被 impala-shell 的  'set' 命令改写.
   """
   ```
-
+读配置参数：
 ```
 from impala_shell_config_defaults import impala_shell_defaults
 from option_parser import get_option_parser, get_config_from_file
-# 默认配置
-parser = get_option_parser(impala_shell_defaults)
-options, args = parser.parse_args()
-# 用户指定配置文件 in config_file option
-user_config = os.path.expanduser(options.config_file);
-# by default, use the .impalarc in the home directory
-config_to_load = impala_shell_defaults.get("config_file")
+
+  # 默认配置
+  parser = get_option_parser(impala_shell_defaults)
+  options, args = parser.parse_args()
+  # 用户指定配置文件 in config_file option
+  user_config = os.path.expanduser(options.config_file);
+  # by default, use the .impalarc in the home directory
+  config_to_load = impala_shell_defaults.get("config_file")
+
+  # verify user_config, if found
+  if os.path.isfile(user_config) and user_config != config_to_load:
+    if options.verbose:
+      print_to_stderr("Loading in options from config file: %s \n" % user_config)
+    # Command line overrides loading ~/.impalarc
+    config_to_load = user_config
+  elif user_config != config_to_load:
+    print_to_stderr('%s not found.\n' % user_config)
+    sys.exit(1)
+
+  # 加载默认 impala_shell_config_defaults.py
+  # 覆盖 in config file
+  try:
+    loaded_shell_options, query_options = get_config_from_file(config_to_load)
+    impala_shell_defaults.update(loaded_shell_options)
+  except Exception, e:
+    print_to_stderr(e)
+    sys.exit(1)
+
+  parser = get_option_parser(impala_shell_defaults)
+  options, args = parser.parse_args()
 ``
+一堆参数验证：
+```
+  if len(args) > 0:
+    print_to_stderr('Error, could not parse arguments "%s"' % (' ').join(args))
+    parser.print_help()
+    sys.exit(1)
+
+  if options.version:
+    print VERSION_STRING
+    sys.exit(0)
+
+  if options.use_kerberos and options.use_ldap:
+    print_to_stderr("Please specify at most one authentication mechanism (-k or -l)")
+    sys.exit(1)
+
+  if not options.ssl and not options.creds_ok_in_clear and options.use_ldap:
+    print_to_stderr("LDAP credentials may not be sent over insecure " +
+                    "connections. Enable SSL or set --auth_creds_ok_in_clear")
+    sys.exit(1)
+
+  if not options.use_ldap and options.ldap_password_cmd:
+    print_to_stderr("Option --ldap_password_cmd requires using LDAP authentication " +
+                    "mechanism (-l)")
+    sys.exit(1)
+
+  if options.use_kerberos:
+    print_to_stderr("Starting Impala Shell using Kerberos authentication")
+    print_to_stderr("Using service name '%s'" % options.kerberos_service_name)
+    # Check if the user has a ticket in the credentials cache
+    try:
+      if call(['klist', '-s']) != 0:
+        print_to_stderr(("-k requires a valid kerberos ticket but no valid kerberos "
+                         "ticket found."))
+        sys.exit(1)
+    except OSError, e:
+      print_to_stderr('klist not found on the system, install kerberos clients')
+      sys.exit(1)
+  elif options.use_ldap:
+    print_to_stderr("Starting Impala Shell using LDAP-based authentication")
+  else:
+    print_to_stderr("Starting Impala Shell without Kerberos authentication")
+
+  options.ldap_password = None
+  if options.use_ldap and options.ldap_password_cmd:
+    try:
+      p = subprocess.Popen(shlex.split(options.ldap_password_cmd), stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE)
+      options.ldap_password, stderr = p.communicate()
+      if p.returncode != 0:
+        print_to_stderr("Error retrieving LDAP password (command was '%s', error was: "
+                        "'%s')" % (options.ldap_password_cmd, stderr.strip()))
+        sys.exit(1)
+    except Exception, e:
+      print_to_stderr("Error retrieving LDAP password (command was: '%s', exception "
+                      "was: '%s')" % (options.ldap_password_cmd, e))
+      sys.exit(1)
+
+  if options.ssl:
+    if options.ca_cert is None:
+      print_to_stderr("SSL is enabled. Impala server certificates will NOT be verified"\
+                      " (set --ca_cert to change)")
+    else:
+      print_to_stderr("SSL is enabled")
+
+  if options.output_file:
+    try:
+      # Make sure the given file can be opened for writing. This will also clear the file
+      # if successful.
+      open(options.output_file, 'wb')
+    except IOError, e:
+      print_to_stderr('Error opening output file for writing: %s' % e)
+      sys.exit(1)
+
+  options.variables = parse_variables(options.keyval)
+```
 
 
 
