@@ -207,7 +207,14 @@ from option_parser import get_option_parser, get_config_from_file
   if options.refresh_after_connect:
     intro += REFRESH_AFTER_CONNECT_DEPRECATION_WARNING
 ```
+ImpalaShell
+```
+基本的用法 connect <host:port> 连接 impalad. Tab自动显示可用命令.实现shell命令的方法返回a boolean tuple (stop, status)，其中stop是用于提示命令循环是否继续的标识；status 同志调用者成功完成执行。
+class ImpalaShell(object, cmd.Cmd): 
+...
 
+shell = ImpalaShell(options, query_options)
+```
 
 ----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/impala_shell.md)
