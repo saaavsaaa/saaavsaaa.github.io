@@ -272,6 +272,17 @@ class ImpalaShell(object, cmd.Cmd):
   
   # 各种 do_<command>：
   def do_shell(self, args):
+  def do_summary(self, args):
+  def do_set(self, args):
+  def do_unset(self, args):
+  def do_quit(self, args):
+  def do_exit(self, args):
+  def do_connect(self, args):
+  def do_alter(self, args):
+  def do_create(self, args):
+  def do_drop(self, args):
+  def do_load(self, args):
+  def do_profile(self, args):
   
   
   # 各种检查清理 input 的方法
@@ -282,7 +293,7 @@ class ImpalaShell(object, cmd.Cmd):
   def _check_for_command_completion(self, cmd):
   
   
-  
+  # 脚手架？
   def _print_options(self, print_mode):
   def _get_query_option_grouping(self):
   def _print_option_group(self, query_options):
@@ -291,6 +302,21 @@ class ImpalaShell(object, cmd.Cmd):
   def _create_beeswax_query(self, args):
   def _new_impala_client(self):
   def _signal_handler(self, signal, frame):
+  def _replace_variables(self, query): 用对应的值替换查询语句中的变量
+  def precmd(self, args):
+  def onecmd(self, line):
+  def postcmd(self, status, args): status向shell传递shell应该如何继续执行，并且始终为CmdStatus
+  def _handle_shell_options(self, token, value):
+  def _get_var_name(self, name):
+  def _print_with_set(self, print_level):
+  def _connect(self):
+  def _reconnect_cancellation(self):
+  def _validate_database(self, immediately=False):
+  def _print_if_verbose(self, message):
+  def print_runtime_profile(self, profile, status=False):
+  def _parse_table_name_arg(self, arg):
+  
+  
 
 shell = ImpalaShell(options, query_options)
 ```
