@@ -210,8 +210,7 @@ from option_parser import get_option_parser, get_config_from_file
         shell.cmdloop(intro)
       except KeyboardInterrupt:
         intro = '\n'
-      # A last measure against any exceptions thrown by an rpc
-      # not caught in the shell
+      # 最后捕获未在 shell 中捕获的 rpc 抛出的异常
       except socket.error, (code, e):
         # if the socket was interrupted, reconnect the connection with the client
         if code == errno.EINTR:
@@ -222,12 +221,12 @@ from option_parser import get_option_parser, get_config_from_file
           shell.imp_client.connected = False
           shell.prompt = shell.DISCONNECTED_PROMPT
       except DisconnectedException, e:
-        # the client has lost the connection
+        # 如果 socket 中断，重新与客户端建立连接
         print_to_stderr(e)
         shell.imp_client.connected = False
         shell.prompt = shell.DISCONNECTED_PROMPT
       except QueryStateException, e:
-        # an exception occurred while executing the query
+        # 执行查询时出现异常
         shell.imp_client.close_query(shell.last_query_handle,
                                      shell.query_handle_closed)
         print_to_stderr(e)
@@ -235,7 +234,7 @@ from option_parser import get_option_parser, get_config_from_file
         # could not complete the rpc successfully
         print_to_stderr(e)
       except IOError, e:
-        # Interrupted system calls (e.g. because of cancellation) should be ignored.
+        # 忽略系统中断(例如因为取消)造成的异常
         if e.errno != errno.EINTR: raise
     finally:
       intro = ''
