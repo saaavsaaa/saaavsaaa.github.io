@@ -320,7 +320,12 @@ class ImpalaShell(object, cmd.Cmd):
   def do_drop(self, args):
   def do_load(self, args):
   def do_profile(self, args):
+  
   def do_select(self, args):
+    # 执行 select 查询，获取所有返回行， args：例如 count(*) from db.table
+    query = self._create_beeswax_query(args)
+    return self._execute_stmt(query, print_web_link=True)
+
   def do_compute(self, args):
   def do_values(self, args):  # Executes a VALUES(...) query, fetching all rows
   def do_with(self, args):
