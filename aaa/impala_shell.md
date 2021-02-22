@@ -351,6 +351,10 @@ class ImpalaShell(object, cmd.Cmd):
   
   # 脚手架？
   def __do_dml(self, args):
+    """Executes a DML query"""
+    query = self._create_beeswax_query(args)
+    return self._execute_stmt(query, is_dml=True, print_web_link=True)
+
   def _print_options(self, print_mode):
   def _get_query_option_grouping(self):
   def _print_option_group(self, query_options):
