@@ -316,7 +316,7 @@ class ImpalaShell(object, cmd.Cmd):
   def do_exit(self, args):
   def do_connect(self, args):  
     # 位指定连接串时默认连接本地impalad.连接kerberized impalad需指定全限定域名 fqdn 作主机名
-    # from impala_client import (ImpalaClient, DisconnectedException, QueryStateException, RPCException, TApplicationException) github:Impala-cdh(版本号)x.x.x/shell/impala_client.py
+    # from impala_client import (ImpalaClient, DisconnectedException, QueryStateException, RPCException, TApplicationException) 参考: [impala_client.py](https://github.com/cloudera/Impala/blob/cdh6.3.0/shell/impala_client.py) 
     # 初始化 imp_client self.imp_client = self._new_impala_client()
     
   def do_alter(self, args):
