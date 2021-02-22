@@ -328,6 +328,10 @@ class ImpalaShell(object, cmd.Cmd):
   def do_show(self, args):
   def do_describe(self, args):
   def do_desc(self, args):
+  def do_upsert(self, args):  # def __do_dml(self, args):
+  def do_update(self, args):  # def __do_dml(self, args):
+  def do_delete(self, args):  # def __do_dml(self, args):
+  def do_insert(self, args):  # def __do_dml(self, args):
   def do_explain(self, args):
   def do_history(self, args):
   def do_rerun(self, args):  # Rerun a command with an command index in history Example: @1;
@@ -346,6 +350,7 @@ class ImpalaShell(object, cmd.Cmd):
   
   
   # 脚手架？
+  def __do_dml(self, args):
   def _print_options(self, print_mode):
   def _get_query_option_grouping(self):
   def _print_option_group(self, query_options):
