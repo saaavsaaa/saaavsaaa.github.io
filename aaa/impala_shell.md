@@ -365,7 +365,7 @@ class ImpalaShell(object, cmd.Cmd):
   def _print_option_group(self, query_options):
   def _print_variables(self):
   def _print_shell_options(self):
-  def _create_beeswax_query(self, args):
+  def _create_beeswax_query(self, args):  # 运行前保存命令，通常用于 do_* 方法，保存在 precmd() self.imp_client.create_beeswax_query("%s %s" % (command, args), self.set_query_options)
   def _new_impala_client(self):
   def _signal_handler(self, signal, frame):
   def _replace_variables(self, query): 用对应的值替换查询语句中的变量
