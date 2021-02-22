@@ -314,7 +314,9 @@ class ImpalaShell(object, cmd.Cmd):
   def do_unset(self, args):
   def do_quit(self, args):
   def do_exit(self, args):
-  def do_connect(self, args):
+  def do_connect(self, args):  
+    # 初始化 imp_client self.imp_client = self._new_impala_client()
+    
   def do_alter(self, args):
   def do_create(self, args):
   def do_drop(self, args):
