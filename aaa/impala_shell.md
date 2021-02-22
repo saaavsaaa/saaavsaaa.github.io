@@ -315,6 +315,7 @@ class ImpalaShell(object, cmd.Cmd):
   def do_quit(self, args):
   def do_exit(self, args):
   def do_connect(self, args):  
+    # 位指定连接串时默认连接本地impalad.连接kerberized impalad需指定全限定域名 fqdn 作主机名
     # 初始化 imp_client self.imp_client = self._new_impala_client()
     
   def do_alter(self, args):
