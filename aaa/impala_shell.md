@@ -455,5 +455,27 @@ class QueryOptionDisplayModes:
   REGULAR_OPTIONS_ONLY = 1
   ALL_OPTIONS = 2
 ```
+
+
+
+
+
+
+
+----
+impala_client.py
+```
+from beeswaxd import BeeswaxService
+
+  def create_beeswax_query(self, query_str, set_query_options):
+    """Create a beeswax query object from a query string"""
+    query = BeeswaxService.Query()
+    query.hadoop_user = self.user
+    query.query = query_str
+    query.configuration = self._options_to_string_list(set_query_options)
+    return query
+```
+
+
 ----
 [edit](https://github.com/saaavsaaa/saaavsaaa.github.io/edit/master/aaa/impala_shell.md)
