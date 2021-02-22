@@ -9,7 +9,7 @@ echo "${EGG_PATH}${SHELL_HOME}/gen-py:${SHELL_HOME}/lib:${PYTHONPATH}"
 ```
 
 /data/xxx/cloudera/parcels/CDH-5.14.4-1.cdh5.14.4.p0.3/lib/impala-shell/
-impala_shell.py
+[impala_shell.py](https://github.com/cloudera/Impala/blob/cdh6.3.0/shell/impala_shell.py)
 
 ```
 TIPS=[
@@ -317,7 +317,7 @@ class ImpalaShell(object, cmd.Cmd):
   def do_connect(self, args):  
     # 位指定连接串时默认连接本地impalad.连接kerberized impalad需指定全限定域名 fqdn 作主机名
     # from impala_client import (ImpalaClient, DisconnectedException, QueryStateException, RPCException, TApplicationException) 
-    # 参考:https://github.com/cloudera/Impala/blob/cdh6.3.0/shell/impala_client.py
+    # (./lib/impala_client.py) 参见:https://github.com/cloudera/Impala/blob/cdh6.3.0/shell/impala_client.py
     # 初始化 imp_client self.imp_client = self._new_impala_client()
     
   def do_alter(self, args):
