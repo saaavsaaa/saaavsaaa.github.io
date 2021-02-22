@@ -328,7 +328,7 @@ class ImpalaShell(object, cmd.Cmd):
   
   def do_select(self, args):
     # 执行 select 查询，获取所有返回行， args：例如 count(*) from db.table
-    query = self._create_beeswax_query(args)
+    query = self._create_beeswax_query(args)   # query BeeswaxService.Query() 例如: Query(query='select count(*) from db.table', configuration=[], hadoop_user='aaa')
     return self._execute_stmt(query, print_web_link=True)
 
   def do_compute(self, args):
