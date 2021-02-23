@@ -1,0 +1,14 @@
+清理历史分区的时候发现有一个带编码字符的：
+ts=20200921
+ts=20200922%0D
+ts=20200925
+
+百度%0D得知是换行，creturn
+试验了各种百度上的办法不行
+并且自己写了各种生成%0D对应字符的shell脚本，并没有什么效果
+最后想，反正暂时只留最后一个分区就可以，并不影响使用
+于是：hive --database ods -S -e "alter table edw.******** drop partition(ts!='20200925');"
+
+hive 表创建时，如果表备注中有"#"（暂时只发现井号），在 impala 中进行 invalidate metadata 或 refresh 后也无法访问 impala 表，会报错说数据版本不对，推测时由于 [impala-shell](https://github.com/saaavsaaa/saaavsaaa.github.io/blob/master/aaa/impala_shell.md) 是python 开发的并且没有对注释符号做特殊处理导致的，正在确认，后续如果有结果或改正再补充
+
+hive 表在被使用时，无法用 sqoop 导数据，由于表上有锁，只能等锁被释放，后续的导数据或insert才会依次执行。show locks [table_name];unlock table table_name;unlock table table_name partition(aaa='***'); ock table table_name exclusive ;
