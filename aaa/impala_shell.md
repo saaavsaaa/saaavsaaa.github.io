@@ -395,6 +395,7 @@ class ImpalaShell(object, cmd.Cmd):
   def _default_summary_table(self):     # self.construct_table_with_header(["Operator", "#Hosts", "Avg Time", "Max Time","#Rows", "Est. #Rows", "Peak Mem","Est. Peak Mem", "Detail"]
   def _execute_stmt(self, query, is_dml=False, print_web_link=False):
     # 执行查询逻辑。客户端执行查询，在开始执行的同时返回query_handle。如果查询不是dml，当结果流式输入时，通过使用生成器从客户端获取结果。打印执行时间，如果执行未完成，关闭查询?。The execution time is printed and the query is closed if it hasn't been already
+    self.last_query_handle = self.imp_client.execute_query(query)     # imp_service.query(query) 参见结尾处;ImpalaService.Client(protocol)
   
   def construct_table_with_header(self, column_names):
   def preloop(self):
@@ -476,6 +477,40 @@ from beeswaxd import BeeswaxService
     query.query = query_str
     query.configuration = self._options_to_string_list(set_query_options)
     return query
+
+  def execute_query(self, query):
+    self.is_query_cancelled = False
+    rpc_result = self._do_rpc(lambda: self.imp_service.query(query))
+    last_query_handle, status = rpc_result
+    if status != RpcStatus.OK:
+      raise RPCException("Error executing the query")
+    return last_query_handle
+
+  def connect(self):
+    """Creates a connection to an Impalad instance
+
+    The instance of the impala service is then pinged to
+    test the connection and get back the server version
+    """
+    if self.transport is not None:
+      self.transport.close()
+      self.transport = None
+
+    self.connected = False
+    sock, self.transport = self._get_socket_and_transport()
+    if self.client_connect_timeout_ms > 0:
+      sock.setTimeout(self.client_connect_timeout_ms)
+    self.transport.open()
+    if self.verbose:
+      print_to_stderr('Opened TCP connection to %s:%s' % (self.impalad_host,
+          self.impalad_port))
+    # Setting a timeout of None disables timeouts on sockets
+    sock.setTimeout(None)
+    protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
+    self.imp_service = ImpalaService.Client(protocol)
+    result = self.ping_impala_service()
+    self.connected = True
+    return result
 ```
 
 
