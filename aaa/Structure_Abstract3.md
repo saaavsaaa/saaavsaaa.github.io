@@ -35,6 +35,11 @@ indexOf(P)  索引接口，之后大量讨论它的高效实现
 ```
 #### 串匹配
 记 n = |T| (全部文本的长度) 和 m = |P| (待从全部文本中找出的目标长度，不可视为常数)，通常有 n >> m >> 2(常数)   //比如，100,000 >> 100 >> 2   
+Pattern matching 的几个层次：   
+detection : P是否出现?
+location : 首次在哪里出现?    //本章主要讨论的问题   
+counting : 共有几次出现?      // find /c "2013" students.txt   
+enumeration : 各出现在哪里?   //find "2013" students.txt   
 
 
 
