@@ -395,7 +395,7 @@ class ImpalaShell(object, cmd.Cmd):
   def _default_summary_table(self):     # self.construct_table_with_header(["Operator", "#Hosts", "Avg Time", "Max Time","#Rows", "Est. #Rows", "Peak Mem","Est. Peak Mem", "Detail"]
   def _execute_stmt(self, query, is_dml=False, print_web_link=False):
     # 执行查询逻辑。客户端执行查询，在开始执行的同时返回query_handle。如果查询不是dml，当结果流式输入时，通过使用生成器从客户端获取结果。打印执行时间，如果执行未完成，关闭查询?。The execution time is printed and the query is closed if it hasn't been already
-    self.last_query_handle = self.imp_client.execute_query(query)     # imp_service.query(query) 参见结尾处;ImpalaService.Client(protocol)  ImpalaService代码由thrift生成，其中 Client 继承了 beeswaxd.BeeswaxService.Client, Iface
+    self.last_query_handle = self.imp_client.execute_query(query)     # imp_service.query(query) 参见结尾处;ImpalaService.Client(protocol)  ImpalaService 代码由thrift 生成，可以在 gen-py 下找到，它的 Client 继承了 beeswaxd.BeeswaxService.Client, Iface，BeeswaxService 同样由 thrift 生成，参见结尾处
   
   def construct_table_with_header(self, column_names):
   def preloop(self):
@@ -511,6 +511,22 @@ from beeswaxd import BeeswaxService
     result = self.ping_impala_service()
     self.connected = True
     return result
+```
+BeeswaxService.py
+```
+class Client(Iface):
+  def query(self, query):
+    # 提交查询并返回句柄(QueryHandle)，异步运行
+    self.send_query(query)
+    return self.recv_query()
+
+  def send_query(self, query):
+    self._oprot.writeMessageBegin('query', TMessageType.CALL, self._seqid)
+    args = query_args()
+    args.query = query
+    args.write(self._oprot)
+    self._oprot.writeMessageEnd()
+    self._oprot.trans.flush()
 ```
 
 
