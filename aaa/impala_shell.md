@@ -507,10 +507,68 @@ from beeswaxd import BeeswaxService
     # Setting a timeout of None disables timeouts on sockets
     sock.setTimeout(None)
     protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
-    self.imp_service = ImpalaService.Client(protocol)
+    self.imp_service = ImpalaService.Client(protocol)     # BeeswaxService.py
     result = self.ping_impala_service()
     self.connected = True
     return result
+
+  def _get_socket_and_transport(self):
+    """Create a Transport.
+
+       A non-kerberized impalad just needs a simple buffered transport. For
+       the kerberized version, a sasl transport is created.
+
+       If SSL is enabled, a TSSLSocket underlies the transport stack; otherwise a TSocket
+       is used.
+       This function returns the socket and the transport object.
+    """
+    if self.use_ssl:
+      # TSSLSocket needs the ssl module, which may not be standard on all Operating
+      # Systems. Only attempt to import TSSLSocket if the user wants an SSL connection.
+      from TSSLSocketWithWildcardSAN import TSSLSocketWithWildcardSAN
+
+    # sasl does not accept unicode strings, explicitly encode the string into ascii.
+    # The kerberos_host_fqdn option exposes the SASL client's hostname attribute to
+    # the user. impala-shell checks to ensure this host matches the host in the kerberos
+    # principal. So when a load balancer is configured to be used, its hostname is expected by
+    # impala-shell. Setting this option to the load balancer hostname allows impala-shell to
+    # connect directly to an impalad.
+    if self.kerberos_host_fqdn is not None:
+      sasl_host = self.kerberos_host_fqdn.split(':')[0].encode('ascii', 'ignore')
+    else:
+      sasl_host = self.impalad_host
+
+    # Always use the hostname and port passed in to -i / --impalad as the host for the purpose of
+    # creating the actual socket.
+    sock_host = self.impalad_host
+    sock_port = self.impalad_port
+    if self.use_ssl:
+      if self.ca_cert is None:
+        # No CA cert means don't try to verify the certificate
+        sock = TSSLSocketWithWildcardSAN(sock_host, sock_port, validate=False)
+      else:
+        sock = TSSLSocketWithWildcardSAN(sock_host, sock_port, validate=True, ca_certs=self.ca_cert)
+    else:
+      sock = TSocket(sock_host, sock_port)
+    if not (self.use_ldap or self.use_kerberos):
+      return sock, TBufferedTransport(sock)
+
+    # Initializes a sasl client
+    def sasl_factory():
+      sasl_client = sasl.Client()
+      sasl_client.setAttr("host", sasl_host)
+      if self.use_ldap:
+        sasl_client.setAttr("username", self.user)
+        sasl_client.setAttr("password", self.ldap_password)
+      else:
+        sasl_client.setAttr("service", self.kerberos_service_name)
+      sasl_client.init()
+      return sasl_client
+    # GSSASPI is the underlying mechanism used by kerberos to authenticate.
+    if self.use_kerberos:
+      return sock, TSaslClientTransport(sasl_factory, "GSSAPI", sock)
+    else:
+      return sock, TSaslClientTransport(sasl_factory, "PLAIN", sock)
 ```
 BeeswaxService.py
 ```
