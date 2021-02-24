@@ -1,6 +1,5 @@
 gdb ./ccccc       r(:run)p[option: args]      bt(:backtrace)     up/down(:step backtrace)/p arg(:print arg)        br filename:line_num (:set breakpoint)            n(:single step pass)   s(:one step in)       finish(:to the return)     list [option: line_number](:list code)         info locals(:local arg)    p var_(:print variable)      info breakpoints(:list all breakpoints)   delete breakpoints         break ... if ... (:condition interrupt)   until line(:go to line)   https://gcc.gnu.org/onlinedocs/gcc-5.1.0/gcc/Function-Specific-Option-Pragmas.html#Function-Specific-Option-Pragmas                  
-
-gcore   
+gcore [-o filename] pid;gdb -c core_file program_binary;gdb:thread find thread_id (查找对应线程id在gdb中的线程编号)，thread id (跳到对应编号的线程)   
 cat cols.txt |tr "\n" ","   |sed -e 's/,$/\n/'   
 cat cols.txt |awk '{print $1}'|xargs |sed 's/ /,/g'                
 jobs -l   
