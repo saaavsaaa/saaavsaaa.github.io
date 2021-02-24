@@ -56,7 +56,7 @@ enumeration : 各出现在哪里?   //find "2013" students.txt
 首次在哪里出现，两种蛮力匹配实现方法：
 ```
 版本一：
-用 T[i - j , i - j + m ) 匹配 P[0 , m )，每次从 i-j 位置开始匹配，j 是滑动指针，每匹配一次 i 自增1。
+在 T[i - j , i - j + m ) 中匹配 P[0 , m)，每次从 i-j 位置开始匹配，j 是滑动指针，每匹配一次 i 自增1。
 int match( char * P, char * T ) {
   size_t n = strlen(T), i = 0;
   size_t m = strlen(P), j = 0;
@@ -67,18 +67,17 @@ int match( char * P, char * T ) {
 } // 当 j 不小于 m，则匹配成功跳出循环。i 不小于 n 时，匹配失败循环借宿。i 的最大值是 n - 1，j 的最大值是 m - 1。i、j 都止步于 n - 1 时在结尾匹配成功，此时 i - j = n - m；任意匹配成功的情况 j 都等于 m - 1，而 i 都小于等于 n - 1，所以 i - j ≤ n - m 是匹配成功，i - j ＞ n - m 时匹配失败。
 
 版本二：
-P[。 , m )T[i , i +m )
+在 T[i , i + m) 中查找 P[0, m)，T 的起始索引 i，每次匹配 T 的第 i + j 位置的元素
 int match( char * P,char * T ){
   size_t n = strlen(T), i = 0;    //T[i]与P[0]对齐
   size_t m = strlen(P), j;        //T[i + j]与P[j]对齐
   for ( i = 0; i < n - m + 1; i ++) {     //T从第i个字符起，与
     for ( j = 0; j < m; j++)              //P中对应的字符逐个比对
-      if ( T[i+ j] != p ) break;      //若失配，P整体右移一个字符，重新比对
+      if ( T[i + j] != p[j] ) break;      //若失配，P整体右移一个字符，重新比对
     if ( m <= j ) break;      //找到匹配子串
   }
   return i;
-} //如何通过返回值，判断匹配结果?
-
+} // i ≤ n - m 成功；i > n - m 则失败。
 ```
 
 
