@@ -466,7 +466,7 @@ class QueryOptionDisplayModes:
 
 
 ----
-impala_client.py
+[impala_client.py](https://github.com/cloudera/Impala/blob/cdh6.3.0/shell/impala_client.py)
 ```
 from beeswaxd import BeeswaxService
 
@@ -488,83 +488,14 @@ from beeswaxd import BeeswaxService
 
   def connect(self):
     # 创建到 Impalad 实例的连接，然后ping impala service的实例测试连接是否成功，并获取服务器版本(ps -aux | grep impalad，impalad-main.cc)
-    if self.transport is not None:
-      self.transport.close()
-      self.transport = None
-
-    self.connected = False
+    ......
     sock, self.transport = self._get_socket_and_transport()
-    if self.client_connect_timeout_ms > 0:
-      sock.setTimeout(self.client_connect_timeout_ms)
-    self.transport.open()
-    if self.verbose:
-      print_to_stderr('Opened TCP connection to %s:%s' % (self.impalad_host,
-          self.impalad_port))
-    # Setting a timeout of None disables timeouts on sockets
-    sock.setTimeout(None)
+    ......
     protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
     self.imp_service = ImpalaService.Client(protocol)     # BeeswaxService.py
     result = self.ping_impala_service()
     self.connected = True
     return result
-
-  def _get_socket_and_transport(self):
-    """Create a Transport.
-
-       A non-kerberized impalad just needs a simple buffered transport. For
-       the kerberized version, a sasl transport is created.
-
-       If SSL is enabled, a TSSLSocket underlies the transport stack; otherwise a TSocket
-       is used.
-       This function returns the socket and the transport object.
-    """
-    if self.use_ssl:
-      # TSSLSocket needs the ssl module, which may not be standard on all Operating
-      # Systems. Only attempt to import TSSLSocket if the user wants an SSL connection.
-      from TSSLSocketWithWildcardSAN import TSSLSocketWithWildcardSAN
-
-    # sasl does not accept unicode strings, explicitly encode the string into ascii.
-    # The kerberos_host_fqdn option exposes the SASL client's hostname attribute to
-    # the user. impala-shell checks to ensure this host matches the host in the kerberos
-    # principal. So when a load balancer is configured to be used, its hostname is expected by
-    # impala-shell. Setting this option to the load balancer hostname allows impala-shell to
-    # connect directly to an impalad.
-    if self.kerberos_host_fqdn is not None:
-      sasl_host = self.kerberos_host_fqdn.split(':')[0].encode('ascii', 'ignore')
-    else:
-      sasl_host = self.impalad_host
-
-    # Always use the hostname and port passed in to -i / --impalad as the host for the purpose of
-    # creating the actual socket.
-    sock_host = self.impalad_host
-    sock_port = self.impalad_port
-    if self.use_ssl:
-      if self.ca_cert is None:
-        # No CA cert means don't try to verify the certificate
-        sock = TSSLSocketWithWildcardSAN(sock_host, sock_port, validate=False)
-      else:
-        sock = TSSLSocketWithWildcardSAN(sock_host, sock_port, validate=True, ca_certs=self.ca_cert)
-    else:
-      sock = TSocket(sock_host, sock_port)
-    if not (self.use_ldap or self.use_kerberos):
-      return sock, TBufferedTransport(sock)
-
-    # Initializes a sasl client
-    def sasl_factory():
-      sasl_client = sasl.Client()
-      sasl_client.setAttr("host", sasl_host)
-      if self.use_ldap:
-        sasl_client.setAttr("username", self.user)
-        sasl_client.setAttr("password", self.ldap_password)
-      else:
-        sasl_client.setAttr("service", self.kerberos_service_name)
-      sasl_client.init()
-      return sasl_client
-    # GSSASPI is the underlying mechanism used by kerberos to authenticate.
-    if self.use_kerberos:
-      return sock, TSaslClientTransport(sasl_factory, "GSSAPI", sock)
-    else:
-      return sock, TSaslClientTransport(sasl_factory, "PLAIN", sock)
 ```
 BeeswaxService.py
 ```
@@ -582,6 +513,22 @@ class Client(Iface):
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
 
+  def recv_query(self, ):
+    (fname, mtype, rseqid) = self._iprot.readMessageBegin()
+    if mtype == TMessageType.EXCEPTION:
+      x = TApplicationException()
+      x.read(self._iprot)
+      self._iprot.readMessageEnd()
+      raise x
+    result = query_result()
+    result.read(self._iprot)
+    self._iprot.readMessageEnd()
+    if result.success is not None:
+      return result.success
+    if result.error is not None:
+      raise result.error
+    raise TApplicationException(TApplicationException.MISSING_RESULT, "query failed: unknown result");
+
 class query_args:
   def write(self, oprot):
     if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
@@ -594,6 +541,65 @@ class query_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
+
+class query_result:
+  """
+  Attributes:
+   - success
+   - error
+  """
+
+  thrift_spec = (
+    (0, TType.STRUCT, 'success', (QueryHandle, QueryHandle.thrift_spec), None, ), # 0
+    (1, TType.STRUCT, 'error', (BeeswaxException, BeeswaxException.thrift_spec), None, ), # 1
+  )
+
+  def __init__(self, success=None, error=None,):
+    self.success = success
+    self.error = error
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 0:
+        if ftype == TType.STRUCT:
+          self.success = QueryHandle()
+          self.success.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
+        if ftype == TType.STRUCT:
+          self.error = BeeswaxException()
+          self.error.read(iprot)
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('query_result')
+    if self.success is not None:
+      oprot.writeFieldBegin('success', TType.STRUCT, 0)
+      self.success.write(oprot)
+      oprot.writeFieldEnd()
+    if self.error is not None:
+      oprot.writeFieldBegin('error', TType.STRUCT, 1)
+      self.error.write(oprot)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
 ```
 
 
