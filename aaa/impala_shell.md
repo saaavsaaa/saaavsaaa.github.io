@@ -487,7 +487,7 @@ from beeswaxd import BeeswaxService
     return last_query_handle
 
   def connect(self):
-    # 创建到 Impalad 实例的连接，然后ping impala service的实例测试连接是否成功，并获取服务器版本
+    # 创建到 Impalad 实例的连接，然后ping impala service的实例测试连接是否成功，并获取服务器版本(ps -aux | grep impalad，impalad-main.cc)
     if self.transport is not None:
       self.transport.close()
       self.transport = None
