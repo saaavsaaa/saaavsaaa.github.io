@@ -405,7 +405,38 @@ class ImpalaShell(object, cmd.Cmd):
       wait_to_finish = self.imp_client.wait_to_finish(self.last_query_handle, self._periodic_wait_callback)
       # Reset 进度 stream.
       self.progress_stream.clear()
-  
+      
+      if is_dml:
+        # retrieve the error log
+        warning_log = self.imp_client.get_warning_log(self.last_query_handle)
+        (num_rows, num_row_errors) = self.imp_client.close_dml(self.last_query_handle)
+      else:
+        # impalad 不支持某型查询类型的元数据获取
+        if not self.imp_client.expect_result_metadata(query.query):
+          # Close the query
+          self.imp_client.close_query(self.last_query_handle)
+          self.query_handle_closed = True
+          return CmdStatus.SUCCESS
+
+        self._format_outputstream()
+        # fetch 返回一个生成器
+        rows_fetched = self.imp_client.fetch(self.last_query_handle)
+        num_rows = 0
+
+        for rows in rows_fetched:
+          # IMPALA-4418: 中断循环以防止打印不必要的空行。
+          if len(rows) == 0:
+            break
+          self.output_stream.write(rows)
+          num_rows += len(rows)
+          
+        warning_log = self.imp_client.get_warning_log(self.last_query_handle)
+
+      end_time = time.time()
+
+
+
+
   def construct_table_with_header(self, column_names):
   def preloop(self):
   def postloop(self):
