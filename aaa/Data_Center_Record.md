@@ -9,7 +9,24 @@ ts=20200925
 最后想，反正暂时只留最后一个分区就可以，并不影响使用
 于是：hive --database ods -S -e "alter table edw.******** drop partition(ts!='20200925');"
 
-hive 表创建时，如果表备注中有"#"（暂时只发现井号），在 impala 中进行 invalidate metadata 或 refresh 后也无法访问 impala 表，会报错说数据版本不对，推测时由于 [impala-shell](https://github.com/saaavsaaa/saaavsaaa.github.io/blob/master/aaa/impala_shell.md) 是python 开发的并且没有对注释符号做特殊处理导致的，正在确认，后续如果有结果或改正再补充
+hive 表创建时，如果表备注中有"# �"（暂时发现去掉这两个就好了），在 impala 中进行 invalidate metadata 或 refresh 后也无法访问 impala 表，会报错说数据版本不对，[impala-shell](https://github.com/saaavsaaa/saaavsaaa.github.io/blob/master/aaa/impala_shell.md) 
+
+在 [impala_client.py](https://github.com/cloudera/Impala/blob/cdh6.3.0/shell/impala_client.py) 的 wait_to_finish 方法中 print 出以下结果（while true 轮询 impalad）。
+
+self.query_state ================{'EXCEPTION': 5, 'CREATED': 0, 'COMPILED': 2, 'FINISHED': 4, 'RUNNING': 3, 'INITIALIZED': 1}
+wait_to_finish================= 2
+wait_to_finish================= 3
+wait_to_finish================= 5
+
+其中 get_query_state 方法主要调用 imp_service.get_state(last_query_handle)，通过 BeeswaxService.py 的
+  def get_state(self, handle):
+    self.send_get_state(handle)
+    return self.recv_get_state()
+方法，借助 thrift 的协议，从 impalad 获取状态。
+
+WARNINGS: File 'hdfs://nameservice01/user/hive/warehouse/edw.db/error_table/000027_0' has an invalid version number: �
+This could be due to stale metadata. Try running "refresh edw.error_table".
+
 报错与未执行 refresh 差不多
 ```
 Query: SELECT count(*) FROM table
