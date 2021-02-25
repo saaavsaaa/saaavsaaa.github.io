@@ -23,6 +23,10 @@ wait_to_finish================= 5
     self.send_get_state(handle)
     return self.recv_get_state()
 方法，借助 thrift 的协议，从 impalad 获取状态。
+错误信息是从 rpc_result = self._do_rpc(
+        lambda: self.imp_service.get_log(last_query_handle.log_context))
+    log, status = rpc_result
+rpc_result 中获取的
 
 WARNINGS: File 'hdfs://nameservice01/user/hive/warehouse/edw.db/error_table/000027_0' has an invalid version number: �
 This could be due to stale metadata. Try running "refresh edw.error_table".
