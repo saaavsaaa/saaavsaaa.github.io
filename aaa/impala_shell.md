@@ -419,7 +419,7 @@ class ImpalaShell(object, cmd.Cmd):
           return CmdStatus.SUCCESS
 
         self._format_outputstream()
-        # fetch 返回一个生成器
+        # fetch 返回 a generator to 创建所有行的 iterable
         rows_fetched = self.imp_client.fetch(self.last_query_handle)
         num_rows = 0
 
@@ -433,7 +433,11 @@ class ImpalaShell(object, cmd.Cmd):
         warning_log = self.imp_client.get_warning_log(self.last_query_handle)
 
       end_time = time.time()
-
+      ..... 打印各种错误信息之类。关闭查询
+      try:
+        profile = self.imp_client.get_runtime_profile(self.last_query_handle)   # impala-beeswax-server.cc void ImpalaServer::GetRuntimeProfile
+        self.print_runtime_profile(profile)
+      ...... 各种异常信息打印及异常处理
 
 
 
