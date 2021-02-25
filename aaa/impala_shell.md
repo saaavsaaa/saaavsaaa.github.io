@@ -505,6 +505,21 @@ from beeswaxd import BeeswaxService
     result = self.ping_impala_service()
     self.connected = True
     return result
+
+  def wait_to_finish(self, last_query_handle, periodic_callback=None):
+    loop_start = time.time()
+    while True:
+      query_state = self.get_query_state(last_query_handle)
+      if query_state == self.query_state["FINISHED"]:
+        break
+      elif query_state == self.query_state["EXCEPTION"]:
+        if self.connected:
+          raise QueryStateException(self.get_error_log(last_query_handle))
+        else:
+          raise DisconnectedException("Not connected to impalad.")
+
+      if periodic_callback is not None: periodic_callback()
+      time.sleep(self._get_sleep_interval(loop_start))
 ```
 BeeswaxService.py
 ```
