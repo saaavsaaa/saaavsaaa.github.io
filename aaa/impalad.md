@@ -10,5 +10,5 @@ int ImpaladMain(int argc, char** argv) {
   ABORT_IF_ERROR(HBaseTable::InitJNI());        // be/src/runtime/hbase-table.cc
   ABORT_IF_ERROR(HBaseTableWriter::InitJNI());  // be/src/exec/hbase-table-writer.cc
   ABORT_IF_ERROR(HiveUdfCall::InitEnv());       // be/src/exprs/hive-udf-call.cc
-  
+  ABORT_IF_ERROR(JniCatalogCacheUpdateIterator::InitJNI());   //be/src/catalog/catalog-util.cc
 ```
