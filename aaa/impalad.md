@@ -6,5 +6,9 @@ int ImpaladMain(int argc, char** argv) {
   
   ABORT_IF_ERROR(LlvmCodeGen::InitializeLlvm());   // be/src/codegen/llvm-codegen.cc
   JniUtil::InitLibhdfs();   // be/src/util/jni-util.cc 
-  ABORT_IF_ERROR(HBaseTableScanner::Init());    // be/src/exec/hbase-table-scanner.cc   获取当前进程对应的 JNIEnv*
+  ABORT_IF_ERROR(HBaseTableScanner::Init());    // be/src/exec/hbase-table-scanner.cc   获取当前进程对应的 JNIEnv*  （hdfsJniHelper.h）
+  ABORT_IF_ERROR(HBaseTable::InitJNI());        // be/src/runtime/hbase-table.cc
+  ABORT_IF_ERROR(HBaseTableWriter::InitJNI());  // be/src/exec/hbase-table-writer.cc
+  ABORT_IF_ERROR(HiveUdfCall::InitEnv());       // be/src/exprs/hive-udf-call.cc
+  
 ```
