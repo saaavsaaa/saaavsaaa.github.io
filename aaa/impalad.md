@@ -34,9 +34,12 @@ Status ImpalaServer::Start(int32_t thrift_be_port, int32_t beeswax_port,
   http_handler_.reset(new ImpalaHttpHandler(this));
   http_handler_->RegisterHandlers(exec_env_->webserver());
   
-  // 订阅statestore。协调器需要订阅 catalog 主题，并等待初始化 catalog 更新
+  // 订阅statestore。协调器需要订阅 catalog 主题，并等待初始的 catalog 更新
   RETURN_IF_ERROR(exec_env_->StartStatestoreSubscriberService());     // be/src/runtime/exec-env.cc
   if (FLAGS_is_coordinator) exec_env_->frontend()->WaitForCatalog();
-  
+  ...
+  // 启动内部服务
+  if (thrift_be_port > 0 || (TestInfo::is_test() && thrift_be_port == 0)) {
+    boost::shared_ptr<ImpalaInternalService> thrift_if(new ImpalaInternalService());  // be/src/service/impala-internal-service.cc
   
 ```
