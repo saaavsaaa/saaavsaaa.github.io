@@ -22,7 +22,7 @@ int ImpaladMain(int argc, char** argv) {
   boost::shared_ptr<ImpalaServer> impala_server(new ImpalaServer(&exec_env));   // be/src/service/impala-server.cc
   Status status = impala_server->Start(FLAGS_be_port, FLAGS_beeswax_port, FLAGS_hs2_port);  // 参见 be/src/service/impala-server.cc
   ...
-  impala_server->Join(); // 阻塞直到进程退出
+  impala_server->Join(); // 阻塞直到进程退出 thrift_be_server_ beeswax_server_ hs2_server_ beeswax_server_ hs2_server_ 
   ... 
 ```
 be/src/service/impala-server.cc
