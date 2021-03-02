@@ -11,4 +11,17 @@ int ImpaladMain(int argc, char** argv) {
   ABORT_IF_ERROR(HBaseTableWriter::InitJNI());  // be/src/exec/hbase-table-writer.cc
   ABORT_IF_ERROR(HiveUdfCall::InitEnv());       // be/src/exprs/hive-udf-call.cc
   ABORT_IF_ERROR(JniCatalogCacheUpdateIterator::InitJNI());   //be/src/catalog/catalog-util.cc
+  InitFeSupport();    // be/src/service/fe-support.cc org/apache/impala/service/FeSupport
+  ...
+  CommonMetrics::InitCommonMetrics(exec_env.metrics());   // be/src/util/common-metrics.cc  kudu-client.version
+  ...
+  tzdata_path->SetValue(TimezoneDatabase::GetPath());
+  ABORT_IF_ERROR(StartMemoryMaintenanceThread()); // Memory metrics 已经在 Init() 创建了.
+  ABORT_IF_ERROR(StartThreadInstrumentation(exec_env.metrics(), exec_env.webserver(), true));
+  InitRpcEventTracing(exec_env.webserver(), exec_env.rpc_mgr());
+  boost::shared_ptr<ImpalaServer> impala_server(new ImpalaServer(&exec_env));   // be/src/service/impala-server.cc
+  Status status = impala_server->Start(FLAGS_be_port, FLAGS_beeswax_port, FLAGS_hs2_port);   // ImpalaServer::Start(int32_t thrift_be_port, int32_t beeswax_port,
+   int32_t hs2_port)
+  
+  
 ```
