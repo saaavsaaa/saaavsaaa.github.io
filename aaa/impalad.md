@@ -20,8 +20,16 @@ int ImpaladMain(int argc, char** argv) {
   ABORT_IF_ERROR(StartThreadInstrumentation(exec_env.metrics(), exec_env.webserver(), true));
   InitRpcEventTracing(exec_env.webserver(), exec_env.rpc_mgr());
   boost::shared_ptr<ImpalaServer> impala_server(new ImpalaServer(&exec_env));   // be/src/service/impala-server.cc
-  Status status = impala_server->Start(FLAGS_be_port, FLAGS_beeswax_port, FLAGS_hs2_port);   // ImpalaServer::Start(int32_t thrift_be_port, int32_t beeswax_port,
-   int32_t hs2_port)
-  
+  Status status = impala_server->Start(FLAGS_be_port, FLAGS_beeswax_port, FLAGS_hs2_port);  // 参见 be/src/service/impala-server.cc
+  ...
+  impala_server->Join(); // 阻塞直到进程退出
+  ... 
+```
+be/src/service/impala-server.cc
+```
+Status ImpalaServer::Start(int32_t thrift_be_port, int32_t beeswax_port,
+   int32_t hs2_port) {
+  exec_env_->SetImpalaServer(this);
+  必须在向 ExecEnv 注册 ImpalaServer 后注册HTTP handlers。否则，HTTPhandlers 将尝试通过 ExecEnv 单例解析 ImpalaServer，报nullptr。
   
 ```
