@@ -31,5 +31,12 @@ Status ImpalaServer::Start(int32_t thrift_be_port, int32_t beeswax_port,
    int32_t hs2_port) {
   exec_env_->SetImpalaServer(this);
   必须在向 ExecEnv 注册 ImpalaServer 后注册HTTP handlers。否则，HTTPhandlers 将尝试通过 ExecEnv 单例解析 ImpalaServer，报nullptr。
+  http_handler_.reset(new ImpalaHttpHandler(this));
+  http_handler_->RegisterHandlers(exec_env_->webserver());
+  
+  // 订阅statestore。协调器需要订阅 catalog 主题，并等待初始化 catalog 更新
+  RETURN_IF_ERROR(exec_env_->StartStatestoreSubscriberService());     // be/src/runtime/exec-env.cc
+  if (FLAGS_is_coordinator) exec_env_->frontend()->WaitForCatalog();
+  
   
 ```
