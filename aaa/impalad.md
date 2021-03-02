@@ -38,8 +38,42 @@ Status ImpalaServer::Start(int32_t thrift_be_port, int32_t beeswax_port,
   RETURN_IF_ERROR(exec_env_->StartStatestoreSubscriberService());     // be/src/runtime/exec-env.cc
   if (FLAGS_is_coordinator) exec_env_->frontend()->WaitForCatalog();
   ...
-  // 启动内部服务
+  // 启动内部服务（这代码看命名就可以，没必要注释了）
   if (thrift_be_port > 0 || (TestInfo::is_test() && thrift_be_port == 0)) {
     boost::shared_ptr<ImpalaInternalService> thrift_if(new ImpalaInternalService());  // be/src/service/impala-internal-service.cc
+    boost::shared_ptr<TProcessor> be_processor(new ImpalaInternalServiceProcessor(thrift_if));
+    boost::shared_ptr<TProcessorEventHandler> event_handler(new RpcEventHandler("backend", exec_env_->metrics()));
+    be_processor->setEventHandler(event_handler);
+
+    ThriftServerBuilder be_builder("backend", be_processor, thrift_be_port);
+
+    if (IsInternalTlsConfigured()) {
+      LOG(INFO) << "Enabling SSL for backend";
+      be_builder.ssl(FLAGS_ssl_server_certificate, FLAGS_ssl_private_key).pem_password_cmd(FLAGS_ssl_private_key_password_cmd)
+          .ssl_version(ssl_version).cipher_list(FLAGS_ssl_cipher_list);
+    }
+    ThriftServer* server;
+    RETURN_IF_ERROR(be_builder.metrics(exec_env_->metrics()).Build(&server));
+    thrift_be_server_.reset(server);
+  }
   
+  if (!FLAGS_is_coordinator) {
+    LOG(INFO) << "Initialized executor Impala server on "
+              << TNetworkAddressToString(GetThriftBackendAddress());
+  } else {
+    // Initialize the client servers.
+    boost::shared_ptr<ImpalaServer> handler = shared_from_this();
+    ... // beeswax_port  hs2 HiveServer2
+  }
+  LOG(INFO) << "Initialized coordinator/executor Impala server on "
+      << TNetworkAddressToString(GetThriftBackendAddress());
+  // 启动 RPC 服务
+  RETURN_IF_ERROR(exec_env_->StartKrpcService());
+  ... // thrift_be_server_(Impala InternalService) hs2_server_(Impala HiveServer2 Service) beeswax_server_(Impala Beeswax Service)  listening on server_->port();
+  
+  ImpaladMetrics::IMPALA_SERVER_READY->SetValue(true);
+  LOG(INFO) << "Impala has started.";
+
+  return Status::OK();
+}
 ```
