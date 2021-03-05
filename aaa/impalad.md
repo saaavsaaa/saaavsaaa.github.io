@@ -77,3 +77,54 @@ Status ImpalaServer::Start(int32_t thrift_be_port, int32_t beeswax_port,
   return Status::OK();
 }
 ```
+
+需要排查的查询功能：
+```
+class ImpalaServer : public ImpalaServiceIf,
+                     public ImpalaHiveServer2ServiceIf,
+                     public ThriftServer::ConnectionHandlerIf,
+                     public boost::enable_shared_from_this<ImpalaServer>,
+                     public CacheLineAligned {
+......
+  /// ImpalaService rpcs: Beeswax API (implemented in impala-beeswax-server.cc)
+  virtual void query(beeswax::QueryHandle& query_handle, const beeswax::Query& query);
+```
+impala-beeswax-server.cc
+
+```
+void ImpalaServer::query(QueryHandle& query_handle, const Query& query) {
+  VLOG_QUERY << "query(): query=" << query.query;
+  RAISE_IF_ERROR(CheckNotShuttingDown(), SQLSTATE_GENERAL_ERROR);
+
+  ScopedSessionState session_handle(this);
+  shared_ptr<SessionState> session;
+  RAISE_IF_ERROR(
+      session_handle.WithBeeswaxSession(ThriftServer::GetThreadConnectionId(), &session),
+      SQLSTATE_GENERAL_ERROR);
+  TQueryCtx query_ctx;
+  // raise general error for request conversion error;
+  RAISE_IF_ERROR(QueryToTQueryContext(query, &query_ctx), SQLSTATE_GENERAL_ERROR);
+
+  // raise Syntax error or access violation; it's likely to be syntax/analysis error
+  // TODO: that may not be true; fix this
+  shared_ptr<ClientRequestState> request_state;
+  RAISE_IF_ERROR(Execute(&query_ctx, session, &request_state),
+      SQLSTATE_SYNTAX_ERROR_OR_ACCESS_VIOLATION);
+
+  // start thread to wait for results to become available, which will allow
+  // us to advance query state to FINISHED or EXCEPTION
+  Status status = request_state->WaitAsync();
+  if (!status.ok()) {
+    discard_result(UnregisterQuery(request_state->query_id(), false, &status));
+    RaiseBeeswaxException(status.GetDetail(), SQLSTATE_GENERAL_ERROR);
+  }
+  // Once the query is running do a final check for session closure and add it to the
+  // set of in-flight queries.
+  status = SetQueryInflight(session, request_state);
+  if (!status.ok()) {
+    discard_result(UnregisterQuery(request_state->query_id(), false, &status));
+    RaiseBeeswaxException(status.GetDetail(), SQLSTATE_GENERAL_ERROR);
+  }
+  TUniqueIdToQueryHandle(request_state->query_id(), &query_handle);
+}
+```
