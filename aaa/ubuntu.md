@@ -2,6 +2,7 @@ gdb ./ccccc       r(:run)p[option: args]      bt(:backtrace)     up/down(:step b
 gcore [-o filename] pid;gdb -c core_file program_binary;gdb:thread find thread_id (查找对应线程id在gdb中的线程编号)，thread id (跳到对应编号的线程)。gdb attach pid   
 cat cols.txt |tr "\n" ","   |sed -e 's/,$/\n/'   
 cat cols.txt |awk '{print $1}'|xargs |sed 's/ /,/g'                
+pmap -d   
 jobs -l   
 fg   
 env   
