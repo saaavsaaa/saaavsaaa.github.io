@@ -3,6 +3,7 @@ gcore [-o filename] pid;gdb -c core_file program_binary;gdb:thread find thread_i
 cat cols.txt |tr "\n" ","   |sed -e 's/,$/\n/'   
 cat cols.txt |awk '{print $1}'|xargs |sed 's/ /,/g'                
 pmap -d   
+ps -mp xxxx -o THREAD   
 jobs -l   
 fg   
 env   
