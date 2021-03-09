@@ -49,7 +49,7 @@ org/apache/sqoop/util/AppendUtils.java : public static Path getTempAppendDir(Str
   String tempDir = options.getTempRootDir() + Path.SEPARATOR + uuid + "_" + salt;（hdfs://nameservice01/user/aaa/_sqoop/61ae9e0e660f4198922e8f38f8d7a621_a343472f）
 org/apache/sqoop/tool/ImportTool.java : private Path getOutputPath : outputPath = AppendUtils.getTempAppendDir(salt, options);
 -->
-  protected void lastModifiedMerge
+  protected void lastModifiedMerge // getOutputPath temp==true: isAppendMode 或 SqoopOptions.IncrementalMode.DateLastModified 临时 
   private boolean initIncrementalConstraints //初始化增量导入数据范围的约束 Path outputPath = getOutputPath(options, context.getTableName(), false); // false 非临时
   protected boolean importTable(SqoopOptions options) throws IOException, ImportException { 
      if (!initIncrementalConstraints(options, context)) {return false;} // 增量导入需设置过滤条件以获取最后一条记录
