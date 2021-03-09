@@ -128,3 +128,26 @@ void ImpalaServer::query(QueryHandle& query_handle, const Query& query) {
   TUniqueIdToQueryHandle(request_state->query_id(), &query_handle);
 }
 ```
+be/src/service/impala-server.cc
+```
+Status ImpalaServer::Execute(TQueryCtx* query_ctx,
+    shared_ptr<SessionState> session_state,
+    shared_ptr<ClientRequestState>* request_state) {
+  PrepareQueryContext(query_ctx);
+  ScopedThreadContext debug_ctx(GetThreadDebugInfo(), query_ctx->query_id);
+  ImpaladMetrics::IMPALA_SERVER_NUM_QUERIES->Increment(1L);
+
+  // Redact the SQL stmt and update the query context
+  string stmt = replace_all_copy(query_ctx->client_request.stmt, "\n", " ");
+  Redact(&stmt);
+  query_ctx->client_request.__set_redacted_stmt((const string) stmt);
+
+  bool registered_request_state;
+  Status status = ExecuteInternal(*query_ctx, session_state, &registered_request_state,
+      request_state);
+  if (!status.ok() && registered_request_state) {
+    discard_result(UnregisterQuery((*request_state)->query_id(), false, &status));
+  }
+  return status;
+}
+```
