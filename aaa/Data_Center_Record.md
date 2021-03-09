@@ -50,7 +50,7 @@ org/apache/sqoop/util/AppendUtils.java : public static Path getTempAppendDir(Str
 org/apache/sqoop/tool/ImportTool.java : private Path getOutputPath : outputPath = AppendUtils.getTempAppendDir(salt, options);
 -->
   protected void lastModifiedMerge
-  private boolean initIncrementalConstraints //初始化增量导入数据范围的约束
+  private boolean initIncrementalConstraints //初始化增量导入数据范围的约束 Path outputPath = getOutputPath(options, context.getTableName(), false); // false 非临时
   protected boolean importTable(SqoopOptions options) throws IOException, ImportException { 
      if (!initIncrementalConstraints(options, context)) {return false;} // 增量导入需设置过滤条件以获取最后一条记录
      if options.isAppendMode() else if (options.getIncrementalMode() == SqoopOptions.IncrementalMode.DateLastModified) { lastModifiedMerge(options, context);
