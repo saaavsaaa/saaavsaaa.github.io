@@ -48,14 +48,13 @@ sqoop 临时目录 this.tempRootDir = System.getProperty(OLD_SQOOP_TEST_IMPORT_R
 org/apache/sqoop/util/AppendUtils.java : public static Path getTempAppendDir(String salt, SqoopOptions options) {
   String tempDir = options.getTempRootDir() + Path.SEPARATOR + uuid + "_" + salt;（hdfs://nameservice01/user/aaa/_sqoop/61ae9e0e660f4198922e8f38f8d7a621_a343472f）
 org/apache/sqoop/tool/ImportTool.java : private Path getOutputPath : outputPath = AppendUtils.getTempAppendDir(salt, options);
-: protected void lastModifiedMerge(SqoopOptions options, ImportJobContext context) throws IOException {
-: private boolean initIncrementalConstraints
-: protected boolean importTable(SqoopOptions options) throws IOException, ImportException {0
-
-Path outputPath = getOutputPath(options, context.getTableName(), false);
-Path userDestDir = getOutputPath(options, context.getTableName(), false);
-Path destDir = getOutputPath(options, context.getTableName());
-Path tmpDir = getOutputPath(options, context.getTableName());
+-->
+  protected void lastModifiedMerge(SqoopOptions options, ImportJobContext context) throws IOException {
+  private boolean initIncrementalConstraints
+  protected boolean importTable(SqoopOptions options) throws IOException, ImportException { 
+   // If we're doing an incremental import, set up the filtering conditions used to get the latest records.
+     if (!initIncrementalConstraints(options, context)) {return false;} // 增量导入需设置过滤条件以获取最后一条记录
+     if options.isAppendMode() else if (options.getIncrementalMode() == SqoopOptions.IncrementalMode.DateLastModified) { lastModifiedMerge(options, context);
 
 ```
 
