@@ -42,4 +42,14 @@ This could be due to stale metadata. Try running "refresh edw.table".
 
 hive 表在被使用时，无法用 sqoop 导数据，由于表上有锁，只能等锁被释放，后续的导数据或insert才会依次执行。show locks [OPTION:table_name];unlock table table_name;unlock table table_name partition(partition='partition_name'); lock table table_name exclusive ;如果show locks无法执行，需要指定 LockManager，set hive.support.concurrency=true;set hive.txn.manager = org.apache.hadoop.hive.ql.lockmgr.DummyTxnManager; 实在不行就直接该 mysql 中的 hive 元数据 select * from HIVE_LOCKS; delete from HIVE_LOCKS where HL_DB = 'db' and HL_TABLE = 'table'; 注意：表名和字段大写。
 
+临时文件：
 sqoop 临时目录 this.tempRootDir = System.getProperty(OLD_SQOOP_TEST_IMPORT_ROOT_DIR, "\_sqoop");   
+```
+/** org/apache/sqoop/util/AppendUtils.java
+ * Creates a unique path object inside the sqoop temporary directory.
+ */
+public static Path getTempAppendDir(String salt, SqoopOptions options) {
+  String uuid = UUID.randomUUID().toString().replace("-", "");
+  String tempDir = options.getTempRootDir() + Path.SEPARATOR + uuid + "_" + salt;（hdfs://nameservice01/user/aaa/_sqoop/61ae9e0e660f4198922e8f38f8d7a621_a343472f）
+```
+
