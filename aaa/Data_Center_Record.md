@@ -42,7 +42,7 @@ This could be due to stale metadata. Try running "refresh edw.table".
 
 hive 表在被使用时，无法用 sqoop 导数据，由于表上有锁，只能等锁被释放，后续的导数据或insert才会依次执行。show locks [OPTION:table_name];unlock table table_name;unlock table table_name partition(partition='partition_name'); lock table table_name exclusive ;如果show locks无法执行，需要指定 LockManager，set hive.support.concurrency=true;set hive.txn.manager = org.apache.hadoop.hive.ql.lockmgr.DummyTxnManager; 实在不行就直接该 mysql 中的 hive 元数据 select * from HIVE_LOCKS; delete from HIVE_LOCKS where HL_DB = 'db' and HL_TABLE = 'table'; 注意：表名和字段大写。
 
-临时文件：
+临时文件：   
 sqoop 临时目录 this.tempRootDir = System.getProperty(OLD_SQOOP_TEST_IMPORT_ROOT_DIR, "\_sqoop");   
 ```
 org/apache/sqoop/util/AppendUtils.java : public static Path getTempAppendDir(String salt, SqoopOptions options) {
@@ -50,7 +50,7 @@ org/apache/sqoop/util/AppendUtils.java : public static Path getTempAppendDir(Str
 org/apache/sqoop/tool/ImportTool.java : private Path getOutputPath : outputPath = AppendUtils.getTempAppendDir(salt, options);
 -->
   protected void lastModifiedMerge
-  private boolean initIncrementalConstraints
+  private boolean initIncrementalConstraints //初始化增量导入数据范围的约束
   protected boolean importTable(SqoopOptions options) throws IOException, ImportException { 
      if (!initIncrementalConstraints(options, context)) {return false;} // 增量导入需设置过滤条件以获取最后一条记录
      if options.isAppendMode() else if (options.getIncrementalMode() == SqoopOptions.IncrementalMode.DateLastModified) { lastModifiedMerge(options, context);
