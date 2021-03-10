@@ -53,7 +53,7 @@ org/apache/sqoop/tool/ImportTool.java : private Path getOutputPath : outputPath 
       Path userDestDir = getOutputPath(options, context.getTableName(), false);
       FileSystem fs = userDestDir.getFileSystem(options.getConf());
       if (fs.exists(context.getDestination())) {
-        if (fs.exists(userDestDir)) {
+        if (fs.exists(userDestDir)) { mergeJob 执行成功则移动并删除临时目录，否则只LOG.error("Merge MapReduce job failed!");可能产生
         } else {fs.mkdirs(userDestDir.getParent()); fs.rename(context.getDestination(), userDestDir) // 移动，此处不会产生临时文件，除非移动失败，但失败会有异常日志}
       }
   private boolean initIncrementalConstraints //初始化增量导入数据范围的约束 Path outputPath = getOutputPath(options, context.getTableName(), false); // false 非临时
