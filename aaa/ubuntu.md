@@ -477,3 +477,44 @@ LC_ALL是一个宏，如果该值设置了，则该值会覆盖所有LC_*的设�
 
 
 cat cols.txt |awk '{print $1}'|xargs|sed 's/`//g'|sed 's/ /,/g'   
+
+`
+
+ps:
+%CPU 进程的cpu占用率
+%MEM 进程的内存占用率
+VSZ 进程所使用的虚存的大小
+RSS 进程使用的驻留集大小或者是实际内存的大小
+TTY 与进程关联的终端（tty）
+STAT 检查的状态：进程状态使用字符表示的，如R（running正在运行或准备运行）、S（sleeping睡眠）、I（idle空闲）、Z (僵死)、D（不可中断的睡眠，通常是I/O）、P（等待交换页）、W（换出,表示当前页面不在内存）、N（低优先级任务）T(terminate终 止)、W has no resident pages
+
+START （进程启动时间和日期）
+TIME ;（进程使用的总cpu时间）
+COMMAND （正在执行的命令行命令）
+NI (nice)优先级
+PRI 进程优先级编号
+PPID 父进程的进程ID（parent process id）
+SID 会话ID（session id）
+WCHAN 进程正在睡眠的内核函数名称；该函数的名称是从/root/system.map文件中获得的。
+FLAGS 与进程相关的数字标识
+
+常用参数
+-A 显示所有进程（等价于-e）(utility)
+-a 显示一个终端的所有进程，除了会话引线
+-N 忽略选择。
+-d 显示所有进程，但省略所有的会话引线(utility)
+-x 显示没有控制终端的进程，同时显示各个命令的具体路径。dx不可合用。（utility）
+-p pid 进程使用cpu的时间
+-u uid or username 选择有效的用户id或者是用户名
+-g gid or groupname 显示组的所有进程。
+U username 显示该用户下的所有进程，且显示各个命令的详细路径。如:ps U zhang;(utility)
+-f 全部列出，通常和其他选项联用。如：ps -fa or ps -fx and so on.
+-l 长格式（有F,wchan,C 等字段）
+-j 作业格式
+-o 用户自定义格式。
+v 以虚拟存储器格式显示
+s 以信号格式显示
+-m 显示所有的线程
+-H 显示进程的层次(和其它的命令合用，如：ps -Ha)（utility）
+e 命令之后显示环境（如：ps -d e; ps -a e）(utility)
+h 不显示第一行
