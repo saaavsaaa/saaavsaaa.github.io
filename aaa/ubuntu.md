@@ -486,7 +486,7 @@ ps:
 VSZ 进程所使用的虚存的大小
 RSS 进程使用的驻留集大小或者是实际内存的大小
 TTY 与进程关联的终端（tty）
-STAT 检查的状态：进程状态使用字符表示的，如R（running正在运行或准备运行）、S（sleeping睡眠）、I（idle空闲）、Z (僵死)、D（不可中断的睡眠，通常是I/O）、P（等待交换页）、W（换出,表示当前页面不在内存）、N（低优先级任务）T(terminate终 止)、W has no resident pages
+STAT 检查的状态：进程状态使用字符表示的，如R（running正在运行或准备运行）、S（sleeping睡眠）、I（idle空闲）、Z (zombie)、D（不可中断的睡眠，通常是I/O）、P（等待交换页）、W（换出,表示当前页面不在内存）、N（低优先级任务）T(terminate终 止)、W has no resident pages
 
 START （进程启动时间和日期）
 TIME ;（进程使用的总cpu时间）
