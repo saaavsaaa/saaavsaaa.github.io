@@ -26,6 +26,10 @@ sed 替换全文(g)时，第一个匹配替换完，是从下一个字符开始�
 
 cat /etc/passwd   
 
+jstack -l pid | grep -a40 "locked.\*T4CStatement" | grep -a2 RUNNABL | grep nid   
+ps -Lf pid |wc -l   
+netstat -an | grep 8080 |awk '{count[$6]++} END{for (i in count) print(i,count[i])}'   
+
 hadoop fs -du -s -h   
 hadoop fs -df -h   
 
