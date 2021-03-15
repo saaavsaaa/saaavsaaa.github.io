@@ -150,4 +150,72 @@ Status ImpalaServer::Execute(TQueryCtx* query_ctx,
   }
   return status;
 }
+
+
+Status ImpalaServer::ExecuteInternal(
+    const TQueryCtx& query_ctx,
+    shared_ptr<SessionState> session_state,
+    bool* registered_request_state,
+    shared_ptr<ClientRequestState>* request_state) {
+  DCHECK(session_state != nullptr);
+  *registered_request_state = false;
+
+  request_state->reset(new ClientRequestState(query_ctx, exec_env_, exec_env_->frontend(), this, session_state)); //托管 ClientRequestState
+  // client-request-state.h RuntimeProfile::EventSequence* query_events() const { return query_events_; }
+  (*request_state)->query_events()->MarkEvent("Query submitted");
+
+  TExecRequest result;
+  {
+    // 对 request_state 加锁，保证注册和设置 result_metadata 是原子的
+    lock_guard<mutex> l(*(*request_state)->lock());
+
+    RETURN_IF_ERROR(RegisterQuery(session_state, *request_state)); // 使用全局唯一 query_id 向 client_request_state_map_ 注册 查询执行状态
+    *registered_request_state = true;
+......
+
+    RETURN_IF_ERROR((*request_state)->UpdateQueryStatus(exec_env_->frontend()->GetExecRequest(query_ctx, &result)));
+    (*request_state)->query_events()->MarkEvent("Planning finished");
+    (*request_state)->set_user_profile_access(result.user_has_profile_access);
+    (*request_state)->summary_profile()->AddEventSequence(result.timeline.name, result.timeline);
+    (*request_state)->SetFrontendProfile(result.profile); // 设置frontend产生的概要profile，frontend 在planning期间产生并通过TExecRequest返回给后端
+    if (result.__isset.result_set_metadata) {
+      (*request_state)->set_result_metadata(result.result_set_metadata);
+    }
+  }
+  VLOG(2) << "Execution request: " << ThriftDebugString(result);
+
+  // start execution of query; also starts fragment status reports
+  RETURN_IF_ERROR((*request_state)->Exec(&result));
+  Status status = UpdateCatalogMetrics();
+  if (!status.ok()) {
+    VLOG_QUERY << "Couldn't update catalog metrics: " << status.GetDetail();
+  }
+
+  if ((*request_state)->schedule() != nullptr) {
+    const PerBackendExecParams& per_backend_params =
+        (*request_state)->schedule()->per_backend_exec_params();
+    if (!per_backend_params.empty()) {
+      lock_guard<mutex> l(query_locations_lock_);
+      for (const auto& entry : per_backend_params) {
+        const TNetworkAddress& host = entry.first;
+        query_locations_[host].insert((*request_state)->query_id());
+      }
+    }
+  }
+
+  return Status::OK();
+}
+```
+be/src/service/client-request-state.cc
+```
+ClientRequestState::ClientRequestState(
+    const TQueryCtx& query_ctx, ExecEnv* exec_env, Frontend* frontend,
+    ImpalaServer* server, shared_ptr<ImpalaServer::SessionState> session)
+  : query_ctx_(query_ctx),
+    last_active_time_ms_(numeric_limits<int64_t>::max()),
+    child_query_executor_(new ChildQueryExecutor),
+......
+  query_events_ = summary_profile_->AddEventSequence("Query Timeline");
+  query_events_->Start();
+
 ```
