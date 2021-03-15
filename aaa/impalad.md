@@ -178,13 +178,11 @@ Status ImpalaServer::ExecuteInternal(
     (*request_state)->set_user_profile_access(result.user_has_profile_access);
     (*request_state)->summary_profile()->AddEventSequence(result.timeline.name, result.timeline);
     (*request_state)->SetFrontendProfile(result.profile); // 设置frontend产生的概要profile，frontend 在planning期间产生并通过TExecRequest返回给后端
-    if (result.__isset.result_set_metadata) {
-      (*request_state)->set_result_metadata(result.result_set_metadata);
-    }
+    if (result.__isset.result_set_metadata) {(*request_state)->set_result_metadata(result.result_set_metadata);}
   }
   VLOG(2) << "Execution request: " << ThriftDebugString(result);
 
-  // start execution of query; also starts fragment status reports
+  // 开始执行查询; also starts fragment status reports
   RETURN_IF_ERROR((*request_state)->Exec(&result));
   Status status = UpdateCatalogMetrics();
   if (!status.ok()) {
