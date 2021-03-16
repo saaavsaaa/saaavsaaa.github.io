@@ -26,6 +26,13 @@ sed 替换全文(g)时，第一个匹配替换完，是从下一个字符开始�
 
 watch -n 1 cat /proc/net/dev   
 watch -n 1 "ifconfig eth0"   
+```
+rs=`cat /proc/net/dev | grep "em1" | sed 's/:/ /g' | awk '{print $2" "$10}'`
+p_rec=`echo ${rs} | awk '{print $1}'`
+p_send=`echo ${rs} | awk '{print $2}'`
+sleep 1
+cat /proc/net/dev | grep "em1" | sed 's/:/ /g' | awk  -v p_rec="${p_rec}" -v p_send="${p_send}" 'BEGIN{rec=0;send=0;} {rec=$2-p_rec;send=$10-p_send;if(rec/1024>1024){rec=rec/1048576 "MB/s"}else{rec=rec/1024 "KB/s"};if(send/1024>1024){send=send/1048576 "MB/s"}else{send=send/1024 "KB/s"}} END{print "rec:"rec",   send:"send;}' 
+```
 cat /etc/passwd   
 
 jstack -l pid | grep -a40 "locked.\*T4CStatement" | grep -a2 RUNNABL | grep nid   
