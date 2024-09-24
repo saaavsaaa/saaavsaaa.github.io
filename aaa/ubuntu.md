@@ -238,7 +238,8 @@ c.NotebookApp.iopub_data_rate_limit = 10000000000
 c.NotebookApp.port = 9999    
 #c.NotebookApp.notebook_dir = ''    
 c.NotebookApp.ip = '*'    
-c.NotebookApp.password = ''    
+c.NotebookApp.password = ''  
+c.ContentsManager.allow_hidden = True
 
 Ctrl+L 地址栏  
 jobs -l   
